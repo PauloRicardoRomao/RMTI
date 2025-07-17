@@ -1,3 +1,15 @@
+:root {
+    /*--gradient-light: #FFE082;*/
+    --gradient-light: #f0cc62;
+    /*--gradient-dark:  #E65100;*/
+    --gradient-dark:  #f7825e;
+    --text-dark:      #212121;
+    --text-light:     #FFFFFF;
+    --anim-duration:  4s;
+    --scale-hover:    1.05;
+}
+
+
 *{
     margin: 0;
     padding: 0;
@@ -160,6 +172,19 @@ main .container-principal .container-apresentacao .container-cta-home{
     cursor: pointer;
 }
 
+main .container-principal .container-apresentacao .container-cta-home:hover{
+    background-size: 200% 200%;
+    animation:  bgShift var(--anim-duration) ease infinite,
+                textShift var(--anim-duration) ease infinite;
+    /*transform: scale(var(--scale-hover));*/
+}
+
+main .container-principal .container-apresentacao .container-cta-home:hover >
+.txt-cta-home {
+    animation: textShift var(--anim-duration) ease infinite;
+    /*transform: scale(var(--scale-hover));*/
+}
+
 main .container-principal .container-apresentacao .container-cta-home .txt-cta-home{
     display: flex;
     flex-direction: column;
@@ -320,7 +345,7 @@ main .container-principal .container-contato div form textarea{
     flex-wrap: nowrap;
     width: 100%;
     margin: 2%;
-    padding-left: 1%;
+    padding-left: 2%;
     align-items: center;
     justify-content: center;
     border: 2px solid;
@@ -351,11 +376,31 @@ main .container-principal .container-contato div form button{
 }
 
 main .container-principal .container-contato div form button:hover{
-    background: #f7825e;
-    font-weight: 400;
-    color: #ffffff;
+    background-size: 200% 200%;
+    animation:  bgShift var(--anim-duration) ease infinite,
+                textShift var(--anim-duration) ease infinite;
+    /*transform: scale(var(--scale-hover));*/
 }
 
+@keyframes bgShift {
+    0%, 100% {
+        background-image: linear-gradient(
+            45deg, var(--gradient-light), var(--gradient-dark)
+        );
+        background-position: 0% 0%;
+    }
+    50% {
+        background-image: linear-gradient(
+            45deg, var(--gradient-dark), var(--gradient-light)
+        );
+        background-position: 100% 100%;
+    }
+}
+
+@keyframes textShift {
+    0%, 100% { color: var(--text-dark); font-weight: 400; }
+    50%      { color: var(--text-light); font-weight: 700;}
+}
 
 footer{
     display: flex;
