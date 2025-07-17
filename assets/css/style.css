@@ -156,7 +156,7 @@ main .container-principal .container-apresentacao .txt-2-slogan{
     font-weight: 400;
 }
 
-main .container-principal .container-apresentacao .container-cta-home{
+main .container-principal .container-apresentacao .btn-cta-home{
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -164,28 +164,31 @@ main .container-principal .container-apresentacao .container-cta-home{
     max-height: 25%;
     margin-top: 10%;
     padding: 2%;
-    align-items: center;
-    justify-content: center;
+    border: 2px solid;
     background-color: #f7825e;
-    border: none;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 1.4em;
+    font-weight: 400;
+    color: #ffffff;
     border-radius: 40px;
     cursor: pointer;
 }
 
-main .container-principal .container-apresentacao .container-cta-home:hover{
+main .container-principal .container-apresentacao .btn-cta-home:hover{
     background-size: 200% 200%;
     animation:  bgShift var(--anim-duration) ease infinite,
                 textShift var(--anim-duration) ease infinite;
+    font-weight: 700;
     /*transform: scale(var(--scale-hover));*/
 }
 
-main .container-principal .container-apresentacao .container-cta-home:hover >
+/*main .container-principal .container-apresentacao .container-cta-home:hover >
 .txt-cta-home {
-    animation: textShift var(--anim-duration) ease infinite;
-    /*transform: scale(var(--scale-hover));*/
-}
+    animation: textShift var(--anim-duration) ease-in infinite;
+    transform: scale(var(--scale-hover));
+}*/
 
-main .container-principal .container-apresentacao .container-cta-home .txt-cta-home{
+/*main .container-principal .container-apresentacao .container-cta-home .txt-cta-home{
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -197,7 +200,7 @@ main .container-principal .container-apresentacao .container-cta-home .txt-cta-h
     font-weight: 600;
     color: #ffffff;
 }
-
+*/
 main .container-principal .container-servicos{
     display: flex;
     flex-direction: row;
@@ -232,6 +235,12 @@ main .container-principal .container-servicos .container-cards .card-servico{
     /*border: 1px solid;*/
     border-radius: 20px;
     background-color: #ffffff;
+}
+
+main .container-principal .container-servicos .container-cards .card-servico:hover{
+    background-size: 200% 200%;
+    animation:  bgShift var(--anim-duration) ease infinite,
+                textShift var(--anim-duration) ease infinite;   
 }
 
 main .container-principal .container-servicos .container-cards .card-servico 
@@ -373,12 +382,14 @@ main .container-principal .container-contato div form button{
     font-weight: 400;
     color: #ffffff;
     cursor: pointer;
+    transition: font-weight 0.2s ease-in-out;
 }
 
 main .container-principal .container-contato div form button:hover{
     background-size: 200% 200%;
     animation:  bgShift var(--anim-duration) ease infinite,
                 textShift var(--anim-duration) ease infinite;
+    font-weight: 700;
     /*transform: scale(var(--scale-hover));*/
 }
 
@@ -398,8 +409,8 @@ main .container-principal .container-contato div form button:hover{
 }
 
 @keyframes textShift {
-    0%, 100% { color: var(--text-dark); font-weight: 400; }
-    50%      { color: var(--text-light); font-weight: 700;}
+    0%, 100% { color: var(--text-dark); transform: scale(1); }
+    50% { color: var(--text-light); transform: scale(1.2); }
 }
 
 footer{
