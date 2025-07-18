@@ -27,7 +27,8 @@ body{
     justify-content: center;
     overflow-y: auto;
     overflow-x: hidden;
-    background-color: #fff9ef;
+    /*background-color: #fff9ef;*/
+    background-color: #172c3c;
 }
 
 header{
@@ -91,7 +92,6 @@ main{
     flex-direction: column;
     flex: 1;
     min-height: 100vh;
-    padding: 2%;
     justify-content: center;
     align-items: center;
 }
@@ -100,7 +100,7 @@ main .container-principal{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 10vh;
     justify-content: center;
     min-width: 1024px;
     max-width: 1400px;
@@ -114,60 +114,64 @@ main .container-principal .container-apresentacao{
     flex-wrap: nowrap;
     width: 100%;
     min-height: 60vh;
-    margin-top: 5%;
-    margin-bottom: 5%;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
+    overflow-x: hidden;
 }
+
 
 main .container-principal .container-apresentacao .container-slogan{
     display: flex;
     flex-direction: column;
-    width: 100%;
-    min-height: 60%;
-    align-items: center;
-    justify-content: center;
-}
-
-main .container-principal .container-apresentacao .txt-slogan{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
     width: 80%;
+    height: 50%;
     align-items: center;
-    justify-content: center;
-    text-align: center;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 2.5em;
-    font-weight: 500;
+    justify-content: space-around;
+    color: #ffffff;
+    overflow-x: hidden;
 }
 
-main .container-principal .container-apresentacao .txt-2-slogan{
+main .container-principal .container-apresentacao .container-slogan .txt-slogan{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    width: 70%;
-    margin-top: 2%;
+    width: 100%;
     align-items: center;
     justify-content: center;
     text-align: center;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 1.4em;
+    font-size: 3.5em;
+    font-weight: 700;
+}
+
+main .container-principal .container-apresentacao .container-slogan .txt-2-slogan{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 1.6em;
     font-weight: 400;
 }
+
 
 main .container-principal .container-apresentacao .btn-cta-home{
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    width: 40%;
-    max-height: 25%;
-    margin-top: 10%;
-    padding: 2%;
+    width: 20%;
+    height: 15%;
+    padding: 5;
+    align-items: center;
+    justify-content: center;
     border: 2px solid;
     background-color: #f7825e;
+    text-align: center;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 1.4em;
+    font-size: 1.3em;
     font-weight: 400;
     color: #ffffff;
     border-radius: 40px;
@@ -179,34 +183,15 @@ main .container-principal .container-apresentacao .btn-cta-home:hover{
     animation:  bgShift var(--anim-duration) ease infinite,
                 textShift var(--anim-duration) ease infinite;
     font-weight: 700;
-    /*transform: scale(var(--scale-hover));*/
 }
 
-/*main .container-principal .container-apresentacao .container-cta-home:hover >
-.txt-cta-home {
-    animation: textShift var(--anim-duration) ease-in infinite;
-    transform: scale(var(--scale-hover));
-}*/
-
-/*main .container-principal .container-apresentacao .container-cta-home .txt-cta-home{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 1.4em;
-    font-weight: 600;
-    color: #ffffff;
-}
-*/
 main .container-principal .container-servicos{
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     width: 100%;
-    min-height: 100vh;
+    min-height: 80vh;
+    padding: 2%;
     align-items: center;
     justify-content: space-around;
 }
@@ -235,12 +220,14 @@ main .container-principal .container-servicos .container-cards .card-servico{
     /*border: 1px solid;*/
     border-radius: 20px;
     background-color: #ffffff;
+    box-shadow: 0 10px 10px 5px #000;
 }
 
 main .container-principal .container-servicos .container-cards .card-servico:hover{
     background-size: 200% 200%;
     animation:  bgShift var(--anim-duration) ease infinite,
                 textShift var(--anim-duration) ease infinite;   
+    box-shadow: 0 10px 10px 5px #fff;
 }
 
 main .container-principal .container-servicos .container-cards .card-servico 
@@ -254,6 +241,8 @@ main .container-principal .container-servicos .container-cards .card-servico
     justify-content: space-around;
     border: 1px solid;
     border-radius: 20px;
+    object-position: center;
+    object-fit: contain;
 }
 
 main .container-principal .container-servicos .container-cards .card-servico 
@@ -267,7 +256,7 @@ main .container-principal .container-servicos .container-cards .card-servico
     justify-content: center;
     text-align: center;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 1.2em;
+    font-size: 1.4em;
     font-weight: 700;
 }
 
@@ -286,15 +275,62 @@ main .container-principal .container-servicos .container-cards .card-servico
     font-weight: 400;
 }
 
+main .container-principal .container-sobre{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: 100%;
+    min-height: 20vh;
+    align-items: center;
+    justify-content: space-around;
+}
+
+main .container-principal .container-sobre .titulo-sobre, main .container-principal 
+.container-sobre .subtitulos-sobre{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 60%;
+    align-items: center;
+    justify-content: space-around;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #FFFFFF;
+}
+
+main .container-principal .container-sobre .titulo-sobre{
+    font-size: 1.8em;
+    font-weight: 700;
+}
+
+main .container-principal .container-sobre .subtitulos-sobre .subtitulo-sobre{
+    font-size: 1.4em;
+    font-weight: 400;
+}
+
 main .container-principal .container-banner{
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
     padding: 2%;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+
+    background-color: #ffffff;
+}
+
+main .container-principal .container-banner .banner{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 100%;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    object-position: center center;
+    object-fit: cover;
 }
 
 main .container-principal .container-contato{
@@ -322,7 +358,20 @@ main .container-principal .container-contato div{
     background-color: #ffffff;
 }
 
-main .container-principal .container-contato div .titulo-contato{
+main .container-principal .container-contato div .container-titulo-contato 
+.titulo-contato, main .container-principal .container-contato div 
+.container-titulo-contato{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+main .container-principal .container-contato div .container-titulo-contato 
+.titulo-contato, main .container-principal .container-contato div 
+.container-titulo-contato .subtitulo-contato{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -332,9 +381,20 @@ main .container-principal .container-contato div .titulo-contato{
     justify-content: center;
     text-align: center;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+main .container-principal .container-contato div .container-titulo-contato 
+.titulo-contato{
     font-size: 1.4em;
     font-weight: 700;
 }
+
+main .container-principal .container-contato div .container-titulo-contato 
+.subtitulo-contato{
+    font-size: 1.2em;
+    font-weight: 400;
+}
+
 
 main .container-principal .container-contato div form{
     display: flex;
@@ -436,6 +496,7 @@ footer .txt-rodape{
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 1.0em;
     font-weight: 400;
+    color: #ffffff;
 }
 
 
@@ -443,6 +504,10 @@ footer .txt-rodape{
 
 @media (max-width: 600px) {
 
+    @keyframes textShift {
+        0%, 100% { color: var(--text-dark); transform: scale(1); }
+        50% { color: var(--text-light); transform: scale(1.1); }
+    }
     main .container-principal{
         gap: 0;
         min-width: 0px;
@@ -474,15 +539,11 @@ footer .txt-rodape{
         font-weight: 400;
     }
 
-    main .container-principal .container-apresentacao .container-cta-home{
+    main .container-principal .container-apresentacao .btn-cta-home{
         width: 80%;
         max-height: 25%;
         margin-top: 0;
         padding: 2%;
-    }
-
-    main .container-principal .container-apresentacao .container-cta-home .txt-cta-home{
-        font-size: 1.4em;
     }
     
     main .container-principal .container-servicos{
@@ -574,17 +635,11 @@ footer .txt-rodape{
         font-weight: 400;
     }
 
-    main .container-principal .container-apresentacao .container-cta-home{
+    main .container-principal .container-apresentacao .btn-cta-home{
         width: 80%;
         max-height: 25%;
         margin-top: 0;
         padding: 3%;
-    }
-
-    main .container-principal .container-apresentacao .container-cta-home .txt-cta-home{
-        flex-wrap: wrap;
-        font-size: 1.5em;
-        font-weight: 700;
     }
     
     main .container-principal .container-servicos{
