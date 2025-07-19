@@ -1,7 +1,5 @@
 :root {
-    /*--gradient-light: #FFE082;*/
     --gradient-light: #f0cc62;
-    /*--gradient-dark:  #E65100;*/
     --gradient-dark:  #f7825e;
     --text-dark:      #212121;
     --text-light:     #FFFFFF;
@@ -27,7 +25,6 @@ body{
     justify-content: center;
     overflow-y: auto;
     overflow-x: hidden;
-    /*background-color: #fff9ef;*/
     background-color: #172c3c;
 }
 
@@ -114,6 +111,7 @@ main .container-principal .container-apresentacao{
     flex-wrap: nowrap;
     width: 100%;
     min-height: 60vh;
+    padding: 2%;
     align-items: center;
     justify-content: space-around;
     overflow-x: hidden;
@@ -124,7 +122,7 @@ main .container-principal .container-apresentacao .container-slogan{
     display: flex;
     flex-direction: column;
     width: 80%;
-    height: 50%;
+    height: 60%;
     align-items: center;
     justify-content: space-around;
     color: #ffffff;
@@ -157,7 +155,6 @@ main .container-principal .container-apresentacao .container-slogan .txt-2-sloga
     font-weight: 400;
 }
 
-
 main .container-principal .container-apresentacao .btn-cta-home{
     display: flex;
     flex-direction: column;
@@ -168,7 +165,12 @@ main .container-principal .container-apresentacao .btn-cta-home{
     align-items: center;
     justify-content: center;
     border: 2px solid;
-    background-color: #f7825e;
+    /*background-color: #f7825e;*/
+    background-size: 200% 200%;
+    background-image: linear-gradient(
+            45deg, var(--gradient-light), var(--gradient-dark)
+    );
+    background-position: 50% 100%;
     text-align: center;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 1.3em;
@@ -217,7 +219,6 @@ main .container-principal .container-servicos .container-cards .card-servico{
     align-items: center;
     justify-content: space-around;
     overflow: hidden;
-    /*border: 1px solid;*/
     border-radius: 20px;
     background-color: #ffffff;
     box-shadow: 0 10px 10px 5px #000;
@@ -309,7 +310,7 @@ main .container-principal .container-sobre .subtitulos-sobre .subtitulo-sobre{
 
 main .container-principal .container-banner{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: nowrap;
     width: 100%;
     height: 100vh;
@@ -317,7 +318,6 @@ main .container-principal .container-banner{
     align-items: center;
     justify-content: center;
     overflow: hidden;
-
     background-color: #ffffff;
 }
 
@@ -347,13 +347,12 @@ main .container-principal .container-contato{
 main .container-principal .container-contato div{
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     width: 70%;
     height: 100%;
     padding: 2%;
     align-items: center;
     justify-content: center;
-    /*border: 2px solid;*/
     border-radius: 25px;
     background-color: #ffffff;
 }
@@ -363,8 +362,8 @@ main .container-principal .container-contato div .container-titulo-contato
 .container-titulo-contato{
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
-    width: 100%;
+    flex-wrap: nowrap;
+    width: 50%;
     align-items: center;
     justify-content: center;
 }
@@ -395,12 +394,11 @@ main .container-principal .container-contato div .container-titulo-contato
     font-weight: 400;
 }
 
-
 main .container-principal .container-contato div form{
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    width: 100%;
+    width: 50%;
     height: 100%;
     padding: 2%;
     align-items: center;
@@ -436,7 +434,12 @@ main .container-principal .container-contato div form button{
     justify-content: center;
     border: 2px solid;
     border-radius: 25px;
-    background-color: #f7825e;
+    /*background-color: #f7825e;*/
+    background-size: 200% 200%;
+    background-image: linear-gradient(
+            45deg, var(--gradient-light), var(--gradient-dark)
+    );
+    background-position: 50% 100%;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 1.4em;
     font-weight: 400;
@@ -450,7 +453,6 @@ main .container-principal .container-contato div form button:hover{
     animation:  bgShift var(--anim-duration) ease infinite,
                 textShift var(--anim-duration) ease infinite;
     font-weight: 700;
-    /*transform: scale(var(--scale-hover));*/
 }
 
 @keyframes bgShift {
@@ -509,30 +511,32 @@ footer .txt-rodape{
         50% { color: var(--text-light); transform: scale(1.1); }
     }
     main .container-principal{
-        gap: 0;
         min-width: 0px;
         max-width: 600px;
+        padding: 2%;
     }
 
     main .container-principal .container-apresentacao{
-        height: 100vh;
+        min-height: 70vh;
         margin-top: 0;
         margin-bottom: 0;
+        margin-top: 5%;
     }
 
     main .container-principal .container-apresentacao .container-slogan{
-        min-height: 50%;
+        width: 100%;
+        min-height: 60%;
         justify-content: flex-start;
         gap: 10%;
     }
 
-    main .container-principal .container-apresentacao .txt-slogan{
+    main .container-principal .container-apresentacao .container-slogan .txt-slogan{
         width: 100%;
-        font-size: 1.5em;
+        font-size: 2.0em;
         font-weight: 500;
     }
 
-    main .container-principal .container-apresentacao .txt-2-slogan{
+    main .container-principal .container-apresentacao .container-slogan .txt-2-slogan{
         width: 100%;
         margin-top: 0;
         font-size: 1.4em;
@@ -544,6 +548,7 @@ footer .txt-rodape{
         max-height: 25%;
         margin-top: 0;
         padding: 2%;
+        font-size: 1.4em;
     }
     
     main .container-principal .container-servicos{
@@ -559,7 +564,7 @@ footer .txt-rodape{
 
     main .container-principal .container-servicos .container-cards .card-servico{
         min-width: 90%;
-        height: 80vh;
+        height: 60vh;
         padding: 2%;
         margin-bottom: 5%;
     }
@@ -573,17 +578,69 @@ footer .txt-rodape{
         padding: 2%;
         width: 100%;
         height: 30%;
-        font-size: 1.2em;
+        font-size: 1.4em;
     }
+
+    main .container-principal .container-sobre .titulo-sobre, main .container-principal 
+    .container-sobre .subtitulos-sobre{
+        width: 100%;
+    }
+
+    main .container-principal .container-sobre .subtitulos-sobre{
+        flex-direction: column;
+        gap: 1%;
+    }
+
+    main .container-principal .container-sobre .titulo-sobre{
+        font-size: 1.8em;
+        font-weight: 700;
+    }
+
+    main .container-principal .container-sobre .subtitulos-sobre .subtitulo-sobre{
+        font-size: 1.4em;
+        font-weight: 400;
+    }
+
+    main .container-principal .container-banner{
+        height: 40vh;
+        width: 100%;
+        padding: 0;
+    }
+
+    main .container-principal .container-banner .banner{
+        height: 35vh;
+        width: 140%;
+        object-fit: contain;
+        object-position: right center;
+    } 
 
     main .container-principal .container-contato div{
         flex-direction: column;
         width: 100%;
+        height: 100vh;
+        justify-content: center;
+    }
+
+    main .container-principal .container-contato div .container-titulo-contato{
+        flex-direction: column;
+        width: 100%;
+        height: 20vh;
     }
 
     main .container-principal .container-contato div .titulo-contato{
+        font-size: 1.8em;
+        font-weight: 700;
+    }
+
+    main .container-principal .container-contato div .subtitulo-contato{
         font-size: 1.4em;
         font-weight: 700;
+    }
+
+    main .container-principal .container-contato div form{
+        flex-direction: column;
+        width: 100%;
+        height: 70vh;
     }
 
     main .container-principal .container-contato div form input,
@@ -597,6 +654,14 @@ footer .txt-rodape{
         border-radius: 25px;
         font-size: 1.6em;
         font-weight: 600;
+    }
+
+    footer{
+        min-height: 15vh;
+    }
+
+    footer .txt-rodape{
+        font-size: 1.2em;
     }
 
 }
@@ -678,34 +743,81 @@ footer .txt-rodape{
         font-size: 1.4em;
     }
 
+    
+    main .container-principal .container-sobre{
+        min-height: 40vh;
+        justify-content: center;
+        gap: 2vh;
+    }
+
+    main .container-principal .container-sobre .titulo-sobre, main 
+    .container-principal .container-sobre .subtitulos-sobre{
+        width: 100%;
+    }
+
+    main .container-principal .container-sobre .titulo-sobre{
+        flex-wrap: wrap;
+        font-size: 3.2em;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    main .container-principal .container-sobre .subtitulos-sobre .subtitulo-sobre{
+        font-size: 2.1em;
+        font-weight: 600;
+    }
+
     main .container-principal .container-contato{
-        min-height: 110vh;
-        margin-bottom: 5%;
+        min-height: 100vh;
     }
 
     main .container-principal .container-contato div{
         flex-direction: column;
         width: 100%;
-        min-height: 105vh;
+        height: 90vh;
+        gap: 20px;
+    }
+    
+    main .container-principal .container-contato div .container-titulo-contato{
+        height: 10vh;
+        width: 100%;
     }
 
-    main .container-principal .container-contato div .titulo-contato{
+    main .container-principal .container-contato div .container-titulo-contato 
+    .titulo-contato{
         font-size: 1.8em;
         font-weight: 700;
     }
 
+    main .container-principal .container-contato div .container-titulo-contato 
+    .subtitulo-contato{
+        font-size: 1.4em;
+        font-weight: 400;
+    }
+
+    main .container-principal .container-contato div form{
+        height: 70vh;
+        width: 100%;
+        gap: 12px;
+        justify-content: space-around;
+    }
+    
     main .container-principal .container-contato div form input,
     main .container-principal .container-contato div form textarea{
         padding-left: 3%;
-        line-height: 1.8em;
-        font-size: 1.4em;
+        line-height: 2em;
+        font-size: 1.8em;
+    }
+
+    main .container-principal .container-contato div form textarea{
+        height: 20em;
     }
 
     main .container-principal .container-contato div form button{
-        width: 40%;
+        width: 50%;
         min-height: 10vh;
-        border-radius: 25px;
-        font-size: 1.6em;
+        border-radius: 30px;
+        font-size: 2em;
         font-weight: 600;
     }
 
