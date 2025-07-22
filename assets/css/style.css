@@ -180,7 +180,8 @@ main .container-principal .container-apresentacao .btn-cta-home{
     cursor: pointer;
 }
 
-main .container-principal .container-apresentacao .btn-cta-home:hover{
+main .container-principal .container-apresentacao .btn-cta-home:hover,
+main .container-principal .container-apresentacao .btn-cta-home:active{
     background-size: 200% 200%;
     animation:  bgShift var(--anim-duration) ease infinite,
                 textShift var(--anim-duration) ease infinite;
@@ -448,7 +449,8 @@ main .container-principal .container-contato div form button{
     transition: font-weight 0.2s ease-in-out;
 }
 
-main .container-principal .container-contato div form button:hover{
+main .container-principal .container-contato div form button:hover,
+main .container-principal .container-contato div form button:active{
     background-size: 200% 200%;
     animation:  bgShift var(--anim-duration) ease infinite,
                 textShift var(--anim-duration) ease infinite;
