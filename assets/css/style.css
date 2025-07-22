@@ -608,10 +608,11 @@ footer .txt-rodape{
     }
 
     main .container-principal .container-banner .banner{
-        height: 35vh;
-        width: 140%;
-        object-fit: contain;
-        object-position: right center;
+        height: 29vh;
+        width: auto;
+        max-width: 100%;
+        object-fit: cover;
+        object-position: 60% 55%;
     } 
 
     main .container-principal .container-contato div{
@@ -671,8 +672,8 @@ footer .txt-rodape{
 
     main .container-principal{
         gap: 0;
-        min-width: 0px;
-        max-width: 600px;
+        min-width: 601px;
+        max-width: 1024px;
     }
 
     main .container-principal .container-apresentacao{
@@ -685,26 +686,29 @@ footer .txt-rodape{
         min-height: 50%;
         justify-content: flex-start;
         gap: 10%;
+        width: 90%;
     }
 
-    main .container-principal .container-apresentacao .txt-slogan{
+    main .container-principal .container-apresentacao .container-slogan .txt-slogan{
         width: 100%;
-        font-size: 1.8em;
+        font-size: 4em;
         font-weight: 700;
     }
 
-    main .container-principal .container-apresentacao .txt-2-slogan{
+    main .container-principal .container-apresentacao .container-slogan .txt-2-slogan{
         width: 100%;
         margin-top: 0;
-        font-size: 1.4em;
+        font-size: 2em;
         font-weight: 400;
     }
 
     main .container-principal .container-apresentacao .btn-cta-home{
-        width: 80%;
-        max-height: 25%;
+        width: 60%;
+        max-height: 20%;
         margin-top: 0;
         padding: 3%;
+        font-size: 2em;
+        font-weight: 600;
     }
     
     main .container-principal .container-servicos{
@@ -731,7 +735,7 @@ footer .txt-rodape{
 
     main .container-principal .container-servicos .container-cards .card-servico 
     .titulo-servico{
-        font-size: 1.8em;
+        font-size: 2em;
         font-weight: 700;
     }
 
@@ -740,10 +744,9 @@ footer .txt-rodape{
         padding: 2%;
         width: 100%;
         height: 30%;
-        font-size: 1.4em;
+        font-size: 1.8em;
     }
 
-    
     main .container-principal .container-sobre{
         min-height: 40vh;
         justify-content: center;
@@ -767,6 +770,20 @@ footer .txt-rodape{
         font-weight: 600;
     }
 
+    main .container-principal .container-banner{
+        height: 50vh;
+        width: 100%;
+        padding: 0;
+    }
+
+    main .container-principal .container-banner .banner{
+        height: 45vh;
+        width: auto;
+        max-width: 100%;
+        object-fit: cover;
+        object-position: 60% 55%;
+    } 
+
     main .container-principal .container-contato{
         min-height: 100vh;
     }
@@ -775,23 +792,25 @@ footer .txt-rodape{
         flex-direction: column;
         width: 100%;
         height: 90vh;
-        gap: 20px;
+        gap: 2%;
+        padding-top: 5%;
     }
     
     main .container-principal .container-contato div .container-titulo-contato{
         height: 10vh;
         width: 100%;
+        margin-bottom: 2%;
     }
 
     main .container-principal .container-contato div .container-titulo-contato 
     .titulo-contato{
-        font-size: 1.8em;
+        font-size: 2.5em;
         font-weight: 700;
     }
 
     main .container-principal .container-contato div .container-titulo-contato 
     .subtitulo-contato{
-        font-size: 1.4em;
+        font-size: 2em;
         font-weight: 400;
     }
 
@@ -821,4 +840,11 @@ footer .txt-rodape{
         font-weight: 600;
     }
 
+    footer{
+        min-height: 15vh;
+    }
+    
+    footer .txt-rodape{
+        font-size: 1.6em;
+    }
 }
