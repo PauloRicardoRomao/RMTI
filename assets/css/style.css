@@ -503,6 +503,21 @@ footer .txt-rodape{
     color: #ffffff;
 }
 
+#msg-status {
+    margin-top: 16px;
+    text-align: center;
+}
+
+.sucesso-envio {
+    color: green;
+    font-weight: 600;
+}
+
+.erro-envio {
+    color: red;
+    font-weight: 600;
+}
+
 
 /* Mobile */
 

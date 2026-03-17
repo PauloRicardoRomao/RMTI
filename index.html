@@ -103,13 +103,17 @@
                             Me envie uma mensagem e vamos construir sua solução digital juntos.
                         </h2>
                     </div>
-                    <form method="post" action="">
-                        <input type="text" name="" id="" placeholder="Nome">
-                        <input type="email" name="" id="" placeholder="Email">
-                        <input type="tel" name="" id="" placeholder="Telefone">
-                        <textarea name="" id=""  rows="5" placeholder="Mensagem"></textarea>
-                        <button type="">Enviar</button>
+
+                    <form id="form-contato">
+                        <input type="hidden" name="time" id="time">
+                        <input type="text" name="nome" placeholder="Nome" required>
+                        <input type="email" name="email" placeholder="Email" required>
+                        <input type="tel" name="telefone" placeholder="Telefone" required>
+                        <textarea name="mensagem" rows="5" placeholder="Mensagem" required></textarea>
+                        <button type="submit">Enviar</button>
                     </form>
+
+                    <div id="msg-status"></div>
                 </div>
             </section>
         </div>
@@ -118,6 +122,8 @@
         <p class="txt-rodape">© 2025 - Todos os direitos reservados</p>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/email.js"></script>
 </body>
 </html>
