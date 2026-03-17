@@ -2,17 +2,49 @@ emailjs.init({
     publicKey: "tZWo-0d__8j4AmxKX"
 });
 
+function Mensagem() {
+    const modal = document.getElementById("msg-status");
+
+    modal.style.display = 'flex';
+    modal.style.position = 'fixed';
+    modal.style.top = '0';
+    modal.style.left = '0';
+    modal.style.width = '100%';
+    modal.style.height = '100%';
+    modal.style.background = 'rgba(0,0,0,0.5)';
+    modal.style.alignItems = 'center';
+    modal.style.justifyContent = 'center';
+
+    const conteudoModal = `
+        <div class="conteudoModal" id="conteudoModal">
+            <button id="btn-fechar-modal" class="btn-fechar">X</button>
+            <div id="mensagem-modal"></div>
+        </div>
+    `;
+
+    modal.innerHTML = conteudoModal;
+
+    document.getElementById("btn-fechar-modal").addEventListener("click", function () {
+        modal.style.display = "none";
+        modal.innerHTML = "";
+    });
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("form-contato");
     const campoTime = document.getElementById("time");
-    const msgStatus = document.getElementById("msg-status");
+    const modal = document.getElementById("msg-status");
     const botao = form.querySelector("button[type='submit']");
 
     form.addEventListener("submit", function (e) {
         e.preventDefault();
 
         campoTime.value = new Date().toLocaleString("pt-BR");
-        msgStatus.innerHTML = "";
+
+        Mensagem();
+
+        const msgStatus = document.getElementById("mensagem-modal");
+
         botao.disabled = true;
         botao.textContent = "Enviando...";
 
@@ -29,5 +61,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 botao.disabled = false;
                 botao.textContent = "Enviar";
             });
+    });
+
+    modal.addEventListener("click", function (e) {
+        if (e.target === modal) {
+            modal.style.display = "none";
+            modal.innerHTML = "";
+        }
     });
 });
