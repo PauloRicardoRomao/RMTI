@@ -1,127 +1,290 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RMTI | Soluções Digitais sob Medida - Sites, Apps & Sistemas</title>
+    <meta name="description" content="Impulsione seu negócio com a RMTI: desenvolvimento de sites de alta conversão, landing pages modernas, aplicativos móveis e sistemas de gestão sob medida.">
+    <meta name="keywords" content="desenvolvimento de sites, landing pages, sistemas de gestão, ERP, app mobile, desenvolvimento web, RMTI">
+    <meta name="author" content="RMTI">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#172c3c">
+
+    <!-- Open Graph / Redes Sociais -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="RMTI | Soluções Digitais sob Medida">
+    <meta property="og:description" content="Desenvolvimento de Sites, Apps Mobile e Softwares de Gestão sob medida para impulsionar sua empresa.">
+    <meta property="og:image" content="assets/imagens/IconeNovo.png">
+    <meta property="og:locale" content="pt_BR">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="RMTI | Soluções Digitais sob Medida">
+    <meta name="twitter:description" content="Desenvolvimento de Sites, Apps Mobile e Softwares de Gestão sob medida.">
+    <meta name="twitter:image" content="assets/imagens/IconeNovo.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/webp" href="assets/imagens/IconeNovo-trimmed.webp">
+    <link rel="icon" type="image/png" href="assets/imagens/IconeNovo-trimmed.png">
+    <link rel="apple-touch-icon" href="assets/imagens/IconeNovo.png">
+
+    <!-- Estilos -->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-    <link rel="icon" type="image/x-icon" href="assets/imagens/icon.ico">
-    <title>RMTI</title>
 </head>
 <body>
-    <header>
-        <nav class="container-menu">
-            <ul class="conteudo-menu">
-                <li class="item-menu"><a href="#">Home</a></li>
-                <li class="item-menu"><a href="#servicos">Serviços</a></li>
-                <li class="item-menu"><a href="#contato">Contato</a></li>
-                <li class="item-menu"><a href="">Clientes</a></li>
-                <li class="item-menu"><a href="">Dúvidas Comuns</a></li>
-            </ul>
+    <header class="cabecalho-principal" id="topo">
+        <nav class="container-nav" aria-label="Navegação Principal">
+            <a href="#topo" class="logo-link" aria-label="RMTI - Página Inicial">
+                <picture>
+                    <source srcset="assets/imagens/IconeNovo-trimmed.webp" type="image/webp">
+                    <img src="assets/imagens/IconeNovo-trimmed.png" alt="RMTI - Soluções Inteligentes" class="img-logo" width="160" height="48">
+                </picture>
+            </a>
+
+            <button class="menu-toggle" id="btn-menu-toggle" aria-label="Abrir menu de navegação" aria-expanded="false" aria-controls="menu-links">
+                <span class="hamburguer-linha"></span>
+                <span class="hamburguer-linha"></span>
+                <span class="hamburguer-linha"></span>
+            </button>
+
+            <div class="menu-wrapper" id="menu-links">
+                <ul class="conteudo-menu">
+                    <li class="item-menu"><a href="#topo">Início</a></li>
+                    <li class="item-menu"><a href="#servicos">Serviços</a></li>
+                    <li class="item-menu"><a href="#sobre">Por Que Nos Escolher</a></li>
+                    <li class="item-menu"><a href="#contato">Contato</a></li>
+                </ul>
+                <button class="btn-cta-nav" id="btn-wpp-nav" type="button">
+                    Falar no WhatsApp
+                </button>
+            </div>
         </nav>
     </header>
+
     <main>
         <div class="container-principal">
-            <section class="container-apresentacao">
-                    <div class="container-slogan">
-                        <h1 class="txt-slogan">
-                            Impulsione Seu Negócio com Soluções Digitais
-                        </h1>
-                        <h2 class="txt-2-slogan">
-                            Desenvolvimento de Sites, Apps Mobile e Softwares de 
-                            Gestão sob medida
-                        </h2>
-                    </div>
-                    <button class="btn-cta-home" id="btn-orcamento">
+            <!-- Hero / Apresentação -->
+            <section class="container-apresentacao" id="home">
+                <div class="container-slogan">
+                    <span class="badge-destaque">Soluções Digitais de Alta Performance</span>
+                    <h1 class="txt-slogan">
+                        Impulsione Seu Negócio com Soluções Digitais
+                    </h1>
+                    <p class="txt-2-slogan">
+                        Desenvolvimento de Sites, Landing Pages, Apps Mobile e Softwares de Gestão sob medida para alavancar seus resultados.
+                    </p>
+                </div>
+                <div class="hero-acoes">
+                    <button class="btn-cta-home" id="btn-orcamento" type="button">
                         Solicite um Orçamento
                     </button>
+                    <a href="#servicos" class="btn-cta-secundario">
+                        Conhecer Serviços
+                    </a>
+                </div>
             </section>
 
+            <!-- Serviços -->
             <section class="container-servicos" id="servicos">
+                <div class="secao-cabecalho">
+                    <h2 class="secao-titulo">Nossos Serviços</h2>
+                    <p class="secao-subtitulo">Tecnologia sob medida para transformar a presença e os processos da sua empresa.</p>
+                </div>
+
                 <div class="container-cards">
-                    <div class="card-servico">
-                        <img class="icone-servico" src="assets/imagens/LPS1.png">
-                        <h1 class="titulo-servico">
-                            Desenvolvimento de Sites e Landing Pages
-                        </h1>
-                        <h2 class="resumo-desc-servico">
-                            Até 5 páginas, CMS básico, adaptável, responsivo e 
-                            carregamento rápido.
-                        </h2>
-                    </div>
-                    <div class="card-servico">
-                        <img class="icone-servico" src="assets/imagens/ERP1.png">
-                        <h1 class="titulo-servico">
-                            Sistema de Gestão sob medida
-                        </h1>
-                        <h2 class="resumo-desc-servico">
-                            Login, permissões, CRUD completo. 
-                        </h2>
-                    </div>
-                    <div class="card-servico">
-                        <img class="icone-servico" src="assets/imagens/APP1.png">
-                        <h1 class="titulo-servico">
-                            App Móvel
-                        </h1>
-                        <h2 class="resumo-desc-servico">
-                            Login, permissões, CRUD, leve e sem travamento ou falhas inesperadas.
-                        </h2>
-                    </div>
+                    <article class="card-servico">
+                        <div class="card-imagem-container">
+                            <picture>
+                                <source srcset="assets/imagens/LPS1.webp" type="image/webp">
+                                <img class="icone-servico" src="assets/imagens/LPS1.png" alt="Desenvolvimento de Sites e Landing Pages" loading="lazy" width="400" height="260">
+                            </picture>
+                        </div>
+                        <h3 class="titulo-servico">
+                            Desenvolvimento de Sites & LPs
+                        </h3>
+                        <p class="resumo-desc-servico">
+                            Páginas focadas em conversão, carregamento ultrarrápido, design responsivo e adaptado para todos os dispositivos.
+                        </p>
+                        <ul class="lista-vantagens">
+                            <li>Design moderno e exclusivo</li>
+                            <li>Otimizado para SEO e Google</li>
+                            <li>Totalmente responsivo (mobile & desktop)</li>
+                        </ul>
+                    </article>
+
+                    <article class="card-servico">
+                        <div class="card-imagem-container">
+                            <picture>
+                                <source srcset="assets/imagens/ERP1.webp" type="image/webp">
+                                <img class="icone-servico" src="assets/imagens/ERP1.png" alt="Sistemas de Gestão sob Medida" loading="lazy" width="400" height="260">
+                            </picture>
+                        </div>
+                        <h3 class="titulo-servico">
+                            Sistemas de Gestão sob Medida
+                        </h3>
+                        <p class="resumo-desc-servico">
+                            Automatize rotinas e tenha controle total do seu negócio com autenticação segura, níveis de permissão e CRUD completo.
+                        </p>
+                        <ul class="lista-vantagens">
+                            <li>Painel administrativo intuitivo</li>
+                            <li>Controle de acessos e permissões</li>
+                            <li>Relatórios e fluxos personalizados</li>
+                        </ul>
+                    </article>
+
+                    <article class="card-servico">
+                        <div class="card-imagem-container">
+                            <picture>
+                                <source srcset="assets/imagens/APP1.webp" type="image/webp">
+                                <img class="icone-servico" src="assets/imagens/APP1.png" alt="Aplicativos Móveis" loading="lazy" width="400" height="260">
+                            </picture>
+                        </div>
+                        <h3 class="titulo-servico">
+                            Aplicativos Móveis
+                        </h3>
+                        <p class="resumo-desc-servico">
+                            Criação de aplicativos leves, fluidos e intuitivos para Android e iOS, garantindo estabilidade e excelente experiência.
+                        </p>
+                        <ul class="lista-vantagens">
+                            <li>Experiência de navegação fluida</li>
+                            <li>Arquitetura robusta e sem travamentos</li>
+                            <li>Integração com APIs e bancos de dados</li>
+                        </ul>
+                    </article>
                 </div>
             </section>
 
-            <section class="container-sobre">
-                <h1 class="titulo-sobre">Por Que Me Escolher?</h1>
+            <!-- Diferenciais / Sobre -->
+            <section class="container-sobre" id="sobre">
+                <div class="secao-cabecalho">
+                    <h2 class="titulo-sobre">Por Que Me Escolher?</h2>
+                    <p class="secao-subtitulo">Diferenciais que garantem a segurança e o sucesso do seu projeto.</p>
+                </div>
+
                 <div class="subtitulos-sobre">
-                    <h2 class="subtitulo-sobre">Entregas Rápidas</h2>
-                    <h2 class="subtitulo-sobre">Suporte Contínuo</h2>
-                    <h2 class="subtitulo-sobre">Segurança Garantida</h2>
+                    <div class="card-diferencial">
+                        <div class="icone-diferencial" aria-hidden="true">⚡</div>
+                        <h3 class="subtitulo-sobre">Entregas Rápidas</h3>
+                        <p class="desc-diferencial">Processos estruturados e metodologias ágeis para entregar seu projeto dentro do prazo combinado.</p>
+                    </div>
+                    <div class="card-diferencial">
+                        <div class="icone-diferencial" aria-hidden="true">🤝</div>
+                        <h3 class="subtitulo-sobre">Suporte Contínuo</h3>
+                        <p class="desc-diferencial">Acompanhamento próximo antes, durante e após a entrega, tirando dúvidas e garantindo estabilidade.</p>
+                    </div>
+                    <div class="card-diferencial">
+                        <div class="icone-diferencial" aria-hidden="true">🔒</div>
+                        <h3 class="subtitulo-sobre">Segurança Garantida</h3>
+                        <p class="desc-diferencial">Boas práticas de código, proteção de dados e arquitetura moderna para proteger sua aplicação.</p>
+                    </div>
                 </div>
             </section>
 
-            <section class="container-banner">
-                <div>
-                    <img class="banner" alt="banner" 
-                    src="assets/imagens/BANNER.png"
-                    srcset="    
-                    assets/imagens/BANNERMOBILE2.png 600w,
-                    assets/imagens/BANNER.png 768w
-                    "
-                    sizes="
-                    (max-width: 600px) 600px,
-                    (min-width: 601px) 768px"
-                    >
+            <!-- Banner Promocional -->
+            <section class="container-banner" aria-label="Destaque de Soluções">
+                <div class="banner-wrapper">
+                    <picture>
+                        <source media="(max-width: 600px)" srcset="assets/imagens/BANNERMOBILE2.webp" type="image/webp">
+                        <source media="(max-width: 600px)" srcset="assets/imagens/BANNERMOBILE2.png" type="image/png">
+                        <source media="(min-width: 601px)" srcset="assets/imagens/BANNER.webp" type="image/webp">
+                        <img class="banner" alt="Banner ilustrativo de soluções digitais RMTI" 
+                            src="assets/imagens/BANNER.png"
+                            loading="lazy"
+                            width="1400"
+                            height="500">
+                    </picture>
                 </div>
             </section>
 
+            <!-- Contato -->
             <section class="container-contato" id="contato">
-                <div>
+                <div class="caixa-contato">
                     <div class="container-titulo-contato">
-                        <h1 class="titulo-contato">
+                        <h2 class="titulo-contato">
                             Pronto para Começar?
-                        </h1>
-                        <h2 class="subtitulo-contato">
-                            Me envie uma mensagem e vamos construir sua solução digital juntos.
                         </h2>
+                        <p class="subtitulo-contato">
+                            Me envie uma mensagem e vamos construir sua solução digital juntos. Resposta rápida e orçamento sem compromisso!
+                        </p>
                     </div>
 
-                    <form id="form-contato">
+                    <form id="form-contato" novalidate>
                         <input type="hidden" name="time" id="time">
-                        <input type="text" name="nome" placeholder="Nome" required>
-                        <input type="email" name="email" placeholder="Email" required>
-                        <input type="tel" name="telefone" placeholder="Telefone" required>
-                        <textarea name="mensagem" rows="5" placeholder="Mensagem" required></textarea>
-                        <button type="submit">Enviar</button>
-                    </form>
+                        
+                        <!-- Campo Honeypot anti-spam (invisível para humanos) -->
+                        <div class="campo-honeypot" aria-hidden="true">
+                            <label for="honeypot_field">Não preencha este campo se for humano</label>
+                            <input type="text" id="honeypot_field" name="_honeypot" tabindex="-1" autocomplete="off">
+                        </div>
 
-                    <div id="msg-status"></div>
+                        <div class="form-grupo">
+                            <label for="campo-nome">Nome Completo *</label>
+                            <input type="text" id="campo-nome" name="nome" placeholder="Digite seu nome" required autocomplete="name" minlength="2">
+                            <span class="erro-campo" id="erro-nome"></span>
+                        </div>
+
+                        <div class="form-grupo">
+                            <label for="campo-email">E-mail Comercial *</label>
+                            <input type="email" id="campo-email" name="email" placeholder="seuemail@exemplo.com" required autocomplete="email">
+                            <span class="erro-campo" id="erro-email"></span>
+                        </div>
+
+                        <div class="form-grupo">
+                            <label for="campo-telefone">Telefone / WhatsApp *</label>
+                            <input type="tel" id="campo-telefone" name="telefone" placeholder="(81) 99999-9999" required autocomplete="tel" maxlength="15">
+                            <span class="erro-campo" id="erro-telefone"></span>
+                        </div>
+
+                        <div class="form-grupo">
+                            <label for="campo-mensagem">Como podemos te ajudar? *</label>
+                            <textarea id="campo-mensagem" name="mensagem" rows="4" placeholder="Descreva brevemente o projeto ou ideia..." required minlength="5"></textarea>
+                            <span class="erro-campo" id="erro-mensagem"></span>
+                        </div>
+
+                        <div class="form-grupo-checkbox">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="consentimento-lgpd" name="consentimento" required>
+                                <span class="checkbox-texto">
+                                    Concordo com o tratamento dos meus dados para fins de contato comercial, conforme a LGPD.
+                                </span>
+                            </label>
+                        </div>
+
+                        <button type="submit" id="btn-enviar-form" class="btn-enviar">
+                            <span class="btn-texto">Enviar Mensagem</span>
+                        </button>
+                    </form>
                 </div>
             </section>
         </div>
     </main>
-    <footer>
-        <p class="txt-rodape">© 2025 - Todos os direitos reservados</p>
+
+    <!-- Modal Feedback Nativo (Baseado na modern-web-guidance) -->
+    <dialog id="modal-feedback" closedby="any" aria-labelledby="modal-titulo" class="dialog-feedback">
+        <div class="dialog-conteudo">
+            <button type="button" id="btn-fechar-modal" class="btn-fechar" aria-label="Fechar">&times;</button>
+            <div id="modal-icone" class="modal-icone" aria-hidden="true">✓</div>
+            <h3 id="modal-titulo" class="modal-titulo">Mensagem Enviada!</h3>
+            <p id="modal-mensagem" class="modal-mensagem">Recebemos sua mensagem com sucesso. Em breve entraremos em contato!</p>
+            <button type="button" id="btn-confirmar-modal" class="btn-modal-ok">OK</button>
+        </div>
+    </dialog>
+
+    <footer class="rodape-principal">
+        <div class="conteudo-rodape">
+            <div class="rodape-logo-area">
+                <a href="#topo" class="logo-rodape-container" aria-label="RMTI - Início">
+                    <picture>
+                        <source srcset="assets/imagens/IconeNovo-trimmed.webp" type="image/webp">
+                        <img src="assets/imagens/IconeNovo-trimmed.png" alt="RMTI - Soluções Inteligentes" class="img-logo-rodape" width="140" height="42">
+                    </picture>
+                </a>
+            </div>
+            <p class="txt-rodape">© <span id="ano-atual">2026</span> RMTI - Soluções Inteligentes. Todos os direitos reservados.</p>
+        </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="js/app.js"></script>
     <script src="js/email.js"></script>

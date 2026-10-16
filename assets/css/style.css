@@ -1,902 +1,905 @@
+/* ==========================================================================
+   RMTI - Folha de Estilos Principal
+   Cores, Tipografia e Layout Responsivo
+   ========================================================================== */
+
 :root {
+    --primary-bg: #172c3c;
+    --primary-card: #ffffff;
     --gradient-light: #f0cc62;
-    --gradient-dark:  #f7825e;
-    --text-dark:      #212121;
-    --text-light:     #FFFFFF;
-    --anim-duration:  4s;
-    --scale-hover:    1.05;
+    --gradient-dark: #f7825e;
+    --text-dark: #212121;
+    --text-muted: #555555;
+    --text-light: #ffffff;
+    --accent-orange: #f7825e;
+    --accent-yellow: #f0cc62;
+    --border-color: #e2e8f0;
+    --success-color: #10b981;
+    --error-color: #ef4444;
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --shadow-soft: 0 10px 25px -5px rgba(0, 0, 0, 0.25);
+    --shadow-hover: 0 20px 35px -5px rgba(0, 0, 0, 0.4);
+    --font-main: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    --anim-duration: 4s;
 }
 
-
-*{
+/* Reset Global */
+*, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    width: 100vw;
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--primary-bg);
+    color: var(--text-light);
+    line-height: 1.6;
+    width: 100%;
     min-height: 100vh;
-    max-height: none;
-    align-items: center;
-    justify-content: center;
-    overflow-y: auto;
     overflow-x: hidden;
-    background-color: #172c3c;
-}
-
-header{
-    display: none;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    min-height: 20%;
-    width: 100%;
-    padding: 2%;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
-
-header .container-menu{
     display: flex;
     flex-direction: column;
+}
+
+/* ==========================================================================
+   1. CABEÇALHO & NAVEGAÇÃO
+   ========================================================================== */
+.cabecalho-principal {
+    position: sticky;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 100%;
-    align-items: flex-end;
-    justify-content: space-around;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
 }
 
-header .container-menu .conteudo-menu{
+.container-nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0.7rem 1.5rem;
     display: flex;
-    flex-direction: row;
-    width: 50%;
-    height: 50%;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
-header .container-menu .conteudo-menu .item-menu {
+.logo-link {
     display: flex;
-    flex-direction: column;
-    width: auto;
-    height: 100%;
     align-items: center;
-    justify-content: center;
-    text-align: center;
-    overflow: hidden;
-}
-
-header .container-menu .conteudo-menu .item-menu a{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
     text-decoration: none;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 1.0em;
-    font-weight: 400;
-    color: #f7825e;
+    transition: transform 0.2s ease;
 }
 
-main{
+.logo-link:hover {
+    transform: scale(1.02);
+}
+
+.img-logo {
+    height: 48px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.menu-wrapper {
     display: flex;
-    flex-direction: column;
-    flex: 1;
-    min-height: 100vh;
-    justify-content: center;
     align-items: center;
+    gap: 2rem;
 }
 
-main .container-principal{
+.conteudo-menu {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 10vh;
-    justify-content: center;
-    min-width: 1024px;
-    max-width: 1400px;
+    list-style: none;
+    align-items: center;
+    gap: 1.8rem;
+}
+
+.item-menu a {
+    color: #1e293b;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: color 0.2s ease;
+    position: relative;
+    padding: 0.3rem 0;
+}
+
+.item-menu a:hover,
+.item-menu a:focus-visible {
+    color: var(--accent-orange);
+}
+
+.item-menu a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gradient-light), var(--gradient-dark));
+    transition: width 0.3s ease;
+}
+
+.item-menu a:hover::after {
     width: 100%;
 }
 
-
-main .container-principal .container-apresentacao{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    width: 100%;
-    min-height: 60vh;
-    padding: 2%;
-    align-items: center;
-    justify-content: space-around;
-    overflow-x: hidden;
-}
-
-
-main .container-principal .container-apresentacao .container-slogan{
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    height: 60%;
-    align-items: center;
-    justify-content: space-around;
-    color: #ffffff;
-    overflow-x: hidden;
-}
-
-main .container-principal .container-apresentacao .container-slogan .txt-slogan{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 3.5em;
+.btn-cta-nav {
+    background: linear-gradient(45deg, var(--gradient-light), var(--gradient-dark));
+    color: #1a202c;
+    border: none;
+    padding: 0.6rem 1.3rem;
+    font-size: 0.95rem;
     font-weight: 700;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 14px rgba(247, 130, 94, 0.35);
 }
 
-main .container-principal .container-apresentacao .container-slogan .txt-2-slogan{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+.btn-cta-nav:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(247, 130, 94, 0.5);
+}
+
+/* Botão Hambúrguer Mobile */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 22px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.hamburguer-linha {
+    display: block;
     width: 100%;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 1.6em;
-    font-weight: 400;
+    height: 3px;
+    background-color: #0f172a;
+    border-radius: 2px;
+    transition: all 0.3s ease;
 }
 
-main .container-principal .container-apresentacao .btn-cta-home{
+.menu-toggle.ativo .hamburguer-linha:nth-child(1) {
+    transform: translateY(9.5px) rotate(45deg);
+}
+.menu-toggle.ativo .hamburguer-linha:nth-child(2) {
+    opacity: 0;
+}
+.menu-toggle.ativo .hamburguer-linha:nth-child(3) {
+    transform: translateY(-9.5px) rotate(-45deg);
+}
+
+/* ==========================================================================
+   2. CONTAINER PRINCIPAL & HERO
+   ========================================================================== */
+main {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    flex-wrap: nowrap;
-    width: 20%;
-    height: 15%;
-    padding: 5;
+    align-items: center;
+    width: 100%;
+}
+
+.container-principal {
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 1.5rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6rem;
+}
+
+/* Hero / Apresentação */
+.container-apresentacao {
+    min-height: calc(85vh - 70px);
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: 2px solid;
-    /*background-color: #f7825e;*/
-    background-size: 200% 200%;
-    background-image: linear-gradient(
-            45deg, var(--gradient-light), var(--gradient-dark)
-    );
-    background-position: 50% 100%;
     text-align: center;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 1.3em;
+    padding: 3rem 0;
+    gap: 2.5rem;
+}
+
+.container-slogan {
+    max-width: 880px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+.badge-destaque {
+    display: inline-block;
+    padding: 0.4rem 1.2rem;
+    background: rgba(240, 204, 98, 0.12);
+    border: 1px solid rgba(240, 204, 98, 0.35);
+    color: var(--gradient-light);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 20px;
+}
+
+.txt-slogan {
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1.15;
+    background: linear-gradient(135deg, #ffffff 40%, var(--gradient-light) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.txt-2-slogan {
+    font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+    color: #94a3b8;
+    max-width: 700px;
     font-weight: 400;
-    color: #ffffff;
+    line-height: 1.6;
+}
+
+.hero-acoes {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+}
+
+.btn-cta-home {
+    background: linear-gradient(45deg, var(--gradient-light), var(--gradient-dark));
+    color: #1a202c;
+    border: none;
+    padding: 0.95rem 2.2rem;
+    font-size: 1.1rem;
+    font-weight: 700;
     border-radius: 40px;
     cursor: pointer;
+    box-shadow: 0 10px 25px rgba(247, 130, 94, 0.4);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-main .container-principal .container-apresentacao .btn-cta-home:hover,
-main .container-principal .container-apresentacao .btn-cta-home:active{
-    background-size: 200% 200%;
-    animation:  bgShift var(--anim-duration) ease infinite,
-                textShift var(--anim-duration) ease infinite;
+.btn-cta-home:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 14px 30px rgba(247, 130, 94, 0.6);
+}
+
+.btn-cta-secundario {
+    color: #e2e8f0;
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.9rem 2rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border-radius: 40px;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-cta-secundario:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   3. SEÇÃO DE SERVIÇOS
+   ========================================================================== */
+.container-servicos {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.secao-cabecalho {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.secao-titulo {
+    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
     font-weight: 700;
+    color: #ffffff;
 }
 
-main .container-principal .container-servicos{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    width: 100%;
-    min-height: 80vh;
-    padding: 2%;
-    align-items: center;
-    justify-content: space-around;
+.secao-subtitulo {
+    font-size: 1.1rem;
+    color: #94a3b8;
+    max-width: 600px;
 }
 
-main .container-principal .container-servicos .container-cards{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    width: 100%;
-    min-height: 60vh;
-    padding: 2%;
-    align-items: center;
-    justify-content: space-around;
+.container-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
 }
 
-main .container-principal .container-servicos .container-cards .card-servico{
+.card-servico {
+    background-color: var(--primary-card);
+    color: var(--text-dark);
+    border-radius: var(--radius-md);
+    padding: 2rem 1.5rem;
     display: flex;
     flex-direction: column;
-    flex-wrap: nowrap;
-    width: 30%;
-    height: 70vh;
-    padding: 1%;
-    align-items: center;
-    justify-content: space-around;
+    gap: 1.2rem;
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-servico:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+}
+
+.card-imagem-container {
+    width: 100%;
+    height: 180px;
+    border-radius: var(--radius-sm);
     overflow: hidden;
-    border-radius: 20px;
-    background-color: #ffffff;
-    box-shadow: 0 10px 10px 5px #000;
-}
-
-main .container-principal .container-servicos .container-cards .card-servico:hover{
-    background-size: 200% 200%;
-    animation:  bgShift var(--anim-duration) ease infinite,
-                textShift var(--anim-duration) ease infinite;   
-    box-shadow: 0 10px 10px 5px #fff;
-}
-
-main .container-principal .container-servicos .container-cards .card-servico 
-.icone-servico{
+    background-color: #f1f5f9;
     display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    width: 100%;
-    height: 60%;
     align-items: center;
-    justify-content: space-around;
-    border: 1px solid;
-    border-radius: 20px;
-    object-position: center;
+    justify-content: center;
+}
+
+.icone-servico {
+    width: 100%;
+    height: 100%;
     object-fit: contain;
+    transition: transform 0.3s ease;
 }
 
-main .container-principal .container-servicos .container-cards .card-servico 
-.titulo-servico{
+.card-servico:hover .icone-servico {
+    transform: scale(1.04);
+}
+
+.titulo-servico {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.3;
+}
+
+.resumo-desc-servico {
+    font-size: 0.98rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+    flex-grow: 1;
+}
+
+.lista-vantagens {
+    list-style: none;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: 100%;
-    height: 20%;
+    flex-direction: column;
+    gap: 0.5rem;
+    border-top: 1px solid #edf2f7;
+    padding-top: 1rem;
+}
+
+.lista-vantagens li {
+    font-size: 0.9rem;
+    color: #334155;
+    display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 0.5rem;
+}
+
+.lista-vantagens li::before {
+    content: "✓";
+    color: var(--accent-orange);
+    font-weight: bold;
+}
+
+/* ==========================================================================
+   4. SEÇÃO POR QUE ME ESCOLHER (DIFERENCIAIS)
+   ========================================================================== */
+.container-sobre {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.titulo-sobre {
+    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.subtitulos-sobre {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.card-diferencial {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-md);
+    padding: 2.2rem 1.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 1.4em;
-    font-weight: 700;
+    gap: 1rem;
+    transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
 }
 
-main .container-principal .container-servicos .container-cards .card-servico 
-.resumo-desc-servico{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+.card-diferencial:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(240, 204, 98, 0.4);
+}
+
+.icone-diferencial {
+    font-size: 2.5rem;
+    line-height: 1;
+}
+
+.subtitulo-sobre {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.desc-diferencial {
+    font-size: 0.95rem;
+    color: #94a3b8;
+    line-height: 1.5;
+}
+
+/* ==========================================================================
+   5. BANNER
+   ========================================================================== */
+.container-banner {
     width: 100%;
-    height: 30%;
-    align-items: center;
-    justify-content: center;
-    text-align: justify;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 1.2em;
-    font-weight: 400;
-}
-
-main .container-principal .container-sobre{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    width: 100%;
-    min-height: 20vh;
-    align-items: center;
-    justify-content: space-around;
-}
-
-main .container-principal .container-sobre .titulo-sobre, main .container-principal 
-.container-sobre .subtitulos-sobre{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: 60%;
-    align-items: center;
-    justify-content: space-around;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    color: #FFFFFF;
-}
-
-main .container-principal .container-sobre .titulo-sobre{
-    font-size: 1.8em;
-    font-weight: 700;
-}
-
-main .container-principal .container-sobre .subtitulos-sobre .subtitulo-sobre{
-    font-size: 1.4em;
-    font-weight: 400;
-}
-
-main .container-principal .container-banner{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    width: 100%;
-    height: 100vh;
-    padding: 2%;
-    align-items: center;
-    justify-content: center;
+    border-radius: var(--radius-md);
     overflow: hidden;
-    background-color: #ffffff;
+    box-shadow: var(--shadow-soft);
+    background-color: #0b151e;
 }
 
-main .container-principal .container-banner .banner{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
+.banner-wrapper {
     width: 100%;
-    height: 100vh;
-    align-items: center;
-    justify-content: center;
-    object-position: center center;
-    object-fit: cover;
 }
 
-main .container-principal .container-contato{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
+.banner {
     width: 100%;
-    min-height: 100vh;
-    padding: 2%;
-    align-items: center;
-    justify-content: center;
-}
-
-main .container-principal .container-contato div{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: 70%;
-    height: 100%;
-    padding: 2%;
-    align-items: center;
-    justify-content: center;
-    border-radius: 25px;
-    background-color: #ffffff;
-}
-
-main .container-principal .container-contato div .container-titulo-contato 
-.titulo-contato, main .container-principal .container-contato div 
-.container-titulo-contato{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    width: 50%;
-    align-items: center;
-    justify-content: center;
-}
-
-main .container-principal .container-contato div .container-titulo-contato 
-.titulo-contato, main .container-principal .container-contato div 
-.container-titulo-contato .subtitulo-contato{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: 100%;
-    padding: 2%;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
-
-main .container-principal .container-contato div .container-titulo-contato 
-.titulo-contato{
-    font-size: 1.4em;
-    font-weight: 700;
-}
-
-main .container-principal .container-contato div .container-titulo-contato 
-.subtitulo-contato{
-    font-size: 1.2em;
-    font-weight: 400;
-}
-
-main .container-principal .container-contato div form{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    width: 50%;
-    height: 100%;
-    padding: 2%;
-    align-items: center;
-    justify-content: space-around;
-}
-
-main .container-principal .container-contato div form input,
-main .container-principal .container-contato div form textarea{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    width: 100%;
-    margin: 2%;
-    padding-left: 2%;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid;
-    border-radius: 15px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 1.4em;
-    font-weight: 400;
-    line-height: 1.6em;
-}
-
-main .container-principal .container-contato div form button{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    width: 40%;
-    min-height: 10vh;
-    margin-top: 2%;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid;
-    border-radius: 25px;
-    /*background-color: #f7825e;*/
-    background-size: 200% 200%;
-    background-image: linear-gradient(
-            45deg, var(--gradient-light), var(--gradient-dark)
-    );
-    background-position: 50% 100%;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 1.4em;
-    font-weight: 400;
-    color: #ffffff;
-    cursor: pointer;
-    transition: font-weight 0.2s ease-in-out;
-}
-
-main .container-principal .container-contato div form button:hover,
-main .container-principal .container-contato div form button:active{
-    background-size: 200% 200%;
-    animation:  bgShift var(--anim-duration) ease infinite,
-                textShift var(--anim-duration) ease infinite;
-    font-weight: 700;
-}
-
-@keyframes bgShift {
-    0%, 100% {
-        background-image: linear-gradient(
-            45deg, var(--gradient-light), var(--gradient-dark)
-        );
-        background-position: 0% 0%;
-    }
-    50% {
-        background-image: linear-gradient(
-            45deg, var(--gradient-dark), var(--gradient-light)
-        );
-        background-position: 100% 100%;
-    }
-}
-
-@keyframes textShift {
-    0%, 100% { color: var(--text-dark); transform: scale(1); }
-    50% { color: var(--text-light); transform: scale(1.2); }
-}
-
-footer{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    width: 100%;
-    min-height: 20%;
-    padding: 2%;
-    align-items: center;
-    justify-content: center;
-}
-
-footer .txt-rodape{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: auto;
     height: auto;
-    align-items: center;
-    justify-content: center;
-    text-align: justify;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 1.0em;
-    font-weight: 400;
-    color: #ffffff;
+    max-height: 480px;
+    display: block;
+    object-fit: cover;
+    object-position: center;
 }
 
-#msg-status {
-    display: none;
+/* ==========================================================================
+   6. SEÇÃO DE CONTATO
+   ========================================================================== */
+.container-contato {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.caixa-contato {
+    background-color: var(--primary-card);
+    color: var(--text-dark);
+    width: 100%;
+    max-width: 900px;
+    border-radius: var(--radius-lg);
+    padding: 3.5rem 3rem;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+    display: flex;
     flex-direction: column;
-    margin-top: 16px;
+    gap: 2.2rem;
+}
+
+.container-titulo-contato {
     text-align: center;
-    background-color: #00000073;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.titulo-contato {
+    font-size: clamp(1.8rem, 3.5vw, 2.3rem);
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.subtitulo-contato {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+#form-contato {
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+}
+
+.form-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.form-grupo label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #334155;
+}
+
+.form-grupo input,
+.form-grupo textarea {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 1.5px solid #cbd5e1;
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: 1rem;
+    color: #1e293b;
+    background-color: #f8fafc;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-grupo input:focus-visible,
+.form-grupo textarea:focus-visible {
+    outline: none;
+    border-color: var(--accent-orange);
+    box-shadow: 0 0 0 3px rgba(247, 130, 94, 0.25);
+    background-color: #ffffff;
+}
+
+.form-grupo textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Proteção anti-spam (Honeypot) */
+.campo-honeypot {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.form-grupo-checkbox {
+    margin-top: 0.4rem;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    cursor: pointer;
+}
+
+.checkbox-container input[type="checkbox"] {
+    width: 1.15rem;
+    height: 1.15rem;
+    accent-color: var(--accent-orange);
+    margin-top: 0.2rem;
+    cursor: pointer;
+}
+
+.checkbox-texto {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.btn-enviar {
+    background: linear-gradient(45deg, var(--gradient-light), var(--gradient-dark));
+    color: #1a202c;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(247, 130, 94, 0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+    margin-top: 0.8rem;
+    display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.conteudoModal {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
+.btn-enviar:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(247, 130, 94, 0.5);
+}
+
+.btn-enviar:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+/* ==========================================================================
+   7. MODAL NATIVO (<dialog>)
+   Baseado na modern-web-guidance: light-dismiss-a-dialog
+   ========================================================================== */
+.dialog-feedback {
+    border: none;
+    border-radius: var(--radius-md);
+    padding: 0;
+    max-width: 420px;
+    width: 90%;
+    margin: auto;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    background-color: #ffffff;
+    color: var(--text-dark);
+}
+
+.dialog-feedback::backdrop {
+    background: rgba(10, 20, 30, 0.75);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.dialog-conteudo {
+    padding: 2.5rem 2rem;
     position: relative;
-    min-width: 300px;
-    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
+    gap: 1rem;
 }
 
 .btn-fechar {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    border: none;
+    top: 12px;
+    right: 14px;
     background: transparent;
-    font-size: 18px;
+    border: none;
+    font-size: 1.8rem;
+    line-height: 1;
+    color: #94a3b8;
     cursor: pointer;
+    padding: 0.2rem;
+    border-radius: 50%;
+    transition: color 0.2s ease;
 }
 
-.sucesso-envio {
-    color: green;
+.btn-fechar:hover {
+    color: #0f172a;
+}
+
+.modal-icone {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
     font-weight: bold;
 }
 
-.erro-envio {
-    color: red;
-    font-weight: bold;
+.icone-sucesso {
+    background-color: #dcfce7;
+    color: var(--success-color);
 }
 
-.sucesso-envio {
-    color: green;
+.icone-erro {
+    background-color: #fee2e2;
+    color: var(--error-color);
+}
+
+.modal-titulo {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.modal-mensagem {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.btn-modal-ok {
+    background: #0f172a;
+    color: #ffffff;
+    border: none;
+    padding: 0.6rem 2.2rem;
+    font-size: 1rem;
     font-weight: 600;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: background 0.2s ease;
 }
 
-.erro-envio {
-    color: red;
-    font-weight: 600;
+.btn-modal-ok:hover {
+    background: #334155;
 }
 
+/* ==========================================================================
+   8. RODAPÉ
+   ========================================================================== */
+.rodape-principal {
+    width: 100%;
+    background-color: #0c1822;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 3rem 1.5rem 2.5rem;
+    margin-top: 6rem;
+    text-align: center;
+}
 
-/* Mobile */
+.conteudo-rodape {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+}
 
-@media (max-width: 600px) {
+.rodape-logo-area {
+    display: flex;
+    justify-content: center;
+}
 
-    @keyframes textShift {
-        0%, 100% { color: var(--text-dark); transform: scale(1); }
-        50% { color: var(--text-light); transform: scale(1.1); }
+.logo-rodape-container {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    padding: 8px 22px;
+    border-radius: 14px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-decoration: none;
+}
+
+.logo-rodape-container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+}
+
+.img-logo-rodape {
+    height: 38px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.txt-rodape {
+    font-size: 0.92rem;
+    color: #94a3b8;
+}
+
+/* ==========================================================================
+   9. RESPONSIVIDADE (MEDIA QUERIES)
+   ========================================================================= */
+
+/* Tablets (1024px para baixo) */
+@media (max-width: 1024px) {
+    .container-cards {
+        grid-template-columns: repeat(2, 1fr);
     }
-    main .container-principal{
-        min-width: 0px;
+
+    .container-cards .card-servico:last-child {
+        grid-column: span 2;
         max-width: 600px;
-        padding: 2%;
-    }
-
-    main .container-principal .container-apresentacao{
-        min-height: 70vh;
-        margin-top: 0;
-        margin-bottom: 0;
-        margin-top: 5%;
-    }
-
-    main .container-principal .container-apresentacao .container-slogan{
-        width: 100%;
-        min-height: 60%;
-        justify-content: flex-start;
-        gap: 10%;
-    }
-
-    main .container-principal .container-apresentacao .container-slogan .txt-slogan{
-        width: 100%;
-        font-size: 2.0em;
-        font-weight: 500;
-    }
-
-    main .container-principal .container-apresentacao .container-slogan .txt-2-slogan{
-        width: 100%;
-        margin-top: 0;
-        font-size: 1.4em;
-        font-weight: 400;
-    }
-
-    main .container-principal .container-apresentacao .btn-cta-home{
-        width: 80%;
-        max-height: 25%;
-        margin-top: 0;
-        padding: 2%;
-        font-size: 1.4em;
-    }
-    
-    main .container-principal .container-servicos{
-        flex-direction: row;
-        min-height: 100vh;
-        justify-content: space-around;
-    }
-
-    main .container-principal .container-servicos .container-cards{
-        flex-direction: column;
-        padding: 0;
-    }
-
-    main .container-principal .container-servicos .container-cards .card-servico{
-        min-width: 90%;
-        height: 60vh;
-        padding: 2%;
-        margin-bottom: 5%;
-    }
-    
-    main .container-principal .container-servicos .container-cards .card-servico:last-child{
-        margin-bottom: 0;
-    }
-
-    main .container-principal .container-servicos .container-cards .card-servico 
-    .resumo-desc-servico{
-        padding: 2%;
-        width: 100%;
-        height: 30%;
-        font-size: 1.4em;
-    }
-
-    main .container-principal .container-sobre .titulo-sobre, main .container-principal 
-    .container-sobre .subtitulos-sobre{
+        margin: 0 auto;
         width: 100%;
     }
 
-    main .container-principal .container-sobre .subtitulos-sobre{
-        flex-direction: column;
-        gap: 1%;
+    .subtitulos-sobre {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.2rem;
     }
 
-    main .container-principal .container-sobre .titulo-sobre{
-        font-size: 1.8em;
-        font-weight: 700;
+    .caixa-contato {
+        padding: 2.5rem 2rem;
     }
-
-    main .container-principal .container-sobre .subtitulos-sobre .subtitulo-sobre{
-        font-size: 1.4em;
-        font-weight: 400;
-    }
-
-    main .container-principal .container-banner{
-        height: 40vh;
-        width: 100%;
-        padding: 0;
-    }
-
-    main .container-principal .container-banner .banner{
-        height: 29vh;
-        width: auto;
-        max-width: 100%;
-        object-fit: cover;
-        object-position: 60% 55%;
-    } 
-
-    main .container-principal .container-contato div{
-        flex-direction: column;
-        width: 100%;
-        height: 100vh;
-        justify-content: center;
-    }
-
-    main .container-principal .container-contato div .container-titulo-contato{
-        flex-direction: column;
-        width: 100%;
-        height: 20vh;
-    }
-
-    main .container-principal .container-contato div .titulo-contato{
-        font-size: 1.8em;
-        font-weight: 700;
-    }
-
-    main .container-principal .container-contato div .subtitulo-contato{
-        font-size: 1.4em;
-        font-weight: 700;
-    }
-
-    main .container-principal .container-contato div form{
-        flex-direction: column;
-        width: 100%;
-        height: 70vh;
-    }
-
-    main .container-principal .container-contato div form input,
-    main .container-principal .container-contato div form textarea{
-        padding-left: 3%;
-    }
-
-    main .container-principal .container-contato div form button{
-        width: 50%;
-        min-height: 10vh;
-        border-radius: 25px;
-        font-size: 1.6em;
-        font-weight: 600;
-    }
-
-    footer{
-        min-height: 15vh;
-    }
-
-    footer .txt-rodape{
-        font-size: 1.2em;
-    }
-
 }
 
-
-@media (max-width: 1024px) and (min-width: 601px) {
-
-    main .container-principal{
-        gap: 0;
-        min-width: 601px;
-        max-width: 1024px;
+/* Mobile (768px para baixo) */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: flex;
     }
 
-    main .container-principal .container-apresentacao{
-        height: 100vh;
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-
-    main .container-principal .container-apresentacao .container-slogan{
-        min-height: 50%;
-        justify-content: flex-start;
-        gap: 10%;
-        width: 90%;
-    }
-
-    main .container-principal .container-apresentacao .container-slogan .txt-slogan{
+    .menu-wrapper {
+        position: fixed;
+        top: 64px;
+        left: 0;
         width: 100%;
-        font-size: 4em;
-        font-weight: 700;
-    }
-
-    main .container-principal .container-apresentacao .container-slogan .txt-2-slogan{
-        width: 100%;
-        margin-top: 0;
-        font-size: 2em;
-        font-weight: 400;
-    }
-
-    main .container-principal .container-apresentacao .btn-cta-home{
-        width: 60%;
-        max-height: 20%;
-        margin-top: 0;
-        padding: 3%;
-        font-size: 2em;
-        font-weight: 600;
-    }
-    
-    main .container-principal .container-servicos{
-        flex-direction: row;
-        min-height: 100vh;
-        justify-content: space-around;
-    }
-
-    main .container-principal .container-servicos .container-cards{
+        background-color: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
         flex-direction: column;
-        padding: 0;
+        padding: 2rem 1.5rem;
+        gap: 1.5rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        transform: translateY(-150%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.35s ease;
     }
 
-    main .container-principal .container-servicos .container-cards .card-servico{
-        min-width: 90%;
-        height: 90vh;
-        padding: 2%;
-        margin-bottom: 5%;
-    }
-    
-    main .container-principal .container-servicos .container-cards .card-servico:last-child{
-        margin-bottom: 0;
+    .menu-wrapper.menu-aberto {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
     }
 
-    main .container-principal .container-servicos .container-cards .card-servico 
-    .titulo-servico{
-        font-size: 2em;
-        font-weight: 700;
-    }
-
-    main .container-principal .container-servicos .container-cards .card-servico 
-    .resumo-desc-servico{
-        padding: 2%;
-        width: 100%;
-        height: 30%;
-        font-size: 1.8em;
-    }
-
-    main .container-principal .container-sobre{
-        min-height: 40vh;
-        justify-content: center;
-        gap: 2vh;
-    }
-
-    main .container-principal .container-sobre .titulo-sobre, main 
-    .container-principal .container-sobre .subtitulos-sobre{
+    .conteudo-menu {
+        flex-direction: column;
+        gap: 1.2rem;
         width: 100%;
     }
 
-    main .container-principal .container-sobre .titulo-sobre{
-        flex-wrap: wrap;
-        font-size: 3.2em;
-        font-weight: 700;
-        text-align: center;
+    .item-menu a {
+        font-size: 1.2rem;
+        color: #0f172a;
     }
 
-    main .container-principal .container-sobre .subtitulos-sobre .subtitulo-sobre{
-        font-size: 2.1em;
-        font-weight: 600;
-    }
-
-    main .container-principal .container-banner{
-        height: 50vh;
+    .btn-cta-nav {
         width: 100%;
-        padding: 0;
+        padding: 0.8rem;
     }
 
-    main .container-principal .container-banner .banner{
-        height: 45vh;
-        width: auto;
+    .container-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .container-cards .card-servico:last-child {
+        grid-column: span 1;
         max-width: 100%;
-        object-fit: cover;
-        object-position: 60% 55%;
-    } 
-
-    main .container-principal .container-contato{
-        min-height: 100vh;
     }
 
-    main .container-principal .container-contato div{
+    .subtitulos-sobre {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .caixa-contato {
+        padding: 2rem 1.2rem;
+    }
+
+    .hero-acoes {
         flex-direction: column;
         width: 100%;
-        height: 90vh;
-        gap: 2%;
-        padding-top: 5%;
     }
-    
-    main .container-principal .container-contato div .container-titulo-contato{
-        height: 10vh;
+
+    .btn-cta-home,
+    .btn-cta-secundario {
         width: 100%;
-        margin-bottom: 2%;
-    }
-
-    main .container-principal .container-contato div .container-titulo-contato 
-    .titulo-contato{
-        font-size: 2.5em;
-        font-weight: 700;
-    }
-
-    main .container-principal .container-contato div .container-titulo-contato 
-    .subtitulo-contato{
-        font-size: 2em;
-        font-weight: 400;
-    }
-
-    main .container-principal .container-contato div form{
-        height: 70vh;
-        width: 100%;
-        gap: 12px;
-        justify-content: space-around;
-    }
-    
-    main .container-principal .container-contato div form input,
-    main .container-principal .container-contato div form textarea{
-        padding-left: 3%;
-        line-height: 2em;
-        font-size: 1.8em;
-    }
-
-    main .container-principal .container-contato div form textarea{
-        height: 20em;
-    }
-
-    main .container-principal .container-contato div form button{
-        width: 50%;
-        min-height: 10vh;
-        border-radius: 30px;
-        font-size: 2em;
-        font-weight: 600;
-    }
-
-    footer{
-        min-height: 15vh;
-    }
-    
-    footer .txt-rodape{
-        font-size: 1.6em;
+        max-width: 320px;
     }
 }
