@@ -1,5 +1,6 @@
 /**
  * RMTI - Script Principal de Interação
+ * Inclui: WhatsApp direto, menu mobile, máscara de telefone, FAQ e CTAs por serviço
  */
 
 // ==========================================
@@ -21,7 +22,7 @@ function abrirWhatsApp(mensagem = WHATSAPP_CONFIG.mensagemPadrao) {
 // 2. INICIALIZAÇÃO DE EVENTOS
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
-    // 2.1 Botões de WhatsApp (Hero e Header)
+    // 2.1 Botões de WhatsApp Principais (Hero e Header)
     const btnOrcamento = document.getElementById('btn-orcamento');
     const btnWppNav = document.getElementById('btn-wpp-nav');
 
@@ -33,7 +34,25 @@ document.addEventListener('DOMContentLoaded', () => {
         btnWppNav.addEventListener('click', () => abrirWhatsApp());
     }
 
-    // 2.2 Menu Hambúrguer Mobile
+    // 2.2 Botão Flutuante de WhatsApp (CRO)
+    const btnWppFlutuante = document.getElementById('btn-wpp-flutuante');
+    if (btnWppFlutuante) {
+        btnWppFlutuante.addEventListener('click', (e) => {
+            e.preventDefault();
+            abrirWhatsApp('Olá! Vim pelo site da RMTI e gostaria de tirar uma dúvida sobre seus serviços.');
+        });
+    }
+
+    // 2.3 Botões de CTA nos Cards de Serviços (Mensagem Segmentada)
+    const btnsCardCta = document.querySelectorAll('.btn-card-cta');
+    btnsCardCta.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const servico = btn.getAttribute('data-servico') || 'Serviços Digitais';
+            abrirWhatsApp(`Olá! Vim pelo site da RMTI e gostaria de solicitar um orçamento para ${servico}.`);
+        });
+    });
+
+    // 2.4 Menu Hambúrguer Mobile
     const btnMenuToggle = document.getElementById('btn-menu-toggle');
     const menuLinks = document.getElementById('menu-links');
 
@@ -64,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 2.3 Máscara de Telefone / WhatsApp no Formulário
+    // 2.5 Máscara de Telefone / WhatsApp no Formulário
     const campoTelefone = document.getElementById('campo-telefone');
     if (campoTelefone) {
         campoTelefone.addEventListener('input', (e) => {
@@ -85,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 2.4 Ano Dinâmico no Rodapé
+    // 2.6 Ano Dinâmico no Rodapé
     const elementoAno = document.getElementById('ano-atual');
     if (elementoAno) {
         elementoAno.textContent = new Date().getFullYear();
