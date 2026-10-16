@@ -222,11 +222,16 @@
                 </div>
             </section>
 
-            <!-- Banner Promocional -->
+            <!-- Banner Promocional Responsivo -->
             <section class="container-banner" aria-label="Destaque de Soluções">
                 <div class="banner-wrapper">
                     <picture>
-                        <source srcset="assets/imagens/bannerNovo.webp" type="image/webp">
+                        <!-- Versão Mobile (telas até 768px): formato vertical 1024x1536 otimizado -->
+                        <source media="(max-width: 768px)" srcset="assets/imagens/bannerNovoMobile.webp" type="image/webp" width="1024" height="1536">
+                        <source media="(max-width: 768px)" srcset="assets/imagens/bannerNovoMobile.png" type="image/png" width="1024" height="1536">
+
+                        <!-- Versão Desktop e Tablets largos: formato horizontal 1672x940 -->
+                        <source media="(min-width: 769px)" srcset="assets/imagens/bannerNovo.webp" type="image/webp" width="1672" height="940">
                         <img class="banner" alt="Vantagens de ter um site, landing page, app ou sistema de gestão RMTI" 
                             src="assets/imagens/bannerNovo.png"
                             loading="lazy"
