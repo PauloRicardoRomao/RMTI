@@ -43,7 +43,8 @@ export default function RootLayout({
       <head>
         <link rel="icon" href={initialConfig.identity.faviconUrl || '/assets/imagens/icone-32.png'} sizes="32x32" />
         <link rel="apple-touch-icon" href="/assets/imagens/icone-192.png" />
-
+      </head>
+      <body className="antialiased selection:bg-orange-500/30">
         {/* Microsoft Clarity Tracking */}
         {clarityId && (
           <Script
@@ -81,8 +82,7 @@ export default function RootLayout({
             />
           </>
         )}
-      </head>
-      <body className="antialiased selection:bg-orange-500/30">
+
         <ConfigProvider initialConfig={initialConfig}>
           {children}
         </ConfigProvider>

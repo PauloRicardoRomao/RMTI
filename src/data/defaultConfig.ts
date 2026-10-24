@@ -286,7 +286,7 @@ export const defaultAppConfig: AppConfig = {
     emailjsTemplateId: 'template_g7hu216',
   },
   integrations: {
-    clarityProjectId: '',
+    clarityProjectId: 'z2k6o01z4o',
     googleAdsId: '',
     googleAdsConversionLabel: '',
     googleAnalyticsId: '',
