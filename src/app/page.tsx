@@ -834,7 +834,7 @@ export default function HomePage() {
                   <input
                     id="phone"
                     type="tel"
-                    placeholder="Ex: (81) 99862-7852"
+                    placeholder="Ex: (14) 99862-7852"
                     value={formState.phone}
                     onChange={(e) => setFormState({ ...formState, phone: e.target.value })}
                     className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 outline-none text-slate-900 text-sm transition-all"

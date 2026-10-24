@@ -1830,7 +1830,7 @@ export default function AdminPage() {
                   </label>
                   <input
                     type="text"
-                    placeholder="Ex: 55814998627852"
+                    placeholder="Ex: 5514998627852"
                     value={tempContact.whatsappNumber}
                     onChange={(e) =>
                       setTempContact({ ...tempContact, whatsappNumber: e.target.value })

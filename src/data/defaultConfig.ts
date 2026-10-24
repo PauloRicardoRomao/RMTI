@@ -305,7 +305,7 @@ export const defaultAppConfig: AppConfig = {
   contact: {
     sectionTitle: 'Pronto para Começar?',
     sectionSubtitle: 'Me envie uma mensagem e vamos construir sua solução digital juntos. Resposta rápida e orçamento sem compromisso!',
-    whatsappNumber: '55814998627852',
+    whatsappNumber: '5514998627852',
     whatsappDefaultMessage: 'Olá! Vim pelo site da RMTI e gostaria de solicitar um orçamento para o meu projeto.',
     floatingWhatsappActive: true,
     floatingWhatsappTooltip: 'Falar no WhatsApp',
