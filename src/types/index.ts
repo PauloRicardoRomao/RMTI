@@ -104,6 +104,13 @@ export interface ContactMessage {
   status: 'unread' | 'read' | 'replied';
 }
 
+export interface IntegrationsConfig {
+  clarityProjectId?: string;
+  googleAdsId?: string;
+  googleAdsConversionLabel?: string;
+  googleAnalyticsId?: string;
+}
+
 export interface AppConfig {
   adminPin?: string;
   adminPasswordHash?: string;
@@ -116,4 +123,5 @@ export interface AppConfig {
   banner: BannerConfig;
   faqs: FaqItem[];
   contact: ContactConfig;
+  integrations?: IntegrationsConfig;
 }

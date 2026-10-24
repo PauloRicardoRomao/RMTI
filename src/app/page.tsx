@@ -54,6 +54,18 @@ export default function HomePage() {
     return `https://wa.me/${phone}?text=${text}`;
   };
 
+  const trackWhatsAppClick = () => {
+    if (typeof window !== 'undefined' && (window as any).gtag && config.integrations?.googleAdsId) {
+      const adsId = config.integrations.googleAdsId;
+      const label = config.integrations.googleAdsConversionLabel;
+      (window as any).gtag('event', 'conversion', {
+        send_to: label ? `${adsId}/${label}` : adsId,
+        event_category: 'engagement',
+        event_label: 'whatsapp_click',
+      });
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -116,6 +128,21 @@ export default function HomePage() {
       }
 
       if (res.ok) {
+        // Disparo de Conversão Google Ads
+        if (typeof window !== 'undefined' && (window as any).gtag && config.integrations?.googleAdsId) {
+          try {
+            const adsId = config.integrations.googleAdsId;
+            const label = config.integrations.googleAdsConversionLabel;
+            (window as any).gtag('event', 'conversion', {
+              send_to: label ? `${adsId}/${label}` : adsId,
+              event_category: 'lead',
+              event_label: 'contact_form_submission',
+            });
+          } catch (adsErr) {
+            console.warn('Falha ao registrar conversão Google Ads:', adsErr);
+          }
+        }
+
         setModalFeedback({
           show: true,
           type: 'success',
@@ -216,6 +243,7 @@ export default function HomePage() {
               href={getWhatsAppUrl()}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={trackWhatsAppClick}
               className="theme-btn-primary px-5 py-2.5 rounded-full text-sm font-bold flex items-center gap-2 cursor-pointer"
             >
               <Phone className="w-4 h-4" />
@@ -300,7 +328,10 @@ export default function HomePage() {
                 href={getWhatsAppUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={() => {
+                  trackWhatsAppClick();
+                  setMobileMenuOpen(false);
+                }}
                 className="theme-btn-primary w-full py-3 rounded-full text-center font-bold flex items-center justify-center gap-2"
               >
                 <Phone className="w-4 h-4" />
@@ -340,6 +371,7 @@ export default function HomePage() {
                   href={getWhatsAppUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={trackWhatsAppClick}
                   className="theme-btn-primary w-full sm:w-auto px-8 py-4 rounded-full text-base sm:text-lg flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <Phone className="w-5 h-5" />
@@ -421,6 +453,7 @@ export default function HomePage() {
                     href={getWhatsAppUrl(service.whatsappMessage || `Olá! Gostaria de um orçamento para ${service.title}.`)}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={trackWhatsAppClick}
                     className="mt-auto w-full py-3 px-4 rounded-xl font-bold text-sm bg-slate-50 hover:bg-gradient-to-r hover:from-amber-400 hover:to-orange-500 hover:text-slate-950 text-slate-800 border border-slate-200 hover:border-transparent flex items-center justify-center gap-2 transition-all shadow-sm"
                   >
                     <span>{service.ctaText || 'Solicitar Orçamento →'}</span>
@@ -727,6 +760,7 @@ export default function HomePage() {
           href={getWhatsAppUrl()}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={trackWhatsAppClick}
           title={config.contact.floatingWhatsappTooltip}
           className="fixed bottom-6 right-6 z-50 bg-[#25d366] hover:bg-[#20bd5a] text-white flex items-center gap-2.5 px-5 py-3 rounded-full shadow-2xl animate-pulse-wpp transition-all duration-300 hover:scale-105"
         >

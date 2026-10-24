@@ -99,6 +99,14 @@ export default function AdminPage() {
   const [tempHero, setTempHero] = useState(config.hero);
   const [tempBanner, setTempBanner] = useState(config.banner);
   const [tempContact, setTempContact] = useState(config.contact);
+  const [tempIntegrations, setTempIntegrations] = useState(
+    config.integrations || {
+      clarityProjectId: '',
+      googleAdsId: '',
+      googleAdsConversionLabel: '',
+      googleAnalyticsId: '',
+    }
+  );
 
   // Modals for CRUD
   const [editingService, setEditingService] = useState<ServiceItem | null>(null);
@@ -138,6 +146,14 @@ export default function AdminPage() {
     setTempHero(config.hero);
     setTempBanner(config.banner);
     setTempContact(config.contact);
+    setTempIntegrations(
+      config.integrations || {
+        clarityProjectId: '',
+        googleAdsId: '',
+        googleAdsConversionLabel: '',
+        googleAnalyticsId: '',
+      }
+    );
   }, [config]);
 
   // Fetch messages
@@ -1918,15 +1934,117 @@ export default function AdminPage() {
                 </div>
               </div>
 
+              {/* Integrações: Microsoft Clarity & Google Ads / Analytics */}
+              <div className="flex flex-col gap-4 pt-6 border-t border-slate-800">
+                <div>
+                  <h3 className="font-bold text-sm text-white flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-amber-400" />
+                    <span>Rastreamento & Anúncios (Microsoft Clarity, Google Ads, GA4)</span>
+                  </h3>
+                  <p className="text-xs text-slate-400">
+                    Insira os IDs fornecidos pelo Clarity e Google Ads para rastrear gravações de tela, mapas de calor e conversões automáticas em cliques de WhatsApp e envios de formulário.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[11px] font-bold text-slate-400 uppercase">
+                      Microsoft Clarity (Project ID)
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Ex: px9z1abcde"
+                      value={tempIntegrations.clarityProjectId || ''}
+                      onChange={(e) =>
+                        setTempIntegrations({
+                          ...tempIntegrations,
+                          clarityProjectId: e.target.value.trim(),
+                        })
+                      }
+                      className="px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-xs text-white focus:outline-none focus:border-orange-500 font-mono"
+                    />
+                    <span className="text-[10px] text-slate-500">
+                      Encontrado em <em>Settings &gt; Overview</em> no Microsoft Clarity.
+                    </span>
+                  </div>
+
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[11px] font-bold text-slate-400 uppercase">
+                      Google Ads (Tag ID / AW-ID)
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Ex: AW-1234567890"
+                      value={tempIntegrations.googleAdsId || ''}
+                      onChange={(e) =>
+                        setTempIntegrations({
+                          ...tempIntegrations,
+                          googleAdsId: e.target.value.trim(),
+                        })
+                      }
+                      className="px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-xs text-white focus:outline-none focus:border-orange-500 font-mono"
+                    />
+                    <span className="text-[10px] text-slate-500">
+                      Sua tag global do Google Ads (começa com AW-).
+                    </span>
+                  </div>
+
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[11px] font-bold text-slate-400 uppercase">
+                      Rótulo de Conversão do Google Ads (Opcional)
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Ex: aBcDeF_GhIjKlMn"
+                      value={tempIntegrations.googleAdsConversionLabel || ''}
+                      onChange={(e) =>
+                        setTempIntegrations({
+                          ...tempIntegrations,
+                          googleAdsConversionLabel: e.target.value.trim(),
+                        })
+                      }
+                      className="px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-xs text-white focus:outline-none focus:border-orange-500 font-mono"
+                    />
+                    <span className="text-[10px] text-slate-500">
+                      Dispara evento de conversão nos cliques de WhatsApp e envio de formulário.
+                    </span>
+                  </div>
+
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[11px] font-bold text-slate-400 uppercase">
+                      Google Analytics 4 - GA4 (Opcional)
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Ex: G-XXXXXXXXXX"
+                      value={tempIntegrations.googleAnalyticsId || ''}
+                      onChange={(e) =>
+                        setTempIntegrations({
+                          ...tempIntegrations,
+                          googleAnalyticsId: e.target.value.trim(),
+                        })
+                      }
+                      className="px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-xs text-white focus:outline-none focus:border-orange-500 font-mono"
+                    />
+                    <span className="text-[10px] text-slate-500">
+                      ID de medição do GA4 para tráfego e visualizações de página.
+                    </span>
+                  </div>
+                </div>
+              </div>
+
               <button
                 onClick={async () => {
-                  const ok = await updateConfig({ contact: tempContact });
-                  if (ok) showToast('Canais de contato salvos!');
+                  const ok = await updateConfig({
+                    contact: tempContact,
+                    integrations: tempIntegrations,
+                  });
+                  if (ok) showToast('Canais de contato e rastreamento salvos!');
                 }}
                 className="mt-4 px-6 py-3.5 bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-300 hover:to-orange-400 text-slate-950 font-bold rounded-xl text-sm flex items-center justify-center gap-2 self-start cursor-pointer"
               >
                 <Save className="w-4 h-4" />
-                <span>Salvar Configurações de Contato</span>
+                <span>Salvar Configurações &amp; Rastreamento</span>
               </button>
             </div>
           </div>

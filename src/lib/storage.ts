@@ -88,3 +88,4 @@ export function writeStorageFile(fileName: string, content: string): boolean {
     }
   }
 }
+

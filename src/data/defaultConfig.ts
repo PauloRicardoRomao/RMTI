@@ -285,5 +285,11 @@ export const defaultAppConfig: AppConfig = {
     emailjsServiceId: 'service_42c8knx',
     emailjsTemplateId: 'template_g7hu216',
   },
+  integrations: {
+    clarityProjectId: '',
+    googleAdsId: '',
+    googleAdsConversionLabel: '',
+    googleAnalyticsId: '',
+  },
 };
 
