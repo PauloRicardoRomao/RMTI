@@ -17,11 +17,13 @@ import {
   HelpCircle,
   ChevronRight,
   ExternalLink,
+  Sparkles,
 } from 'lucide-react';
 
 export default function HomePage() {
   const { config } = useConfig();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeCaseImage, setActiveCaseImage] = useState('/assets/cases/slide-01-capa.jpg');
 
   // Contact form state
   const [formState, setFormState] = useState({
@@ -234,6 +236,13 @@ export default function HomePage() {
               Serviços
             </a>
             <a
+              href="#cases"
+              className="text-slate-700 hover:text-orange-500 font-semibold text-sm transition-colors flex items-center gap-1"
+            >
+              <span>Cases</span>
+              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-amber-400 text-slate-950">Novo</span>
+            </a>
+            <a
               href="#processo"
               className="text-slate-700 hover:text-orange-500 font-semibold text-sm transition-colors"
             >
@@ -271,24 +280,10 @@ export default function HomePage() {
               <Phone className="w-4 h-4" />
               <span>WhatsApp</span>
             </a>
-            <Link
-              href="/admin"
-              title="Acessar Painel de Controle"
-              className="p-2.5 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-full transition-colors"
-            >
-              <Shield className="w-4 h-4" />
-            </Link>
           </div>
 
           {/* Toggle Mobile */}
           <div className="flex md:hidden items-center gap-2">
-            <Link
-              href="/admin"
-              title="Painel Admin"
-              className="p-2 text-slate-500 hover:text-slate-900"
-            >
-              <Shield className="w-5 h-5" />
-            </Link>
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -316,6 +311,14 @@ export default function HomePage() {
               className="text-slate-800 font-bold text-base hover:text-orange-500"
             >
               Serviços
+            </a>
+            <a
+              href="#cases"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-slate-800 font-bold text-base hover:text-orange-500 flex items-center justify-between"
+            >
+              <span>Cases &amp; Clientes</span>
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-400 text-slate-950">Novo</span>
             </a>
             <a
               href="#processo"
@@ -484,6 +487,173 @@ export default function HomePage() {
               ))}
           </div>
         </section>
+
+        {/* 3.1 CASES DE SUCESSO & CLIENTES */}
+        {config.cases && config.cases.filter((c) => c.active).length > 0 && (
+          <section id="cases" className="flex flex-col gap-10 scroll-mt-24">
+            <div className="text-center flex flex-col items-center gap-3">
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-400 text-xs font-bold uppercase tracking-wider">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>Cases de Sucesso &amp; Clientes RMTI</span>
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
+                Projetos Reais Entregues com Alta Performance
+              </h2>
+              <p className="text-slate-400 text-base sm:text-lg max-w-2xl">
+                Veja na prática como transformamos a presença digital de nossos clientes em máquinas de autoridade e conversão.
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-8">
+              {config.cases
+                .filter((c) => c.active)
+                .sort((a, b) => a.order - b.order)
+                .map((caseItem) => (
+                  <div
+                    key={caseItem.id}
+                    className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
+                  >
+                    {/* Ambient Glow */}
+                    <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-amber-500/10 to-orange-500/0 rounded-full blur-3xl pointer-events-none" />
+
+                    {/* Coluna Esquerda: Preview Visual & Galeria */}
+                    <div className="lg:col-span-5 flex flex-col gap-4">
+                      <div className="relative rounded-2xl overflow-hidden border border-slate-700/80 bg-slate-950 aspect-square sm:aspect-[4/3] group shadow-inner">
+                        <img
+                          src={activeCaseImage || caseItem.imageUrl}
+                          alt={caseItem.title}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                        <div className="absolute top-3 left-3 bg-slate-950/85 backdrop-blur-md border border-white/10 px-3 py-1 rounded-full text-[11px] font-bold text-emerald-400 flex items-center gap-1.5 shadow-md">
+                          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                          <span>Projeto 100% no Ar</span>
+                        </div>
+                        {caseItem.liveUrl && (
+                          <a
+                            href={caseItem.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="absolute bottom-3 right-3 bg-white/95 hover:bg-white text-slate-950 px-3.5 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 shadow-lg transition-transform hover:scale-105"
+                          >
+                            <span>Ver Projeto ao Vivo</span>
+                            <ExternalLink className="w-3.5 h-3.5" />
+                          </a>
+                        )}
+                      </div>
+
+                      {/* Miniaturas da Galeria do Case */}
+                      {caseItem.gallery && caseItem.gallery.length > 1 && (
+                        <div className="flex items-center gap-2">
+                          {caseItem.gallery.map((thumb, tIdx) => (
+                            <button
+                              key={tIdx}
+                              type="button"
+                              onClick={() => setActiveCaseImage(thumb)}
+                              className={`w-16 h-16 rounded-xl overflow-hidden border-2 transition-all cursor-pointer ${
+                                (activeCaseImage || caseItem.imageUrl) === thumb
+                                  ? 'border-amber-400 scale-105 shadow-md'
+                                  : 'border-slate-800 opacity-60 hover:opacity-100'
+                              }`}
+                            >
+                              <img
+                                src={thumb}
+                                alt={`Miniatura ${tIdx + 1}`}
+                                className="w-full h-full object-cover"
+                              />
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Coluna Direita: Informações, Métricas & Depoimento */}
+                    <div className="lg:col-span-7 flex flex-col gap-5 text-left">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-orange-500/20 text-orange-400 border border-orange-500/30">
+                          {caseItem.segment}
+                        </span>
+                        <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                          {caseItem.resultBadge}
+                        </span>
+                      </div>
+
+                      <div>
+                        <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                          {caseItem.title}
+                        </h3>
+                        <p className="text-amber-400 font-bold text-sm mt-1">
+                          Cliente: {caseItem.clientName} ({caseItem.clientRole})
+                        </p>
+                      </div>
+
+                      <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+                        {caseItem.description}
+                      </p>
+
+                      {/* Entregáveis & Benefícios Conquistados */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2 border-t border-slate-800">
+                        {caseItem.results.map((res, rIdx) => (
+                          <div key={rIdx} className="flex items-start gap-2 text-xs sm:text-sm text-slate-300">
+                            <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                            <span>{res}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Depoimento do Cliente */}
+                      {caseItem.quote && (
+                        <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 text-slate-300 italic text-xs sm:text-sm relative">
+                          <p>&ldquo;{caseItem.quote}&rdquo;</p>
+                          <span className="not-italic font-bold text-[11px] text-amber-400 block mt-2">
+                            — {caseItem.clientName}
+                          </span>
+                        </div>
+                      )}
+
+                      {/* Ações e Links */}
+                      <div className="flex flex-wrap items-center gap-3 pt-3">
+                        {caseItem.liveUrl && (
+                          <a
+                            href={caseItem.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="theme-btn-primary px-6 py-3 rounded-xl text-sm font-bold flex items-center gap-2 cursor-pointer shadow-lg hover:shadow-orange-500/30"
+                          >
+                            <span>Visitar Site do Treinador Renan</span>
+                            <ExternalLink className="w-4 h-4" />
+                          </a>
+                        )}
+
+                        <a
+                          href={getWhatsAppUrl(`Olá! Vi o case de sucesso do ${caseItem.clientName} no site da RMTI e gostaria de um projeto semelhante para o meu negócio.`)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={trackWhatsAppClick}
+                          className="px-6 py-3 rounded-xl text-sm font-bold bg-white/10 hover:bg-white/20 text-white border border-white/10 flex items-center gap-2 transition-colors cursor-pointer"
+                        >
+                          <Phone className="w-4 h-4" />
+                          <span>Quero um Projeto como Este</span>
+                        </a>
+
+                        {caseItem.githubUrl && (
+                          <a
+                            href={caseItem.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="p-3 rounded-xl text-xs font-semibold text-slate-400 hover:text-white bg-slate-800/80 hover:bg-slate-800 border border-slate-700/80 flex items-center gap-1.5 transition-colors"
+                            title="Ver repositório no GitHub"
+                          >
+                            <span>Código no GitHub</span>
+                            <ExternalLink className="w-3 h-3" />
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+            </div>
+          </section>
+        )}
 
         {/* 4. COMO FUNCIONA (PROCESSO) */}
         <section id="processo" className="flex flex-col gap-12 scroll-mt-24">
@@ -760,14 +930,11 @@ export default function HomePage() {
           <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-slate-400">
             <a href="#inicio" className="hover:text-white transition-colors">Início</a>
             <a href="#servicos" className="hover:text-white transition-colors">Serviços</a>
+            <a href="#cases" className="hover:text-white transition-colors">Cases &amp; Clientes</a>
             <a href="#processo" className="hover:text-white transition-colors">Como Funciona</a>
             <a href="#diferenciais" className="hover:text-white transition-colors">Diferenciais</a>
             <a href="#faq" className="hover:text-white transition-colors">FAQ</a>
             <a href="#contato" className="hover:text-white transition-colors">Contato</a>
-            <Link href="/admin" className="text-amber-400 hover:text-amber-300 font-semibold flex items-center gap-1">
-              <Shield className="w-3.5 h-3.5" />
-              <span>Área Admin</span>
-            </Link>
           </div>
 
           <p className="text-slate-500 text-xs pt-4 border-t border-white/5 w-full">

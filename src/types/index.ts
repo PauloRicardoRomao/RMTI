@@ -112,6 +112,25 @@ export interface IntegrationsConfig {
   metaPixelId?: string;
 }
 
+export interface ClientCaseItem {
+  id: string;
+  clientName: string;
+  clientRole: string;
+  segment: string;
+  title: string;
+  description: string;
+  resultBadge: string;
+  results: string[];
+  quote?: string;
+  imageUrl: string;
+  gallery?: string[];
+  liveUrl: string;
+  githubUrl?: string;
+  tags: string[];
+  active: boolean;
+  order: number;
+}
+
 export interface AppConfig {
   adminPin?: string;
   adminPasswordHash?: string;
@@ -119,6 +138,7 @@ export interface AppConfig {
   identity: IdentityConfig;
   hero: HeroConfig;
   services: ServiceItem[];
+  cases?: ClientCaseItem[];
   process: ProcessStep[];
   differentials: DifferentialItem[];
   banner: BannerConfig;

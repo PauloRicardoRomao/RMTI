@@ -75,6 +75,35 @@
       "order": 3
     }
   ],
+  "cases": [
+    {
+      "id": "case-renan",
+      "clientName": "Prof. Renan Guilherme",
+      "clientRole": "CREF 185468-G/SP • Consultoria Fitness & Biomecânica",
+      "segment": "Educação Física & Consultoria Online",
+      "title": "Funil de Alta Autoridade Biomecânica & Captação VIP",
+      "description": "Estrutura completa desenvolvida para transformar a captação da consultoria do Prof. Renan. Substituiu o Linktree básico por uma página rápida em Next.js com validação científica, player biomecânico em HD e Painel CMS autônomo.",
+      "resultBadge": "Planos de até R$ 780 • Carregamento em 0.4s",
+      "results": [
+        "Landing Page em Next.js 16 carregando em 0.4s com máxima pontuação de desempenho",
+        "Painel Admin exclusivo (/admin) para o cliente atualizar preços, fotos e vagas sem programador",
+        "Vídeos de execuções biomecânicas em alta definição e lightbox de transformações corporais",
+        "Rastreamento integrado com Meta Pixel e conversão automática nos cliques de WhatsApp"
+      ],
+      "quote": "Antes eu perdia horas no direct com curiosos pedindo desconto. Com a estrutura da RMTI, o aluno já chega qualificado, entendendo a minha metodologia e pronto para fechar os planos trimestrais e semestrais.",
+      "imageUrl": "/assets/cases/slide-01-capa.jpg",
+      "gallery": [
+        "/assets/cases/slide-01-capa.jpg",
+        "/assets/cases/slide-03-solucao.jpg",
+        "/assets/cases/story-treinador-renan-rmti-case.jpg"
+      ],
+      "liveUrl": "https://lp-treinador-renan.vercel.app",
+      "githubUrl": "https://github.com/PauloRicardoRomao/LP-Treinador-Renan",
+      "tags": ["Next.js 16", "Painel CMS", "Meta Pixel", "Vídeos HD", "Alta Conversão"],
+      "active": true,
+      "order": 1
+    }
+  ],
   "process": [
     {
       "id": "proc-1",
