@@ -105,6 +105,7 @@ export default function AdminPage() {
       googleAdsId: '',
       googleAdsConversionLabel: '',
       googleAnalyticsId: '',
+      metaPixelId: '',
     }
   );
 
@@ -152,6 +153,7 @@ export default function AdminPage() {
         googleAdsId: '',
         googleAdsConversionLabel: '',
         googleAnalyticsId: '',
+        metaPixelId: '',
       }
     );
   }, [config]);
@@ -1934,19 +1936,40 @@ export default function AdminPage() {
                 </div>
               </div>
 
-              {/* Integrações: Microsoft Clarity & Google Ads / Analytics */}
+              {/* Integrações: Microsoft Clarity, Google Ads & Meta Pixel */}
               <div className="flex flex-col gap-4 pt-6 border-t border-slate-800">
                 <div>
                   <h3 className="font-bold text-sm text-white flex items-center gap-2">
                     <Sparkles className="w-4 h-4 text-amber-400" />
-                    <span>Rastreamento & Anúncios (Microsoft Clarity, Google Ads, GA4)</span>
+                    <span>Rastreamento & Anúncios (Clarity, Google Ads, GA4, Meta Ads)</span>
                   </h3>
                   <p className="text-xs text-slate-400">
-                    Insira os IDs fornecidos pelo Clarity e Google Ads para rastrear gravações de tela, mapas de calor e conversões automáticas em cliques de WhatsApp e envios de formulário.
+                    Insira os IDs fornecidos pelo Clarity, Google Ads e Meta Ads (Facebook/Instagram) para rastrear gravações de tela, mapas de calor e conversões automáticas em cliques de WhatsApp e envios de formulário.
                   </p>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[11px] font-bold text-slate-400 uppercase">
+                      Meta Pixel ID (Facebook / Instagram Ads)
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Ex: 2161688604424737"
+                      value={tempIntegrations.metaPixelId || ''}
+                      onChange={(e) =>
+                        setTempIntegrations({
+                          ...tempIntegrations,
+                          metaPixelId: e.target.value.trim(),
+                        })
+                      }
+                      className="px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-xs text-white focus:outline-none focus:border-orange-500 font-mono"
+                    />
+                    <span className="text-[10px] text-slate-500">
+                      ID do Pixel do Meta Events Manager. Rastreia PageView, Contact (WhatsApp) e Lead (Formulário).
+                    </span>
+                  </div>
+
                   <div className="flex flex-col gap-1.5">
                     <label className="text-[11px] font-bold text-slate-400 uppercase">
                       Microsoft Clarity (Project ID)
@@ -1995,7 +2018,7 @@ export default function AdminPage() {
                     </label>
                     <input
                       type="text"
-                      placeholder="Ex: aBcDeF_GhIjKlMn"
+                      placeholder="Ex: 1pCwCJjGoqcdEKTC04RF"
                       value={tempIntegrations.googleAdsConversionLabel || ''}
                       onChange={(e) =>
                         setTempIntegrations({
@@ -2010,7 +2033,7 @@ export default function AdminPage() {
                     </span>
                   </div>
 
-                  <div className="flex flex-col gap-1.5">
+                  <div className="flex flex-col gap-1.5 sm:col-span-2">
                     <label className="text-[11px] font-bold text-slate-400 uppercase">
                       Google Analytics 4 - GA4 (Opcional)
                     </label>

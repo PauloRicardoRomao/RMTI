@@ -109,6 +109,7 @@ export interface IntegrationsConfig {
   googleAdsId?: string;
   googleAdsConversionLabel?: string;
   googleAnalyticsId?: string;
+  metaPixelId?: string;
 }
 
 export interface AppConfig {

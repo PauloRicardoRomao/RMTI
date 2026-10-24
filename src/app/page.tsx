@@ -55,6 +55,7 @@ export default function HomePage() {
   };
 
   const trackWhatsAppClick = () => {
+    // Google Ads
     if (typeof window !== 'undefined' && (window as any).gtag && config.integrations?.googleAdsId) {
       const adsId = config.integrations.googleAdsId;
       const label = config.integrations.googleAdsConversionLabel;
@@ -63,6 +64,15 @@ export default function HomePage() {
         event_category: 'engagement',
         event_label: 'whatsapp_click',
       });
+    }
+
+    // Meta Pixel (Facebook & Instagram Ads - Contact)
+    if (typeof window !== 'undefined' && (window as any).fbq && config.integrations?.metaPixelId) {
+      try {
+        (window as any).fbq('track', 'Contact', { content_name: 'whatsapp_click' });
+      } catch (fbErr) {
+        console.warn('Falha ao registrar Meta Pixel:', fbErr);
+      }
     }
   };
 
@@ -140,6 +150,18 @@ export default function HomePage() {
             });
           } catch (adsErr) {
             console.warn('Falha ao registrar conversão Google Ads:', adsErr);
+          }
+        }
+
+        // Disparo de Conversão Meta Pixel (Lead)
+        if (typeof window !== 'undefined' && (window as any).fbq && config.integrations?.metaPixelId) {
+          try {
+            (window as any).fbq('track', 'Lead', {
+              content_name: 'contact_form_submission',
+              content_category: formState.service,
+            });
+          } catch (fbErr) {
+            console.warn('Falha Meta Pixel:', fbErr);
           }
         }
 

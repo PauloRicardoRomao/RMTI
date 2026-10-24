@@ -288,8 +288,9 @@ export const defaultAppConfig: AppConfig = {
   integrations: {
     clarityProjectId: 'z2k6o01z4o',
     googleAdsId: 'AW-18531803428',
-    googleAdsConversionLabel: '',
+    googleAdsConversionLabel: '1pCwCJjGoqcdEKTC04RF',
     googleAnalyticsId: '',
+    metaPixelId: '2161688604424737',
   },
 };
 
