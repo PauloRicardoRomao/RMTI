@@ -4,23 +4,28 @@ import { defaultAppConfig } from '@/data/defaultConfig';
 import { AppConfig } from '@/types';
 import { readStorageFile, writeStorageFile } from '@/lib/storage';
 
+const DEFAULT_INITIAL_PASS = '123456';
+const DEFAULT_INITIAL_HASH = crypto.createHash('sha256').update(DEFAULT_INITIAL_PASS).digest('hex');
+
 function hashPassword(password: string): string {
   return crypto.createHash('sha256').update(password).digest('hex');
 }
 
-function getStoredHash(): string {
+function getStoredConfig(): AppConfig {
   try {
     const raw = readStorageFile('config.json');
     if (raw) {
-      const parsed = JSON.parse(raw) as AppConfig;
-      if (parsed.adminPasswordHash) {
-        return parsed.adminPasswordHash;
-      }
+      return JSON.parse(raw) as AppConfig;
     }
   } catch (err) {
-    console.error('Error reading stored hash:', err);
+    console.error('Error reading stored config:', err);
   }
-  return defaultAppConfig.adminPasswordHash || hashPassword('182210RmtI');
+  return defaultAppConfig;
+}
+
+function getStoredHash(): string {
+  const config = getStoredConfig();
+  return config.adminPasswordHash || DEFAULT_INITIAL_HASH;
 }
 
 function verifyPassword(password: string): boolean {
@@ -61,21 +66,39 @@ export async function POST(request: Request) {
         );
       }
 
+      const config = getStoredConfig();
+      // Check if this is the first access (initial password 123456 or mustChangePassword flag)
+      const isFirstAccess = Boolean(
+        password === DEFAULT_INITIAL_PASS ||
+        config.mustChangePassword === true ||
+        config.adminPasswordHash === DEFAULT_INITIAL_HASH
+      );
+
       // Generate a session token
       const sessionToken = crypto.randomBytes(32).toString('hex');
       return NextResponse.json({
         success: true,
         token: sessionToken,
-        message: 'Autenticado com sucesso.',
+        mustChangePassword: isFirstAccess,
+        message: isFirstAccess
+          ? 'Primeiro acesso detectado. Por favor, cadastre sua nova senha pessoal.'
+          : 'Autenticado com sucesso.',
       });
     }
 
-    if (action === 'change-password') {
+    if (action === 'first-access-change' || action === 'change-password') {
       const { currentPassword, newPassword } = body;
 
-      if (!currentPassword || !newPassword) {
+      if (!newPassword || typeof newPassword !== 'string') {
         return NextResponse.json(
-          { success: false, error: 'Preencha a senha atual e a nova senha.' },
+          { success: false, error: 'Informe a nova senha.' },
+          { status: 400 }
+        );
+      }
+
+      if (newPassword === DEFAULT_INITIAL_PASS) {
+        return NextResponse.json(
+          { success: false, error: 'A nova senha não pode ser a senha padrão de 1 a 6. Escolha uma senha segura.' },
           { status: 400 }
         );
       }
@@ -87,35 +110,31 @@ export async function POST(request: Request) {
         );
       }
 
-      const isValid = verifyPassword(currentPassword);
-      if (!isValid) {
-        return NextResponse.json(
-          { success: false, error: 'A senha atual informada está incorreta.' },
-          { status: 401 }
-        );
+      // If change-password from inside the panel or first access with currentPassword check
+      if (currentPassword) {
+        const isValid = verifyPassword(currentPassword);
+        if (!isValid && currentPassword !== DEFAULT_INITIAL_PASS) {
+          return NextResponse.json(
+            { success: false, error: 'A senha atual informada está incorreta.' },
+            { status: 401 }
+          );
+        }
       }
 
       // Hash and update config
       const newHash = hashPassword(newPassword);
-      let currentConfig: AppConfig = defaultAppConfig;
-
-      try {
-        const raw = readStorageFile('config.json');
-        if (raw) {
-          currentConfig = JSON.parse(raw);
-        }
-      } catch {
-        currentConfig = defaultAppConfig;
-      }
+      const currentConfig = getStoredConfig();
 
       currentConfig.adminPasswordHash = newHash;
+      currentConfig.mustChangePassword = false;
       delete (currentConfig as any).adminPin;
 
       writeStorageFile('config.json', JSON.stringify(currentConfig, null, 2));
 
       return NextResponse.json({
         success: true,
-        message: 'Senha alterada e criptografada com sucesso!',
+        mustChangePassword: false,
+        message: 'Senha alterada e protegida com sucesso! Você já pode utilizar o painel.',
       });
     }
 

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black & Gold Mastermind • Mentoria Executiva & High-Ticket VIP</title>
+    <meta name="description" content="O ecossistema exclusivo para empresários e líderes que buscam escala previsível, posicionamento de autoridade máxima e margens de alta lucratividade.">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#d4af37',
+                        goldLight: '#f5e08b',
+                        goldDark: '#997a15',
+                        brandBlack: '#060709',
+                        brandDarkCard: '#0d1017',
+                    },
+                    boxShadow: {
+                        'glow-gold': '0 0 35px -5px rgba(212, 175, 55, 0.35)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #060709;
+            color: #f1f5f9;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            overflow-x: hidden;
+        }
+        .glass-gold {
+            background: linear-gradient(135deg, rgba(20, 24, 33, 0.85) 0%, rgba(13, 16, 23, 0.9) 100%);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+        }
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #f5e08b 0%, #d4af37 50%, #aa8412 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="selection:bg-amber-500 selection:text-black">
+
+    <!-- BARRA OFICIAL DEMONSTRAÇÃO RMTI COM PAINEL ADMIN INCLUSO -->
+    <div style="background: #090d16; border-bottom: 1px solid #1e293b; padding: 10px 16px; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; color: #e2e8f0; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; position: sticky; top: 0; z-index: 99999; box-shadow: 0 4px 12px rgba(0,0,0,0.5);">
+        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <span style="background: #10b981; color: #022c22; font-weight: 900; font-size: 10px; padding: 2px 8px; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.05em;">Modelo Pronto</span>
+            <span>🔥 <strong>Painel CMS Dinâmico Incluso</strong>: este modelo já vem com o painel do cliente para trocar textos, valores e WhatsApp sem código.</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <a href="/demo-painel?modelo=07-luxury-mastermind-vip" target="_blank" style="color: #38bdf8; text-decoration: none; font-weight: 700; background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.4); padding: 5px 12px; border-radius: 8px; font-size: 11px; display: inline-flex; align-items: center; gap: 4px;">⚙️ Ver Painel CMS deste Modelo</a>
+            <a href="/checkout?plano=pro" style="color: #022c22; text-decoration: none; font-weight: 800; background: linear-gradient(90deg, #10b981, #14b8a6); padding: 5px 14px; border-radius: 8px; font-size: 11px; display: inline-flex; align-items: center; gap: 4px;">Comprar Modelo</a>
+            <a href="/" style="color: #94a3b8; text-decoration: none; font-size: 11px; padding: 5px 8px;">✕ Voltar</a>
+        </div>
+    </div>
+
+
+    <!-- Barra de Exclusividade -->
+    <div class="bg-gradient-to-r from-[#1a1505] via-[#4d3d0b] to-[#1a1505] text-amber-200 py-2.5 px-4 text-center text-xs sm:text-sm font-bold tracking-wider uppercase border-b border-amber-500/30">
+        👑 VAGAS RESTRITAS POR APLICAÇÃO • APENAS 4 ASSENTOS DISPONÍVEIS NESTE TRIMESTRE
+    </div>
+
+    <!-- Header / Navbar -->
+    <nav class="sticky top-0 z-40 bg-[#060709]/90 backdrop-blur-xl border-b border-white/10 px-4 sm:px-8 py-4">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-amber-700 flex items-center justify-center font-black text-black text-lg shadow-glow-gold">
+                    VIP
+                </div>
+                <div>
+                    <span class="font-extrabold text-white tracking-wider text-sm sm:text-base block">BLACK & GOLD MASTERMIND</span>
+                    <span class="text-[11px] text-amber-400 font-mono">Conselho Executivo de Alta Performance</span>
+                </div>
+            </div>
+
+            <div class="hidden md:flex items-center gap-6 text-xs font-semibold text-gray-300">
+                <a href="#pilares" class="hover:text-amber-400 transition-colors">Pilares</a>
+                <a href="#ecossistema" class="hover:text-amber-400 transition-colors">O Ecossistema</a>
+                <a href="#investimento" class="hover:text-amber-400 transition-colors">Aplicação VIP</a>
+            </div>
+
+            <a href="#aplicacao" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-extrabold text-xs sm:text-sm shadow-glow-gold transition-all">
+                Aplicar Para Vaga
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="pt-16 pb-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto text-center space-y-8">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-bold uppercase tracking-widest">
+            ✨ Processo Seletivo de Membros • Nível Conselheiro
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.15] max-w-4xl mx-auto">
+            Escale Seu Negócio Para Os <span class="gold-gradient-text">Múltiplos 7 Dígitos</span> Sem Perder Sua Liberdade e Saúde.
+        </h1>
+
+        <p class="text-base sm:text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            Um ambiente blindado com os maiores operadores e estrategistas do mercado. Acesso direto a reuniões trimestrais presenciais, auditoria operacional 1 a 1 e funis de alta lucratividade.
+        </p>
+
+        <!-- 3D Luxury Mockup Centerpiece -->
+        <div class="pt-6 max-w-5xl mx-auto">
+            <div class="glass-gold rounded-3xl p-3 sm:p-5 shadow-glow-gold border border-amber-500/30 overflow-hidden">
+                <img src="/rmti/black-gold-vip.jpg" alt="Black & Gold VIP Mastermind Mockup" class="w-full h-auto rounded-2xl object-cover shadow-2xl">
+            </div>
+        </div>
+
+        <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="#aplicacao" class="w-full sm:w-auto px-10 py-5 rounded-2xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 text-black font-black text-base shadow-glow-gold hover:scale-105 active:scale-95 transition-all uppercase tracking-wider">
+                👑 PREENCHER APLICAÇÃO CONFIDENCIAL →
+            </a>
+        </div>
+        <p class="text-xs text-gray-400">Critério de corte: Faturamento mensal comprovado superior a R$ 50.000/mês</p>
+    </header>
+
+    <!-- 3 Pilares -->
+    <section id="pilares" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-white/10">
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+            <span class="text-xs font-bold uppercase tracking-widest text-amber-400 bg-amber-500/10 px-3.5 py-1.5 rounded-full border border-amber-500/30">
+                PILARES DE ACELERAÇÃO
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-black text-white">
+                Como Destravamos o Próximo Nível da Sua Operação
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="glass-gold p-8 rounded-3xl space-y-4">
+                <div class="text-3xl font-black text-amber-400">01</div>
+                <h3 class="text-xl font-bold text-white">Engenharia de Ofertas High-Ticket</h3>
+                <p class="text-sm text-gray-300 leading-relaxed">
+                    Reposicionamento da sua esteira para vender produtos e mentorias entre R$ 5.000 e R$ 25.000 com funis de aplicação qualificados.
+                </p>
+            </div>
+
+            <div class="glass-gold p-8 rounded-3xl space-y-4 border-amber-400/60 shadow-glow-gold">
+                <div class="text-3xl font-black text-amber-400">02</div>
+                <h3 class="text-xl font-bold text-white">Conselho Trimestral Imersivo</h3>
+                <p class="text-sm text-gray-300 leading-relaxed">
+                    Hotseats individuais com mentores renomados para analisar suas planilhas de conversão, CAC, LTV e contratações estratégicas.
+                </p>
+            </div>
+
+            <div class="glass-gold p-8 rounded-3xl space-y-4">
+                <div class="text-3xl font-black text-amber-400">03</div>
+                <h3 class="text-xl font-bold text-white">Tecnologia & Automação RMTI</h3>
+                <p class="text-sm text-gray-300 leading-relaxed">
+                    Sua operação recebe Landing Pages ultra-velozes, painel dinâmico e suporte de infraestrutura técnica de ponta da RMTI.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formulário de Aplicação -->
+    <section id="aplicacao" class="py-20 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto border-t border-white/10">
+        <div class="glass-gold rounded-3xl p-8 sm:p-12 border border-amber-500/40 shadow-glow-gold space-y-6">
+            <div class="text-center space-y-2">
+                <span class="text-xs font-bold text-amber-400 uppercase tracking-widest">Triagem Confidencial</span>
+                <h3 class="text-2xl sm:text-3xl font-black text-white">Aplicação Para o Black & Gold VIP</h3>
+                <p class="text-xs text-gray-300">Nossa equipe entrará em contato em até 24 horas se o seu perfil for aprovado.</p>
+            </div>
+
+            <form class="space-y-4" onsubmit="event.preventDefault(); alert('Aplicação enviada com sucesso! Entraremos em contato via WhatsApp.');">
+                <div>
+                    <label class="block text-xs font-bold uppercase text-gray-300 mb-1">Seu Nome Completo</label>
+                    <input type="text" required placeholder="Ex: Roberto Silva" class="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/15 text-white text-sm focus:border-amber-400 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase text-gray-300 mb-1">Seu WhatsApp (com DDD)</label>
+                    <input type="tel" required placeholder="Ex: (11) 99999-9999" class="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/15 text-white text-sm focus:border-amber-400 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase text-gray-300 mb-1">Faturamento Médio Mensal da Empresa</label>
+                    <select class="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/15 text-white text-sm focus:border-amber-400 focus:outline-none">
+                        <option>R$ 30.000 a R$ 50.000 / mês</option>
+                        <option>R$ 50.000 a R$ 100.000 / mês</option>
+                        <option>R$ 100.000 a R$ 300.000 / mês</option>
+                        <option>Acima de R$ 300.000 / mês</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 text-black font-black text-sm uppercase tracking-wider shadow-glow-gold hover:scale-[1.02] transition-transform">
+                    Enviar Minha Aplicação Confidencial →
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10 px-4 border-t border-white/10 bg-black text-center text-xs text-gray-500 space-y-2">
+        <p class="font-bold text-gray-300">BLACK & GOLD MASTERMIND • POWERED BY RMTI VIP</p>
+        <p>© 2026 Todos os direitos reservados. Modelo oficial vitrine de luxo RMTI.</p>
+    </footer>
+
+</body>
+</html>

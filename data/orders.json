@@ -1,0 +1,23 @@
+[
+  {
+    "id": "ord-1792903784383",
+    "paymentId": "demo-pix-1792903784383",
+    "createdAt": "2026-10-25T04:49:44.385Z",
+    "customerName": "Paulo Ricardo Romão Silva",
+    "customerEmail": "contato.rmti@gmail.com",
+    "customerPhone": "(14) 99862-7852",
+    "customerCpf": "395.358.908-32",
+    "planId": "pro",
+    "planName": "Combo Completo Multi-Nichos + Admin - RMTI",
+    "templateName": "Fitness Pro + Calculadora Interativa",
+    "amount": 197,
+    "paymentMethod": "pix",
+    "status": "pending",
+    "notes": "Pedido em modo demonstração.",
+    "utmSource": "",
+    "utmMedium": "",
+    "utmCampaign": "",
+    "utmContent": "",
+    "utmTerm": ""
+  }
+]

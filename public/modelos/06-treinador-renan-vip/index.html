@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professor Renan Guilherme • Consultoria Fitness VIP & Biomecânica</title>
+    <meta name="description" content="Transforme seu corpo com metodologia baseada em evidências científicas, biomecânica avançada e periodização individualizada sem dores nas articulações.">
+
+    <!-- Open Graph / Meta Compartilhamento -->
+    <meta property="og:title" content="Professor Renan Guilherme • Consultoria VIP">
+    <meta property="og:description" content="Informação baseada em evidências, aplicação prática e segurança máxima no seu treino.">
+    <meta property="og:image" content="/treinador-renan/foto-1.jpg">
+    <meta property="og:type" content="website">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandRed: '#e30224',
+                        brandRedHover: '#ff1738',
+                        brandRedDark: '#8a0015',
+                        brandNavy: '#0b132b',
+                        brandNavyLight: '#1c2541',
+                        brandDark: '#080a0f',
+                        brandDarkCard: '#0f1422',
+                    },
+                    boxShadow: {
+                        'glow-red': '0 0 35px -5px rgba(227, 2, 36, 0.45)',
+                        'glow-red-lg': '0 0 50px -5px rgba(227, 2, 36, 0.7)',
+                        'glow-navy': '0 0 35px -5px rgba(28, 37, 65, 0.6)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #080a0f;
+            color: #f1f5f9;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            overflow-x: hidden;
+        }
+
+        .bg-grid-pattern {
+            background-image: radial-gradient(rgba(227, 2, 36, 0.08) 1px, transparent 1px), radial-gradient(rgba(28, 37, 65, 0.25) 1px, transparent 1px);
+            background-size: 32px 32px;
+            background-position: 0 0, 16px 16px;
+        }
+
+        .glass-card {
+            background: linear-gradient(135deg, rgba(15, 20, 34, 0.85) 0%, rgba(11, 19, 43, 0.7) 100%);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card-red {
+            background: linear-gradient(135deg, rgba(35, 12, 18, 0.85) 0%, rgba(15, 20, 34, 0.85) 100%);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(227, 2, 36, 0.3);
+        }
+
+        .pulse-wpp {
+            animation: pulseWpp 2.2s infinite;
+        }
+
+        @keyframes pulseWpp {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 25px rgba(227, 2, 36, 0.5);
+            }
+            50% {
+                transform: scale(1.03);
+                box-shadow: 0 0 45px rgba(227, 2, 36, 0.85);
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #080a0f;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1c2541;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #e30224;
+        }
+    </style>
+</head>
+<body class="selection:bg-brandRed selection:text-white bg-grid-pattern min-h-screen">
+
+    <!-- BARRA OFICIAL DEMONSTRAÇÃO RMTI COM PAINEL ADMIN INCLUSO -->
+    <div style="background: #090d16; border-bottom: 1px solid #1e293b; padding: 10px 16px; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; color: #e2e8f0; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; position: sticky; top: 0; z-index: 99999; box-shadow: 0 4px 12px rgba(0,0,0,0.5);">
+        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <span style="background: #10b981; color: #022c22; font-weight: 900; font-size: 10px; padding: 2px 8px; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.05em;">Modelo Pronto</span>
+            <span>🔥 <strong>Painel CMS Dinâmico Incluso</strong>: este modelo já vem com o painel do cliente para trocar textos, valores e WhatsApp sem código.</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <a href="/demo-painel?modelo=06-treinador-renan-vip" target="_blank" style="color: #38bdf8; text-decoration: none; font-weight: 700; background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.4); padding: 5px 12px; border-radius: 8px; font-size: 11px; display: inline-flex; align-items: center; gap: 4px;">⚙️ Ver Painel CMS deste Modelo</a>
+            <a href="/checkout?plano=pro" style="color: #022c22; text-decoration: none; font-weight: 800; background: linear-gradient(90deg, #10b981, #14b8a6); padding: 5px 14px; border-radius: 8px; font-size: 11px; display: inline-flex; align-items: center; gap: 4px;">Comprar Modelo</a>
+            <a href="/" style="color: #94a3b8; text-decoration: none; font-size: 11px; padding: 5px 8px;">✕ Voltar</a>
+        </div>
+    </div>
+
+
+    <!-- ========================================================================= -->
+    <!-- [TOPO 1: BARRA DE URGÊNCIA E VAGAS LIMITADAS] -->
+    <!-- ========================================================================= -->
+    <div class="bg-gradient-to-r from-brandRedDark via-brandRed to-brandRedDark text-white py-2.5 px-4 text-center text-xs sm:text-sm font-extrabold tracking-wide uppercase border-b border-red-500/40 shadow-glow-red z-50 relative">
+        <div class="max-w-7xl mx-auto flex items-center justify-center gap-2">
+            <span class="animate-pulse">⚡</span>
+            <span>CONSULTORIA INDIVIDUAL VIP • APENAS <span class="underline decoration-white font-black">5 VAGAS EXCLUSIVAS</span> PARA ESTE MÊS</span>
+            <span class="animate-pulse">⚡</span>
+        </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- [NAVBAR DE PRESTÍGIO] -->
+    <!-- ========================================================================= -->
+    <nav class="sticky top-0 z-40 bg-[#080a0f]/90 backdrop-blur-xl border-b border-white/10 px-4 sm:px-6 lg:px-8 py-3.5">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brandRed to-brandNavy flex items-center justify-center font-black text-white text-lg shadow-glow-red border border-red-500/40">
+                    RG
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-black text-white tracking-tight text-sm sm:text-base block">PROF. RENAN GUILHERME</span>
+                        <span class="text-[10px] text-brandRed font-mono font-bold px-2 py-0.5 rounded bg-brandRed/20 border border-brandRed/30">CREF 185468-G/SP</span>
+                    </div>
+                    <a href="https://instagram.com/treinador_renan" target="_blank" rel="noopener noreferrer" class="text-xs text-gray-400 hover:text-brandRed transition-colors flex items-center gap-1 font-medium">
+                        <svg class="w-3.5 h-3.5 text-brandRed inline" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        @treinador_renan
+                    </a>
+                </div>
+            </div>
+
+            <div class="hidden md:flex items-center gap-6 text-xs font-semibold text-gray-300">
+                <a href="#metodo" class="hover:text-brandRed transition-colors">O Método</a>
+                <a href="#video-demonstracao" class="hover:text-brandRed transition-colors">Execução Biomecânica</a>
+                <a href="#transformacoes" class="hover:text-brandRed transition-colors">Resultados Reais</a>
+                <a href="#planos" class="hover:text-brandRed transition-colors">Planos de Consultoria</a>
+                <a href="#faq" class="hover:text-brandRed transition-colors">Dúvidas</a>
+            </div>
+
+            <div>
+                <a href="https://wa.me/5514997394505?text=Ol%C3%A1%20Prof.%20Renan!%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20saber%20sobre%20a%20Consultoria%20VIP." target="_blank" rel="noopener noreferrer" class="px-4 sm:px-5 py-2.5 rounded-xl bg-gradient-to-r from-brandRed to-brandRedDark hover:from-brandRedHover hover:to-brandRed text-white text-xs sm:text-sm font-bold shadow-glow-red transition-all flex items-center gap-2 cursor-pointer">
+                    <span>Agendar Avaliação</span>
+                    <span>→</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========================================================================= -->
+    <!-- [HERO SECTION ULTRA IMPACTO] -->
+    <!-- ========================================================================= -->
+    <header class="relative pt-12 pb-20 md:pt-20 md:pb-32 overflow-hidden">
+        <!-- Background Glowing Orbs -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brandRed/15 rounded-full blur-[140px] pointer-events-none -z-10"></div>
+        <div class="absolute top-1/2 right-[-100px] w-[450px] h-[450px] bg-brandNavyLight/30 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left: Headline & Core Arguments -->
+                <div class="lg:col-span-7 space-y-6 text-left">
+                    <!-- Badges -->
+                    <div class="flex flex-wrap items-center gap-2">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brandRed/15 border border-brandRed/40 text-brandRed text-xs font-black uppercase tracking-wider">
+                            <span class="w-2 h-2 rounded-full bg-brandRed animate-ping"></span>
+                            Biomecânica Avançada & Hipertrofia
+                        </span>
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brandNavyLight/40 border border-white/10 text-gray-300 text-xs font-semibold">
+                            🏆 Baseado em Evidências Científicas
+                        </span>
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brandDarkCard border border-brandRed/30 text-brandRed text-xs font-mono font-bold">
+                            📋 CREF: 185468-G/SP
+                        </span>
+                    </div>
+
+                    <!-- Main Headline -->
+                    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.1]">
+                        Construa Seu Melhor Shape Com <span class="text-transparent bg-clip-text bg-gradient-to-r from-brandRed via-red-400 to-amber-200">Máxima Hipertrofia</span> e <span class="underline decoration-brandRed">Zero Dores Articulares</span>.
+                    </h1>
+
+                    <!-- Subtitle -->
+                    <p class="text-base sm:text-lg text-gray-300 leading-relaxed max-w-2xl">
+                        Chega de treinos genéricos de gaveta que desgastam seus joelhos, lombar e ombros. Tenha uma periodização <strong>100% individualizada</strong> prescrita pelo Professor Renan Guilherme, unindo ciência, segurança biomecânica e acompanhamento diário no WhatsApp.
+                    </p>
+
+                    <!-- Key Benefits Bullets -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 pb-4">
+                        <div class="flex items-center gap-2.5 text-sm text-gray-200">
+                            <div class="w-6 h-6 rounded-full bg-brandRed/20 text-brandRed flex items-center justify-center font-bold text-xs shrink-0">✓</div>
+                            <span>Correção técnica de agachamentos e cargas</span>
+                        </div>
+                        <div class="flex items-center gap-2.5 text-sm text-gray-200">
+                            <div class="w-6 h-6 rounded-full bg-brandRed/20 text-brandRed flex items-center justify-center font-bold text-xs shrink-0">✓</div>
+                            <span>Preservação de meniscos, patela e coluna</span>
+                        </div>
+                        <div class="flex items-center gap-2.5 text-sm text-gray-200">
+                            <div class="w-6 h-6 rounded-full bg-brandRed/20 text-brandRed flex items-center justify-center font-bold text-xs shrink-0">✓</div>
+                            <span>Vídeos demonstrativos de cada exercício</span>
+                        </div>
+                        <div class="flex items-center gap-2.5 text-sm text-gray-200">
+                            <div class="w-6 h-6 rounded-full bg-brandRed/20 text-brandRed flex items-center justify-center font-bold text-xs shrink-0">✓</div>
+                            <span>Acompanhamento direto e suporte WhatsApp</span>
+                        </div>
+                    </div>
+
+                    <!-- Main CTA -->
+                    <div class="space-y-3 pt-2">
+                        <a href="https://wa.me/5514997394505?text=Ol%C3%A1%20Prof.%20Renan!%20Vim%20pelo%20site%20e%20quero%20aplicar%20para%20a%20Consultoria%20VIP%20de%20Treinos." target="_blank" rel="noopener noreferrer" class="pulse-wpp inline-flex items-center justify-center gap-3 w-full sm:w-auto px-8 sm:px-10 py-5 rounded-2xl text-base sm:text-lg font-black bg-gradient-to-r from-brandRed via-red-600 to-brandRedDark hover:from-brandRedHover hover:to-brandRed text-white shadow-glow-red transition-all uppercase tracking-wide group">
+                            <span>QUERO MINHA CONSULTORIA VIP COM RENAN</span>
+                            <span class="group-hover:translate-x-1.5 transition-transform">→</span>
+                        </a>
+                        <div class="flex items-center gap-4 text-xs text-gray-400">
+                            <span class="flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Resposta direta no WhatsApp
+                            </span>
+                            <span>•</span>
+                            <span>Avaliação física postural inclusa</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Authority Photo & Floating Metrics -->
+                <div class="lg:col-span-5 relative">
+                    <!-- Photo Container with Luxury Frame -->
+                    <div class="relative mx-auto max-w-md rounded-3xl overflow-hidden border-2 border-brandRed/30 shadow-2xl bg-gradient-to-b from-brandNavy to-brandDark group">
+                        <img src="/treinador-renan/foto-1.jpg" alt="Professor Renan Guilherme" class="w-full h-auto object-cover object-center group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brandDark via-transparent to-transparent opacity-80"></div>
+                        
+                        <!-- Overlay Text at Bottom of Photo -->
+                        <div class="absolute bottom-4 left-4 right-4 p-4 rounded-2xl bg-[#080a0f]/85 backdrop-blur-md border border-white/10 space-y-1">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-extrabold text-white text-base">Prof. Renan Guilherme</h3>
+                                <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-brandRed/20 text-brandRed border border-brandRed/30">CREF 185468-G/SP</span>
+                            </div>
+                            <p class="text-xs text-gray-300">Especialista em Biomecânica, Treinamento Resistido & Hipertrofia</p>
+                        </div>
+                    </div>
+
+                    <!-- Floating Badge Top Right -->
+                    <div class="absolute -top-4 -right-2 sm:-right-4 p-3.5 rounded-2xl glass-card border border-brandRed/40 shadow-glow-red text-left max-w-[190px] animate-bounce" style="animation-duration: 4s;">
+                        <span class="text-[10px] font-bold uppercase text-brandRed block">Diferencial Único</span>
+                        <span class="text-xs font-black text-white block mt-0.5">Sem Dores no Joelho e Coluna</span>
+                    </div>
+
+                    <!-- Floating Badge Bottom Left -->
+                    <div class="absolute -bottom-6 -left-2 sm:-left-6 p-4 rounded-2xl glass-card border border-white/10 shadow-2xl text-left max-w-[210px]">
+                        <div class="flex items-center gap-1 text-amber-400 text-xs mb-1">
+                            ★★★★★
+                        </div>
+                        <span class="text-xs font-black text-white block">+350 Vidas Transformadas</span>
+                        <span class="text-[11px] text-gray-400 block">Emagrecimento, definição e hipertrofia</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- ========================================================================= -->
+    <!-- [MÉTODO & EVIDÊNCIAS: FOTO 6 & PILARES CIENTÍFICOS] -->
+    <!-- ========================================================================= -->
+    <section id="metodo" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-white/10">
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+            <span class="text-xs font-black uppercase tracking-widest text-brandRed bg-brandRed/10 px-4 py-1.5 rounded-full border border-brandRed/30">
+                A CIÊNCIA POR TRÁS DO RESULTADO
+            </span>
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white">
+                Informação Baseada em Evidências, Aplicação Prática e Segurança
+            </h2>
+            <p class="text-sm sm:text-base text-gray-400">
+                O corpo humano responde a estímulos mecânicos precisos. Entenda como o método do Prof. Renan garante resultados estéticos rápidos enquanto blinda suas articulações.
+            </p>
+        </div>
+
+        <!-- Banner Authority Highlight -->
+        <div class="mb-14 rounded-3xl overflow-hidden border border-brandRed/30 glass-card p-4 sm:p-8 relative">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-5 rounded-2xl overflow-hidden border border-white/10 shadow-lg">
+                    <img src="/treinador-renan/foto-6.jpg" alt="Prof. Renan Guilherme - Informação Baseada em Evidências" class="w-full h-auto object-cover">
+                </div>
+                <div class="lg:col-span-7 space-y-4 text-left">
+                    <div class="inline-block px-3 py-1 rounded-full bg-brandRed/20 text-brandRed text-xs font-bold uppercase">
+                        Autoridade Reconhecida
+                    </div>
+                    <h3 class="text-2xl sm:text-3xl font-extrabold text-white">
+                        Biomecânica de Joelho, Menisco e Agachamento
+                    </h3>
+                    <p class="text-sm sm:text-base text-gray-300 leading-relaxed">
+                        Quantas pessoas você conhece que começaram a academia e pararam por causa de pontadas no joelho, dores no ombro ou crises de hérnia de disco? 
+                    </p>
+                    <p class="text-sm sm:text-base text-gray-300 leading-relaxed">
+                        O método do <strong>Professor Renan Guilherme</strong> analisa a sua anatomia individual: ângulo do fêmur, mobilidade de tornozelo, ativação do core e amplitude de movimento. Assim, cada série gera estímulo muscular máximo no quadríceps e glúteos, <strong>com estresse articular próximo de zero</strong>.
+                    </p>
+                    <div class="pt-2 flex flex-wrap gap-3">
+                        <span class="px-3 py-1.5 rounded-xl bg-brandNavy text-gray-200 text-xs font-semibold border border-white/10">🛡️ Proteção Patelo-Femoral</span>
+                        <span class="px-3 py-1.5 rounded-xl bg-brandNavy text-gray-200 text-xs font-semibold border border-white/10">⚡ Vetor de Força Otimizado</span>
+                        <span class="px-3 py-1.5 rounded-xl bg-brandNavy text-gray-200 text-xs font-semibold border border-white/10">📈 Sobrecarga Progressiva Real</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3 Pilares do Método -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="glass-card p-6 sm:p-8 rounded-3xl border border-white/10 space-y-4 hover:border-brandRed/50 transition-all duration-300 group">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brandRed to-brandRedDark flex items-center justify-center text-white text-2xl font-black shadow-glow-red group-hover:scale-110 transition-transform">
+                    01
+                </div>
+                <h4 class="text-xl font-bold text-white">Diagnóstico Postural & Biomecânico</h4>
+                <p class="text-sm text-gray-300 leading-relaxed">
+                    Você grava pequenos vídeos executando movimentos básicos. O Renan analisa suas alavancas articulares e prescreve variações feitas sob medida para sua anatomia.
+                </p>
+            </div>
+
+            <div class="glass-card-red p-6 sm:p-8 rounded-3xl border border-brandRed/40 space-y-4 hover:border-brandRed transition-all duration-300 group shadow-glow-red">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brandRed via-red-600 to-amber-500 flex items-center justify-center text-white text-2xl font-black shadow-glow-red group-hover:scale-110 transition-transform">
+                    02
+                </div>
+                <div class="flex items-center gap-2">
+                    <h4 class="text-xl font-bold text-white">Treinamento Resistido Pesado</h4>
+                    <span class="text-[10px] font-bold uppercase bg-brandRed text-white px-2 py-0.5 rounded">Foco</span>
+                </div>
+                <p class="text-sm text-gray-300 leading-relaxed">
+                    Com pesos livres, halteres e máquinas ajustadas. O estímulo tensional correto é a única chave que destrói a gordura e constrói musculatura densa e desenhada.
+                </p>
+            </div>
+
+            <div class="glass-card p-6 sm:p-8 rounded-3xl border border-white/10 space-y-4 hover:border-brandRed/50 transition-all duration-300 group">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brandNavyLight to-brandNavy flex items-center justify-center text-brandRed text-2xl font-black border border-brandRed/30 group-hover:scale-110 transition-transform">
+                    03
+                </div>
+                <h4 class="text-xl font-bold text-white">Feedback Contínuo no WhatsApp</h4>
+                <p class="text-sm text-gray-300 leading-relaxed">
+                    Você não fica sozinho com uma ficha de papel. Dúvidas sobre execuções, ajuste de carga e evolução semanal são tratadas diretamente com o treinador.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- [VÍDEO DE DEMONSTRAÇÃO REAL: video-1.mp4] -->
+    <!-- ========================================================================= -->
+    <section id="video-demonstracao" class="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-white/10">
+        <div class="text-center max-w-2xl mx-auto mb-12 space-y-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-brandRed bg-brandRed/10 px-3.5 py-1.5 rounded-full border border-brandRed/30">
+                EXECUÇÃO NA PRÁTICA
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-black text-white">
+                Intensidade e Postura Perfeita em Cada Repetição
+            </h2>
+            <p class="text-sm text-gray-400">
+                Veja uma demonstração real de execução, estabilização de pelve e controle de cadência:
+            </p>
+        </div>
+
+        <div class="glass-card rounded-3xl p-4 sm:p-6 border border-brandRed/30 shadow-glow-red max-w-3xl mx-auto">
+            <div class="relative rounded-2xl overflow-hidden aspect-[9/16] sm:aspect-[16/9] bg-black flex items-center justify-center border border-white/10">
+                <video controls playsinline preload="metadata" poster="/treinador-renan/foto-2.jpg" class="w-full h-full object-cover">
+                    <source src="/treinador-renan/video-1.mp4" type="video/mp4">
+                    Seu navegador não suporta a tag de vídeo.
+                </video>
+            </div>
+            <div class="mt-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-400 px-2">
+                <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-brandRed animate-pulse"></span>
+                    <span class="font-medium text-gray-200">Demonstração técnica: Cadência excêntrica controlada e alinhamento articular</span>
+                </div>
+                <a href="https://instagram.com/treinador_renan" target="_blank" class="text-brandRed hover:underline font-bold flex items-center gap-1">
+                    Ver mais vídeos no @treinador_renan →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- [GALERIA DE TRANSFORMAÇÕES REAIS: FOTOS 3, 4 E 5] -->
+    <!-- ========================================================================= -->
+    <section id="transformacoes" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-white/10">
+        <div class="text-center max-w-3xl mx-auto mb-14 space-y-3">
+            <span class="text-xs font-black uppercase tracking-widest text-brandRed bg-brandRed/10 px-4 py-1.5 rounded-full border border-brandRed/30">
+                PROVA REAL
+            </span>
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white">
+                Resultados Visíveis em Semanas, Não em Anos
+            </h2>
+            <p class="text-sm sm:text-base text-gray-400">
+                Confira as transformações corporais reais conquistadas com a metodologia do Prof. Renan Guilherme:
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Caso 1: foto-3.jpg -->
+            <div class="glass-card rounded-3xl overflow-hidden border border-white/10 hover:border-brandRed/50 transition-all duration-300 flex flex-col justify-between group">
+                <div class="relative overflow-hidden aspect-[4/5] bg-gray-950">
+                    <img src="/treinador-renan/foto-3.jpg" alt="Transformação Corporal Aluna Renan" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute top-3 left-3 bg-brandRed/90 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-black text-white uppercase tracking-wider">
+                        Recomposição Corporal
+                    </div>
+                </div>
+                <div class="p-6 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <h4 class="font-bold text-white text-base">Aluna Consultoria Online</h4>
+                        <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">-8cm de cintura</span>
+                    </div>
+                    <p class="text-xs text-gray-300 leading-relaxed">
+                        Redução drástica do percentual de gordura abdominal e definição da linha de cintura, mantendo a massa magra nos membros inferiores.
+                    </p>
+                    <div class="pt-2 text-[11px] text-gray-400 flex items-center gap-1.5 border-t border-white/10">
+                        <span class="text-brandRed font-bold">✓</span> Protocolo de 12 semanas com treinamento resistido
+                    </div>
+                </div>
+            </div>
+
+            <!-- Caso 2: foto-4.jpg -->
+            <div class="glass-card-red rounded-3xl overflow-hidden border border-brandRed/40 hover:border-brandRed transition-all duration-300 flex flex-col justify-between group shadow-glow-red">
+                <div class="relative overflow-hidden aspect-[4/5] bg-gray-950">
+                    <img src="/treinador-renan/foto-4.jpg" alt="Transformação Aluna Tonificação" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute top-3 left-3 bg-brandRed text-white px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-wider">
+                        Seca & Tonificada
+                    </div>
+                </div>
+                <div class="p-6 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <h4 class="font-bold text-white text-base">Emagrecimento & Glúteos</h4>
+                        <span class="text-xs font-bold text-brandRed bg-brandRed/10 px-2 py-0.5 rounded border border-brandRed/30">-11kg eliminados</span>
+                    </div>
+                    <p class="text-xs text-gray-300 leading-relaxed">
+                        Fim da flacidez e ganho de densidade muscular. Treinos focados em glúteo médio e posterior de coxa com proteção total lombar.
+                    </p>
+                    <div class="pt-2 text-[11px] text-gray-300 flex items-center gap-1.5 border-t border-white/10">
+                        <span class="text-brandRed font-bold">✓</span> Sem dietas malucas e sem passar fome
+                    </div>
+                </div>
+            </div>
+
+            <!-- Caso 3: foto-5.jpg -->
+            <div class="glass-card rounded-3xl overflow-hidden border border-white/10 hover:border-brandRed/50 transition-all duration-300 flex flex-col justify-between group">
+                <div class="relative overflow-hidden aspect-[4/5] bg-gray-950">
+                    <img src="/treinador-renan/foto-5.jpg" alt="Hipertrofia e Densidade Muscular" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute top-3 left-3 bg-brandNavy text-white border border-white/20 px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-wider">
+                        Hipertrofia Acelerada
+                    </div>
+                </div>
+                <div class="p-6 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <h4 class="font-bold text-white text-base">Construção de Densidade</h4>
+                        <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">+6kg massa magra</span>
+                    </div>
+                    <p class="text-xs text-gray-300 leading-relaxed">
+                        Evolução constante de peitoral, dorsais e braços com aplicação rigorosa do princípio de sobrecarga progressiva e descanso metabólico.
+                    </p>
+                    <div class="pt-2 text-[11px] text-gray-400 flex items-center gap-1.5 border-t border-white/10">
+                        <span class="text-brandRed font-bold">✓</span> Aplicação direta do método de treino Renan
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- [PLANOS DE CONSULTORIA EXCLUSIVA] -->
+    <!-- ========================================================================= -->
+    <section id="planos" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-white/10">
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+            <span class="text-xs font-black uppercase tracking-widest text-brandRed bg-brandRed/10 px-4 py-1.5 rounded-full border border-brandRed/30">
+                INVESTIMENTO NA SUA SAÚDE & CORPO
+            </span>
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white">
+                Escolha o Plano Ideal Para o Seu Objetivo
+            </h2>
+            <p class="text-sm sm:text-base text-gray-400">
+                Acompanhamento 100% individualizado. Vagas extremamente limitadas para garantir a atenção e qualidade no seu treino.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+            
+            <!-- PLANO 1: MENSAL START -->
+            <div class="glass-card rounded-3xl p-6 sm:p-8 border border-white/10 flex flex-col justify-between hover:border-white/30 transition-all">
+                <div class="space-y-6">
+                    <div>
+                        <span class="text-xs font-bold uppercase text-gray-400">Para Começar Agora</span>
+                        <h3 class="text-2xl font-black text-white mt-1">Mensal Express</h3>
+                        <p class="text-xs text-gray-300 mt-2">Ideal para quem quer experimentar o método e renovar seu treino mensalmente.</p>
+                    </div>
+
+                    <div class="pt-4 border-t border-white/10">
+                        <div class="text-xs text-gray-400">Investimento Mensal</div>
+                        <div class="flex items-baseline gap-1 mt-1">
+                            <span class="text-xl font-bold text-gray-400">R$</span>
+                            <span class="text-4xl font-black text-white">180</span>
+                            <span class="text-xs text-gray-400 font-medium">/mês</span>
+                        </div>
+                    </div>
+
+                    <!-- Benefícios -->
+                    <ul class="space-y-3 text-xs text-gray-200">
+                        <li class="flex items-center gap-2">
+                            <span class="text-brandRed font-bold">✓</span> Periodização completa de treino (30 dias)
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-brandRed font-bold">✓</span> App com vídeos demonstrativos de cada exercício
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-brandRed font-bold">✓</span> Suporte de dúvidas no WhatsApp
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-brandRed font-bold">✓</span> Adaptação para treino em academia ou condomínio
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="pt-8">
+                    <a href="https://wa.me/5514997394505?text=Ol%C3%A1%20Prof.%20Renan!%20Quero%20come%C3%A7ar%20o%20Plano%20Mensal%20Express." target="_blank" class="w-full py-4 rounded-xl text-center font-bold text-xs uppercase tracking-wider bg-white/10 hover:bg-white/20 text-white border border-white/15 transition-all block">
+                        Contratar Mensal
+                    </a>
+                </div>
+            </div>
+
+            <!-- PLANO 2: TRIMESTRAL VIP (DESTAQUE / MAIS POPULAR) -->
+            <div class="glass-card-red rounded-3xl p-6 sm:p-8 border-2 border-brandRed shadow-glow-red flex flex-col justify-between relative transform lg:-translate-y-4">
+                <!-- Badge Top -->
+                <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-brandRed text-white text-[11px] font-black uppercase tracking-wider shadow-lg flex items-center gap-1.5">
+                    <span>👑 O MAIS ESCOLHIDO PELOS ALUNOS</span>
+                </div>
+
+                <div class="space-y-6 pt-2">
+                    <div>
+                        <span class="text-xs font-bold uppercase text-brandRed">Transformação Completa de 90 Dias</span>
+                        <h3 class="text-3xl font-black text-white mt-1">Trimestral VIP</h3>
+                        <p class="text-xs text-gray-200 mt-2">O tempo fisiológico ideal para consolidação de hipertrofia, queima de gordura e adaptação neural.</p>
+                    </div>
+
+                    <div class="pt-4 border-t border-brandRed/30">
+                        <div class="text-xs text-gray-300">Investimento Total ou Parcelado</div>
+                        <div class="flex items-baseline gap-1 mt-1">
+                            <span class="text-xl font-bold text-brandRed">R$</span>
+                            <span class="text-5xl font-black text-white">450</span>
+                            <span class="text-xs text-gray-300 font-medium">(equivale a R$ 150/mês)</span>
+                        </div>
+                    </div>
+
+                    <!-- Benefícios VIP -->
+                    <ul class="space-y-3 text-xs text-gray-100">
+                        <li class="flex items-center gap-2">
+                            <span class="text-brandRed font-black">✓</span> <strong>Avaliação Biomecânica Individual por Vídeo</strong>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-brandRed font-black">✓</span> <strong>3 Fases Progressivas de Treino (Carga & Volume)</strong>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-brandRed font-black">✓</span> App exclusivo com controle de cargas e repetições
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-brandRed font-black">✓</span> Suporte Prioritário no WhatsApp com o Renan
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-brandRed font-black">✓</span> Análise e correção técnica de agachamento/supino
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-brandRed font-black">✓</span> Protocolo de mobilidade e prevenção articular
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="pt-8">
+                    <a href="https://wa.me/5514997394505?text=Ol%C3%A1%20Prof.%20Renan!%20Quero%20garantir%20uma%20das%20vagas%20do%20Plano%20Trimestral%20VIP." target="_blank" class="pulse-wpp w-full py-4 rounded-xl text-center font-black text-xs uppercase tracking-wider bg-gradient-to-r from-brandRed via-red-600 to-brandRedDark hover:from-brandRedHover hover:to-brandRed text-white shadow-glow-red transition-all block cursor-pointer">
+                        GARANTIR VAGA NO TRIMESTRAL VIP →
+                    </a>
+                    <span class="text-[10px] text-gray-400 text-center block mt-2">Restam poucas vagas com suporte direto</span>
+                </div>
+            </div>
+
+            <!-- PLANO 3: SEMESTRAL PRIME -->
+            <div class="glass-card rounded-3xl p-6 sm:p-8 border border-white/10 flex flex-col justify-between hover:border-white/30 transition-all">
+                <div class="space-y-6">
+                    <div>
+                        <span class="text-xs font-bold uppercase text-amber-400">Mudança Definitiva de Estilo de Vida</span>
+                        <h3 class="text-2xl font-black text-white mt-1">Semestral Prime</h3>
+                        <p class="text-xs text-gray-300 mt-2">Para quem busca acompanhamento a longo prazo com o maior desconto por mês.</p>
+                    </div>
+
+                    <div class="pt-4 border-t border-white/10">
+                        <div class="text-xs text-gray-400">Investimento Total ou Parcelado</div>
+                        <div class="flex items-baseline gap-1 mt-1">
+                            <span class="text-xl font-bold text-gray-400">R$</span>
+                            <span class="text-4xl font-black text-white">780</span>
+                            <span class="text-xs text-gray-400 font-medium">(equivale a R$ 130/mês)</span>
+                        </div>
+                    </div>
+
+                    <!-- Benefícios -->
+                    <ul class="space-y-3 text-xs text-gray-200">
+                        <li class="flex items-center gap-2">
+                            <span class="text-amber-400 font-bold">✓</span> 6 Meses de acompanhamento e periodização contínua
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-amber-400 font-bold">✓</span> Modificações periódicas a cada 4 semanas
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-amber-400 font-bold">✓</span> Acesso completo a toda biblioteca de execuções
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-amber-400 font-bold">✓</span> Suporte contínuo direto no WhatsApp
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-amber-400 font-bold">✓</span> Maior economia por mês de consultoria
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="pt-8">
+                    <a href="https://wa.me/5514997394505?text=Ol%C3%A1%20Prof.%20Renan!%20Quero%20fechar%20o%20Plano%20Semestral%20Prime." target="_blank" class="w-full py-4 rounded-xl text-center font-bold text-xs uppercase tracking-wider bg-white/10 hover:bg-white/20 text-white border border-white/15 transition-all block">
+                        Contratar Semestral Prime
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- [QUEM É O PROFESSOR RENAN GUILHERME] -->
+    <!-- ========================================================================= -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-white/10">
+        <div class="glass-card rounded-3xl p-6 sm:p-12 border border-white/10 relative overflow-hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-5 rounded-2xl overflow-hidden border border-brandRed/40 shadow-glow-red">
+                    <img src="/treinador-renan/foto-1.jpg" alt="Prof. Renan Guilherme" class="w-full h-auto object-cover">
+                </div>
+                <div class="lg:col-span-7 space-y-4 text-left">
+                    <span class="text-xs font-black uppercase text-brandRed tracking-widest bg-brandRed/10 px-3 py-1 rounded-full border border-brandRed/30">
+                        SEU TREINADOR & MENTOR
+                    </span>
+                    <h3 class="text-3xl sm:text-4xl font-black text-white">
+                        Professor Renan Guilherme <span class="text-xs text-brandRed font-mono block sm:inline sm:ml-2 font-bold px-2 py-0.5 rounded bg-brandRed/10 border border-brandRed/30">CREF 185468-G/SP</span>
+                    </h3>
+                    <p class="text-sm text-gray-300 leading-relaxed">
+                        Profissional de Educação Física apaixonado por descomplicar a ciência do treinamento de força. Ao invés de impor treinos da moda ou modismos perigosos, o foco do Renan é simples e inegociável: <strong>entregar o melhor resultado estético da sua vida preservando a integridade das suas articulações</strong>.
+                    </p>
+                    <p class="text-sm text-gray-300 leading-relaxed">
+                        No seu Instagram <a href="https://instagram.com/treinador_renan" target="_blank" class="text-brandRed font-bold hover:underline">@treinador_renan</a>, compartilha diariamente ensinamentos práticos de biomecânica de membros inferiores, ativação muscular e desmistificação do treinamento resistido.
+                    </p>
+                    <div class="pt-4 flex flex-wrap items-center gap-4">
+                        <a href="https://instagram.com/treinador_renan" target="_blank" rel="noopener noreferrer" class="px-5 py-3 rounded-xl bg-brandNavy text-white hover:text-brandRed border border-white/15 text-xs font-bold flex items-center gap-2 transition-all">
+                            <span>Siga no Instagram</span>
+                            <span>@treinador_renan</span>
+                        </a>
+                        <a href="https://wa.me/5514997394505?text=Ol%C3%A1%20Renan!%20Gostaria%20de%20bater%20um%20papo%20sobre%20meu%20treino." target="_blank" rel="noopener noreferrer" class="px-5 py-3 rounded-xl bg-brandRed hover:bg-brandRedHover text-white text-xs font-bold transition-all shadow-glow-red">
+                            Falar Direto no WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- [PERGUNTAS FREQUENTES (FAQ)] -->
+    <!-- ========================================================================= -->
+    <section id="faq" class="py-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto border-t border-white/10">
+        <div class="text-center mb-12 space-y-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-brandRed bg-brandRed/10 px-3 py-1 rounded-full border border-brandRed/30">Tire Suas Dúvidas</span>
+            <h2 class="text-3xl sm:text-4xl font-black text-white">Perguntas Frequentes</h2>
+            <p class="text-xs sm:text-sm text-gray-400">Tudo o que você precisa saber antes de iniciar sua consultoria:</p>
+        </div>
+
+        <div class="space-y-4">
+            <details class="glass-card p-5 rounded-2xl border border-white/10 group cursor-pointer">
+                <summary class="font-bold text-white text-sm sm:text-base flex items-center justify-between">
+                    <span>1. Como funciona a consultoria 100% online?</span>
+                    <span class="text-brandRed font-black text-lg group-open:rotate-45 transition-transform">+</span>
+                </summary>
+                <p class="text-xs sm:text-sm text-gray-300 mt-3 leading-relaxed">
+                    Você preenche um formulário de anamnese detalhado e envia fotos ou vídeos de avaliação postural. O Prof. Renan monta sua periodização completa dentro de um aplicativo profissional de treinos, onde você tem vídeos em alta definição de cada exercício, séries, repetições e intervalos. O acompanhamento e ajustes são feitos diretamente pelo WhatsApp.
+                </p>
+            </details>
+
+            <details class="glass-card p-5 rounded-2xl border border-white/10 group cursor-pointer">
+                <summary class="font-bold text-white text-sm sm:text-base flex items-center justify-between">
+                    <span>2. Eu sinto dores no joelho ou na lombar. Posso treinar?</span>
+                    <span class="text-brandRed font-black text-lg group-open:rotate-45 transition-transform">+</span>
+                </summary>
+                <p class="text-xs sm:text-sm text-gray-300 mt-3 leading-relaxed">
+                    Com certeza! Esse é exatamente o grande diferencial do Prof. Renan. Ajustamos os ângulos e as alavancas biomecânicas para fortalecer os estabilizadores da articulação, reduzindo a dor e protegendo seus meniscos e coluna contra novos desgastes.
+                </p>
+            </details>
+
+            <details class="glass-card p-5 rounded-2xl border border-white/10 group cursor-pointer">
+                <summary class="font-bold text-white text-sm sm:text-base flex items-center justify-between">
+                    <span>3. Não tenho muito tempo para treinar. Dá certo para mim?</span>
+                    <span class="text-brandRed font-black text-lg group-open:rotate-45 transition-transform">+</span>
+                </summary>
+                <p class="text-xs sm:text-sm text-gray-300 mt-3 leading-relaxed">
+                    Sim! O treino é planejado rigorosamente conforme a sua rotina disponível — seja 3x por semana de 45 minutos ou 5x por semana. O segredo da ciência do treino não é o volume excessivo, mas sim a densidade e o estímulo correto.
+                </p>
+            </details>
+
+            <details class="glass-card p-5 rounded-2xl border border-white/10 group cursor-pointer">
+                <summary class="font-bold text-white text-sm sm:text-base flex items-center justify-between">
+                    <span>4. Como tiro dúvidas sobre a execução dos exercícios?</span>
+                    <span class="text-brandRed font-black text-lg group-open:rotate-45 transition-transform">+</span>
+                </summary>
+                <p class="text-xs sm:text-sm text-gray-300 mt-3 leading-relaxed">
+                    Basta gravar um vídeo curto do seu treino e enviar no WhatsApp do Renan. Ele analisa a sua postura, carga, alinhamento e manda orientações detalhadas de correção.
+                </p>
+            </details>
+        </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- [CALL TO ACTION FINAL] -->
+    <!-- ========================================================================= -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center">
+        <div class="glass-card-red rounded-3xl p-8 sm:p-14 border border-brandRed/40 shadow-glow-red space-y-6">
+            <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
+                Pronto Para Mudar Seu Corpo Com Segurança?
+            </h2>
+            <p class="text-sm sm:text-base text-gray-200 max-w-2xl mx-auto leading-relaxed">
+                As vagas para acompanhamento direto com o Prof. Renan são limitadas por mês. Clique no botão abaixo e garanta o seu acompanhamento VIP antes que o lote seja encerrado.
+            </p>
+            <div class="pt-4">
+                <a href="https://wa.me/5514997394505?text=Ol%C3%A1%20Prof.%20Renan!%20Quero%20minha%20vaga%20na%20Consultoria%20VIP." target="_blank" rel="noopener noreferrer" class="pulse-wpp inline-flex items-center justify-center gap-3 w-full sm:w-auto px-10 py-5 rounded-2xl text-base sm:text-lg font-black bg-gradient-to-r from-brandRed via-red-600 to-brandRedDark text-white shadow-glow-red hover:from-brandRedHover hover:to-brandRed transition-all uppercase tracking-wide">
+                    <span>💬 FALAR COM O PROFESSOR RENAN NO WHATSAPP</span>
+                    <span>→</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- [RODAPÉ DE LUXO] -->
+    <!-- ========================================================================= -->
+    <footer class="py-10 px-4 sm:px-6 lg:px-8 border-t border-white/10 bg-[#05070a] text-center text-xs text-gray-500 space-y-4">
+        <div class="flex items-center justify-center gap-3">
+            <div class="w-7 h-7 rounded-lg bg-brandRed flex items-center justify-center font-bold text-white text-xs">
+                RG
+            </div>
+            <span class="font-bold text-gray-300">PROFESSOR RENAN GUILHERME • CREF 185468-G/SP • CONSULTORIA ESPORTIVA</span>
+        </div>
+        <p class="max-w-xl mx-auto">
+            © 2026 Professor Renan Guilherme. Todos os direitos reservados. Informação baseada em evidências científicas e aplicação prática com segurança biomecânica.
+        </p>
+        <div class="pt-2 flex items-center justify-center gap-2 text-[11px] text-gray-400">
+            <span>Manequim Oficial de Vitrine VIP</span>
+            <span>•</span>
+            <span class="text-brandRed font-semibold">Desenvolvido com Arquitetura RMTI VIP</span>
+        </div>
+    </footer>
+
+    <!-- ========================================================================= -->
+    <!-- [BOTÃO FLUTUANTE DE WHATSAPP FIXO NO CANTO INFERIOR DIREITO] -->
+    <!-- ========================================================================= -->
+    <a href="https://wa.me/5514997394505?text=Ol%C3%A1%20Prof.%20Renan!%20Vim%20pelo%20site%20e%20gostaria%20de%20informa%C3%A7%C3%B5es%20da%20Consultoria%20VIP." target="_blank" rel="noopener noreferrer" class="fixed bottom-5 right-5 z-50 flex items-center gap-2.5 bg-gradient-to-r from-brandRed to-brandRedDark text-white px-4 py-3 rounded-full shadow-glow-red hover:scale-105 active:scale-95 transition-all font-bold text-xs sm:text-sm border border-red-500/50 cursor-pointer" title="Falar no WhatsApp com o Treinador Renan">
+        <span class="w-3 h-3 rounded-full bg-emerald-400 animate-ping"></span>
+        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        <span>Consultoria VIP</span>
+    </a>
+
+</body>
+</html>
+

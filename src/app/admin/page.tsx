@@ -37,6 +37,10 @@ import {
   ListOrdered,
   Eye,
   EyeOff,
+  ShoppingBag,
+  DollarSign,
+  CreditCard,
+  QrCode,
 } from 'lucide-react';
 import { useConfig } from '@/context/ConfigContext';
 import { THEME_PRESETS } from '@/data/defaultConfig';
@@ -46,10 +50,18 @@ import {
   DifferentialItem,
   FaqItem,
   ContactMessage,
+  ProductItem,
+  IntegrationsConfig,
 } from '@/types';
+import ProductsTab from './components/ProductsTab';
+import OrdersTab from './components/OrdersTab';
+import GatewayTab from './components/GatewayTab';
 
 type AdminTab =
   | 'messages'
+  | 'products'
+  | 'orders'
+  | 'gateway'
   | 'theme'
   | 'identity'
   | 'hero'
@@ -133,13 +145,24 @@ export default function AdminPage() {
     setTimeout(() => setToast(null), 3500);
   };
 
+  // First access state (senha inicial 123456 -> redefinição obrigatória)
+  const [showFirstAccessModal, setShowFirstAccessModal] = useState<boolean>(false);
+  const [firstAccessNewPass, setFirstAccessNewPass] = useState<string>('');
+  const [firstAccessConfirmPass, setFirstAccessConfirmPass] = useState<string>('');
+  const [firstAccessShowPass, setFirstAccessShowPass] = useState<boolean>(false);
+  const [firstAccessError, setFirstAccessError] = useState<string>('');
+  const [isSavingFirstAccess, setIsSavingFirstAccess] = useState<boolean>(false);
+
   // Check auth session on load
   useEffect(() => {
     const authSession = sessionStorage.getItem('rmti_admin_auth');
     if (authSession === 'true') {
       setIsAuthenticated(true);
+      if (config.mustChangePassword) {
+        setShowFirstAccessModal(true);
+      }
     }
-  }, []);
+  }, [config.mustChangePassword]);
 
   // Sync temp state when config updates
   useEffect(() => {
@@ -261,6 +284,9 @@ export default function AdminPage() {
         sessionStorage.setItem('rmti_admin_auth', 'true');
         setPasswordInput('');
         setPasswordError('');
+        if (data.mustChangePassword) {
+          setShowFirstAccessModal(true);
+        }
       } else {
         setPasswordError(data.error || 'Senha incorreta.');
       }
@@ -268,6 +294,57 @@ export default function AdminPage() {
       setPasswordError('Erro de conexão com o servidor de autenticação.');
     } finally {
       setIsAuthenticating(false);
+    }
+  };
+
+  const handleFirstAccessSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setFirstAccessError('');
+
+    if (!firstAccessNewPass.trim() || !firstAccessConfirmPass.trim()) {
+      setFirstAccessError('Preencha a nova senha e a confirmação.');
+      return;
+    }
+
+    if (firstAccessNewPass === '123456') {
+      setFirstAccessError('A nova senha não pode ser 123456. Crie uma senha diferente e segura.');
+      return;
+    }
+
+    if (firstAccessNewPass.length < 6) {
+      setFirstAccessError('A nova senha deve ter no mínimo 6 caracteres.');
+      return;
+    }
+
+    if (firstAccessNewPass !== firstAccessConfirmPass) {
+      setFirstAccessError('A confirmação não coincide com a nova senha digitada.');
+      return;
+    }
+
+    setIsSavingFirstAccess(true);
+    try {
+      const res = await fetch('/api/admin/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'first-access-change',
+          newPassword: firstAccessNewPass,
+        }),
+      });
+
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setShowFirstAccessModal(false);
+        setFirstAccessNewPass('');
+        setFirstAccessConfirmPass('');
+        showToast('Nova senha pessoal cadastrada com sucesso! Seu painel agora está protegido.');
+      } else {
+        setFirstAccessError(data.error || 'Erro ao definir nova senha.');
+      }
+    } catch {
+      setFirstAccessError('Erro de conexão ao salvar nova senha.');
+    } finally {
+      setIsSavingFirstAccess(false);
     }
   };
 
@@ -532,6 +609,9 @@ export default function AdminPage() {
 
   const tabs = [
     { id: 'messages', label: 'Leads & Mensagens', icon: Inbox, badge: unreadCount > 0 ? unreadCount : undefined },
+    { id: 'products', label: 'Produtos & LPs', icon: ShoppingBag, badge: 'Loja' },
+    { id: 'orders', label: 'Vendas & Pedidos', icon: DollarSign },
+    { id: 'gateway', label: 'Mercado Pago & Pix', icon: CreditCard },
     { id: 'theme', label: 'Tema & Cores', icon: Palette },
     { id: 'identity', label: 'Identidade & Marca', icon: ImageIcon },
     { id: 'hero', label: 'Apresentação (Hero)', icon: Sparkles },
@@ -597,6 +677,12 @@ export default function AdminPage() {
               </div>
             )}
 
+            {/* Dica de Primeiro Acesso */}
+            <div className="p-3 rounded-xl bg-slate-800/60 border border-slate-700/60 text-slate-300 text-xs text-left flex items-center gap-2.5">
+              <Shield className="w-4 h-4 text-amber-400 shrink-0" />
+              <span>Primeiro acesso? Senha inicial: <strong className="text-amber-400 font-mono">123456</strong> (você cadastrará sua nova senha pessoal a seguir).</span>
+            </div>
+
             <button
               type="submit"
               disabled={isAuthenticating}
@@ -629,6 +715,77 @@ export default function AdminPage() {
   // ----------------------------------------------------
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
+      {/* MODAL OBRIGATÓRIO DE PRIMEIRO ACESSO: REDEFINIÇÃO DE SENHA */}
+      {showFirstAccessModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-md">
+          <div className="bg-slate-900 border border-amber-500/30 rounded-3xl p-6 sm:p-8 w-full max-w-md shadow-2xl flex flex-col gap-5 animate-in zoom-in-95">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 shrink-0">
+                <KeyRound className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-white">Primeiro Acesso ao Painel</h3>
+                <p className="text-xs text-slate-400">Por segurança, crie sua nova senha pessoal.</p>
+              </div>
+            </div>
+
+            <p className="text-xs text-slate-300 leading-relaxed bg-slate-950/60 p-3.5 rounded-xl border border-slate-800">
+              Você acessou com a senha padrão inicial (<strong className="text-amber-400 font-mono">123456</strong>). Para proteger seu site e seu faturamento, cadastre sua nova senha de no mínimo 6 dígitos.
+            </p>
+
+            <form onSubmit={handleFirstAccessSubmit} className="flex flex-col gap-4">
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-semibold text-slate-300">Nova Senha Pessoal</label>
+                <div className="relative">
+                  <input
+                    type={firstAccessShowPass ? 'text' : 'password'}
+                    value={firstAccessNewPass}
+                    onChange={(e) => setFirstAccessNewPass(e.target.value)}
+                    placeholder="Mínimo 6 caracteres"
+                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500 pr-10"
+                    required
+                    autoFocus
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setFirstAccessShowPass(!firstAccessShowPass)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
+                  >
+                    {firstAccessShowPass ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-semibold text-slate-300">Confirmar Nova Senha</label>
+                <input
+                  type={firstAccessShowPass ? 'text' : 'password'}
+                  value={firstAccessConfirmPass}
+                  onChange={(e) => setFirstAccessConfirmPass(e.target.value)}
+                  placeholder="Repita exatamente a nova senha"
+                  className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500"
+                  required
+                />
+              </div>
+
+              {firstAccessError && (
+                <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 shrink-0" />
+                  <span>{firstAccessError}</span>
+                </div>
+              )}
+
+              <button
+                type="submit"
+                disabled={isSavingFirstAccess}
+                className="w-full py-3 bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-300 hover:to-orange-400 text-slate-950 font-bold text-sm rounded-xl transition-all shadow-lg shadow-orange-500/20 flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer mt-2"
+              >
+                {isSavingFirstAccess ? 'Salvando Senha...' : 'Salvar Nova Senha e Entrar'}
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
       {/* Toast flutuante */}
       {toast && (
         <div
@@ -810,6 +967,31 @@ export default function AdminPage() {
 
       {/* ÁREA DE CONTEÚDO PRINCIPAL DAS ABAS */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* ABA: PRODUTOS & LANDING PAGES */}
+        {activeTab === 'products' && (
+          <ProductsTab
+            products={config.products || []}
+            onSaveProducts={async (newProducts) => {
+              return await updateConfig({ products: newProducts });
+            }}
+            isSaving={isSaving}
+          />
+        )}
+
+        {/* ABA: VENDAS & PEDIDOS */}
+        {activeTab === 'orders' && <OrdersTab />}
+
+        {/* ABA: GATEWAY MERCADO PAGO & PIX */}
+        {activeTab === 'gateway' && (
+          <GatewayTab
+            integrations={config.integrations}
+            onSaveIntegrations={async (newIntegrations) => {
+              return await updateConfig({ integrations: newIntegrations });
+            }}
+            isSaving={isSaving}
+          />
+        )}
+
         {/* ABA 1: LEADS & MENSAGENS */}
         {activeTab === 'messages' && (
           <div className="flex flex-col gap-6">

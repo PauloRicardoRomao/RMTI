@@ -9,6 +9,14 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  async rewrites() {
+    return [
+      {
+        source: "/modelos/:slug",
+        destination: "/modelos/:slug/index.html",
+      },
+    ];
+  },
 };
 
 export default nextConfig;

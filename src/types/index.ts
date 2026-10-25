@@ -110,6 +110,28 @@ export interface IntegrationsConfig {
   googleAdsConversionLabel?: string;
   googleAnalyticsId?: string;
   metaPixelId?: string;
+  mercadoPagoAccessToken?: string;
+  mercadoPagoPublicKey?: string;
+  pixKey?: string;
+}
+
+export interface ProductItem {
+  id: string;
+  name: string;
+  tagline: string;
+  description?: string;
+  category: 'landing-page' | 'combo' | 'system' | 'service' | string;
+  badge?: string;
+  originalPrice: string;
+  price: number;
+  priceFormatted: string;
+  installments?: string;
+  features: string[];
+  imageUrl?: string;
+  demoUrl?: string;
+  ctaText?: string;
+  active: boolean;
+  order: number;
 }
 
 export interface ClientCaseItem {
@@ -134,6 +156,7 @@ export interface ClientCaseItem {
 export interface AppConfig {
   adminPin?: string;
   adminPasswordHash?: string;
+  mustChangePassword?: boolean;
   theme: ThemeConfig;
   identity: IdentityConfig;
   hero: HeroConfig;
@@ -145,4 +168,5 @@ export interface AppConfig {
   faqs: FaqItem[];
   contact: ContactConfig;
   integrations?: IntegrationsConfig;
+  products?: ProductItem[];
 }

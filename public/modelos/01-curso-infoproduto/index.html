@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- ========================================================================= -->
+    <!-- [EDITAR]: TÍTULO DA PÁGINA (Aparece na aba do navegador) -->
+    <!-- ========================================================================= -->
+    <title>[NOME DO SEU CURSO] • O Método Definitivo para [SEU RESULTADO]</title>
+    <meta name="description" content="Aprenda o passo a passo validado para [PROMESSA DO SEU CURSO]. Acesso imediato com garantia incondicional de 7 dias.">
+
+    <!-- Tailwind CSS (Zero instalação - funciona direto no navegador) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366f1',
+                        accent: '#10b981',
+                        darkBg: '#090b11',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #090b11; color: #f3f4f6; font-family: system-ui, -apple-system, sans-serif; }
+        .glass-panel { background: rgba(17, 24, 39, 0.7); backdrop-filter: blur(14px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .pulse-btn { animation: pulseGlow 2s infinite; }
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(16, 185, 129, 0.4); }
+            50% { box-shadow: 0 0 30px rgba(16, 185, 129, 0.8); }
+        }
+    </style>
+</head>
+<body class="selection:bg-indigo-500 selection:text-white">
+
+    <!-- BARRA OFICIAL DEMONSTRAÇÃO RMTI COM PAINEL ADMIN INCLUSO -->
+    <div style="background: #090d16; border-bottom: 1px solid #1e293b; padding: 10px 16px; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; color: #e2e8f0; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; position: sticky; top: 0; z-index: 99999; box-shadow: 0 4px 12px rgba(0,0,0,0.5);">
+        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <span style="background: #10b981; color: #022c22; font-weight: 900; font-size: 10px; padding: 2px 8px; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.05em;">Modelo Pronto</span>
+            <span>🔥 <strong>Painel CMS Dinâmico Incluso</strong>: este modelo já vem com o painel do cliente para trocar textos, valores e WhatsApp sem código.</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <a href="/demo-painel?modelo=01-curso-infoproduto" target="_blank" style="color: #38bdf8; text-decoration: none; font-weight: 700; background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.4); padding: 5px 12px; border-radius: 8px; font-size: 11px; display: inline-flex; align-items: center; gap: 4px;">⚙️ Ver Painel CMS deste Modelo</a>
+            <a href="/checkout?plano=pro" style="color: #022c22; text-decoration: none; font-weight: 800; background: linear-gradient(90deg, #10b981, #14b8a6); padding: 5px 14px; border-radius: 8px; font-size: 11px; display: inline-flex; align-items: center; gap: 4px;">Comprar Modelo</a>
+            <a href="/" style="color: #94a3b8; text-decoration: none; font-size: 11px; padding: 5px 8px;">✕ Voltar</a>
+        </div>
+    </div>
+
+
+    <!-- ========================================================================= -->
+    <!-- [SEÇÃO 1: BARRA DE AVISO & URGÊNCIA NO TOPO] -->
+    <!-- ========================================================================= -->
+    <div class="bg-gradient-to-r from-indigo-900 via-purple-900 to-indigo-900 py-2.5 px-4 text-center text-xs sm:text-sm font-semibold text-white border-b border-indigo-500/30 flex items-center justify-center gap-2">
+        <span>🔥 ATENÇÃO: Desconto exclusivo de lançamento se encerra em:</span>
+        <span id="countdown" class="bg-black/40 px-2 py-0.5 rounded font-mono text-amber-300">14:59</span>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- [SEÇÃO 2: HERO - PROMESSA, HEADLINE E VSL] -->
+    <!-- ========================================================================= -->
+    <header class="pt-10 pb-16 md:pt-14 md:pb-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center">
+        <!-- Tag de Destaque -->
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/15 border border-indigo-500/30 text-indigo-300 text-xs sm:text-sm font-bold mb-6">
+            <span>🚀 MÉTODO TESTADO E APROVADO POR MAIS DE [1.500] ALUNOS</span>
+        </div>
+
+        <!-- [EDITAR]: SUA HEADLINE PRINCIPAL -->
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.15] mb-6">
+            Descubra Como <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-300 to-emerald-400">[ALCANÇAR SEU RESULTADO DESEJADO]</span> Sem Precisar [MAIOR DOR DO SEU CLIENTE]
+        </h1>
+
+        <!-- [EDITAR]: SUBTÍTULO / GANCHO -->
+        <p class="text-base sm:text-lg text-gray-300 max-w-3xl mx-auto mb-10 leading-relaxed">
+            O passo a passo prático para você sair do absoluto zero e dominar [ÁREA DO CURSO] em menos de [30 DIAS], mesmo que você nunca tenha feito isso antes na vida.
+        </p>
+
+        <!-- [EDITAR]: VÍDEO DE VENDAS (VSL) -->
+        <!-- DICA: Se usar YouTube, troque o src pelo link do seu vídeo. Se usar Vimeo, Wistia ou PandaVideo, basta colar o iframe aqui -->
+        <div class="relative w-full aspect-video rounded-3xl overflow-hidden shadow-2xl shadow-indigo-950/60 border-2 border-indigo-500/30 bg-black max-w-4xl mx-auto mb-8">
+            <iframe 
+                class="w-full h-full" 
+                src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?controls=1&rel=0" 
+                title="Vídeo de Vendas" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
+        </div>
+
+        <!-- [EDITAR]: BOTÃO PRINCIPAL DE COMPRA -->
+        <div class="space-y-3">
+            <a href="#comprar" class="pulse-btn inline-flex items-center justify-center gap-3 w-full sm:w-auto px-10 py-5 rounded-2xl text-base sm:text-lg font-black bg-gradient-to-r from-emerald-500 to-teal-400 text-gray-950 shadow-xl shadow-emerald-500/30 hover:scale-105 active:scale-95 transition-all uppercase tracking-wide">
+                <span>Quero Garantir Minha Vaga com 60% de Desconto</span>
+                <span>→</span>
+            </a>
+            <div class="flex flex-wrap items-center justify-center gap-4 text-xs text-gray-400 pt-2">
+                <span>🔒 Compra 100% Segura</span>
+                <span>⚡ Acesso Imediato</span>
+                <span>🛡️ 7 Dias de Garantia</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========================================================================= -->
+    <!-- [SEÇÃO 3: PARA QUEM É / PARA QUEM NÃO É] -->
+    <!-- ========================================================================= -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto border-t border-white/10">
+        <div class="text-center mb-12">
+            <h2 class="text-2xl sm:text-4xl font-black text-white">Este Treinamento é Para Você?</h2>
+            <p class="text-sm text-gray-400 mt-2">Veja se você se identifica com as situações abaixo:</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Para Quem É -->
+            <div class="glass-panel p-6 sm:p-8 rounded-3xl border-emerald-500/30 bg-emerald-950/10">
+                <div class="flex items-center gap-3 text-emerald-400 font-bold text-lg mb-6">
+                    <span class="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center">✓</span>
+                    <h3>ESTE CURSO É PARA VOCÊ SE:</h3>
+                </div>
+                <ul class="space-y-4 text-sm text-gray-300">
+                    <li class="flex items-start gap-2.5">
+                        <span class="text-emerald-400 font-bold shrink-0">✓</span>
+                        <span>Você quer [BENEFÍCIO 1: ex: criar sua primeira fonte de renda digital em 30 dias].</span>
+                    </li>
+                    <li class="flex items-start gap-2.5">
+                        <span class="text-emerald-400 font-bold shrink-0">✓</span>
+                        <span>Você já tentou outros métodos confusos e se frustrou com excesso de teoria.</span>
+                    </li>
+                    <li class="flex items-start gap-2.5">
+                        <span class="text-emerald-400 font-bold shrink-0">✓</span>
+                        <span>Você tem pouco tempo por dia e precisa de aulas diretas ao ponto e práticas.</span>
+                    </li>
+                    <li class="flex items-start gap-2.5">
+                        <span class="text-emerald-400 font-bold shrink-0">✓</span>
+                        <span>Você deseja ter liberdade de trabalhar de qualquer lugar usando apenas seu computador.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Para Quem Não É -->
+            <div class="glass-panel p-6 sm:p-8 rounded-3xl border-red-500/30 bg-red-950/10">
+                <div class="flex items-center gap-3 text-red-400 font-bold text-lg mb-6">
+                    <span class="w-8 h-8 rounded-full bg-red-500/20 flex items-center justify-center">✕</span>
+                    <h3>NÃO É PARA VOCÊ SE:</h3>
+                </div>
+                <ul class="space-y-4 text-sm text-gray-300">
+                    <li class="flex items-start gap-2.5">
+                        <span class="text-red-400 font-bold shrink-0">✕</span>
+                        <span>Você procura fórmulas mágicas para enriquecer do dia para a noite sem esforço.</span>
+                    </li>
+                    <li class="flex items-start gap-2.5">
+                        <span class="text-red-400 font-bold shrink-0">✕</span>
+                        <span>Você não está disposto a dedicar pelo menos 30 a 45 minutos por dia aos estudos.</span>
+                    </li>
+                    <li class="flex items-start gap-2.5">
+                        <span class="text-red-400 font-bold shrink-0">✕</span>
+                        <span>Você prefere continuar acumulando conteúdo gratuito sem colocar nada em prática.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- [SEÇÃO 4: O QUE VOCÊ VAI APRENDER (MÓDULOS EXPANSÍVEIS)] -->
+    <!-- ========================================================================= -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto border-t border-white/10">
+        <div class="text-center mb-12">
+            <span class="text-xs font-bold uppercase tracking-wider text-indigo-400 bg-indigo-500/10 px-3 py-1 rounded-full border border-indigo-500/20">Cronograma Completo</span>
+            <h2 class="text-2xl sm:text-4xl font-black text-white mt-3">O Que Você Vai Aprender Passo a Passo</h2>
+            <p class="text-sm text-gray-400 mt-2">Mais de [40] aulas em alta resolução divididas em módulos estratégicos:</p>
+        </div>
+
+        <div class="space-y-4">
+            <!-- [EDITAR]: MÓDULO 1 -->
+            <div class="glass-panel rounded-2xl p-5 border border-white/10">
+                <h4 class="font-bold text-base text-white flex items-center justify-between">
+                    <span>Módulo 1: Fundamentos & Mentalidade Blindada</span>
+                    <span class="text-xs text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full font-semibold">5 Aulas</span>
+                </h4>
+                <p class="text-xs text-gray-400 mt-2">
+                    Como preparar sua estrutura do zero, eliminar crenças limitantes e configurar todas as ferramentas essenciais.
+                </p>
+            </div>
+
+            <!-- [EDITAR]: MÓDULO 2 -->
+            <div class="glass-panel rounded-2xl p-5 border border-white/10">
+                <h4 class="font-bold text-base text-white flex items-center justify-between">
+                    <span>Módulo 2: O Método de Execução Rápida</span>
+                    <span class="text-xs text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full font-semibold">8 Aulas</span>
+                </h4>
+                <p class="text-xs text-gray-400 mt-2">
+                    A estratégia detalhada passo a passo na tela do meu computador para você apenas copiar e colar.
+                </p>
+            </div>
+
+            <!-- [EDITAR]: MÓDULO 3 -->
+            <div class="glass-panel rounded-2xl p-5 border border-white/10">
+                <h4 class="font-bold text-base text-white flex items-center justify-between">
+                    <span>Módulo 3: Escala & Geração de Vendas Recorrentes</span>
+                    <span class="text-xs text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full font-semibold">7 Aulas</span>
+                </h4>
+                <p class="text-xs text-gray-400 mt-2">
+                    Como multiplicar seus ganhos, atrair clientes todos os dias e criar previsibilidade financeira.
+                </p>
+            </div>
+
+            <!-- [EDITAR]: MÓDULO 4 -->
+            <div class="glass-panel rounded-2xl p-5 border border-white/10">
+                <h4 class="font-bold text-base text-white flex items-center justify-between">
+                    <span>Módulo 4: Análise de Métricas & Resolução de Gargalos</span>
+                    <span class="text-xs text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full font-semibold">6 Aulas</span>
+                </h4>
+                <p class="text-xs text-gray-400 mt-2">
+                    Como identificar o que está dando certo, corrigir erros e garantir o ROI máximo do seu investimento.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- [SEÇÃO 5: BÔNUS EXCLUSIVOS] -->
+    <!-- ========================================================================= -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto border-t border-white/10">
+        <div class="text-center mb-12">
+            <span class="text-xs font-bold uppercase tracking-wider text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">Presentes Inclusos</span>
+            <h2 class="text-2xl sm:text-4xl font-black text-white mt-3">Comprando Hoje, Você Leva de Graça:</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Bônus 1 -->
+            <div class="glass-panel p-6 rounded-2xl border border-amber-500/30 space-y-3">
+                <div class="text-xs font-bold text-amber-400 uppercase tracking-wider">Bônus #1</div>
+                <h3 class="text-lg font-bold text-white">[Nome do Bônus 1: ex: Pack de Templates Prontos]</h3>
+                <p class="text-xs text-gray-300">Modelos prontos para você acelerar seus resultados em 3x sem precisar criar do zero.</p>
+                <div class="pt-2 text-xs text-gray-400">Vendido separadamente por: <span class="line-through text-red-400">R$ 197</span> <strong class="text-emerald-400 ml-1">HOJE: GRÁTIS</strong></div>
+            </div>
+
+            <!-- Bônus 2 -->
+            <div class="glass-panel p-6 rounded-2xl border border-amber-500/30 space-y-3">
+                <div class="text-xs font-bold text-amber-400 uppercase tracking-wider">Bônus #2</div>
+                <h3 class="text-lg font-bold text-white">[Nome do Bônus 2: ex: Comunidade VIP de Alunos]</h3>
+                <p class="text-xs text-gray-300">Acesso ao grupo exclusivo para tirar dúvidas, fazer networking e parcerias lucrativas.</p>
+                <div class="pt-2 text-xs text-gray-400">Vendido separadamente por: <span class="line-through text-red-400">R$ 297</span> <strong class="text-emerald-400 ml-1">HOJE: GRÁTIS</strong></div>
+            </div>
+
+            <!-- Bônus 3 -->
+            <div class="glass-panel p-6 rounded-2xl border border-amber-500/30 space-y-3">
+                <div class="text-xs font-bold text-amber-400 uppercase tracking-wider">Bônus #3</div>
+                <h3 class="text-lg font-bold text-white">[Nome do Bônus 3: ex: Planilha de Gestão Financeira]</h3>
+                <p class="text-xs text-gray-300">Ferramenta prática e automatizada para você calcular lucros e métricas essenciais.</p>
+                <div class="pt-2 text-xs text-gray-400">Vendido separadamente por: <span class="line-through text-red-400">R$ 97</span> <strong class="text-emerald-400 ml-1">HOJE: GRÁTIS</strong></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- [SEÇÃO 6: QUEM É O SEU INSTRUTOR / ESPECIALISTA] -->
+    <!-- ========================================================================= -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto border-t border-white/10">
+        <div class="glass-panel p-8 sm:p-12 rounded-3xl border border-white/10 flex flex-col md:flex-row items-center gap-8">
+            <!-- [EDITAR]: FOTO DO INSTRUTOR -->
+            <div class="w-36 h-36 sm:w-48 sm:h-48 rounded-full overflow-hidden shrink-0 border-4 border-indigo-500/30 bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center font-bold text-3xl text-white">
+                <span>[FOTO]</span>
+            </div>
+
+            <!-- [EDITAR]: BIO E CREDENCIAIS -->
+            <div class="space-y-4 text-center md:text-left">
+                <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Seu Mentor</span>
+                <h3 class="text-2xl sm:text-3xl font-extrabold text-white">[SEU NOME / ESPECIALISTA]</h3>
+                <p class="text-sm text-gray-300 leading-relaxed">
+                    [Insira sua biografia resumida aqui. Ex: Especialista com mais de 7 anos de experiência no mercado digital. Já formou mais de 2.000 alunos e gerou mais de R$ 3 milhões em faturamento com estratégias práticas de alta conversão].
+                </p>
+                <div class="flex flex-wrap items-center justify-center md:justify-start gap-4 text-xs font-semibold text-emerald-400">
+                    <span>✓ +[5] anos de experiência</span>
+                    <span>✓ +[1.500] alunos certificados</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- [SEÇÃO 7: OFERTA & PREÇO COM CHECKOUT DIRETO] -->
+    <!-- ========================================================================= -->
+    <section id="comprar" class="py-20 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto text-center border-t border-white/10">
+        <div class="rounded-3xl p-8 sm:p-12 pt-10 sm:pt-14 bg-gradient-to-b from-[#141b2e] to-[#0c101d] border-2 border-emerald-500/50 shadow-2xl relative">
+            <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-emerald-500 to-teal-400 text-gray-950 text-xs font-black uppercase px-6 py-1.5 rounded-full tracking-wider shadow-xl whitespace-nowrap z-20">
+                🔥 OFERTA POR TEMPO LIMITADO
+            </div>
+
+            <h2 class="text-2xl sm:text-4xl font-black text-white mt-2">Acesso Completo ao [NOME DO CURSO]</h2>
+            <p class="text-sm text-gray-400 mt-2 mb-6">Receba acesso imediato a todas as aulas + os 3 bônus exclusivos.</p>
+
+            <div class="py-6 border-y border-white/10 my-6 space-y-2">
+                <div class="text-sm text-gray-400 line-through">De R$ [497,00] por apenas:</div>
+                <div class="text-4xl sm:text-6xl font-black text-white tracking-tight">12x de R$ [19,78]</div>
+                <div class="text-xs text-emerald-400 font-semibold">ou R$ [197,00] à vista com desconto</div>
+            </div>
+
+            <!-- ========================================================================= -->
+            <!-- [EDITAR]: LINK DO SEU CHECKOUT (KIWIFY / HOTMART / EDUZZ) -->
+            <!-- Substitua o '#' pelo seu link real da Kiwify ou Hotmart -->
+            <!-- ========================================================================= -->
+            <a href="https://pay.kiwify.com.br/SEU-LINK-AQUI" target="_blank" class="pulse-btn w-full py-5 px-8 rounded-2xl text-base sm:text-lg font-black bg-gradient-to-r from-emerald-500 to-teal-400 text-gray-950 flex items-center justify-center gap-2 shadow-2xl hover:scale-105 active:scale-95 transition-transform uppercase tracking-wider">
+                <span>SIM! QUERO ME INSCREVER AGORA</span>
+                <span>→</span>
+            </a>
+
+            <div class="mt-6 flex flex-wrap items-center justify-center gap-4 text-xs text-gray-400">
+                <span>💳 Cartão de Crédito</span>
+                <span>💠 Pix Imediato</span>
+                <span>📄 Boleto Bancário</span>
+            </div>
+        </div>
+
+        <!-- Garantia Blindada -->
+        <div class="mt-10 p-6 rounded-2xl glass-panel border border-white/10 flex flex-col sm:flex-row items-center gap-4 text-left">
+            <div class="w-16 h-16 rounded-2xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center shrink-0 text-3xl">
+                🛡️
+            </div>
+            <div>
+                <h4 class="font-bold text-white text-base">Garantia Incondicional de [7] Dias</h4>
+                <p class="text-xs text-gray-400 mt-1">
+                    Se você entrar no treinamento e por qualquer motivo achar que não valeu a pena, basta nos enviar um e-mail em até [7] dias e devolvemos 100% do seu dinheiro, sem perguntas.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- [SEÇÃO 8: PERGUNTAS FREQUENTES (FAQ)] -->
+    <!-- ========================================================================= -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto border-t border-white/10">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white text-center mb-8">Dúvidas Frequentes</h2>
+
+        <div class="space-y-3">
+            <details class="glass-panel p-4 rounded-xl border border-white/10 cursor-pointer">
+                <summary class="font-bold text-sm text-white">Como recebo o acesso ao curso?</summary>
+                <p class="text-xs text-gray-300 mt-2">Assim que seu pagamento for confirmado, você receberá um e-mail com os dados de login e senha para a área de membros imediatamente.</p>
+            </details>
+            <details class="glass-panel p-4 rounded-xl border border-white/10 cursor-pointer">
+                <summary class="font-bold text-sm text-white">Por quanto tempo terei acesso?</summary>
+                <p class="text-xs text-gray-300 mt-2">Você terá acesso por [1 ano / vitalício] com direito a todas as atualizações futuras que forem adicionadas ao treinamento.</p>
+            </details>
+            <details class="glass-panel p-4 rounded-xl border border-white/10 cursor-pointer">
+                <summary class="font-bold text-sm text-white">Consigo assistir pelo celular?</summary>
+                <p class="text-xs text-gray-300 mt-2">Sim! Nossa plataforma é 100% compatível com computadores, tablets e celulares (Android e iPhone).</p>
+            </details>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer class="py-8 text-center text-xs text-gray-500 border-t border-white/5">
+        <p>© 2026 [SEU NOME / SUA EMPRESA]. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Script Simples do Contador de Urgência -->
+    <script>
+        let duration = 15 * 60; // 15 minutos
+        const el = document.getElementById('countdown');
+        setInterval(() => {
+            const min = Math.floor(duration / 60);
+            const sec = duration % 60;
+            if (el) el.textContent = `${min < 10 ? '0' : ''}${min}:${sec < 10 ? '0' : ''}${sec}`;
+            if (duration > 0) duration--;
+        }, 1000);
+    </script>
+</body>
+</html>
