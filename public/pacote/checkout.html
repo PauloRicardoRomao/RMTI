@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout Seguro • Finalizar Pedido</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/config.js"></script>
+</head>
+<body class="bg-[#080c14] text-slate-100 min-h-screen py-8 px-4 sm:px-6">
+  <div class="max-w-4xl mx-auto">
+    <header class="flex items-center justify-between mb-8 pb-4 border-b border-slate-800">
+      <a href="index.html" class="text-xs text-slate-400 hover:text-white">← Voltar para a página</a>
+      <div class="text-xs text-emerald-400 font-bold bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
+        🔒 Ambiente Criptografado SSL 256-bit
+      </div>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div class="lg:col-span-7 space-y-6">
+        <div class="glass-card p-6 sm:p-8 rounded-3xl border border-slate-800 shadow-xl">
+          <h2 class="text-xl font-bold text-white mb-1">Dados de Pagamento</h2>
+          <p class="text-xs text-slate-400 mb-6">Preencha seus dados para liberação imediata.</p>
+          <form class="space-y-4" onsubmit="event.preventDefault(); window.location.href='obrigado.html';">
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1">Nome Completo *</label>
+              <input type="text" required placeholder="Ex: João Silva" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1">E-mail *</label>
+              <input type="email" required placeholder="seuemail@exemplo.com" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1">WhatsApp *</label>
+                <input type="tel" required placeholder="(11) 99999-9999" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1">CPF *</label>
+                <input type="text" required placeholder="000.000.000-00" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+              </div>
+            </div>
+            <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-black text-base uppercase tracking-wider mt-4">
+              Confirmar Pagamento Seguro
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="lg:col-span-5 space-y-6">
+        <div class="glass-card p-6 rounded-3xl border border-slate-800 shadow-xl">
+          <h3 class="text-base font-bold text-white mb-4">Resumo do Pedido</h3>
+          <div class="flex items-center gap-4 pb-4 border-b border-slate-800">
+            <div class="w-14 h-14 rounded-xl bg-slate-800 flex items-center justify-center text-2xl">📦</div>
+            <div>
+              <h4 class="text-sm font-bold text-white" id="chkProductName">Produto / Serviço Selecionado</h4>
+              <p class="text-xs text-slate-400">Acesso e suporte prioritário</p>
+            </div>
+          </div>
+          <div class="py-4 space-y-2 text-xs text-slate-300">
+            <div class="flex justify-between">
+              <span>Valor:</span>
+              <span class="text-emerald-400 text-base font-black" id="chkPrice">R$ 97,00</span>
+            </div>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 text-xs text-slate-400">
+            ✓ Garantia incondicional de 7 dias com reembolso imediato.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const cfg = window.PAGE_CONFIG || {};
+      const activeLayout = cfg.activeLayout || 'vendas-diretas';
+      if (activeLayout === 'vendas-diretas' && cfg.vendas) {
+        document.getElementById('chkProductName').textContent = cfg.vendas.productName || 'Acesso ao Produto';
+        document.getElementById('chkPrice').textContent = cfg.vendas.salePrice || 'R$ 97,00';
+      } else if (activeLayout === 'leads-whatsapp') {
+        document.getElementById('chkProductName').textContent = 'Reserva de Consulta / Atendimento';
+        document.getElementById('chkPrice').textContent = 'R$ 97,00';
+      } else {
+        document.getElementById('chkProductName').textContent = 'Proposta Comercial / Solução B2B';
+        document.getElementById('chkPrice').textContent = 'R$ 97,00';
+      }
+    });
+  </script>
+</body>
+</html>

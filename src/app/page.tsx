@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { useConfig } from '@/context/ConfigContext';
+import React, { useState } from "react";
+import Link from "next/link";
+import { useConfig } from "@/context/ConfigContext";
 import {
   Menu,
   X,
@@ -20,62 +20,74 @@ import {
   Sparkles,
   ShoppingBag,
   Sliders,
-} from 'lucide-react';
+} from "lucide-react";
 
 export default function HomePage() {
   const { config } = useConfig();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeCaseImage, setActiveCaseImage] = useState('/assets/cases/slide-01-capa.jpg');
+  const [activeCaseImage, setActiveCaseImage] = useState(
+    "/assets/cases/slide-01-capa.jpg",
+  );
 
   // Contact form state
   const [formState, setFormState] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    service: 'Desenvolvimento de Sites & LPs',
-    message: '',
+    name: "",
+    email: "",
+    phone: "",
+    service: "Desenvolvimento de Sites & LPs",
+    message: "",
     lgpd: true,
-    website_hp: '', // Honeypot
+    website_hp: "", // Honeypot
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [modalFeedback, setModalFeedback] = useState<{
     show: boolean;
-    type: 'success' | 'error';
+    type: "success" | "error";
     title: string;
     message: string;
   }>({
     show: false,
-    type: 'success',
-    title: '',
-    message: '',
+    type: "success",
+    title: "",
+    message: "",
   });
 
   const getWhatsAppUrl = (customMessage?: string) => {
-    const phone = config.contact.whatsappNumber.replace(/\D/g, '');
+    const phone = config.contact.whatsappNumber.replace(/\D/g, "");
     const text = encodeURIComponent(
-      customMessage || config.contact.whatsappDefaultMessage
+      customMessage || config.contact.whatsappDefaultMessage,
     );
     return `https://wa.me/${phone}?text=${text}`;
   };
 
   const trackWhatsAppClick = () => {
     // Google Ads
-    if (typeof window !== 'undefined' && (window as any).gtag && config.integrations?.googleAdsId) {
+    if (
+      typeof window !== "undefined" &&
+      (window as any).gtag &&
+      config.integrations?.googleAdsId
+    ) {
       const adsId = config.integrations.googleAdsId;
       const label = config.integrations.googleAdsConversionLabel;
-      (window as any).gtag('event', 'conversion', {
+      (window as any).gtag("event", "conversion", {
         send_to: label ? `${adsId}/${label}` : adsId,
-        event_category: 'engagement',
-        event_label: 'whatsapp_click',
+        event_category: "engagement",
+        event_label: "whatsapp_click",
       });
     }
 
     // Meta Pixel (Facebook & Instagram Ads - Contact)
-    if (typeof window !== 'undefined' && (window as any).fbq && config.integrations?.metaPixelId) {
+    if (
+      typeof window !== "undefined" &&
+      (window as any).fbq &&
+      config.integrations?.metaPixelId
+    ) {
       try {
-        (window as any).fbq('track', 'Contact', { content_name: 'whatsapp_click' });
+        (window as any).fbq("track", "Contact", {
+          content_name: "whatsapp_click",
+        });
       } catch (fbErr) {
-        console.warn('Falha ao registrar Meta Pixel:', fbErr);
+        console.warn("Falha ao registrar Meta Pixel:", fbErr);
       }
     }
   };
@@ -83,12 +95,17 @@ export default function HomePage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formState.name.trim() || !formState.email.trim() || !formState.message.trim()) {
+    if (
+      !formState.name.trim() ||
+      !formState.email.trim() ||
+      !formState.message.trim()
+    ) {
       setModalFeedback({
         show: true,
-        type: 'error',
-        title: 'Campos Obrigatórios',
-        message: 'Por favor, preencha nome, e-mail e sua mensagem antes de enviar.',
+        type: "error",
+        title: "Campos Obrigatórios",
+        message:
+          "Por favor, preencha nome, e-mail e sua mensagem antes de enviar.",
       });
       return;
     }
@@ -96,9 +113,9 @@ export default function HomePage() {
     if (!formState.lgpd) {
       setModalFeedback({
         show: true,
-        type: 'error',
-        title: 'Consentimento Necessário',
-        message: 'Você precisa concordar com o envio dos dados para contato.',
+        type: "error",
+        title: "Consentimento Necessário",
+        message: "Você precisa concordar com o envio dos dados para contato.",
       });
       return;
     }
@@ -107,9 +124,9 @@ export default function HomePage() {
 
     try {
       // 1. Enviar para a API interna /api/messages (salva na lista de leads do admin)
-      const res = await fetch('/api/messages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formState),
       });
 
@@ -120,9 +137,9 @@ export default function HomePage() {
         config.contact.emailjsTemplateId
       ) {
         try {
-          await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+          await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               service_id: config.contact.emailjsServiceId,
               template_id: config.contact.emailjsTemplateId,
@@ -137,66 +154,74 @@ export default function HomePage() {
             }),
           });
         } catch (emailErr) {
-          console.warn('Falha secundária EmailJS:', emailErr);
+          console.warn("Falha secundária EmailJS:", emailErr);
         }
       }
 
       if (res.ok) {
         // Disparo de Conversão Google Ads
-        if (typeof window !== 'undefined' && (window as any).gtag && config.integrations?.googleAdsId) {
+        if (
+          typeof window !== "undefined" &&
+          (window as any).gtag &&
+          config.integrations?.googleAdsId
+        ) {
           try {
             const adsId = config.integrations.googleAdsId;
             const label = config.integrations.googleAdsConversionLabel;
-            (window as any).gtag('event', 'conversion', {
+            (window as any).gtag("event", "conversion", {
               send_to: label ? `${adsId}/${label}` : adsId,
-              event_category: 'lead',
-              event_label: 'contact_form_submission',
+              event_category: "lead",
+              event_label: "contact_form_submission",
             });
           } catch (adsErr) {
-            console.warn('Falha ao registrar conversão Google Ads:', adsErr);
+            console.warn("Falha ao registrar conversão Google Ads:", adsErr);
           }
         }
 
         // Disparo de Conversão Meta Pixel (Lead)
-        if (typeof window !== 'undefined' && (window as any).fbq && config.integrations?.metaPixelId) {
+        if (
+          typeof window !== "undefined" &&
+          (window as any).fbq &&
+          config.integrations?.metaPixelId
+        ) {
           try {
-            (window as any).fbq('track', 'Lead', {
-              content_name: 'contact_form_submission',
+            (window as any).fbq("track", "Lead", {
+              content_name: "contact_form_submission",
               content_category: formState.service,
             });
           } catch (fbErr) {
-            console.warn('Falha Meta Pixel:', fbErr);
+            console.warn("Falha Meta Pixel:", fbErr);
           }
         }
 
         setModalFeedback({
           show: true,
-          type: 'success',
-          title: 'Mensagem Enviada!',
+          type: "success",
+          title: "Mensagem Enviada!",
           message:
-            'Obrigado pelo contato! Recebi sua mensagem com sucesso e retornarei o mais breve possível.',
+            "Obrigado pelo contato! Recebi sua mensagem com sucesso e retornarei o mais breve possível.",
         });
         setFormState({
-          name: '',
-          email: '',
-          phone: '',
-          service: 'Desenvolvimento de Sites & LPs',
-          message: '',
+          name: "",
+          email: "",
+          phone: "",
+          service: "Desenvolvimento de Sites & LPs",
+          message: "",
           lgpd: true,
-          website_hp: '',
+          website_hp: "",
         });
       } else {
         const errorData = await res.json();
-        throw new Error(errorData.error || 'Erro ao enviar');
+        throw new Error(errorData.error || "Erro ao enviar");
       }
     } catch (err: any) {
-      console.error('Submit error:', err);
+      console.error("Submit error:", err);
       setModalFeedback({
         show: true,
-        type: 'error',
-        title: 'Falha no Envio',
+        type: "error",
+        title: "Falha no Envio",
         message:
-          'Não foi possível enviar sua mensagem pelo formulário agora. Você também pode clicar no botão de WhatsApp para falar diretamente conosco!',
+          "Não foi possível enviar sua mensagem pelo formulário agora. Você também pode clicar no botão de WhatsApp para falar diretamente conosco!",
       });
     } finally {
       setIsSubmitting(false);
@@ -242,14 +267,18 @@ export default function HomePage() {
               className="text-slate-700 hover:text-orange-500 font-semibold text-sm transition-colors flex items-center gap-1"
             >
               <span>Cases</span>
-              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-amber-400 text-slate-950">Novo</span>
+              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-amber-400 text-slate-950">
+                Novo
+              </span>
             </a>
             <a
               href="#produtos"
               className="text-slate-700 hover:text-orange-500 font-semibold text-sm transition-colors flex items-center gap-1"
             >
               <span>Pacotes de LPs</span>
-              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-500 text-slate-950">Loja</span>
+              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-500 text-slate-950">
+                Loja
+              </span>
             </a>
             <a
               href="#processo"
@@ -299,7 +328,11 @@ export default function HomePage() {
               className="p-2 text-slate-800 hover:text-orange-500 transition-colors focus:outline-none"
               aria-label="Abrir menu de navegação"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
             </button>
           </div>
         </div>
@@ -327,7 +360,9 @@ export default function HomePage() {
               className="text-slate-800 font-bold text-base hover:text-orange-500 flex items-center justify-between"
             >
               <span>Cases &amp; Clientes</span>
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-400 text-slate-950">Novo</span>
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-400 text-slate-950">
+                Novo
+              </span>
             </a>
             <a
               href="#produtos"
@@ -335,7 +370,9 @@ export default function HomePage() {
               className="text-slate-800 font-bold text-base hover:text-orange-500 flex items-center justify-between"
             >
               <span>Pacotes de Landing Pages</span>
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500 text-slate-950">Loja</span>
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500 text-slate-950">
+                Loja
+              </span>
             </a>
             <a
               href="#processo"
@@ -408,7 +445,7 @@ export default function HomePage() {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto pt-4">
-              {config.hero.primaryButtonAction === 'whatsapp' ? (
+              {config.hero.primaryButtonAction === "whatsapp" ? (
                 <a
                   href={getWhatsAppUrl()}
                   target="_blank"
@@ -431,7 +468,7 @@ export default function HomePage() {
 
               {config.hero.secondaryButtonText && (
                 <a
-                  href={config.hero.secondaryButtonLink || '#servicos'}
+                  href={config.hero.secondaryButtonLink || "#servicos"}
                   className="theme-btn-secondary w-full sm:w-auto px-8 py-4 rounded-full text-base sm:text-lg flex items-center justify-center gap-2"
                 >
                   <span>{config.hero.secondaryButtonText}</span>
@@ -449,8 +486,9 @@ export default function HomePage() {
               Nossos Serviços Especializados
             </h2>
             <p className="text-slate-400 text-base sm:text-lg max-w-2xl">
-              Soluções sob medida desenvolvidas com as mais modernas tecnologias do mercado
-              para garantir estabilidade, segurança e alto retorno sobre investimento.
+              Soluções sob medida desenvolvidas com as mais modernas tecnologias
+              do mercado para garantir estabilidade, segurança e alto retorno
+              sobre investimento.
             </p>
           </div>
 
@@ -483,7 +521,10 @@ export default function HomePage() {
                   {service.benefits && service.benefits.length > 0 && (
                     <ul className="flex flex-col gap-2.5 border-t border-slate-100 pt-4">
                       {service.benefits.map((b, idx) => (
-                        <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700">
+                        <li
+                          key={idx}
+                          className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700"
+                        >
                           <Check className="w-4 h-4 text-orange-500 flex-shrink-0 mt-0.5" />
                           <span>{b}</span>
                         </li>
@@ -492,13 +533,16 @@ export default function HomePage() {
                   )}
 
                   <a
-                    href={getWhatsAppUrl(service.whatsappMessage || `Olá! Gostaria de um orçamento para ${service.title}.`)}
+                    href={getWhatsAppUrl(
+                      service.whatsappMessage ||
+                        `Olá! Gostaria de um orçamento para ${service.title}.`,
+                    )}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={trackWhatsAppClick}
                     className="mt-auto w-full py-3 px-4 rounded-xl font-bold text-sm bg-slate-50 hover:bg-gradient-to-r hover:from-amber-400 hover:to-orange-500 hover:text-slate-950 text-slate-800 border border-slate-200 hover:border-transparent flex items-center justify-center gap-2 transition-all shadow-sm"
                   >
-                    <span>{service.ctaText || 'Solicitar Orçamento →'}</span>
+                    <span>{service.ctaText || "Solicitar Orçamento →"}</span>
                   </a>
                 </div>
               ))}
@@ -517,7 +561,8 @@ export default function HomePage() {
                 Projetos Reais Entregues com Alta Performance
               </h2>
               <p className="text-slate-400 text-base sm:text-lg max-w-2xl">
-                Veja na prática como transformamos a presença digital de nossos clientes em máquinas de autoridade e conversão.
+                Veja na prática como transformamos a presença digital de nossos
+                clientes em máquinas de autoridade e conversão.
               </p>
             </div>
 
@@ -568,8 +613,8 @@ export default function HomePage() {
                               onClick={() => setActiveCaseImage(thumb)}
                               className={`w-16 h-16 rounded-xl overflow-hidden border-2 transition-all cursor-pointer ${
                                 (activeCaseImage || caseItem.imageUrl) === thumb
-                                  ? 'border-amber-400 scale-105 shadow-md'
-                                  : 'border-slate-800 opacity-60 hover:opacity-100'
+                                  ? "border-amber-400 scale-105 shadow-md"
+                                  : "border-slate-800 opacity-60 hover:opacity-100"
                               }`}
                             >
                               <img
@@ -610,7 +655,10 @@ export default function HomePage() {
                       {/* Entregáveis & Benefícios Conquistados */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2 border-t border-slate-800">
                         {caseItem.results.map((res, rIdx) => (
-                          <div key={rIdx} className="flex items-start gap-2 text-xs sm:text-sm text-slate-300">
+                          <div
+                            key={rIdx}
+                            className="flex items-start gap-2 text-xs sm:text-sm text-slate-300"
+                          >
                             <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                             <span>{res}</span>
                           </div>
@@ -642,7 +690,9 @@ export default function HomePage() {
                         )}
 
                         <a
-                          href={getWhatsAppUrl(`Olá! Vi o case de sucesso do ${caseItem.clientName} no site da RMTI e gostaria de um projeto semelhante para o meu negócio.`)}
+                          href={getWhatsAppUrl(
+                            `Olá! Vi o case de sucesso do ${caseItem.clientName} no site da RMTI e gostaria de um projeto semelhante para o meu negócio.`,
+                          )}
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={trackWhatsAppClick}
@@ -673,143 +723,188 @@ export default function HomePage() {
         )}
 
         {/* 3.2 PACOTES DE LANDING PAGES POR ESTRUTURA */}
-        {config.products && config.products.filter((p) => p.active).length > 0 && (
-          <section id="produtos" className="flex flex-col gap-10 scroll-mt-24">
-            <div className="text-center flex flex-col items-center gap-3">
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold uppercase tracking-wider">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Pacotes de Landing Pages por Estrutura</span>
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
-                Estruturas Validadas de Alta Conversão com Painel Admin Próprio
-              </h2>
-              <p className="text-slate-400 text-base sm:text-lg max-w-2xl">
-                Não vendemos modelos presos a nichos. Entregamos o pacote completo com index, CSS, JS, painel admin próprio zerado para alterar tudo, checkout próprio e manual ilustrado em PDF.
-              </p>
-            </div>
+        {config.products &&
+          config.products.filter((p) => p.active).length > 0 && (
+            <section
+              id="produtos"
+              className="flex flex-col gap-10 scroll-mt-24"
+            >
+              <div className="text-center flex flex-col items-center gap-3">
+                <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold uppercase tracking-wider">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>Pacote All-in-One de Landing Page</span>
+                </span>
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
+                  1 Estrutura Universal com 3 Layouts &amp; Painel Admin Próprio
+                </h2>
+                <p className="text-slate-400 text-base sm:text-lg max-w-2xl">
+                  Um único pacote completo com tudo o que você precisa: alterne entre os 3 layouts
+                  (Vendas Diretas/VSL, Leads VIP e Institucional B2B) direto pelo Painel Admin próprio
+                  zerado, com checkout próprio e manual ilustrado em PDF.
+                </p>
+              </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {config.products
-                .filter((p) => p.active)
-                .sort((a, b) => a.order - b.order)
-                .map((product) => (
-                  <div
-                    key={product.id}
-                    className={`relative rounded-3xl p-6 sm:p-7 flex flex-col justify-between border transition-all duration-300 ${
-                      product.badge
-                        ? 'bg-gradient-to-b from-slate-900/90 via-slate-900/60 to-slate-950 border-emerald-500/40 shadow-xl shadow-emerald-500/10'
-                        : 'bg-slate-900/60 border-slate-800 hover:border-slate-700'
-                    }`}
-                  >
-                    {product.badge && (
-                      <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 w-max max-w-[94%] z-10 pointer-events-none">
-                        <span className="inline-flex items-center justify-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 text-[10px] font-black uppercase tracking-wider shadow-lg shadow-emerald-500/20 whitespace-nowrap">
-                          <Sparkles className="w-3 h-3 shrink-0" />
-                          <span>{product.badge}</span>
-                        </span>
-                      </div>
-                    )}
-
-                    <div className="flex flex-col gap-4">
-                      <div className="text-center flex flex-col items-center">
-                        <h3 className="text-lg sm:text-xl font-bold text-white mb-1.5">{product.name}</h3>
-                        <p className="text-slate-400 text-xs leading-relaxed">{product.tagline}</p>
-                      </div>
-
-                      {/* Bloco de Preços Centralizado */}
-                      <div className="py-4 px-3 rounded-2xl bg-slate-950/60 border border-slate-800/80 flex flex-col items-center justify-center text-center">
-                        <span className="text-[11px] text-slate-500 line-through mb-0.5">
-                          De {product.originalPrice}
-                        </span>
-                        <div className="flex items-baseline justify-center gap-1.5">
-                          <span className="text-[11px] font-bold text-emerald-400 uppercase">Por</span>
-                          <span className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-                            {product.priceFormatted}
+              <div
+                className={`grid grid-cols-1 ${
+                  config.products.filter((p) => p.active).length <= 2
+                    ? "md:grid-cols-2 max-w-4xl mx-auto"
+                    : "md:grid-cols-2 lg:grid-cols-3"
+                } gap-8 w-full`}
+              >
+                {config.products
+                  .filter((p) => p.active)
+                  .sort((a, b) => a.order - b.order)
+                  .map((product) => (
+                    <div
+                      key={product.id}
+                      className={`relative rounded-3xl p-6 sm:p-7 flex flex-col justify-between border transition-all duration-300 ${
+                        product.badge
+                          ? "bg-gradient-to-b from-slate-900/90 via-slate-900/60 to-slate-950 border-emerald-500/40 shadow-xl shadow-emerald-500/10"
+                          : "bg-slate-900/60 border-slate-800 hover:border-slate-700"
+                      }`}
+                    >
+                      {product.badge && (
+                        <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 w-max max-w-[94%] z-10 pointer-events-none">
+                          <span className="inline-flex items-center justify-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 text-[10px] font-black uppercase tracking-wider shadow-lg shadow-emerald-500/20 whitespace-nowrap">
+                            <Sparkles className="w-3 h-3 shrink-0" />
+                            <span>{product.badge}</span>
                           </span>
-                        </div>
-                        {product.installments && (
-                          <span className="text-[10px] font-semibold text-emerald-400 mt-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 inline-block">
-                            {product.installments}
-                          </span>
-                        )}
-                      </div>
-
-                      {product.features && product.features.length > 0 && (
-                        <div className="flex flex-col gap-2">
-                          <span className="text-[11px] font-bold uppercase tracking-wider text-slate-300">O que está incluso:</span>
-                          <ul className="flex flex-col gap-1.5">
-                            {product.features.map((feat, fIdx) => (
-                              <li key={fIdx} className="flex items-start gap-2 text-xs text-slate-300">
-                                <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
-                                <span className="leading-tight">{feat}</span>
-                              </li>
-                            ))}
-                          </ul>
                         </div>
                       )}
-                    </div>
 
-                    <div className="flex flex-col gap-2 mt-6">
-                      <Link
-                        href={`/checkout?plano=${product.id.includes('combo') ? 'pro' : 'starter'}&produto=${product.id}`}
-                        className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 transition-all hover:scale-[1.02]"
-                      >
-                        <ShoppingBag className="w-3.5 h-3.5" />
-                        <span>{product.ctaText || 'Comprar Pacote'}</span>
-                      </Link>
+                      <div className="flex flex-col gap-4">
+                        <div className="text-center flex flex-col items-center">
+                          <h3 className="text-lg sm:text-xl font-bold text-white mb-1.5">
+                            {product.name}
+                          </h3>
+                          <p className="text-slate-400 text-xs leading-relaxed">
+                            {product.tagline}
+                          </p>
+                        </div>
 
-                      <div className="grid grid-cols-2 gap-1.5">
-                        {product.demoUrl && (
+                        {/* Bloco de Preços Centralizado */}
+                        <div className="py-4 px-3 rounded-2xl bg-slate-950/60 border border-slate-800/80 flex flex-col items-center justify-center text-center">
+                          <span className="text-[11px] text-slate-500 line-through mb-0.5">
+                            De {product.originalPrice}
+                          </span>
+                          <div className="flex items-baseline justify-center gap-1.5">
+                            <span className="text-[11px] font-bold text-emerald-400 uppercase">
+                              Por
+                            </span>
+                            <span className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+                              {product.priceFormatted}
+                            </span>
+                          </div>
+                          {product.installments && (
+                            <span className="text-[10px] font-semibold text-emerald-400 mt-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 inline-block">
+                              {product.installments}
+                            </span>
+                          )}
+                        </div>
+
+                        {product.features && product.features.length > 0 && (
+                          <div className="flex flex-col gap-2">
+                            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-300">
+                              O que está incluso:
+                            </span>
+                            <ul className="flex flex-col gap-1.5">
+                              {product.features.map((feat, fIdx) => (
+                                <li
+                                  key={fIdx}
+                                  className="flex items-start gap-2 text-xs text-slate-300"
+                                >
+                                  <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
+                                  <span className="leading-tight">{feat}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="flex flex-col gap-2 mt-6">
+                        <Link
+                          href={`/checkout?plano=${product.id.includes("combo") ? "pro" : "starter"}&produto=${product.id}`}
+                          className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 transition-all hover:scale-[1.02]"
+                        >
+                          <ShoppingBag className="w-3.5 h-3.5" />
+                          <span>{product.ctaText || "Comprar Pacote"}</span>
+                        </Link>
+
+                        <div className="grid grid-cols-2 gap-1.5">
+                          {product.demoUrl && (
+                            <a
+                              href={product.demoUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="py-2 px-2.5 rounded-lg bg-slate-800/80 hover:bg-slate-800 text-slate-300 hover:text-white font-medium text-[11px] flex items-center justify-center gap-1 border border-slate-700/60 transition-colors"
+                            >
+                              <ExternalLink className="w-3 h-3" />
+                              <span>Ver Página</span>
+                            </a>
+                          )}
+
                           <a
-                            href={product.demoUrl}
+                            href={
+                              product.adminUrl || `${product.demoUrl}/admin`
+                            }
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="py-2 px-2.5 rounded-lg bg-slate-800/80 hover:bg-slate-800 text-slate-300 hover:text-white font-medium text-[11px] flex items-center justify-center gap-1 border border-slate-700/60 transition-colors"
+                            className="py-2 px-2.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 font-bold text-[11px] flex items-center justify-center gap-1 border border-emerald-500/30 transition-colors"
                           >
-                            <ExternalLink className="w-3 h-3" />
-                            <span>Ver Página</span>
+                            <Sliders className="w-3 h-3" />
+                            <span>Testar Admin</span>
                           </a>
-                        )}
-
-                        <a
-                          href={product.adminUrl || `${product.demoUrl}/admin`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="py-2 px-2.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 font-bold text-[11px] flex items-center justify-center gap-1 border border-emerald-500/30 transition-colors"
-                        >
-                          <Sliders className="w-3 h-3" />
-                          <span>Testar Admin</span>
-                        </a>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-            </div>
+                  ))}
+              </div>
 
-            {/* Acesso rápido às demonstrações */}
-            <div className="rounded-2xl p-6 bg-slate-900/40 border border-slate-800/80 flex flex-col lg:flex-row items-center justify-between gap-6">
-              <div className="flex flex-col gap-1.5 text-center lg:text-left">
-                <span className="text-xs font-bold uppercase tracking-wider text-teal-400">Ambiente de Demonstração Interativo</span>
-                <h4 className="text-lg font-bold text-white">Deseja navegar nas 3 estruturas e testar os painéis administrativos?</h4>
-                <p className="text-slate-400 text-xs sm:text-sm">Cada pacote tem seu próprio painel zerado (senha inicial 123456) onde você pode testar alterar literalmente tudo:</p>
+              {/* Acesso rápido às demonstrações */}
+              <div className="rounded-2xl p-6 bg-slate-900/40 border border-slate-800/80 flex flex-col lg:flex-row items-center justify-between gap-6 max-w-4xl mx-auto w-full">
+                <div className="flex flex-col gap-1.5 text-center lg:text-left">
+                  <span className="text-xs font-bold uppercase tracking-wider text-teal-400">
+                    Ambiente de Demonstração Interativo
+                  </span>
+                  <h4 className="text-lg font-bold text-white">
+                    Quer testar a Landing Page e o Painel Admin agora mesmo?
+                  </h4>
+                  <p className="text-slate-400 text-xs sm:text-sm">
+                    Acesse a demonstração real com os 3 layouts alternáveis e o painel CMS zerado (senha inicial: 123456):
+                  </p>
+                </div>
+                <div className="flex flex-wrap items-center justify-center gap-2.5">
+                  <a
+                    href="/pacote"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-200 border border-slate-700 flex items-center gap-1.5 transition-colors"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" />
+                    <span>Ver Landing Page (3 Layouts)</span>
+                  </a>
+                  <a
+                    href="/pacote/admin"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 text-xs font-extrabold flex items-center gap-1.5 shadow-md shadow-emerald-500/20 hover:scale-105 transition-all"
+                  >
+                    <Sliders className="w-3.5 h-3.5" />
+                    <span>⚙️ Testar Painel Admin Zerado</span>
+                  </a>
+                  <a
+                    href="/pacote/MANUAL-ILUSTRADO.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3.5 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-xs text-slate-300 border border-slate-700/60 flex items-center gap-1.5 transition-colors"
+                  >
+                    <span>📖 Manual Ilustrado</span>
+                  </a>
+                </div>
               </div>
-              <div className="flex flex-wrap items-center justify-center gap-2">
-                <a href="/pacotes/pacote-01-vendas-diretas" target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 border border-slate-700 flex items-center gap-1.5 transition-colors">
-                  <span>⚡ Pacote 01: Vendas Diretas</span>
-                </a>
-                <a href="/pacotes/pacote-02-leads-whatsapp" target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 border border-slate-700 flex items-center gap-1.5 transition-colors">
-                  <span>💬 Pacote 02: Leads WhatsApp</span>
-                </a>
-                <a href="/pacotes/pacote-03-institucional-negocios" target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 border border-slate-700 flex items-center gap-1.5 transition-colors">
-                  <span>🏢 Pacote 03: Institucional B2B</span>
-                </a>
-                <a href="/pacotes/pacote-01-vendas-diretas/admin" target="_blank" rel="noopener noreferrer" className="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 text-xs font-extrabold flex items-center gap-1.5 shadow-md shadow-emerald-500/20 hover:scale-105 transition-all">
-                  <span>⚙️ Testar Painel Admin Zerado</span>
-                </a>
-              </div>
-            </div>
-          </section>
-        )}
+            </section>
+          )}
 
         {/* 4. COMO FUNCIONA (PROCESSO) */}
         <section id="processo" className="flex flex-col gap-12 scroll-mt-24">
@@ -818,7 +913,8 @@ export default function HomePage() {
               Como Funciona Nosso Processo
             </h2>
             <p className="text-slate-400 text-base sm:text-lg max-w-2xl">
-              Do primeiro contato à publicação e suporte: um passo a passo estruturado e sem surpresas.
+              Do primeiro contato à publicação e suporte: um passo a passo
+              estruturado e sem surpresas.
             </p>
           </div>
 
@@ -833,9 +929,7 @@ export default function HomePage() {
                   <span className="text-4xl font-black theme-accent-gradient-text">
                     {step.stepNumber}
                   </span>
-                  <h3 className="text-xl font-bold text-white">
-                    {step.title}
-                  </h3>
+                  <h3 className="text-xl font-bold text-white">{step.title}</h3>
                   <p className="text-slate-400 text-sm leading-relaxed">
                     {step.description}
                   </p>
@@ -845,13 +939,17 @@ export default function HomePage() {
         </section>
 
         {/* 5. DIFERENCIAIS */}
-        <section id="diferenciais" className="flex flex-col gap-12 scroll-mt-24">
+        <section
+          id="diferenciais"
+          className="flex flex-col gap-12 scroll-mt-24"
+        >
           <div className="text-center flex flex-col items-center gap-3">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
               Por Que Escolher a RMTI?
             </h2>
             <p className="text-slate-400 text-base sm:text-lg max-w-2xl">
-              Compromisso genuíno com o sucesso do seu negócio e entrega de soluções que trazem resultado real.
+              Compromisso genuíno com o sucesso do seu negócio e entrega de
+              soluções que trazem resultado real.
             </p>
           </div>
 
@@ -885,7 +983,7 @@ export default function HomePage() {
               )}
               <img
                 src={config.banner.desktopImageUrl}
-                alt={config.banner.altText || 'Banner RMTI'}
+                alt={config.banner.altText || "Banner RMTI"}
                 className="w-full h-auto object-contain block"
               />
             </picture>
@@ -899,7 +997,8 @@ export default function HomePage() {
               Perguntas Frequentes
             </h2>
             <p className="text-slate-400 text-base sm:text-lg max-w-2xl">
-              Tire todas as suas dúvidas sobre prazos, suporte, formas de pagamento e garantias.
+              Tire todas as suas dúvidas sobre prazos, suporte, formas de
+              pagamento e garantias.
             </p>
           </div>
 
@@ -927,7 +1026,10 @@ export default function HomePage() {
         </section>
 
         {/* 8. CONTATO */}
-        <section id="contato" className="flex justify-center w-full scroll-mt-24">
+        <section
+          id="contato"
+          className="flex justify-center w-full scroll-mt-24"
+        >
           <div className="w-full max-w-3xl bg-white rounded-3xl p-8 sm:p-12 shadow-2xl text-slate-900 flex flex-col gap-8">
             <div className="text-center flex flex-col gap-2">
               <h2 className="text-3xl sm:text-4xl font-black text-slate-950">
@@ -944,7 +1046,9 @@ export default function HomePage() {
                 type="text"
                 name="website_hp"
                 value={formState.website_hp}
-                onChange={(e) => setFormState({ ...formState, website_hp: e.target.value })}
+                onChange={(e) =>
+                  setFormState({ ...formState, website_hp: e.target.value })
+                }
                 className="hidden"
                 tabIndex={-1}
                 autoComplete="off"
@@ -952,7 +1056,10 @@ export default function HomePage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div className="flex flex-col gap-1.5">
-                  <label htmlFor="name" className="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                  <label
+                    htmlFor="name"
+                    className="text-xs font-bold text-slate-700 uppercase tracking-wider"
+                  >
                     Seu Nome *
                   </label>
                   <input
@@ -961,13 +1068,18 @@ export default function HomePage() {
                     required
                     placeholder="Ex: Carlos Silva"
                     value={formState.name}
-                    onChange={(e) => setFormState({ ...formState, name: e.target.value })}
+                    onChange={(e) =>
+                      setFormState({ ...formState, name: e.target.value })
+                    }
                     className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 outline-none text-slate-900 text-sm transition-all"
                   />
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label htmlFor="email" className="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                  <label
+                    htmlFor="email"
+                    className="text-xs font-bold text-slate-700 uppercase tracking-wider"
+                  >
                     Seu E-mail *
                   </label>
                   <input
@@ -976,7 +1088,9 @@ export default function HomePage() {
                     required
                     placeholder="Ex: carlos@empresa.com"
                     value={formState.email}
-                    onChange={(e) => setFormState({ ...formState, email: e.target.value })}
+                    onChange={(e) =>
+                      setFormState({ ...formState, email: e.target.value })
+                    }
                     className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 outline-none text-slate-900 text-sm transition-all"
                   />
                 </div>
@@ -984,7 +1098,10 @@ export default function HomePage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div className="flex flex-col gap-1.5">
-                  <label htmlFor="phone" className="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                  <label
+                    htmlFor="phone"
+                    className="text-xs font-bold text-slate-700 uppercase tracking-wider"
+                  >
                     WhatsApp / Telefone
                   </label>
                   <input
@@ -992,31 +1109,49 @@ export default function HomePage() {
                     type="tel"
                     placeholder="Ex: (14) 99862-7852"
                     value={formState.phone}
-                    onChange={(e) => setFormState({ ...formState, phone: e.target.value })}
+                    onChange={(e) =>
+                      setFormState({ ...formState, phone: e.target.value })
+                    }
                     className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 outline-none text-slate-900 text-sm transition-all"
                   />
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label htmlFor="service" className="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                  <label
+                    htmlFor="service"
+                    className="text-xs font-bold text-slate-700 uppercase tracking-wider"
+                  >
                     Interesse Principal
                   </label>
                   <select
                     id="service"
                     value={formState.service}
-                    onChange={(e) => setFormState({ ...formState, service: e.target.value })}
+                    onChange={(e) =>
+                      setFormState({ ...formState, service: e.target.value })
+                    }
                     className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 outline-none text-slate-900 text-sm transition-all bg-white"
                   >
-                    <option value="Desenvolvimento de Sites & LPs">Desenvolvimento de Sites & LPs</option>
-                    <option value="Sistemas de Gestão sob Medida">Sistemas de Gestão sob Medida</option>
-                    <option value="Aplicativos Móveis">Aplicativos Móveis</option>
-                    <option value="Consultoria ou Outro">Consultoria ou Outro</option>
+                    <option value="Desenvolvimento de Sites & LPs">
+                      Desenvolvimento de Sites & LPs
+                    </option>
+                    <option value="Sistemas de Gestão sob Medida">
+                      Sistemas de Gestão sob Medida
+                    </option>
+                    <option value="Aplicativos Móveis">
+                      Aplicativos Móveis
+                    </option>
+                    <option value="Consultoria ou Outro">
+                      Consultoria ou Outro
+                    </option>
                   </select>
                 </div>
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label htmlFor="message" className="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                <label
+                  htmlFor="message"
+                  className="text-xs font-bold text-slate-700 uppercase tracking-wider"
+                >
                   Detalhes do Projeto *
                 </label>
                 <textarea
@@ -1025,7 +1160,9 @@ export default function HomePage() {
                   rows={4}
                   placeholder="Conte um pouco sobre o que precisa, prazo estimado e principais metas..."
                   value={formState.message}
-                  onChange={(e) => setFormState({ ...formState, message: e.target.value })}
+                  onChange={(e) =>
+                    setFormState({ ...formState, message: e.target.value })
+                  }
                   className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 outline-none text-slate-900 text-sm transition-all resize-y"
                 ></textarea>
               </div>
@@ -1034,11 +1171,14 @@ export default function HomePage() {
                 <input
                   type="checkbox"
                   checked={formState.lgpd}
-                  onChange={(e) => setFormState({ ...formState, lgpd: e.target.checked })}
+                  onChange={(e) =>
+                    setFormState({ ...formState, lgpd: e.target.checked })
+                  }
                   className="w-4 h-4 mt-1 text-orange-500 accent-orange-500 rounded cursor-pointer"
                 />
                 <span className="text-xs text-slate-500 leading-tight">
-                  Concordo em fornecer meus dados para que a RMTI entre em contato sobre este orçamento, de acordo com a LGPD.
+                  Concordo em fornecer meus dados para que a RMTI entre em
+                  contato sobre este orçamento, de acordo com a LGPD.
                 </span>
               </label>
 
@@ -1075,7 +1215,9 @@ export default function HomePage() {
                 className="h-10 w-auto object-contain"
               />
             ) : (
-              <span className="text-xl font-bold text-slate-900">{config.identity.brandName}</span>
+              <span className="text-xl font-bold text-slate-900">
+                {config.identity.brandName}
+              </span>
             )}
           </div>
 
@@ -1084,14 +1226,33 @@ export default function HomePage() {
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-slate-400">
-            <a href="#inicio" className="hover:text-white transition-colors">Início</a>
-            <a href="#servicos" className="hover:text-white transition-colors">Serviços</a>
-            <a href="#cases" className="hover:text-white transition-colors">Cases &amp; Clientes</a>
-            <a href="#produtos" className="hover:text-white transition-colors">Produtos</a>
-            <a href="#processo" className="hover:text-white transition-colors">Como Funciona</a>
-            <a href="#diferenciais" className="hover:text-white transition-colors">Diferenciais</a>
-            <a href="#faq" className="hover:text-white transition-colors">FAQ</a>
-            <a href="#contato" className="hover:text-white transition-colors">Contato</a>
+            <a href="#inicio" className="hover:text-white transition-colors">
+              Início
+            </a>
+            <a href="#servicos" className="hover:text-white transition-colors">
+              Serviços
+            </a>
+            <a href="#cases" className="hover:text-white transition-colors">
+              Cases &amp; Clientes
+            </a>
+            <a href="#produtos" className="hover:text-white transition-colors">
+              Produtos
+            </a>
+            <a href="#processo" className="hover:text-white transition-colors">
+              Como Funciona
+            </a>
+            <a
+              href="#diferenciais"
+              className="hover:text-white transition-colors"
+            >
+              Diferenciais
+            </a>
+            <a href="#faq" className="hover:text-white transition-colors">
+              FAQ
+            </a>
+            <a href="#contato" className="hover:text-white transition-colors">
+              Contato
+            </a>
           </div>
 
           <p className="text-slate-500 text-xs pt-4 border-t border-white/5 w-full">
@@ -1112,7 +1273,7 @@ export default function HomePage() {
         >
           <Phone className="w-6 h-6 fill-white" />
           <span className="hidden sm:inline font-bold text-sm tracking-wide">
-            {config.contact.floatingWhatsappTooltip || 'Falar no WhatsApp'}
+            {config.contact.floatingWhatsappTooltip || "Falar no WhatsApp"}
           </span>
         </a>
       )}
@@ -1122,7 +1283,9 @@ export default function HomePage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-in fade-in duration-200">
           <div className="bg-white rounded-2xl max-w-md w-full p-6 sm:p-8 flex flex-col items-center text-center gap-4 shadow-2xl relative">
             <button
-              onClick={() => setModalFeedback({ ...modalFeedback, show: false })}
+              onClick={() =>
+                setModalFeedback({ ...modalFeedback, show: false })
+              }
               className="absolute top-4 right-4 text-slate-400 hover:text-slate-700"
             >
               <X className="w-5 h-5" />
@@ -1130,12 +1293,12 @@ export default function HomePage() {
 
             <div
               className={`w-16 h-16 rounded-full flex items-center justify-center ${
-                modalFeedback.type === 'success'
-                  ? 'bg-emerald-100 text-emerald-600'
-                  : 'bg-rose-100 text-rose-600'
+                modalFeedback.type === "success"
+                  ? "bg-emerald-100 text-emerald-600"
+                  : "bg-rose-100 text-rose-600"
               }`}
             >
-              {modalFeedback.type === 'success' ? (
+              {modalFeedback.type === "success" ? (
                 <CheckCircle className="w-9 h-9" />
               ) : (
                 <AlertCircle className="w-9 h-9" />
@@ -1152,7 +1315,9 @@ export default function HomePage() {
 
             <button
               type="button"
-              onClick={() => setModalFeedback({ ...modalFeedback, show: false })}
+              onClick={() =>
+                setModalFeedback({ ...modalFeedback, show: false })
+              }
               className="w-full py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm transition-colors mt-2"
             >
               Entendido
@@ -1163,4 +1328,3 @@ export default function HomePage() {
     </div>
   );
 }
-

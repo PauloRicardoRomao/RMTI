@@ -22,3 +22,4 @@ list.forEach(pkg => {
 });
 
 console.log('Todos os pacotes compactados com sucesso em public/downloads/');
+

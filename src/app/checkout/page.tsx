@@ -54,45 +54,29 @@ export interface TemplateChoice {
 const AVAILABLE_PLANS: Record<string, PlanInfo> = {
   starter: {
     id: 'starter',
-    name: 'Pacote Individual por Estrutura',
-    tagline: '1 Estrutura de alta conversão à sua escolha + Painel Admin Próprio Zerado.',
+    name: 'Pacote All-in-One de Landing Page',
+    tagline: '1 Estrutura Universal de Landing Page com 3 Layouts selecionáveis via Painel Admin.',
     originalPrice: 'R$ 297',
     price: 97.0,
     priceFormatted: 'R$ 97',
     installments: 'ou 12x de R$ 9,74',
     hasAdmin: true,
+    badge: 'PACOTE COMPLETO • 3 EM 1',
     deliverables: [
-      '1 Estrutura de Alta Conversão à sua escolha (Vendas Diretas, Leads WhatsApp ou Institucional)',
-      '🔥 Painel Admin Próprio Zerado (senha inicial 123456)',
+      '1 Estrutura Universal de Landing Page com 3 Layouts dinâmicos',
+      '🔥 Painel Admin Próprio Zerado (Troca de modelo com 1 clique)',
+      '🔒 Primeiro Acesso com Troca Obrigatória de Senha (123456)',
       'Página de Checkout Própria Zerada com Pix e Cartão',
-      'Arquivos Completos (HTML, CSS, JS) e Pastas Organizadas',
-      'Placeholders profissionais: SUA LOGO AQUI e SEU BANNER AQUI',
       'Manual de Instruções Ilustrado em PDF incluso',
-    ],
-  },
-  pro: {
-    id: 'pro',
-    name: 'Combo Completo com as 3 Estruturas',
-    tagline: 'O mais vendido: Todos os 3 Pacotes por Estrutura com desconto especial.',
-    originalPrice: 'R$ 497',
-    price: 197.0,
-    priceFormatted: 'R$ 197',
-    installments: 'ou 12x de R$ 19,78',
-    hasAdmin: true,
-    badge: 'COMBO 3 EM 1 • MELHOR CUSTO-BENEFÍCIO',
-    deliverables: [
-      'Acesso Completo aos 3 Pacotes por Estrutura (Vendas, Leads e Institucional)',
-      '🔥 3 Painéis Admin Próprios Zerados (1 para cada estrutura)',
-      '3 Páginas de Checkout Zeradas com Pix e Cartão',
-      '3 Manuais de Instruções Ilustrados em PDF',
-      'Download dos 3 Arquivos ZIP completos',
-      'Suporte prioritário da equipe RMTI via WhatsApp',
+      'README Técnico Completo para Desenvolvedor',
+      'Placeholders profissionais: SUA LOGO, SEU BANNER, SUA FOTO',
+      'Download do arquivo ZIP completo pronto para hospedar',
     ],
   },
   vip: {
     id: 'vip',
     name: 'Implementação VIP Done-For-You',
-    tagline: 'Nossa equipe instala, configura e entrega no seu domínio em 72h.',
+    tagline: 'A equipe da RMTI instala, configura e entrega tudo pronto no seu domínio em 72h.',
     originalPrice: 'R$ 1.497',
     price: 697.0,
     priceFormatted: 'R$ 697',
@@ -113,38 +97,23 @@ const AVAILABLE_PLANS: Record<string, PlanInfo> = {
 const AVAILABLE_PLANS_EN: Record<string, PlanInfo> = {
   starter: {
     id: 'starter',
-    name: 'Single Structure Pack',
-    tagline: '1 High-converting structure of your choice + Zeroed Admin Panel.',
+    name: 'All-in-One Landing Page Pack',
+    tagline: '1 Universal Structure with 3 Switchable Layouts via Admin Panel.',
     originalPrice: '$49 USD',
     price: 19.0,
     priceFormatted: '$19 USD',
     installments: 'or ~R$ 97 one-time',
     hasAdmin: true,
+    badge: 'ALL-IN-ONE • 3 LAYOUTS',
     deliverables: [
-      '1 Complete High-Converting Structure of your choice',
-      '🔥 Zeroed CMS Admin Panel Included (Easy visual editing)',
+      '1 Universal Landing Page structure with 3 dynamic layouts',
+      '🔥 Zeroed CMS Admin Panel Included (1-click layout switch)',
+      '🔒 Mandatory First-Access Password Change (123456)',
       'Zeroed Checkout Page with Pix and Credit Card',
-      'Placeholder assets: YOUR LOGO HERE and YOUR BANNER HERE',
       'Illustrated PDF Instructions Manual included',
-    ],
-  },
-  pro: {
-    id: 'pro',
-    name: 'All 3 Structures Complete Combo',
-    tagline: 'Best Seller: All 3 conversion structures + 3 CMS Admin Panels.',
-    originalPrice: '$99 USD',
-    price: 39.0,
-    priceFormatted: '$39 USD',
-    installments: 'or ~R$ 197 one-time',
-    hasAdmin: true,
-    badge: 'BESTSELLER • 3-IN-1 COMBO',
-    deliverables: [
-      'Instant Access to ALL 3 Conversion Structures',
-      '🔥 3 ZEROED CMS ADMIN PANELS INCLUDED',
-      '3 Zeroed Checkout and Thank-You pages',
-      '3 Illustrated PDF Instructions Manuals',
-      'Instant ZIP downloads ready to deploy',
-      'Priority WhatsApp & Email Support',
+      'Technical Developer README Guide included',
+      'Placeholder assets: YOUR LOGO, YOUR BANNER, YOUR PHOTO',
+      'Instant ZIP download ready to deploy',
     ],
   },
   vip: {
@@ -171,48 +140,46 @@ const AVAILABLE_PLANS_EN: Record<string, PlanInfo> = {
 const TEMPLATES_BY_PACKAGE: Record<string, TemplateChoice[]> = {
   starter: [
     {
+      id: 'starter-allinone',
+      name: 'Pacote All-in-One (3 Modelos em 1)',
+      niche: 'Vendas Diretas / Leads VIP / Institucional B2B',
+      badge: '3 LAYOUTS INCLUSOS',
+      description: 'Uma única estrutura com 3 modelos intercambiáveis no Painel Admin com 1 clique.',
+      iconName: 'Sparkles',
+      themeColor: 'emerald',
+    },
+    {
       id: 'starter-1',
-      name: 'Pacote 01: Vendas Diretas & Checkout',
+      name: 'Layout 01: Vendas Diretas & VSL',
       niche: 'Estrutura VSL / Infoproduto / Oferta',
-      badge: 'VENDAS DIRETAS',
+      badge: 'LAYOUT VENDAS',
       description: 'Headline hipnótica, mockup/VSL, benefícios, bônus, oferta com preço e checkout próprio zerado.',
       iconName: 'GraduationCap',
       themeColor: 'indigo',
     },
     {
       id: 'starter-2',
-      name: 'Pacote 02: Captura & WhatsApp VIP',
+      name: 'Layout 02: Captura & WhatsApp VIP',
       niche: 'Estrutura Leads / Serviços / High-Ticket',
-      badge: 'LEADS WHATSAPP',
+      badge: 'LAYOUT LEADS',
       description: 'Autoridade com foto, serviços, dores/sintomas, planos com botões para WhatsApp e agendamento.',
       iconName: 'Dumbbell',
       themeColor: 'emerald',
     },
     {
       id: 'starter-3',
-      name: 'Pacote 03: Institucional & B2B',
+      name: 'Layout 03: Institucional & B2B',
       niche: 'Estrutura Corporativa / Empresas / B2B',
-      badge: 'CORPORATIVO B2B',
+      badge: 'LAYOUT B2B',
       description: 'Métricas de impacto, serviços corporativos, diferenciais, cases e formulário de proposta comercial.',
       iconName: 'Briefcase',
       themeColor: 'cyan',
     },
   ],
-  pro: [
-    {
-      id: 'pro-1',
-      name: 'Combo Completo com as 3 Estruturas',
-      niche: 'Vendas Diretas + Leads WhatsApp + Institucional B2B',
-      badge: 'COMBO 3 EM 1',
-      description: 'Tenha as 3 estruturas mais lucrativas da internet com seus 3 painéis admin próprios e manuais em PDF.',
-      iconName: 'Layers',
-      themeColor: 'indigo',
-    },
-  ],
   vip: [
     {
       id: 'vip-1',
-      name: 'Estrutura VIP sob Medida (Escolha sua Estrutura)',
+      name: 'Implementação VIP Completa (3 Layouts)',
       niche: 'Vendas Diretas, Leads ou Corporativo',
       badge: '100% DONE-FOR-YOU',
       description: 'Nossa equipe de engenharia cuida de todo o setup, domínio, DNS, SSL, textos, logos e pixels.',
@@ -225,8 +192,17 @@ const TEMPLATES_BY_PACKAGE: Record<string, TemplateChoice[]> = {
 const TEMPLATES_BY_PACKAGE_EN: Record<string, TemplateChoice[]> = {
   starter: [
     {
+      id: 'starter-allinone',
+      name: 'All-in-One Pack (3-in-1 Structure)',
+      niche: 'Direct Sales / VIP Leads / B2B Corporate',
+      badge: '3 LAYOUTS INCLUDED',
+      description: 'One single structure with 3 switchable layouts right in the Admin Panel with 1 click.',
+      iconName: 'Sparkles',
+      themeColor: 'emerald',
+    },
+    {
       id: 'starter-1',
-      name: 'Pack 01: Direct Sales & Checkout',
+      name: 'Layout 01: Direct Sales & VSL',
       niche: 'VSL / Info Products / Digital Offers',
       badge: 'DIRECT SALES',
       description: 'High-converting headline, VSL mockup, curriculum modules, value-stacked bonuses, and zeroed checkout.',
@@ -235,7 +211,7 @@ const TEMPLATES_BY_PACKAGE_EN: Record<string, TemplateChoice[]> = {
     },
     {
       id: 'starter-2',
-      name: 'Pack 02: Lead Capture & VIP WhatsApp',
+      name: 'Layout 02: Lead Capture & VIP WhatsApp',
       niche: 'Lead Generation & High-Ticket Services',
       badge: 'WHATSAPP LEADS',
       description: 'Executive authority positioning, tiered services, pain point breakdown, and 1-tap WhatsApp consultation.',
@@ -244,7 +220,7 @@ const TEMPLATES_BY_PACKAGE_EN: Record<string, TemplateChoice[]> = {
     },
     {
       id: 'starter-3',
-      name: 'Pack 03: Corporate & B2B Showcase',
+      name: 'Layout 03: Corporate & B2B Showcase',
       niche: 'Corporate Institutions & Enterprises',
       badge: 'B2B CORPORATE',
       description: 'Hard metrics, corporate solutions grid, competitive differentials, client cases, and proposal intake form.',
@@ -252,24 +228,13 @@ const TEMPLATES_BY_PACKAGE_EN: Record<string, TemplateChoice[]> = {
       themeColor: 'cyan',
     },
   ],
-  pro: [
-    {
-      id: 'pro-1',
-      name: 'All 3 Conversion Structures Combo',
-      niche: 'Direct Sales + WhatsApp Leads + B2B Corporate',
-      badge: '3-IN-1 COMBO',
-      description: 'Get all 3 highest-converting structures online with 3 dedicated zeroed admin panels and illustrated manuals.',
-      iconName: 'Layers',
-      themeColor: 'indigo',
-    },
-  ],
   vip: [
     {
       id: 'vip-1',
-      name: 'Tailored VIP Architecture (Choose Your Structure)',
+      name: 'VIP Turnkey Implementation (3 Layouts)',
       niche: 'Direct Sales, Leads, or Corporate',
       badge: '100% DONE-FOR-YOU',
-      description: 'Turnkey engineering setup: custom domain, DNS, SSL, copy adjustments, logos, and server-side tracking.',
+      description: 'Our engineering team handles full setup, domain, DNS, SSL, copywriting, logos, and pixel tracking.',
       iconName: 'Sparkles',
       themeColor: 'amber',
     },
@@ -322,21 +287,21 @@ function CheckoutContent() {
   const isEn = lang === 'en';
   const plansMap = isEn ? AVAILABLE_PLANS_EN : AVAILABLE_PLANS;
 
-  const planParam = searchParams.get('plano') || 'pro';
+  const planParam = searchParams.get('plano') || 'starter';
   const templateParam = searchParams.get('template') || '';
-  const initialPlan = plansMap[planParam] ? planParam : 'pro';
+  const initialPlan = plansMap[planParam] ? planParam : 'starter';
 
   const [selectedPlanId, setSelectedPlanId] = useState<string>(initialPlan);
-  const currentPlan = plansMap[selectedPlanId] || plansMap.pro;
+  const currentPlan = plansMap[selectedPlanId] || plansMap.starter;
 
   // Template Selection
   const templatesMap = isEn ? TEMPLATES_BY_PACKAGE_EN : TEMPLATES_BY_PACKAGE;
-  const planTemplates = templatesMap[selectedPlanId] || templatesMap.pro;
+  const planTemplates = templatesMap[selectedPlanId] || templatesMap.starter;
   const [selectedTemplateId, setSelectedTemplateId] = useState<string>(() => {
     if (templateParam && planTemplates.some((t) => t.id === templateParam)) {
       return templateParam;
     }
-    return planTemplates[0]?.id || 'starter-1';
+    return planTemplates[0]?.id || 'starter-allinone';
   });
 
   // When plan changes, set default template for that plan if not in current plan
@@ -344,7 +309,7 @@ function CheckoutContent() {
     setSelectedPlanId(newPlanId);
     setPixData(null);
     setPaymentStatus('idle');
-    const newTemplates = templatesMap[newPlanId] || templatesMap.pro;
+    const newTemplates = templatesMap[newPlanId] || templatesMap.starter;
     setSelectedTemplateId(newTemplates[0]?.id || '');
   };
 

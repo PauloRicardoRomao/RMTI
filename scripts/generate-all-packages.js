@@ -1895,3 +1895,4 @@ PACKAGES.forEach(pkg => {
 });
 
 console.log('Todos os 3 pacotes foram criados e estruturados com sucesso!');
+

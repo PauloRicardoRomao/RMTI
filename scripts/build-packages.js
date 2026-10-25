@@ -269,3 +269,4 @@ const PACKAGES = [
 
 console.log('Estrutura dos 3 Pacotes carregada com sucesso.');
 module.exports = { PACKAGES, BASE_DIR, PLACEHOLDERS_DIR };
+

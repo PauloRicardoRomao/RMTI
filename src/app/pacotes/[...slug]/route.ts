@@ -60,3 +60,4 @@ export async function GET(
     return new NextResponse('Erro interno ao carregar pacote.', { status: 500 });
   }
 }
+

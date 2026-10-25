@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title class="val-businessName">Sua Landing Page • Alta Conversão</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/config.js"></script>
+  <script src="js/app.js" defer></script>
+</head>
+<body class="bg-[#080c14] text-slate-100 min-h-screen selection:bg-emerald-500 selection:text-slate-950">
+
+  <!-- ========================================================================= -->
+  <!-- BARRA DE DEMONSTRAÇÃO / CONTROLE DO PACOTE -->
+  <!-- ========================================================================= -->
+  <div class="bg-gradient-to-r from-slate-900 via-slate-950 to-slate-900 border-b border-emerald-500/30 py-2.5 px-4 sticky top-0 z-50 text-xs shadow-xl">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-bold uppercase tracking-wider">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          PACOTE DE LANDING PAGE • RMTI
+        </span>
+        <span id="demoLayoutName" class="text-slate-300 font-semibold hidden sm:inline">Modelo Ativo: Carregando...</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <a href="admin/index.html" class="px-3.5 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black transition-all shadow-md flex items-center gap-1.5">
+          <span>⚙️ Abrir Painel Admin (Trocar Modelo)</span>
+        </a>
+        <a href="checkout.html" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold border border-slate-700 flex items-center gap-1">
+          <span>💳 Ver Checkout</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CABEÇALHO UNIFICADO -->
+  <header class="py-6 px-4 sm:px-8 max-w-6xl mx-auto flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <img src="assets/imagens/logo-placeholder.png" alt="Sua Logo Aqui" class="h-10 sm:h-12 w-auto object-contain val-logoUrl">
+    </div>
+    <div class="flex items-center gap-3">
+      <a href="admin/index.html" class="hidden sm:inline-flex px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-slate-200 text-xs font-bold transition-all border border-white/10">
+        ⚙️ Editar no Admin
+      </a>
+      <a href="checkout.html" data-layout="vendas-diretas" class="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-extrabold uppercase tracking-wider transition-all shadow-lg shadow-emerald-500/20">
+        Inscrição Imediata
+      </a>
+      <a href="#" data-layout="leads-whatsapp" class="whatsapp-btn px-5 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 text-xs font-extrabold uppercase tracking-wider transition-all">
+        Falar no WhatsApp
+      </a>
+      <a href="#proposta" data-layout="institucional" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-extrabold uppercase tracking-wider transition-all">
+        Solicitar Proposta
+      </a>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- LAYOUT 1: ESTRUTURA DE VENDAS DIRETAS & CHECKOUT (VSL / OFERTA) -->
+  <!-- ========================================================================= -->
+  <div data-layout="vendas-diretas">
+    <!-- Top Bar URGÊNCIA -->
+    <div class="bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-600 py-2 text-center text-slate-950 text-xs sm:text-sm font-black tracking-wider uppercase">
+      <span class="vendas-topBar">⚡ OFERTA ESPECIAL COM DESCONTO EXCLUSIVO POR TEMPO LIMITADO</span>
+    </div>
+
+    <!-- Hero Vendas Diretas -->
+    <section class="py-12 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center flex flex-col items-center">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-black uppercase tracking-wider mb-6">
+        <span>🔥 MÉTODO 100% PRÁTICO &amp; VALIDADO</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight mb-6 max-w-4xl vendas-headline">
+        Descubra Como [Alcançar Grande Desejo] Sem [Principal Objeção ou Dor]
+      </h1>
+
+      <p class="text-slate-300 text-base sm:text-xl font-normal leading-relaxed max-w-3xl mb-10 vendas-subheadline">
+        O passo a passo validado para dominar [sua habilidade] em tempo recorde, mesmo começando do absoluto zero.
+      </p>
+
+      <!-- Banner / VSL Mockup -->
+      <div class="w-full max-w-3xl rounded-3xl overflow-hidden border-2 border-emerald-500/40 shadow-2xl mb-10 relative group bg-slate-900">
+        <div class="aspect-video relative flex items-center justify-center">
+          <img src="assets/imagens/banner-placeholder.jpg" alt="Seu Banner ou Vídeo" class="w-full h-full object-cover val-bannerUrl">
+          <a href="#comprar" class="absolute w-20 h-20 rounded-full bg-emerald-500/90 text-slate-950 flex items-center justify-center text-3xl shadow-2xl group-hover:scale-110 transition-transform">
+            ▶
+          </a>
+        </div>
+      </div>
+
+      <!-- CTA Principal -->
+      <div class="flex flex-col items-center gap-3 w-full max-w-md">
+        <a href="#comprar" class="pulse-btn w-full py-5 px-8 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 text-slate-950 font-black text-base sm:text-lg uppercase tracking-wider shadow-xl shadow-emerald-500/25">
+          <span class="vendas-ctaButton">QUERO GARANTIR MEU ACESSO AGORA</span>
+        </a>
+        <span class="text-xs text-slate-400 vendas-ctaSubtext">🔒 Pagamento 100% Seguro • Acesso Imediato</span>
+      </div>
+    </section>
+
+    <!-- Módulos do Método -->
+    <section class="py-16 px-4 max-w-5xl mx-auto border-t border-slate-800">
+      <div class="text-center mb-12">
+        <span class="text-emerald-400 text-xs font-bold uppercase tracking-wider">CONTEÚDO COMPLETO</span>
+        <h2 class="text-2xl sm:text-4xl font-black text-white mt-2">O Que Você Vai Aprender Passo a Passo</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="glass-card p-6 sm:p-8 rounded-2xl border border-slate-800">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg font-black mb-3">01</div>
+          <h3 class="text-lg font-bold text-white mb-1">Módulo 01: Fundamentos &amp; Mentalidade</h3>
+          <p class="text-slate-300 text-sm">A base sólida para começar da forma correta e sem perder tempo com erros comuns.</p>
+        </div>
+        <div class="glass-card p-6 sm:p-8 rounded-2xl border border-slate-800">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg font-black mb-3">02</div>
+          <h3 class="text-lg font-bold text-white mb-1">Módulo 02: O Método na Prática</h3>
+          <p class="text-slate-300 text-sm">Passo a passo detalhado, tela por tela, para você aplicar e ver os primeiros resultados.</p>
+        </div>
+        <div class="glass-card p-6 sm:p-8 rounded-2xl border border-slate-800">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg font-black mb-3">03</div>
+          <h3 class="text-lg font-bold text-white mb-1">Módulo 03: Estratégias de Escala</h3>
+          <p class="text-slate-300 text-sm">Como multiplicar seus ganhos e criar uma rotina previsível e altamente lucrativa.</p>
+        </div>
+        <div class="glass-card p-6 sm:p-8 rounded-2xl border border-slate-800">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg font-black mb-3">04</div>
+          <h3 class="text-lg font-bold text-white mb-1">Módulo 04: Ferramentas &amp; Modelos Prontos</h3>
+          <p class="text-slate-300 text-sm">Templates, planilhas e roteiros prontos para você copiar, colar e executar hoje mesmo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Oferta & Preço -->
+    <section id="comprar" class="py-20 px-4 max-w-3xl mx-auto text-center border-t border-slate-800 scroll-mt-20">
+      <div class="rounded-3xl p-8 sm:p-12 pt-10 sm:pt-14 bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 border-2 border-emerald-500/60 shadow-2xl relative">
+        <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 text-xs font-black uppercase px-6 py-1.5 rounded-full tracking-wider shadow-xl whitespace-nowrap z-20">
+          🔥 OFERTA POR TEMPO LIMITADO
+        </div>
+        <h2 class="text-2xl sm:text-4xl font-black text-white mt-2 vendas-productName">Acesso Completo ao [Nome do Seu Produto]</h2>
+        <p class="text-sm text-slate-400 mt-2 mb-6">Receba acesso imediato com todas as aulas e bônus inclusos.</p>
+        <div class="py-6 border-y border-slate-800 my-6 space-y-2">
+          <div class="text-sm text-slate-400 line-through">De <span class="vendas-originalPrice">R$ 297,00</span> por apenas:</div>
+          <div class="text-4xl sm:text-6xl font-black text-white tracking-tight vendas-installments">12x de R$ 9,74</div>
+          <div class="text-xs text-emerald-400 font-semibold">ou <span class="vendas-salePrice">R$ 97,00</span> à vista com desconto</div>
+        </div>
+        <a href="checkout.html" class="pulse-btn w-full py-5 px-8 rounded-2xl text-base sm:text-lg font-black bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 flex items-center justify-center gap-2 shadow-2xl uppercase tracking-wider">
+          <span>SIM! QUERO ME INSCREVER AGORA</span>
+          <span>→</span>
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- LAYOUT 2: ESTRUTURA DE CAPTURA & WHATSAPP (ESPECIALISTA / SERVIÇOS) -->
+  <!-- ========================================================================= -->
+  <div data-layout="leads-whatsapp">
+    <!-- Top Bar -->
+    <div class="bg-gradient-to-r from-sky-600 to-blue-600 py-2 text-center text-white text-xs font-black tracking-wider uppercase">
+      <span class="leads-topBar">AGENDA ABERTA PARA NOVOS PACIENTES / CLIENTES NESTE MÊS</span>
+    </div>
+
+    <!-- Hero Especialista -->
+    <section class="py-12 sm:py-20 px-4 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sky-500/10 border border-sky-500/30 text-sky-400 text-xs font-bold uppercase tracking-wider">
+          <span>★ ATENDIMENTO PERSONALIZADO</span>
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-black text-white leading-tight leads-headline">
+          Transforme Sua [Área de Atuação] com um Acompanhamento 100% Individualizado
+        </h1>
+        <p class="text-slate-300 text-base sm:text-lg leading-relaxed leads-subheadline">
+          Metodologia científica e personalizada para você atingir seus objetivos com segurança, sem fórmulas prontas ou promessas milagrosas.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
+          <a href="#" class="whatsapp-btn py-4 px-8 rounded-2xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 text-white font-black text-sm uppercase tracking-wider shadow-xl shadow-sky-500/20 text-center flex items-center justify-center gap-2">
+            <span>💬 FALAR COMIGO NO WHATSAPP</span>
+          </a>
+          <a href="#planos-servico" class="py-4 px-8 rounded-2xl bg-slate-900 hover:bg-slate-800 text-slate-200 font-bold text-sm border border-slate-700 text-center">
+            Ver Modalidades
+          </a>
+        </div>
+      </div>
+
+      <!-- Foto Especialista -->
+      <div class="lg:col-span-5 flex justify-center">
+        <div class="relative w-full max-w-sm rounded-3xl overflow-hidden border-2 border-sky-500/40 shadow-2xl bg-slate-900 group">
+          <img src="assets/imagens/foto-placeholder.jpg" alt="Sua Foto" class="w-full h-auto object-cover val-photoUrl">
+          <div class="absolute bottom-0 inset-x-0 p-5 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent">
+            <h3 class="text-lg font-bold text-white val-businessName">Seu Nome Aqui</h3>
+            <p class="text-xs text-sky-400 font-semibold leads-professionalTitle">Especialista • Registro Oficial</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Planos de Atendimento -->
+    <section id="planos-servico" class="py-16 px-4 max-w-6xl mx-auto border-t border-slate-800">
+      <div class="text-center mb-12">
+        <span class="text-sky-400 text-xs font-bold uppercase tracking-wider">INVESTIMENTO &amp; FORMATOS</span>
+        <h2 class="text-2xl sm:text-4xl font-black text-white mt-2">Escolha Seu Formato de Acompanhamento</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+        <div class="glass-card p-6 sm:p-8 rounded-3xl border border-slate-800 flex flex-col justify-between">
+          <div>
+            <h3 class="text-xl font-bold text-white">Plano Mensal</h3>
+            <div class="text-3xl font-black text-white mt-4">R$ 197<span class="text-xs text-slate-400">/mês</span></div>
+            <ul class="space-y-2.5 text-xs text-slate-300 mt-6">
+              <li>✓ Avaliação inicial completa</li>
+              <li>✓ Plano personalizado de 30 dias</li>
+              <li>✓ Suporte semanal via WhatsApp</li>
+            </ul>
+          </div>
+          <a href="#" class="whatsapp-btn mt-8 py-3.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs text-center block border border-slate-700" data-msg="Olá! Gostaria de iniciar no Plano Mensal.">
+            Escolher Plano Mensal
+          </a>
+        </div>
+
+        <div class="glass-card p-6 sm:p-8 rounded-3xl border-2 border-sky-500 bg-sky-950/20 flex flex-col justify-between relative shadow-2xl scale-105">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-sky-500 text-slate-950 text-[10px] font-black uppercase px-4 py-1 rounded-full whitespace-nowrap">
+            MAIS ESCOLHIDO • 40% OFF
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-white">Plano Trimestral VIP</h3>
+            <div class="text-3xl font-black text-white mt-4">3x R$ 149<span class="text-xs text-slate-400"> ou R$ 397</span></div>
+            <ul class="space-y-2.5 text-xs text-slate-200 mt-6">
+              <li>✓ Tudo do Plano Mensal</li>
+              <li>✓ Ajustes quinzenais de protocolo</li>
+              <li>✓ Acompanhamento prioritário no WhatsApp</li>
+              <li>✓ Guia complementar de hábitos saudáveis</li>
+            </ul>
+          </div>
+          <a href="#" class="whatsapp-btn mt-8 py-4 px-4 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-black text-xs uppercase tracking-wider text-center block shadow-lg shadow-sky-500/25" data-msg="Olá! Gostaria de garantir minha vaga no Plano Trimestral VIP.">
+            Quero o Trimestral VIP
+          </a>
+        </div>
+
+        <div class="glass-card p-6 sm:p-8 rounded-3xl border border-slate-800 flex flex-col justify-between">
+          <div>
+            <h3 class="text-xl font-bold text-white">Plano Semestral</h3>
+            <div class="text-3xl font-black text-white mt-4">6x R$ 119<span class="text-xs text-slate-400"> ou R$ 647</span></div>
+            <ul class="space-y-2.5 text-xs text-slate-300 mt-6">
+              <li>✓ Acompanhamento de 6 meses</li>
+              <li>✓ Check-ins mensais em vídeo</li>
+              <li>✓ Canal direto 24/7 no WhatsApp</li>
+            </ul>
+          </div>
+          <a href="#" class="whatsapp-btn mt-8 py-3.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs text-center block border border-slate-700" data-msg="Olá! Gostaria de me inscrever no Plano Semestral.">
+            Escolher Plano Semestral
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- LAYOUT 3: ESTRUTURA INSTITUCIONAL & B2B (CORPORATIVO) -->
+  <!-- ========================================================================= -->
+  <div data-layout="institucional">
+    <!-- Top Bar -->
+    <div class="bg-gradient-to-r from-blue-700 via-indigo-600 to-blue-700 py-2 text-center text-white text-xs font-black tracking-wider uppercase">
+      <span class="inst-topBar">LÍDERES EM INOVAÇÃO E TRANSFORMAÇÃO DIGITAL PARA MÉDIAS E GRANDES EMPRESAS</span>
+    </div>
+
+    <!-- Hero Corporativo -->
+    <section class="py-16 sm:py-24 px-4 max-w-6xl mx-auto text-center flex flex-col items-center">
+      <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-black uppercase tracking-wider mb-6">
+        <span>★ SOLUÇÕES CORPORATIVAS DE ALTA PERFORMANCE</span>
+      </span>
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-tight max-w-4xl mb-6 inst-headline">
+        Aceleramos o Crescimento do Seu Negócio com Soluções de Alta Performance
+      </h1>
+      <p class="text-slate-300 text-base sm:text-xl max-w-3xl mb-10 leading-relaxed inst-subheadline">
+        Desenvolvemos tecnologia sob medida, processos eficientes e estratégias focadas em maximizar a rentabilidade e a escala da sua operação.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 mb-12">
+        <a href="#proposta" class="py-4 px-8 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-black text-sm uppercase tracking-wider shadow-xl shadow-blue-600/20">
+          SOLICITAR PROPOSTA PERSONALIZADA
+        </a>
+      </div>
+
+      <!-- Banner Corporativo -->
+      <div class="w-full max-w-5xl rounded-3xl overflow-hidden border border-slate-800 shadow-2xl">
+        <img src="assets/imagens/banner-placeholder.jpg" alt="Banner Institucional" class="w-full h-auto object-cover val-bannerUrl">
+      </div>
+    </section>
+
+    <!-- Métricas de Impacto -->
+    <section class="py-12 bg-slate-950/60 border-y border-slate-800">
+      <div class="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div>
+          <div class="text-3xl sm:text-5xl font-black text-blue-400">+500</div>
+          <div class="text-xs sm:text-sm text-slate-400 mt-1">Projetos Entregues</div>
+        </div>
+        <div>
+          <div class="text-3xl sm:text-5xl font-black text-blue-400">99.4%</div>
+          <div class="text-xs sm:text-sm text-slate-400 mt-1">Satisfação dos Clientes</div>
+        </div>
+        <div>
+          <div class="text-3xl sm:text-5xl font-black text-blue-400">10+</div>
+          <div class="text-xs sm:text-sm text-slate-400 mt-1">Anos de Mercado</div>
+        </div>
+        <div>
+          <div class="text-3xl sm:text-5xl font-black text-blue-400">R$ 15M+</div>
+          <div class="text-xs sm:text-sm text-slate-400 mt-1">Em Receita Gerada</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Formulário de Proposta B2B -->
+    <section id="proposta" class="py-20 px-4 max-w-4xl mx-auto border-t border-slate-800">
+      <div class="glass-card p-8 sm:p-12 rounded-3xl border border-blue-500/40 shadow-2xl">
+        <div class="text-center mb-8">
+          <h2 class="text-2xl sm:text-3xl font-black text-white">Solicite uma Proposta Comercial</h2>
+          <p class="text-xs sm:text-sm text-slate-400 mt-2">Nossa equipe executiva entrará em contato em até 24 horas úteis.</p>
+        </div>
+        <form class="space-y-4" onsubmit="event.preventDefault(); window.location.href='obrigado.html';">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1">Seu Nome *</label>
+              <input type="text" required placeholder="Ex: Roberto Silva" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1">Empresa *</label>
+              <input type="text" required placeholder="Ex: Horizon Tech" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+            </div>
+          </div>
+          <button type="submit" class="w-full py-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-black text-sm uppercase tracking-wider shadow-lg shadow-blue-600/30">
+            Enviar Solicitação de Proposta
+          </button>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- DÚVIDAS FREQUENTES (COMPARTILHADO EM TODOS OS MODELOS) -->
+  <!-- ========================================================================= -->
+  <section class="py-16 px-4 max-w-3xl mx-auto border-t border-slate-800">
+    <div class="text-center mb-10">
+      <h2 class="text-2xl sm:text-3xl font-black text-white">Dúvidas Frequentes</h2>
+      <p class="text-slate-400 text-sm mt-1">Respostas para as perguntas mais comuns.</p>
+    </div>
+
+    <div class="space-y-3">
+      <div class="faq-item glass-card rounded-2xl border border-slate-800 overflow-hidden">
+        <button class="faq-question w-full p-5 text-left font-bold text-white flex justify-between items-center gap-4 hover:text-emerald-400 transition-colors">
+          <span>Como recebo o acesso ou atendimento?</span>
+          <span class="faq-icon text-slate-400 transition-transform">▼</span>
+        </button>
+        <div class="faq-answer hidden px-5 pb-5 text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 pt-3">
+          O contato e envio são imediatos após a confirmação. Nossa equipe entrará em contato ou você receberá os dados no seu e-mail cadastrado.
+        </div>
+      </div>
+
+      <div class="faq-item glass-card rounded-2xl border border-slate-800 overflow-hidden">
+        <button class="faq-question w-full p-5 text-left font-bold text-white flex justify-between items-center gap-4 hover:text-emerald-400 transition-colors">
+          <span>Como realizo a alteração de textos e imagens?</span>
+          <span class="faq-icon text-slate-400 transition-transform">▼</span>
+        </button>
+        <div class="faq-answer hidden px-5 pb-5 text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 pt-3">
+          Basta acessar a pasta /admin pelo navegador e alterar qualquer item com 1 clique, sem precisar mexer em códigos.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RODAPÉ UNIFICADO -->
+  <footer class="py-10 px-4 text-center border-t border-slate-800 text-xs text-slate-500">
+    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>© 2026 <span class="val-businessName">Seu Negócio</span>. Todos os direitos reservados.</div>
+      <div class="flex items-center gap-4 text-slate-400">
+        <a href="admin/index.html" class="hover:text-emerald-400">Acessar Painel Admin</a>
+        <a href="checkout.html" class="hover:text-emerald-400">Página de Checkout</a>
+        <a href="#" class="whatsapp-btn hover:text-emerald-400">Suporte WhatsApp</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
