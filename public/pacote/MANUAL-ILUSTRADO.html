@@ -2,93 +2,914 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Manual do Cliente • Pacote de Landing Page All-in-One</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manual Ilustrado do Cliente • Pacote Landing Page All-in-One • RMTI</title>
   <style>
-    @page { size: A4; margin: 18mm; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1e293b; line-height: 1.6; font-size: 13px; }
-    .header { text-align: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 20px; margin-bottom: 25px; }
-    .header h1 { color: #0f172a; font-size: 24px; margin: 0; }
-    .header p { color: #64748b; font-size: 13px; margin: 5px 0 0 0; }
-    .badge { display: inline-block; background: #ecfdf5; color: #059669; font-weight: bold; font-size: 11px; padding: 4px 12px; border-radius: 9999px; text-transform: uppercase; margin-bottom: 10px; }
-    .box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; margin-bottom: 18px; }
-    .box-title { font-size: 15px; font-weight: 800; color: #0f172a; margin-top: 0; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
-    .num { background: #10b981; color: #fff; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; }
-    code { background: #e2e8f0; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 12px; }
-    .model-card { border: 1px solid #cbd5e1; border-radius: 8px; padding: 10px; margin-top: 8px; background: #ffffff; }
-    .footer { text-align: center; font-size: 11px; color: #94a3b8; border-top: 1px solid #e2e8f0; padding-top: 15px; margin-top: 30px; }
+    @page {
+      size: A4 portrait;
+      margin: 10mm 12mm 12mm 12mm;
+    }
+    * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      color: #0f172a;
+      background: #ffffff;
+      line-height: 1.55;
+      font-size: 12.5px;
+      margin: 0;
+      padding: 0;
+    }
+    .no-break {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+    .page-break {
+      page-break-before: always;
+      break-before: page;
+    }
+
+    /* HEADER & BRANDING */
+    .header-banner {
+      background: linear-gradient(135deg, #090d16 0%, #0f172a 100%);
+      color: #ffffff;
+      padding: 24px 28px;
+      border-radius: 14px;
+      margin-bottom: 20px;
+      border: 1px solid #1e293b;
+      position: relative;
+    }
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #34d399;
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .doc-version {
+      color: #94a3b8;
+      font-size: 11px;
+      font-weight: 500;
+    }
+    .header-title {
+      font-size: 23px;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0 0 6px 0;
+      letter-spacing: -0.5px;
+    }
+    .header-sub {
+      color: #94a3b8;
+      font-size: 13px;
+      margin: 0 0 16px 0;
+      line-height: 1.4;
+    }
+    .summary-pills {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    .summary-pill {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 8px 10px;
+      text-align: center;
+    }
+    .summary-pill-val {
+      font-size: 14px;
+      font-weight: 800;
+      color: #10b981;
+      display: block;
+    }
+    .summary-pill-lbl {
+      font-size: 10px;
+      color: #cbd5e1;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 2px;
+      display: block;
+    }
+
+    /* SECTION CARDS */
+    .section-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-bottom: 16px;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1.5px solid #f1f5f9;
+    }
+    .step-num {
+      background: #10b981;
+      color: #ffffff;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .section-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0;
+    }
+    .section-desc {
+      color: #64748b;
+      font-size: 12px;
+      margin: 0 0 10px 0;
+    }
+
+    /* QUICK STEPS INFOGRAPHIC */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .step-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 10px 8px;
+      text-align: center;
+      position: relative;
+    }
+    .step-box-badge {
+      display: inline-block;
+      background: #e0f2fe;
+      color: #0284c7;
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 5px;
+      margin-bottom: 6px;
+    }
+    .step-box h4 {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 0 0 4px 0;
+    }
+    .step-box p {
+      font-size: 10px;
+      color: #64748b;
+      margin: 0;
+      line-height: 1.35;
+    }
+
+    /* WIREFRAME MINIATURES */
+    .wireframes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .wireframe-card {
+      border: 1.5px solid #cbd5e1;
+      border-radius: 10px;
+      background: #f8fafc;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .wireframe-browser {
+      background: #1e293b;
+      padding: 5px 8px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .wb-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+    .wb-dot-red { background: #ef4444; }
+    .wb-dot-yellow { background: #f59e0b; }
+    .wb-dot-green { background: #10b981; }
+    .wb-url {
+      background: #334155;
+      border-radius: 3px;
+      color: #94a3b8;
+      font-size: 8.5px;
+      padding: 2px 6px;
+      margin-left: 4px;
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .wireframe-body {
+      padding: 8px;
+      flex: 1;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .wf-block {
+      border-radius: 4px;
+      padding: 4px 5px;
+      font-size: 9px;
+      font-weight: 700;
+      text-align: center;
+    }
+    .wf-urgency { background: #10b981; color: #ffffff; font-size: 7.5px; padding: 2px 4px; }
+    .wf-nav { background: #0f172a; color: #ffffff; display: flex; justify-content: space-between; align-items: center; padding: 3px 5px; font-size: 8px; }
+    .wf-hero-vsl { background: #0f172a; color: #e2e8f0; padding: 6px 5px; border-radius: 4px; border: 1px dashed #334155; }
+    .wf-video-box { background: #1e293b; border: 1px solid #10b981; color: #10b981; padding: 10px 4px; border-radius: 4px; margin-top: 3px; font-size: 9px; }
+    .wf-modules { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; margin-top: 2px; }
+    .wf-mod { background: #f1f5f9; border: 1px solid #e2e8f0; color: #334155; padding: 3px; border-radius: 3px; font-size: 7.5px; }
+    .wf-pricing { background: #f0fdf4; border: 1px solid #86efac; color: #166534; padding: 5px; border-radius: 4px; font-size: 8.5px; }
+    .wf-cta { background: #10b981; color: #ffffff; padding: 4px; border-radius: 4px; font-size: 8.5px; font-weight: 800; text-transform: uppercase; }
+
+    /* Wireframe 2 */
+    .wf-expert-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; background: #0f172a; color: #ffffff; padding: 6px 4px; border-radius: 4px; }
+    .wf-expert-photo { background: #1e293b; border: 1px solid #10b981; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #34d399; font-size: 8px; min-height: 40px; }
+    .wf-expert-copy { font-size: 8px; display: flex; flex-direction: column; justify-content: center; text-align: left; }
+    .wf-plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 2px; }
+    .wf-plan-card { background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 3px; padding: 3px 2px; font-size: 7px; text-align: center; color: #1e293b; }
+    .wf-plan-card.featured { border-color: #10b981; background: #ecfdf5; font-weight: 800; }
+    .wf-cta-wa { background: #25d366; color: #ffffff; padding: 4px; border-radius: 4px; font-size: 8.5px; font-weight: 800; text-transform: uppercase; }
+
+    /* Wireframe 3 */
+    .wf-b2b-hero { background: #0b1120; color: #ffffff; padding: 6px 4px; border-radius: 4px; text-align: left; }
+    .wf-b2b-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 3px; }
+    .wf-stat { background: #1e293b; border-radius: 3px; padding: 2px; font-size: 6.5px; text-align: center; color: #38bdf8; }
+    .wf-b2b-services { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; margin-top: 2px; }
+    .wf-service { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 3px; padding: 3px; font-size: 7.5px; color: #1e293b; }
+    .wf-cta-corp { background: #0284c7; color: #ffffff; padding: 4px; border-radius: 4px; font-size: 8.5px; font-weight: 800; text-transform: uppercase; }
+
+    .wireframe-footer {
+      background: #f1f5f9;
+      padding: 6px 8px;
+      border-top: 1px solid #e2e8f0;
+      font-size: 9.5px;
+      color: #475569;
+    }
+    .wireframe-footer strong { color: #0f172a; display: block; margin-bottom: 2px; }
+
+    /* CHECKOUT MODELS COMPARISON */
+    .checkout-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .checkout-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 10px;
+      background: #f8fafc;
+    }
+    .checkout-card-header {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 5px;
+    }
+    .checkout-card-tag {
+      font-size: 9px;
+      font-weight: 800;
+      padding: 2px 5px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+    .tag-green { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
+    .tag-blue { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
+    .tag-purple { background: #faf5ff; color: #7e22ce; border: 1px solid #e9d5ff; }
+
+    /* GATEWAYS CARDS */
+    .gateways-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .gateway-box {
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 10px 8px;
+      background: #ffffff;
+      text-align: center;
+    }
+    .gateway-icon {
+      font-size: 18px;
+      display: block;
+      margin-bottom: 3px;
+    }
+    .gateway-name {
+      font-size: 11px;
+      font-weight: 800;
+      color: #0f172a;
+      display: block;
+      margin-bottom: 3px;
+    }
+    .gateway-desc {
+      font-size: 9.5px;
+      color: #64748b;
+      line-height: 1.35;
+      margin: 0;
+    }
+
+    /* DIRECTORY TREE */
+    .tree-box {
+      background: #0f172a;
+      color: #e2e8f0;
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 10.5px;
+      line-height: 1.55;
+      border: 1px solid #1e293b;
+    }
+    .tree-comment { color: #64748b; font-style: italic; }
+    .tree-dir { color: #38bdf8; font-weight: bold; }
+    .tree-file { color: #f8fafc; }
+    .tree-key { color: #34d399; font-weight: bold; }
+
+    /* TABLE */
+    .table-custom {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+      margin-top: 6px;
+    }
+    .table-custom th {
+      background: #f1f5f9;
+      color: #0f172a;
+      font-weight: 800;
+      text-align: left;
+      padding: 7px 9px;
+      border: 1px solid #cbd5e1;
+    }
+    .table-custom td {
+      padding: 7px 9px;
+      border: 1px solid #e2e8f0;
+      color: #334155;
+    }
+    .table-custom tr:nth-child(even) td { background: #f8fafc; }
+
+    /* CALLOUT BOXES */
+    .callout-alert {
+      background: #fffbeb;
+      border-left: 4px solid #f59e0b;
+      padding: 9px 12px;
+      border-radius: 0 6px 6px 0;
+      margin: 8px 0;
+      font-size: 11px;
+      color: #92400e;
+    }
+    .callout-tip {
+      background: #f0fdf4;
+      border-left: 4px solid #10b981;
+      padding: 9px 12px;
+      border-radius: 0 6px 6px 0;
+      margin: 8px 0;
+      font-size: 11px;
+      color: #166534;
+    }
+
+    /* FOOTER */
+    .doc-footer {
+      border-top: 2px solid #e2e8f0;
+      padding-top: 14px;
+      margin-top: 20px;
+      text-align: center;
+      color: #64748b;
+      font-size: 10.5px;
+    }
+    .doc-footer strong { color: #0f172a; }
   </style>
 </head>
 <body>
-  <div class="header">
-    <div class="badge">MANUAL ILUSTRADO DO CLIENTE • RMTI TECNOLOGIA</div>
-    <h1>Pacote de Landing Page All-in-One</h1>
-    <p>1 Estrutura • 3 Modelos Selecionáveis • Painel Admin Próprio • Checkout Incluso</p>
-  </div>
 
-  <div class="box">
-    <h3 class="box-title"><span class="num">1</span> Como Testar Sua Página em 5 Segundos</h3>
-    <p>Você não precisa instalar nenhum programa ou servidor. Basta dar <strong>duplo clique no arquivo index.html</strong> para abrir sua página diretamente no navegador (Google Chrome, Edge ou Safari).</p>
-  </div>
-
-  <div class="box">
-    <h3 class="box-title"><span class="num">2</span> Como Escolher Seu Modelo de Layout e Editar Tudo</h3>
-    <p>Abra a pasta <code>admin/</code> e dê duplo clique em <code>index.html</code>:</p>
-    <ul>
-      <li><strong>Senha inicial de fábrica:</strong> <code>123456</code></li>
-      <li>No primeiro acesso, você cadastrará sua senha pessoal para proteção.</li>
-      <li>No topo do painel, você verá o <strong>Seletor de Modelos</strong>:</li>
-    </ul>
-    <div class="model-card">
-      <strong>⚡ Modelo 01: Vendas Diretas &amp; VSL</strong> — Para cursos, e-books e produtos com compra imediata e checkout.
+  <!-- HEADER BANNER -->
+  <div class="header-banner">
+    <div class="header-top">
+      <div class="brand-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        MANUAL ILUSTRADO DO CLIENTE • EDIÇÃO OFICIAL
+      </div>
+      <div class="doc-version">RMTI SOLUÇÕES EM TECNOLOGIA • VERSÃO 2.5 LTS</div>
     </div>
-    <div class="model-card">
-      <strong>💬 Modelo 02: Captura &amp; WhatsApp VIP</strong> — Para especialistas, clínicas, consultores e serviços high-ticket.
+    <h1 class="header-title">Pacote de Landing Page All-in-One</h1>
+    <p class="header-sub">Guia Visual Passo a Passo: 3 Modelos de Layout, 3 Modelos de Checkout Integrados, Painel Administrativo Próprio e Métodos de Recebimento.</p>
+    <div class="summary-pills">
+      <div class="summary-pill">
+        <span class="summary-pill-val">3 em 1</span>
+        <span class="summary-pill-lbl">Estruturas de Layout</span>
+      </div>
+      <div class="summary-pill">
+        <span class="summary-pill-val">3 Modelos</span>
+        <span class="summary-pill-lbl">Checkout de Conversão</span>
+      </div>
+      <div class="summary-pill">
+        <span class="summary-pill-val">100% Visual</span>
+        <span class="summary-pill-lbl">Painel Admin Próprio</span>
+      </div>
+      <div class="summary-pill">
+        <span class="summary-pill-val">0 Código</span>
+        <span class="summary-pill-lbl">Edição &amp; Publicação</span>
+      </div>
     </div>
-    <div class="model-card">
-      <strong>🏢 Modelo 03: Institucional &amp; B2B</strong> — Para empresas, agências e negócios que buscam autoridade corporativa.
+  </div>
+
+  <!-- SEÇÃO 1: INFOGRÁFICO DE INÍCIO RÁPIDO EM 5 PASSOS -->
+  <div class="section-card no-break">
+    <div class="section-header">
+      <span class="step-num">1</span>
+      <h2 class="section-title">Fluxo Rápido: Colocando Sua Página no Ar em 5 Passos</h2>
     </div>
-    <p style="margin-top:10px;">Basta clicar no modelo desejado, alterar títulos, logotipo e preços, e clicar em <strong>"Salvar Alterações"</strong>. A página atualizará instantaneamente!</p>
+    <p class="section-desc">Você não precisa ser programador nem instalar softwares no computador. O projeto já vem 100% pronto para uso.</p>
+    <div class="steps-grid">
+      <div class="step-box">
+        <span class="step-box-badge">PASSO 01</span>
+        <h4>Extrair o ZIP</h4>
+        <p>Descompacte a pasta do projeto em qualquer lugar do seu computador.</p>
+      </div>
+      <div class="step-box">
+        <span class="step-box-badge">PASSO 02</span>
+        <h4>Abrir o Site</h4>
+        <p>Dê duplo clique em <code>index.html</code> para testar diretamente no navegador.</p>
+      </div>
+      <div class="step-box">
+        <span class="step-box-badge">PASSO 03</span>
+        <h4>Acessar Admin</h4>
+        <p>Abra <code>admin/index.html</code> (Senha inicial de fábrica: <code>123456</code>).</p>
+      </div>
+      <div class="step-box">
+        <span class="step-box-badge">PASSO 04</span>
+        <h4>Personalizar</h4>
+        <p>Altere layout, checkout, preços, textos e clique em <strong>"Baixar config.js"</strong>.</p>
+      </div>
+      <div class="step-box">
+        <span class="step-box-badge">PASSO 05</span>
+        <h4>Publicar</h4>
+        <p>Suba na Vercel (grátis em 3 min) ou envie para sua hospedagem cPanel.</p>
+      </div>
+    </div>
   </div>
 
-  <div class="box">
-    <h3 class="box-title"><span class="num">3</span> Escolhendo e Personalizando o Modelo de Checkout</h3>
-    <p>O pacote inclui <strong>3 Modelos de Checkout</strong> de alta conversão selecionáveis na aba <em>"💳 Modelos & Checkout"</em> do Painel Admin:</p>
-    <ul>
-      <li><strong>1. Conversão Rápida (1 Coluna Mobile-First):</strong> Foco em rapidez no celular com cronômetro de urgência e Pix em 1 clique.</li>
-      <li><strong>2. Duas Colunas (Order Bump & Prova Social):</strong> Layout dividido com resumo lateral, depoimento com 5 estrelas e caixinha de Order Bump (+R$ 47).</li>
-      <li><strong>3. Minimalista Premium (Clean B2B Corporativo):</strong> Estética elegante com seletor de Pessoa Física (CPF) ou Jurídica (CNPJ) e discriminação de fatura.</li>
-    </ul>
-    <p style="margin-top:8px;">Você pode personalizar nome do produto, preços, garantia e depoimentos diretamente pelo painel!</p>
+  <!-- SEÇÃO 2: MAPA VISUAL DE PASTAS E ARQUIVOS -->
+  <div class="section-card no-break">
+    <div class="section-header">
+      <span class="step-num">2</span>
+      <h2 class="section-title">Mapa Visual da Estrutura de Arquivos</h2>
+    </div>
+    <p class="section-desc">Entenda onde fica cada elemento do seu pacote para manusear com total segurança e clareza.</p>
+    <div class="tree-box">
+      <div><span class="tree-dir">pacote-landing-page/</span></div>
+      <div>├── <span class="tree-key">index.html</span> <span class="tree-comment">→ Página principal que exibe os 3 layouts dinâmicos</span></div>
+      <div>├── <span class="tree-key">checkout.html</span> <span class="tree-comment">→ Página de checkout com os 3 modelos de pagamento</span></div>
+      <div>├── <span class="tree-key">obrigado.html</span> <span class="tree-comment">→ Tela de confirmação e agradecimento pós-compra</span></div>
+      <div>├── <span class="tree-dir">admin/</span> <span class="tree-comment">→ Painel Administrativo Próprio do Cliente</span></div>
+      <div>│   ├── <span class="tree-file">index.html</span> <span class="tree-comment">→ Interface visual com formulários e seletores</span></div>
+      <div>│   └── <span class="tree-file">admin.js</span> <span class="tree-comment">→ Lógica de login, troca de senha e gerador de config.js</span></div>
+      <div>├── <span class="tree-dir">assets/imagens/</span> <span class="tree-comment">→ Onde você coloca seu logotipo e suas fotos</span></div>
+      <div>│   ├── <span class="tree-file">logo-placeholder.png</span> <span class="tree-comment">(400x120px - SUA LOGO AQUI)</span></div>
+      <div>│   ├── <span class="tree-file">banner-placeholder.png</span> <span class="tree-comment">(1200x675px - SEU BANNER AQUI)</span></div>
+      <div>│   └── <span class="tree-file">especialista-placeholder.png</span> <span class="tree-comment">(600x750px - SUA FOTO AQUI)</span></div>
+      <div>├── <span class="tree-dir">js/</span></div>
+      <div>│   ├── <span class="tree-key">config.js</span> <span class="tree-comment">→ O "Cérebro": arquivo que guarda todas as suas configurações</span></div>
+      <div>│   └── <span class="tree-file">app.js</span> <span class="tree-comment">→ Motor do site, alternância de layouts e FAQ retrátil</span></div>
+      <div>├── <span class="tree-file">MANUAL-ILUSTRADO.pdf</span> <span class="tree-comment">→ Este guia oficial pronto para impressão ou leitura</span></div>
+      <div>└── <span class="tree-file">README.md</span> <span class="tree-comment">→ Documentação técnica completa para desenvolvedores</span></div>
+    </div>
   </div>
 
-  <div class="box">
-    <h3 class="box-title"><span class="num">4</span> Como Escolher e Configurar Sua Forma de Recebimento</h3>
-    <p>Na mesma aba <em>"💳 Modelos & Checkout"</em>, você escolhe como receberá o dinheiro das suas vendas:</p>
-    <ul>
-      <li><strong>🔵 Mercado Pago (Recomendado):</strong> Basta criar um link de cobrança no app do Mercado Pago e colar no campo. Seu cliente poderá pagar via Pix automático e Cartão em até 12x.</li>
-      <li><strong>⚡ Pix Direto (Sua Chave):</strong> Receba direto na sua conta bancária sem intermediários e sem taxas, com botão automático para o cliente enviar o comprovante no seu WhatsApp.</li>
-      <li><strong>🚀 Outro Gateway:</strong> Redirecione o cliente diretamente para seu link de checkout do Kiwify, Hotmart, Eduzz, Stripe ou qualquer plataforma.</li>
-      <li><strong>💬 Vendas no WhatsApp:</strong> O cliente preenche o formulário e o pedido chega pronto para você fechar no WhatsApp.</li>
-    </ul>
+  <!-- SEÇÃO 3: OS 3 MODELOS DE LAYOUT (WIREFRAMES ILUSTRADOS) -->
+  <div class="section-card page-break no-break">
+    <div class="section-header">
+      <span class="step-num">3</span>
+      <h2 class="section-title">Os 3 Modelos de Layout Integrados (Wireframes Ilustrados)</h2>
+    </div>
+    <p class="section-desc">Você escolhe qual dos 3 modelos quer ativar na sua página com 1 clique no painel admin. Veja o esquema visual de cada um:</p>
+    <div class="wireframes-grid">
+
+      <!-- MODELO 01 -->
+      <div class="wireframe-card">
+        <div class="wireframe-browser">
+          <span class="wb-dot wb-dot-red"></span>
+          <span class="wb-dot wb-dot-yellow"></span>
+          <span class="wb-dot wb-dot-green"></span>
+          <span class="wb-url">seusite.com.br (Modelo 01)</span>
+        </div>
+        <div class="wireframe-body">
+          <div class="wf-block wf-urgency">⚡ Oferta Especial por Tempo Limitado</div>
+          <div class="wf-block wf-nav">
+            <span>[SUA LOGO]</span>
+            <span style="color:#10b981;">COMPRAR</span>
+          </div>
+          <div class="wf-block wf-hero-vsl">
+            <div style="font-size:8px;font-weight:800;margin-bottom:2px;">Headline Forte de Desejo</div>
+            <div style="font-size:6.5px;color:#94a3b8;">Subheadline explicativa do método</div>
+            <div class="wf-video-box">▶ Player de Vídeo VSL</div>
+          </div>
+          <div class="wf-modules">
+            <div class="wf-mod">📦 Módulo 1</div>
+            <div class="wf-mod">📦 Módulo 2</div>
+            <div class="wf-mod">📦 Módulo 3</div>
+            <div class="wf-mod">📦 Módulo 4</div>
+          </div>
+          <div class="wf-pricing">
+            <div style="font-size:7px;color:#64748b;text-decoration:line-through;">De R$ 497,00</div>
+            <div style="font-size:10px;font-weight:900;color:#166534;">Por R$ 197,00</div>
+          </div>
+          <div class="wf-cta">Quero Me Inscrever Agora</div>
+        </div>
+        <div class="wireframe-footer">
+          <strong>⚡ Modelo 01: Vendas Diretas &amp; VSL</strong>
+          Ideal para: Cursos online, e-books, treinamentos e infoprodutos com checkout direto.
+        </div>
+      </div>
+
+      <!-- MODELO 02 -->
+      <div class="wireframe-card">
+        <div class="wireframe-browser">
+          <span class="wb-dot wb-dot-red"></span>
+          <span class="wb-dot wb-dot-yellow"></span>
+          <span class="wb-dot wb-dot-green"></span>
+          <span class="wb-url">seusite.com.br (Modelo 02)</span>
+        </div>
+        <div class="wireframe-body">
+          <div class="wf-block wf-nav">
+            <span>[SUA LOGO]</span>
+            <span style="color:#25d366;">WHATSAPP</span>
+          </div>
+          <div class="wf-expert-hero">
+            <div class="wf-expert-photo">Sua Foto</div>
+            <div class="wf-expert-copy">
+              <span style="color:#34d399;font-weight:800;">Especialista</span>
+              <span style="font-weight:700;line-height:1.2;">Headline Autoridade</span>
+            </div>
+          </div>
+          <div class="wf-modules">
+            <div class="wf-mod">💎 Pilar 1: Método</div>
+            <div class="wf-mod">💎 Pilar 2: Prática</div>
+            <div class="wf-mod">💎 Pilar 3: Acompanha</div>
+            <div class="wf-mod">💎 Pilar 4: Resultados</div>
+          </div>
+          <div class="wf-plans">
+            <div class="wf-plan-card">Plano Essencial<br><strong>R$ 97</strong></div>
+            <div class="wf-plan-card featured">VIP Mentoria<br><strong>R$ 297</strong></div>
+            <div class="wf-plan-card">Elite Black<br><strong>R$ 597</strong></div>
+          </div>
+          <div class="wf-cta-wa">Falar com Especialista</div>
+        </div>
+        <div class="wireframe-footer">
+          <strong>💬 Modelo 02: Captura &amp; WhatsApp VIP</strong>
+          Ideal para: Especialistas, consultores, médicos, estéticas, coaches e mentorias.
+        </div>
+      </div>
+
+      <!-- MODELO 03 -->
+      <div class="wireframe-card">
+        <div class="wireframe-browser">
+          <span class="wb-dot wb-dot-red"></span>
+          <span class="wb-dot wb-dot-yellow"></span>
+          <span class="wb-dot wb-dot-green"></span>
+          <span class="wb-url">seusite.com.br (Modelo 03)</span>
+        </div>
+        <div class="wireframe-body">
+          <div class="wf-block wf-nav">
+            <span>[SUA LOGO]</span>
+            <span style="color:#38bdf8;">ORÇAMENTO</span>
+          </div>
+          <div class="wf-b2b-hero">
+            <span style="color:#38bdf8;font-size:7px;font-weight:800;">SOLUÇÕES CORPORATIVAS</span>
+            <div style="font-size:8px;font-weight:800;margin:2px 0;">Transformando Empresas</div>
+            <div class="wf-b2b-stats">
+              <div class="wf-stat"><strong>+500</strong><br>Projetos</div>
+              <div class="wf-stat"><strong>99.8%</strong><br>Uptime</div>
+              <div class="wf-stat"><strong>12h</strong><br>SLA</div>
+              <div class="wf-stat"><strong>4.9★</strong><br>Avaliações</div>
+            </div>
+          </div>
+          <div class="wf-b2b-services">
+            <div class="wf-service">🛠️ Consultoria</div>
+            <div class="wf-service">⚙️ Infraestrutura</div>
+            <div class="wf-service">🔒 Segurança</div>
+            <div class="wf-service">📊 Big Data</div>
+          </div>
+          <div class="wf-cta-corp">Solicitar Proposta B2B</div>
+        </div>
+        <div class="wireframe-footer">
+          <strong>🏢 Modelo 03: Institucional &amp; B2B</strong>
+          Ideal para: Agências, empresas, escritórios contábeis, indústrias e serviços B2B.
+        </div>
+      </div>
+
+    </div>
   </div>
 
-  <div class="box">
-    <h3 class="box-title"><span class="num">5</span> Tornando as Alterações Definitivas</h3>
-    <p>Ao terminar de editar no Painel Admin, clique no botão azul <strong>"Baixar config.js"</strong>. Substitua o arquivo dentro da pasta <code>js/</code>. Desta forma, suas edições ficam salvas permanentemente em qualquer servidor ou hospedagem!</p>
+  <!-- SEÇÃO 4: O PAINEL ADMINISTRATIVO E O PASSO CRUCIAL -->
+  <div class="section-card no-break">
+    <div class="section-header">
+      <span class="step-num">4</span>
+      <h2 class="section-title">O Painel Administrativo Próprio (admin/index.html)</h2>
+    </div>
+    <p class="section-desc">O centro de comando da sua landing page. Aqui você altera tudo sem encostar em nenhuma linha de código.</p>
+    
+    <table class="table-custom">
+      <thead>
+        <tr>
+          <th style="width: 25%;">Aba do Painel</th>
+          <th style="width: 45%;">O que Você Pode Alterar</th>
+          <th style="width: 30%;">Impacto na Página</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>🎨 Geral &amp; Identidade</strong></td>
+          <td>Nome da empresa, slogan, logotipo, banner, link do WhatsApp e cor tema primária.</td>
+          <td>Atualiza todo o cabeçalho, rodapé e identidade visual.</td>
+        </tr>
+        <tr>
+          <td><strong>💳 Modelos &amp; Checkout</strong></td>
+          <td>Escolha do modelo da página (01, 02 ou 03), escolha do modelo de checkout (1, 2 ou 3) e forma de recebimento.</td>
+          <td>Muda a estrutura inteira do site e o comportamento de pagamento.</td>
+        </tr>
+        <tr>
+          <td><strong>📦 Conteúdo &amp; Textos</strong></td>
+          <td>Headline principal, subheadline, módulos do curso, pilares de autoridade, serviços B2B e FAQ.</td>
+          <td>Permite adaptar o site para qualquer nicho de mercado.</td>
+        </tr>
+        <tr>
+          <td><strong>💰 Oferta &amp; Preços</strong></td>
+          <td>Preço original ("de"), preço promocional ("por"), número de parcelas e garantia incondicional.</td>
+          <td>Calcula e exibe as ofertas automaticamente no site e no checkout.</td>
+        </tr>
+        <tr>
+          <td><strong>🛡️ Segurança &amp; Senha</strong></td>
+          <td>Troca da senha de acesso ao painel admin (senha inicial de fábrica: <code>123456</code>).</td>
+          <td>Garante que somente você consiga editar as informações.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout-alert" style="margin-top: 12px;">
+      <strong>⚠️ ATENÇÃO: COMO TORNAR AS ALTERAÇÕES DEFINITIVAS</strong><br>
+      Ao clicar no botão verde <strong>"Salvar Alterações"</strong>, o site atualiza instantaneamente no seu navegador.<br>
+      Para que as alterações fiquem gravadas permanentemente e funcionem em qualquer celular, computador ou servidor na internet, clique no botão azul <strong>"Baixar config.js"</strong> e substitua o arquivo correspondente dentro da pasta <code>js/config.js</code>.
+    </div>
   </div>
 
-  <div class="box">
-    <h3 class="box-title"><span class="num">6</span> Como Publicar Gratuitamente na Vercel (Em 3 Minutos)</h3>
-    <ol>
-      <li>Crie uma conta gratuita em <strong>vercel.com</strong>.</li>
-      <li>Arraste a pasta descompactada deste projeto para o painel da Vercel.</li>
-      <li>Clique em <strong>Deploy</strong>. Seu site estará no ar mundialmente com certificado SSL gratuito (https://)!</li>
-      <li>Opcional: Conecte seu domínio próprio (ex: <code>seunegocio.com.br</code>) na aba <em>Settings > Domains</em>.</li>
-    </ol>
+  <!-- SEÇÃO 5: OS 3 MODELOS DE CHECKOUT INTEGRADOS -->
+  <div class="section-card page-break no-break">
+    <div class="section-header">
+      <span class="step-num">5</span>
+      <h2 class="section-title">Os 3 Modelos de Checkout Integrados (Wireframes)</h2>
+    </div>
+    <p class="section-desc">Selecione na aba <em>"💳 Modelos &amp; Checkout"</em> qual visual de checkout melhor atende ao seu público:</p>
+
+    <div class="checkout-grid">
+      <div class="checkout-card">
+        <div class="checkout-card-header">
+          <span class="checkout-card-tag tag-green">MODELO 01</span>
+          <strong style="font-size:11.5px;">Conversão Rápida</strong>
+        </div>
+        <p style="font-size:10px;color:#64748b;margin:0 0 6px 0;"><strong>1 Coluna Mobile-First:</strong> Otimizado para celular e tráfego direto.</p>
+        <div style="background:#0f172a;color:#ffffff;padding:7px;border-radius:6px;font-size:8.5px;">
+          <div style="background:#10b981;color:#fff;padding:2px 4px;border-radius:3px;font-size:7.5px;text-align:center;margin-bottom:4px;">⏱️ Desconto reservado por 15:00</div>
+          <div style="border-bottom:1px solid #334155;padding-bottom:3px;margin-bottom:3px;">
+            <span>Resumo: [Nome do Produto]</span><br>
+            <strong style="color:#10b981;font-size:10px;">R$ 197,00</strong>
+          </div>
+          <div style="color:#94a3b8;font-size:7.5px;">[ ] Nome Completo<br>[ ] E-mail de Entrega<br>[ ] WhatsApp</div>
+          <div style="background:#10b981;color:#fff;text-align:center;padding:3px;border-radius:3px;font-weight:800;margin-top:5px;">PAGAR VIA PIX (1 CLIQUE)</div>
+        </div>
+      </div>
+
+      <div class="checkout-card">
+        <div class="checkout-card-header">
+          <span class="checkout-card-tag tag-blue">MODELO 02</span>
+          <strong style="font-size:11.5px;">Alta Conversão</strong>
+        </div>
+        <p style="font-size:10px;color:#64748b;margin:0 0 6px 0;"><strong>2 Colunas + Order Bump:</strong> Depoimento 5 estrelas e oferta adicional.</p>
+        <div style="background:#0f172a;color:#ffffff;padding:7px;border-radius:6px;font-size:8.5px;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;border-bottom:1px solid #334155;padding-bottom:3px;margin-bottom:3px;">
+            <div style="color:#cbd5e1;">[Dados Pessoais]</div>
+            <div style="background:#1e293b;padding:3px;border-radius:3px;font-size:7px;">
+              <span>⭐ 5.0 (Aluno Satisfeito)</span><br>
+              <em style="color:#94a3b8;">"Mudou meus resultados!"</em>
+            </div>
+          </div>
+          <div style="background:#1e293b;border:1px dashed #38bdf8;padding:3px;border-radius:3px;margin:3px 0;font-size:7.5px;">
+            <strong style="color:#38bdf8;">[✓] Sim, adicionar Order Bump (+R$ 47)</strong>
+          </div>
+          <div style="background:#2563eb;color:#fff;text-align:center;padding:3px;border-radius:3px;font-weight:800;">FINALIZAR PEDIDO SEGURO</div>
+        </div>
+      </div>
+
+      <div class="checkout-card">
+        <div class="checkout-card-header">
+          <span class="checkout-card-tag tag-purple">MODELO 03</span>
+          <strong style="font-size:11.5px;">Minimalista Premium</strong>
+        </div>
+        <p style="font-size:10px;color:#64748b;margin:0 0 6px 0;"><strong>Dark Titanium B2B:</strong> Interface limpa para Pessoa Física ou Jurídica.</p>
+        <div style="background:#090d16;color:#ffffff;padding:7px;border-radius:6px;font-size:8.5px;border:1px solid #1e293b;">
+          <div style="display:flex;justify-content:space-between;border-bottom:1px solid #1e293b;padding-bottom:3px;margin-bottom:3px;">
+            <span>Fatura Comercial B2B</span>
+            <span style="color:#a855f7;">[x] CNPJ [ ] CPF</span>
+          </div>
+          <div style="color:#94a3b8;font-size:7.5px;">
+            Razão Social / Nome da Empresa<br>CNPJ / Inscrição Estadual
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:3px;font-size:8px;">
+            <span>Subtotal:</span>
+            <strong>R$ 197,00</strong>
+          </div>
+          <div style="background:#7e22ce;color:#fff;text-align:center;padding:3px;border-radius:3px;font-weight:800;margin-top:5px;">EMITIR FATURA &amp; PAGAR</div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="footer">
-    Desenvolvido com excelência por <strong>RMTI • Soluções em Tecnologia</strong> | Suporte: pauloromao.dev2020@gmail.com
+  <!-- SEÇÃO 6: FORMAS DE RECEBIMENTO (GATEWAYS) -->
+  <div class="section-card no-break">
+    <div class="section-header">
+      <span class="step-num">6</span>
+      <h2 class="section-title">Como Configurar Suas Formas de Recebimento</h2>
+    </div>
+    <p class="section-desc">Você decide como quer receber pelas suas vendas. Configure tudo na aba <em>"💳 Modelos &amp; Checkout"</em> do Admin:</p>
+
+    <div class="gateways-grid">
+      <div class="gateway-box">
+        <span class="gateway-icon">🔵</span>
+        <span class="gateway-name">Mercado Pago</span>
+        <p class="gateway-desc">Cole o link de cobrança do app Mercado Pago. O cliente paga via Pix e Cartão em até 12x.</p>
+      </div>
+
+      <div class="gateway-box">
+        <span class="gateway-icon">⚡</span>
+        <span class="gateway-name">Pix Direto (Sua Chave)</span>
+        <p class="gateway-desc">Receba direto na sua conta bancária sem taxas intermediárias, com botão de envio do comprovante no WhatsApp.</p>
+      </div>
+
+      <div class="gateway-box">
+        <span class="gateway-icon">🚀</span>
+        <span class="gateway-name">Outro Gateway</span>
+        <p class="gateway-desc">Redireciona para seu link da Kiwify, Hotmart, Eduzz, Stripe, Braip ou Monetizze com 1 clique.</p>
+      </div>
+
+      <div class="gateway-box">
+        <span class="gateway-icon">💬</span>
+        <span class="gateway-name">Vendas no WhatsApp</span>
+        <p class="gateway-desc">O cliente preenche os dados e o pedido chega pronto no seu WhatsApp para atendimento consultivo humano.</p>
+      </div>
+    </div>
   </div>
+
+  <!-- SEÇÃO 7: TABELA DE IMAGENS E DIMENSÕES -->
+  <div class="section-card page-break no-break">
+    <div class="section-header">
+      <span class="step-num">7</span>
+      <h2 class="section-title">Guia de Imagens e Dimensões Recomendadas</h2>
+    </div>
+    <p class="section-desc">Para garantir a melhor qualidade visual e carregamento ultrarrápido, siga as recomendações de tamanho abaixo:</p>
+
+    <table class="table-custom">
+      <thead>
+        <tr>
+          <th>Arquivo na pasta <code>assets/imagens/</code></th>
+          <th>Dimensão Recomendada</th>
+          <th>Formato Ideal</th>
+          <th>Onde é Utilizado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>logo-placeholder.png</code></td>
+          <td><strong>400 x 120 px</strong></td>
+          <td>PNG Transparente ou SVG</td>
+          <td>Topo (navbar) de todos os modelos e cabeçalho do checkout.</td>
+        </tr>
+        <tr>
+          <td><code>banner-placeholder.png</code></td>
+          <td><strong>1200 x 675 px</strong> (Proporção 16:9)</td>
+          <td>JPG ou WebP Otimizado</td>
+          <td>Banner hero principal e capa do vídeo/VSL do Modelo 01.</td>
+        </tr>
+        <tr>
+          <td><code>especialista-placeholder.png</code></td>
+          <td><strong>600 x 750 px</strong> (Proporção 4:5)</td>
+          <td>PNG ou JPG de alta resolução</td>
+          <td>Foto de perfil com moldura de autoridade do Modelo 02.</td>
+        </tr>
+        <tr>
+          <td><code>mockup-produto.png</code></td>
+          <td><strong>600 x 600 px</strong> (Proporção 1:1)</td>
+          <td>PNG Transparente</td>
+          <td>Caixa lateral de resumo do checkout (Modelos 01 e 02).</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout-tip">
+      <strong>💡 DICA PROFISSIONAL DE DESEMPENHO:</strong> Você pode usar ferramentas gratuitas como o <em>TinyPNG.com</em> ou <em>Squoosh.app</em> para comprimir suas imagens antes de subir. Imagens leves fazem sua página carregar em menos de 1 segundo!
+    </div>
+  </div>
+
+  <!-- SEÇÃO 8: COMO PUBLICAR NA VERCEL E CPANEL -->
+  <div class="section-card no-break">
+    <div class="section-header">
+      <span class="step-num">8</span>
+      <h2 class="section-title">Como Publicar Seu Site na Internet</h2>
+    </div>
+    <p class="section-desc">Sua página está pronta. Escolha o método de publicação de sua preferência:</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px;">
+      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px;">
+        <h4 style="font-size:12px;font-weight:800;color:#0f172a;margin:0 0 6px 0;display:flex;align-items:center;gap:6px;">
+          <span style="background:#0f172a;color:#fff;padding:2px 5px;border-radius:4px;font-size:9.5px;">MÉTODO 1</span>
+          Vercel (Recomendado • Grátis em 3 min)
+        </h4>
+        <ol style="margin:0;padding-left:14px;font-size:11px;color:#334155;line-height:1.55;">
+          <li>Acesse <strong>vercel.com</strong> e faça login ou crie sua conta gratuita.</li>
+          <li>Arraste a pasta descompactada deste projeto para o painel.</li>
+          <li>Clique no botão <strong>"Deploy"</strong>. Em 40 segundos seu site estará no ar!</li>
+          <li>Você receberá um endereço oficial com certificado de segurança SSL gratuito (https://).</li>
+          <li>Opcional: Na aba <em>Settings &gt; Domains</em>, adicione seu domínio próprio (ex: <code>seunegocio.com.br</code>).</li>
+        </ol>
+      </div>
+
+      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px;">
+        <h4 style="font-size:12px;font-weight:800;color:#0f172a;margin:0 0 6px 0;display:flex;align-items:center;gap:6px;">
+          <span style="background:#0284c7;color:#fff;padding:2px 5px;border-radius:4px;font-size:9.5px;">MÉTODO 2</span>
+          Hospedagens Tradicionais (cPanel / Hostinger)
+        </h4>
+        <ol style="margin:0;padding-left:14px;font-size:11px;color:#334155;line-height:1.55;">
+          <li>Acesse o Gerenciador de Arquivos do seu painel cPanel ou FTP.</li>
+          <li>Abra a pasta <code>public_html</code> (ou raiz do seu domínio).</li>
+          <li>Envie todos os arquivos e pastas deste projeto para dentro dela.</li>
+          <li>Certifique-se de que o arquivo <code>index.html</code> esteja na raiz.</li>
+          <li>Pronto! O site já responderá no seu domínio imediatamente.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEÇÃO 9: DÚVIDAS FREQUENTES (FAQ) -->
+  <div class="section-card no-break">
+    <div class="section-header">
+      <span class="step-num">9</span>
+      <h2 class="section-title">Perguntas Frequentes (FAQ)</h2>
+    </div>
+    
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;">
+      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:9px 11px;">
+        <strong style="color:#0f172a;font-size:11px;display:block;margin-bottom:3px;">Preciso pagar alguma mensalidade?</strong>
+        <p style="margin:0;font-size:10.5px;color:#64748b;">Não! O pacote é de pagamento único. Os arquivos são de sua propriedade perpétua e não dependem de nenhuma mensalidade para continuar funcionando.</p>
+      </div>
+
+      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:9px 11px;">
+        <strong style="color:#0f172a;font-size:11px;display:block;margin-bottom:3px;">Posso usar com meu domínio próprio?</strong>
+        <p style="margin:0;font-size:10.5px;color:#64748b;">Com certeza! Você pode apontar qualquer domínio <code>.com.br</code> ou <code>.com</code> registrado no Registro.br ou GoDaddy tanto na Vercel quanto no cPanel.</p>
+      </div>
+
+      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:9px 11px;">
+        <strong style="color:#0f172a;font-size:11px;display:block;margin-bottom:3px;">E se eu esquecer a senha do Admin?</strong>
+        <p style="margin:0;font-size:10.5px;color:#64748b;">A senha inicial é <code>123456</code>. Caso altere e esqueça, você pode abrir o arquivo <code>js/config.js</code> ou limpar os cookies/armazenamento do seu navegador para restaurar.</p>
+      </div>
+
+      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:9px 11px;">
+        <strong style="color:#0f172a;font-size:11px;display:block;margin-bottom:3px;">Como trocar o vídeo da página?</strong>
+        <p style="margin:0;font-size:10.5px;color:#64748b;">Basta acessar o painel admin na aba <em>"Conteúdo &amp; Textos"</em> e colar a URL do seu vídeo do YouTube ou Vimeo no campo de vídeo. O player atualiza na hora.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- RODAPÉ OFICIAL & SUPORTE -->
+  <div class="doc-footer no-break">
+    <div style="margin-bottom: 5px;">
+      Desenvolvido com excelência por <strong>RMTI • Soluções Inteligentes em Tecnologia</strong>
+    </div>
+    <div style="font-size:10px;color:#94a3b8;">
+      Suporte Técnico &amp; Customizações Avançadas: <strong>pauloromao.dev2020@gmail.com</strong> • Versão do Pacote: <strong>2.5 LTS All-in-One</strong>
+    </div>
+  </div>
+
 </body>
 </html>
