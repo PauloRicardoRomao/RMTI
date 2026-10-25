@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-bind="businessName">Seu Nome • Atendimento &amp; Consultoria Individualizada</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/config.js"></script>
+  <script src="js/app.js" defer></script>
+</head>
+<body class="bg-[#050b14] text-slate-100 min-h-screen selection:bg-sky-500 selection:text-slate-950">
+
+  <!-- BARRA DE DEMONSTRAÇÃO FLUTUANTE -->
+  <div class="bg-gradient-to-r from-slate-900 via-slate-950 to-slate-900 border-b border-sky-500/30 py-2.5 px-4 sticky top-0 z-50 text-xs shadow-xl">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-sky-500/20 text-sky-400 font-bold uppercase tracking-wider">
+          <span class="w-2 h-2 rounded-full bg-sky-400 animate-ping"></span>
+          PACOTE 02 • DEMONSTRAÇÃO ATIVA
+        </span>
+        <span class="text-slate-400 hidden sm:inline">Estrutura de Captura &amp; WhatsApp VIP</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <a href="admin/index.html" class="px-3 py-1.5 rounded-lg bg-sky-500/20 hover:bg-sky-500/30 text-sky-400 font-bold transition-all border border-sky-500/40">
+          <span>⚙️ Abrir Painel Admin</span>
+        </a>
+        <a href="checkout.html" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold border border-slate-700">
+          <span>💳 Ver Checkout Reserva</span>
+        </a>
+        <a href="/checkout?plano=pro&produto=combo-5em1" class="px-3.5 py-1.5 rounded-lg bg-sky-500 hover:bg-sky-400 text-slate-950 font-black transition-all shadow-md">
+          <span>Comprar Este Pacote (R$ 97)</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- AVISO SUPERIOR -->
+  <div class="bg-gradient-to-r from-sky-600 to-blue-600 py-2 text-center text-white text-xs font-black tracking-wider uppercase">
+    <span data-bind="topBarText">AGENDA ABERTA PARA NOVOS PACIENTES / CLIENTES NESTE MÊS</span>
+  </div>
+
+  <!-- CABEÇALHO -->
+  <header class="py-6 px-4 sm:px-8 max-w-6xl mx-auto flex items-center justify-between">
+    <img src="assets/imagens/logo-placeholder.png" alt="Sua Logo" class="h-10 sm:h-12 w-auto object-contain" data-bind="logoUrl">
+    <a href="#planos" class="px-5 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-extrabold text-xs uppercase tracking-wider transition-all">
+      Ver Planos &amp; Vagas
+    </a>
+  </header>
+
+  <!-- HERO SECTION COM FOTO DO PROFISSIONAL -->
+  <section class="py-12 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+    <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sky-500/10 border border-sky-500/30 text-sky-400 text-xs font-bold uppercase tracking-wider">
+        <span>★ ATENDIMENTO PERSONALIZADO</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl font-black text-white leading-tight" data-bind="headline">
+        Transforme Sua [Área de Atuação] com um Acompanhamento 100% Individualizado
+      </h1>
+
+      <p class="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl" data-bind="subheadline">
+        Metodologia científica e personalizada para você atingir seus objetivos com segurança, sem fórmulas prontas ou promessas milagrosas.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
+        <a href="#" class="whatsapp-btn py-4 px-8 rounded-2xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-black text-sm uppercase tracking-wider shadow-xl shadow-sky-500/20 text-center flex items-center justify-center gap-2">
+          <span>💬 FALAR COMIGO NO WHATSAPP</span>
+        </a>
+        <a href="#planos" class="py-4 px-8 rounded-2xl bg-slate-900 hover:bg-slate-800 text-slate-200 font-bold text-sm border border-slate-700 text-center">
+          Conhecer Modalidades
+        </a>
+      </div>
+
+      <div class="text-xs text-slate-400 flex items-center justify-center lg:justify-start gap-2 pt-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+        <span data-bind="ctaSubtext">⚡ Resposta Rápida • Vagas Limitadas</span>
+      </div>
+    </div>
+
+    <!-- Foto do Especialista -->
+    <div class="lg:col-span-5 flex justify-center">
+      <div class="relative w-full max-w-sm rounded-3xl overflow-hidden border-2 border-sky-500/40 shadow-2xl bg-slate-900 group">
+        <img src="assets/imagens/foto-placeholder.jpg" alt="Sua Foto Aqui" class="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500" data-bind="photoUrl">
+        <div class="absolute bottom-0 inset-x-0 p-5 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent">
+          <h3 class="text-lg font-bold text-white" data-bind="businessName">Seu Nome Aqui</h3>
+          <p class="text-xs text-sky-400 font-semibold" data-bind="professionalTitle">Especialista em [Sua Área] • Registro Oficial</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLANOS DE ATENDIMENTO -->
+  <section id="planos" class="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-slate-800">
+    <div class="text-center mb-12">
+      <span class="text-sky-400 text-xs font-bold uppercase tracking-wider">INVESTIMENTO &amp; FORMATOS</span>
+      <h2 class="text-2xl sm:text-4xl font-black text-white mt-2">Escolha Seu Formato de Acompanhamento</h2>
+      <p class="text-slate-400 text-sm sm:text-base mt-2">Clique no plano desejado para falar diretamente comigo no WhatsApp.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+      <!-- Plano Mensal -->
+      <div class="glass-card p-6 sm:p-8 rounded-3xl border border-slate-800 flex flex-col justify-between">
+        <div>
+          <h3 class="text-xl font-bold text-white">Plano Mensal</h3>
+          <p class="text-xs text-slate-400 mt-1">Ideal para experimentar o método.</p>
+          <div class="text-3xl font-black text-white mt-4">R$ 197<span class="text-xs text-slate-400">/mês</span></div>
+          <ul class="space-y-2.5 text-xs text-slate-300 mt-6">
+            <li>✓ Avaliação inicial completa</li>
+            <li>✓ Plano personalizado de 30 dias</li>
+            <li>✓ Suporte semanal via WhatsApp</li>
+            <li>✓ Ajustes pontuais</li>
+          </ul>
+        </div>
+        <a href="#" class="whatsapp-btn mt-8 py-3.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs text-center block border border-slate-700" data-msg="Olá! Gostaria de iniciar no Plano Mensal.">
+          Escolher Plano Mensal
+        </a>
+      </div>
+
+      <!-- Plano Trimestral VIP -->
+      <div class="glass-card p-6 sm:p-8 rounded-3xl border-2 border-sky-500 bg-sky-950/20 flex flex-col justify-between relative shadow-2xl scale-105">
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-sky-500 text-slate-950 text-[10px] font-black uppercase px-4 py-1 rounded-full whitespace-nowrap">
+          MAIS ESCOLHIDO • 40% OFF
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-white">Plano Trimestral VIP</h3>
+          <p class="text-xs text-sky-300 mt-1">Tempo ideal para transformação visível.</p>
+          <div class="text-3xl font-black text-white mt-4">3x R$ 149<span class="text-xs text-slate-400"> ou R$ 397</span></div>
+          <ul class="space-y-2.5 text-xs text-slate-200 mt-6">
+            <li>✓ Tudo do Plano Mensal</li>
+            <li>✓ Ajustes quinzenais de protocolo</li>
+            <li>✓ Acompanhamento prioritário no WhatsApp</li>
+            <li>✓ Guia complementar exclusivo</li>
+            <li>✓ Avaliação postural / física completa</li>
+          </ul>
+        </div>
+        <a href="#" class="whatsapp-btn mt-8 py-4 px-4 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-black text-xs uppercase tracking-wider text-center block shadow-lg shadow-sky-500/25" data-msg="Olá! Gostaria de garantir minha vaga no Plano Trimestral VIP.">
+          Quero o Trimestral VIP
+        </a>
+      </div>
+
+      <!-- Plano Semestral -->
+      <div class="glass-card p-6 sm:p-8 rounded-3xl border border-slate-800 flex flex-col justify-between">
+        <div>
+          <h3 class="text-xl font-bold text-white">Plano Semestral</h3>
+          <p class="text-xs text-slate-400 mt-1">Mudança de hábitos e estilo de vida.</p>
+          <div class="text-3xl font-black text-white mt-4">6x R$ 119<span class="text-xs text-slate-400"> ou R$ 647</span></div>
+          <ul class="space-y-2.5 text-xs text-slate-300 mt-6">
+            <li>✓ Acompanhamento de 6 meses</li>
+            <li>✓ Check-ins mensais em vídeo</li>
+            <li>✓ Canal direto 24/7 no WhatsApp</li>
+            <li>✓ Todos os materiais e bônus inclusos</li>
+          </ul>
+        </div>
+        <a href="#" class="whatsapp-btn mt-8 py-3.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs text-center block border border-slate-700" data-msg="Olá! Gostaria de me inscrever no Plano Semestral.">
+          Escolher Plano Semestral
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- RODAPÉ -->
+  <footer class="py-10 px-4 text-center border-t border-slate-800 text-xs text-slate-500">
+    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>© 2026 <span data-bind="businessName">Seu Nome</span>. Todos os direitos reservados.</div>
+      <div class="flex items-center gap-4 text-slate-400">
+        <a href="admin/index.html" class="hover:text-sky-400">Acessar Admin</a>
+        <a href="checkout.html" class="hover:text-sky-400">Página de Reserva</a>
+        <a href="#" class="whatsapp-btn hover:text-sky-400">WhatsApp Direto</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

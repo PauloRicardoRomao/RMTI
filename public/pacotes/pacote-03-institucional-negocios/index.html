@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-bind="companyName">Sua Empresa • Soluções Corporativas &amp; Inovação</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/config.js"></script>
+  <script src="js/app.js" defer></script>
+</head>
+<body class="bg-[#0b1120] text-slate-100 min-h-screen">
+
+  <!-- BARRA DE DEMONSTRAÇÃO FLUTUANTE -->
+  <div class="bg-gradient-to-r from-slate-900 via-slate-950 to-slate-900 border-b border-blue-500/30 py-2.5 px-4 sticky top-0 z-50 text-xs shadow-xl">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-400 font-bold uppercase tracking-wider">
+          <span class="w-2 h-2 rounded-full bg-blue-400 animate-ping"></span>
+          PACOTE 03 • DEMONSTRAÇÃO ATIVA
+        </span>
+        <span class="text-slate-400 hidden sm:inline">Estrutura Institucional &amp; Comercial B2B</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <a href="admin/index.html" class="px-3 py-1.5 rounded-lg bg-blue-500/20 hover:bg-blue-500/30 text-blue-400 font-bold border border-blue-500/40">
+          <span>⚙️ Abrir Painel Admin</span>
+        </a>
+        <a href="checkout.html" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold border border-slate-700">
+          <span>💳 Ver Proposta / Checkout</span>
+        </a>
+        <a href="/checkout?plano=pro&produto=combo-5em1" class="px-3.5 py-1.5 rounded-lg bg-blue-500 hover:bg-blue-400 text-white font-black transition-all shadow-md">
+          <span>Comprar Este Pacote (R$ 97)</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="py-6 px-4 sm:px-8 max-w-7xl mx-auto flex items-center justify-between border-b border-slate-800/80">
+    <img src="assets/imagens/logo-placeholder.png" alt="Sua Empresa" class="h-10 sm:h-12 w-auto object-contain" data-bind="logoUrl">
+    <nav class="hidden md:flex items-center gap-6 text-xs font-bold text-slate-300">
+      <a href="#servicos" class="hover:text-blue-400">Soluções</a>
+      <a href="#metricas" class="hover:text-blue-400">Resultados</a>
+      <a href="#diferenciais" class="hover:text-blue-400">Diferenciais</a>
+      <a href="#contato" class="hover:text-blue-400">Contato</a>
+    </nav>
+    <a href="#contato" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold uppercase tracking-wider">
+      Solicitar Proposta
+    </a>
+  </header>
+
+  <!-- HERO SECTION CORPORATIVO -->
+  <section class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto text-center flex flex-col items-center">
+    <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-black uppercase tracking-wider mb-6">
+      <span data-bind="topBarText">LÍDERES EM INOVAÇÃO E TRANSFORMAÇÃO DIGITAL</span>
+    </span>
+
+    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-tight max-w-4xl mb-6" data-bind="headline">
+      Aceleramos o Crescimento do Seu Negócio com Soluções de Alta Performance
+    </h1>
+
+    <p class="text-slate-300 text-base sm:text-xl max-w-3xl mb-10 leading-relaxed" data-bind="subheadline">
+      Desenvolvemos tecnologia sob medida, processos eficientes e estratégias focadas em maximizar a rentabilidade e a escala da sua operação.
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-4 mb-12">
+      <a href="#contato" class="py-4 px-8 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-black text-sm uppercase tracking-wider shadow-xl shadow-blue-600/20">
+        <span data-bind="ctaButtonText">SOLICITAR PROPOSTA PERSONALIZADA</span>
+      </a>
+      <a href="#servicos" class="py-4 px-8 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 font-bold text-sm border border-slate-700">
+        Conhecer Nossas Soluções
+      </a>
+    </div>
+
+    <!-- BANNER HERO -->
+    <div class="w-full max-w-5xl rounded-3xl overflow-hidden border border-slate-800 shadow-2xl">
+      <img src="assets/imagens/banner-placeholder.jpg" alt="Banner Institucional" class="w-full h-auto object-cover" data-bind="bannerUrl">
+    </div>
+  </section>
+
+  <!-- MÉTRICAS DE IMPACTO -->
+  <section id="metricas" class="py-12 bg-slate-950/60 border-y border-slate-800">
+    <div class="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+      <div>
+        <div class="text-3xl sm:text-5xl font-black text-blue-400">+500</div>
+        <div class="text-xs sm:text-sm text-slate-400 mt-1">Projetos Entregues</div>
+      </div>
+      <div>
+        <div class="text-3xl sm:text-5xl font-black text-blue-400">99.4%</div>
+        <div class="text-xs sm:text-sm text-slate-400 mt-1">Satisfação dos Clientes</div>
+      </div>
+      <div>
+        <div class="text-3xl sm:text-5xl font-black text-blue-400">10+</div>
+        <div class="text-xs sm:text-sm text-slate-400 mt-1">Anos de Mercado</div>
+      </div>
+      <div>
+        <div class="text-3xl sm:text-5xl font-black text-blue-400">R$ 15M+</div>
+        <div class="text-xs sm:text-sm text-slate-400 mt-1">Em Receita Gerada</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVIÇOS / SOLUÇÕES CORPORATIVAS -->
+  <section id="servicos" class="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+    <div class="text-center mb-14">
+      <span class="text-blue-400 text-xs font-bold uppercase tracking-wider">SOLUÇÕES DE PONTA</span>
+      <h2 class="text-2xl sm:text-4xl font-black text-white mt-2">Tecnologia &amp; Estratégia Sob Medida</h2>
+      <p class="text-slate-400 text-sm mt-2">Projetos desenvolvidos para solucionar gargalos e gerar escala sustentável.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="glass-card p-8 rounded-2xl border border-slate-800">
+        <div class="w-12 h-12 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center text-xl font-bold mb-4">01</div>
+        <h3 class="text-xl font-bold text-white mb-2">Consultoria Estratégica &amp; Diagnóstico</h3>
+        <p class="text-slate-300 text-sm leading-relaxed">Análise aprofundada dos seus fluxos de trabalho e oportunidades de otimização de custos e processos operacionais.</p>
+      </div>
+
+      <div class="glass-card p-8 rounded-2xl border border-slate-800">
+        <div class="w-12 h-12 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center text-xl font-bold mb-4">02</div>
+        <h3 class="text-xl font-bold text-white mb-2">Desenvolvimento Tecnológico Sob Medida</h3>
+        <p class="text-slate-300 text-sm leading-relaxed">Arquiteturas modernas, escaláveis e com foco na melhor experiência de uso para clientes e colaboradores.</p>
+      </div>
+
+      <div class="glass-card p-8 rounded-2xl border border-slate-800">
+        <div class="w-12 h-12 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center text-xl font-bold mb-4">03</div>
+        <h3 class="text-xl font-bold text-white mb-2">Segurança, Compliance &amp; Governança</h3>
+        <p class="text-slate-300 text-sm leading-relaxed">Boas práticas rigorosas de proteção de dados (LGPD), criptografia de ponta e estabilidade 24 horas por dia.</p>
+      </div>
+
+      <div class="glass-card p-8 rounded-2xl border border-slate-800">
+        <div class="w-12 h-12 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center text-xl font-bold mb-4">04</div>
+        <h3 class="text-xl font-bold text-white mb-2">Suporte Contínuo &amp; Sustentação</h3>
+        <p class="text-slate-300 text-sm leading-relaxed">Equipe dedicada para manter sua operação funcionando perfeitamente, com SLAs rigorosos e atendimento direto.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMULÁRIO DE PROPOSTA -->
+  <section id="contato" class="py-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto border-t border-slate-800">
+    <div class="glass-card p-8 sm:p-12 rounded-3xl border border-blue-500/40 shadow-2xl">
+      <div class="text-center mb-8">
+        <h2 class="text-2xl sm:text-3xl font-black text-white">Solicite uma Proposta Comercial</h2>
+        <p class="text-xs sm:text-sm text-slate-400 mt-2">Nossa equipe executiva entrará em contato em até 24 horas úteis.</p>
+      </div>
+
+      <form class="space-y-4" onsubmit="event.preventDefault(); window.location.href='obrigado.html';">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">Seu Nome *</label>
+            <input type="text" required placeholder="Ex: Roberto Silva" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">Nome da Empresa *</label>
+            <input type="text" required placeholder="Ex: Horizon Tech" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">E-mail Corporativo *</label>
+            <input type="email" required placeholder="roberto@empresa.com" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">Telefone / WhatsApp *</label>
+            <input type="tel" required placeholder="(11) 99999-9999" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">Fale Brevemente Sobre o Seu Projeto</label>
+          <textarea rows="3" placeholder="Descreva os objetivos da sua empresa..." class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white"></textarea>
+        </div>
+
+        <button type="submit" class="w-full py-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-black text-sm uppercase tracking-wider shadow-lg shadow-blue-600/30">
+          Enviar Solicitação de Proposta
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- RODAPÉ -->
+  <footer class="py-10 px-4 text-center border-t border-slate-800 text-xs text-slate-500">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>© 2026 <span data-bind="companyName">Sua Empresa</span>. Todos os direitos reservados.</div>
+      <div class="flex items-center gap-4 text-slate-400">
+        <a href="admin/index.html" class="hover:text-blue-400">Acessar Admin</a>
+        <a href="checkout.html" class="hover:text-blue-400">Página Comercial</a>
+        <a href="#" class="whatsapp-btn hover:text-blue-400">WhatsApp Comercial</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

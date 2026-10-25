@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reserva de Consulta • Pagamento Seguro</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/config.js"></script>
+</head>
+<body class="bg-[#050b14] text-slate-100 min-h-screen py-8 px-4 sm:px-6">
+  <div class="max-w-3xl mx-auto glass-card p-6 sm:p-10 rounded-3xl border border-slate-800 shadow-2xl">
+    <div class="flex items-center justify-between pb-6 mb-6 border-b border-slate-800">
+      <div>
+        <h1 class="text-xl sm:text-2xl font-black text-white">Reserva de Horário &amp; Inscrição</h1>
+        <p class="text-xs text-slate-400 mt-1">Preencha seus dados para confirmar seu atendimento.</p>
+      </div>
+      <a href="index.html" class="text-xs text-sky-400 hover:underline">← Voltar</a>
+    </div>
+
+    <form class="space-y-4" onsubmit="event.preventDefault(); window.location.href='obrigado.html';">
+      <div>
+        <label class="block text-xs font-bold text-slate-300 mb-1">Nome Completo *</label>
+        <input type="text" required placeholder="Ex: Ana Silva" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">WhatsApp *</label>
+          <input type="tel" required placeholder="(11) 99999-9999" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">E-mail *</label>
+          <input type="email" required placeholder="email@exemplo.com" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+        </div>
+      </div>
+      <button type="submit" class="w-full py-4 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-black text-sm uppercase tracking-wider mt-4">
+        Confirmar e Abrir no WhatsApp
+      </button>
+    </form>
+  </div>
+</body>
+</html>

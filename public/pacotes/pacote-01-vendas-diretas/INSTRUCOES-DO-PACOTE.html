@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Manual Ilustrado • Pacote 01: Vendas Diretas & Checkout Integrado</title>
+  <style>
+    @page { size: A4; margin: 20mm; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1e293b; line-height: 1.6; }
+    .header { text-align: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 20px; margin-bottom: 30px; }
+    .header h1 { color: #0f172a; font-size: 24px; margin: 0; }
+    .header p { color: #64748b; font-size: 14px; margin: 5px 0 0 0; }
+    .badge { display: inline-block; background: #ecfdf5; color: #059669; font-weight: bold; font-size: 11px; padding: 4px 12px; border-radius: 9999px; text-transform: uppercase; margin-bottom: 10px; }
+    .step-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 18px; margin-bottom: 20px; }
+    .step-title { font-size: 16px; font-weight: 800; color: #0f172a; margin-top: 0; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+    .step-num { background: #10b981; color: #fff; width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; }
+    code { background: #e2e8f0; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px; }
+    .footer { text-align: center; font-size: 12px; color: #94a3b8; border-top: 1px solid #e2e8f0; padding-top: 15px; margin-top: 40px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="badge">MANUAL OFICIAL • RMTI TECNOLOGIA</div>
+    <h1>Pacote 01: Vendas Diretas & Checkout Integrado</h1>
+    <p>Guia de Implementação Rápida, Personalização e Hospedagem</p>
+  </div>
+
+  <div class="step-box">
+    <h3 class="step-title"><span class="step-num">1</span> Estrutura de Arquivos do Seu Pacote</h3>
+    <p>O pacote que você adquiriu é 100% seu e totalmente autônomo. Você encontrará os seguintes arquivos:</p>
+    <ul>
+      <li><code>index.html</code>: A sua página de alta conversão pronta para ir ao ar.</li>
+      <li><code>checkout.html</code>: Sua página de checkout pronta com formulário, Pix e cartão.</li>
+      <li><code>obrigado.html</code>: A página de agradecimento exibida após a compra.</li>
+      <li><code>admin/index.html</code>: O seu Painel de Gestão próprio para alterar tudo sem código.</li>
+      <li><code>assets/imagens/</code>: Onde ficam a logo, banner e imagens do site.</li>
+    </ul>
+  </div>
+
+  <div class="step-box">
+    <h3 class="step-title"><span class="step-num">2</span> Como Testar no Seu Computador</h3>
+    <p>Você não precisa de nenhum programa especial. Basta dar <strong>duplo clique em index.html</strong> para abrir a página no seu navegador (Google Chrome, Edge, Safari).</p>
+  </div>
+
+  <div class="step-box">
+    <h3 class="step-title"><span class="step-num">3</span> Como Usar o Painel Admin para Editar Tudo</h3>
+    <p>Abra a pasta <code>admin/</code> e dê duplo clique em <code>index.html</code>:</p>
+    <ul>
+      <li><strong>Senha de primeiro acesso:</strong> <code>123456</code></li>
+      <li>O sistema solicitará a troca para sua senha pessoal por segurança.</li>
+      <li>Altere títulos, logotipo, preços, botão de WhatsApp e chaves de pixels.</li>
+      <li>Clique em <strong>"Salvar Alterações"</strong>. O site atualizará no mesmo instante!</li>
+      <li>Para tornar as alterações definitivas em qualquer hospedagem, clique em <strong>"Baixar config.js"</strong> e substitua o arquivo dentro da pasta <code>js/</code>.</li>
+    </ul>
+  </div>
+
+  <div class="step-box">
+    <h3 class="step-title"><span class="step-num">4</span> Como Publicar Gratuitamente na Vercel (Em 3 Minutos)</h3>
+    <ol>
+      <li>Acesse <strong>vercel.com</strong> e crie uma conta gratuita.</li>
+      <li>Arraste a pasta descompactada deste pacote para dentro do painel da Vercel.</li>
+      <li>Clique em <strong>Deploy</strong>. Seu site estará no ar mundialmente com certificado SSL (https) gratuito!</li>
+      <li>Opcional: Conecte seu domínio próprio (ex: <code>seunegocio.com.br</code>) na aba <em>Settings > Domains</em>.</li>
+    </ol>
+  </div>
+
+  <div class="footer">
+    Desenvolvido com excelência por <strong>RMTI • Soluções em Tecnologia</strong> | Suporte: pauloromao.dev2020@gmail.com
+  </div>
+</body>
+</html>

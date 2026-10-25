@@ -248,7 +248,7 @@ export default function HomePage() {
               href="#produtos"
               className="text-slate-700 hover:text-orange-500 font-semibold text-sm transition-colors flex items-center gap-1"
             >
-              <span>Produtos &amp; LPs</span>
+              <span>Pacotes de LPs</span>
               <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-500 text-slate-950">Loja</span>
             </a>
             <a
@@ -334,7 +334,7 @@ export default function HomePage() {
               onClick={() => setMobileMenuOpen(false)}
               className="text-slate-800 font-bold text-base hover:text-orange-500 flex items-center justify-between"
             >
-              <span>Produtos &amp; Landing Pages</span>
+              <span>Pacotes de Landing Pages</span>
               <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500 text-slate-950">Loja</span>
             </a>
             <a
@@ -672,30 +672,30 @@ export default function HomePage() {
           </section>
         )}
 
-        {/* 3.2 PRODUTOS PRONTOS & LANDING PAGES COM CHECKOUT */}
+        {/* 3.2 PACOTES DE LANDING PAGES POR ESTRUTURA */}
         {config.products && config.products.filter((p) => p.active).length > 0 && (
           <section id="produtos" className="flex flex-col gap-10 scroll-mt-24">
             <div className="text-center flex flex-col items-center gap-3">
               <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold uppercase tracking-wider">
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>Produtos Prontos &amp; Acesso Imediato</span>
+                <span>Pacotes de Landing Pages por Estrutura</span>
               </span>
               <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
-                Landing Pages Prontas &amp; Combos com Painel CMS
+                Estruturas Validadas de Alta Conversão com Painel Admin Próprio
               </h2>
               <p className="text-slate-400 text-base sm:text-lg max-w-2xl">
-                Economize semanas de desenvolvimento. Adquira nossas estruturas validadas de alta conversão com pagamento seguro via Pix ou Cartão e comece a vender hoje mesmo.
+                Não vendemos modelos presos a nichos. Entregamos o pacote completo com index, CSS, JS, painel admin próprio zerado para alterar tudo, checkout próprio e manual ilustrado em PDF.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {config.products
                 .filter((p) => p.active)
                 .sort((a, b) => a.order - b.order)
                 .map((product) => (
                   <div
                     key={product.id}
-                    className={`relative rounded-3xl p-6 sm:p-8 flex flex-col justify-between border transition-all duration-300 ${
+                    className={`relative rounded-3xl p-6 sm:p-7 flex flex-col justify-between border transition-all duration-300 ${
                       product.badge
                         ? 'bg-gradient-to-b from-slate-900/90 via-slate-900/60 to-slate-950 border-emerald-500/40 shadow-xl shadow-emerald-500/10'
                         : 'bg-slate-900/60 border-slate-800 hover:border-slate-700'
@@ -703,45 +703,45 @@ export default function HomePage() {
                   >
                     {product.badge && (
                       <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 w-max max-w-[94%] z-10 pointer-events-none">
-                        <span className="inline-flex items-center justify-center gap-1.5 px-3.5 py-1 rounded-full bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 text-[10px] sm:text-xs font-black uppercase tracking-wider shadow-lg shadow-emerald-500/20 whitespace-nowrap">
+                        <span className="inline-flex items-center justify-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 text-[10px] font-black uppercase tracking-wider shadow-lg shadow-emerald-500/20 whitespace-nowrap">
                           <Sparkles className="w-3 h-3 shrink-0" />
                           <span>{product.badge}</span>
                         </span>
                       </div>
                     )}
 
-                    <div className="flex flex-col gap-5">
+                    <div className="flex flex-col gap-4">
                       <div className="text-center flex flex-col items-center">
-                        <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">{product.name}</h3>
-                        <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">{product.tagline}</p>
+                        <h3 className="text-lg sm:text-xl font-bold text-white mb-1.5">{product.name}</h3>
+                        <p className="text-slate-400 text-xs leading-relaxed">{product.tagline}</p>
                       </div>
 
                       {/* Bloco de Preços Centralizado */}
-                      <div className="py-5 px-4 rounded-2xl bg-slate-950/60 border border-slate-800/80 flex flex-col items-center justify-center text-center">
-                        <span className="text-xs text-slate-500 line-through mb-1">
+                      <div className="py-4 px-3 rounded-2xl bg-slate-950/60 border border-slate-800/80 flex flex-col items-center justify-center text-center">
+                        <span className="text-[11px] text-slate-500 line-through mb-0.5">
                           De {product.originalPrice}
                         </span>
-                        <div className="flex items-baseline justify-center gap-2">
-                          <span className="text-xs font-bold text-emerald-400 uppercase">Por</span>
-                          <span className="text-3xl sm:text-4xl font-black text-white tracking-tight">
+                        <div className="flex items-baseline justify-center gap-1.5">
+                          <span className="text-[11px] font-bold text-emerald-400 uppercase">Por</span>
+                          <span className="text-2xl sm:text-3xl font-black text-white tracking-tight">
                             {product.priceFormatted}
                           </span>
                         </div>
                         {product.installments && (
-                          <span className="text-xs font-semibold text-emerald-400 mt-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 inline-block">
+                          <span className="text-[10px] font-semibold text-emerald-400 mt-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 inline-block">
                             {product.installments}
                           </span>
                         )}
                       </div>
 
                       {product.features && product.features.length > 0 && (
-                        <div className="flex flex-col gap-2.5">
-                          <span className="text-xs font-bold uppercase tracking-wider text-slate-300">O que está incluso:</span>
-                          <ul className="flex flex-col gap-2">
+                        <div className="flex flex-col gap-2">
+                          <span className="text-[11px] font-bold uppercase tracking-wider text-slate-300">O que está incluso:</span>
+                          <ul className="flex flex-col gap-1.5">
                             {product.features.map((feat, fIdx) => (
-                              <li key={fIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-300">
-                                <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                                <span>{feat}</span>
+                              <li key={fIdx} className="flex items-start gap-2 text-xs text-slate-300">
+                                <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
+                                <span className="leading-tight">{feat}</span>
                               </li>
                             ))}
                           </ul>
@@ -749,68 +749,63 @@ export default function HomePage() {
                       )}
                     </div>
 
-                    <div className="flex flex-col gap-2.5 mt-8">
+                    <div className="flex flex-col gap-2 mt-6">
                       <Link
-                        href={`/checkout?plano=${product.id === 'combo-5em1' ? 'pro' : product.id === 'nicho-unico' ? 'starter' : product.id === 'implementacao-vip' ? 'vip' : product.id}&produto=${product.id}`}
-                        className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-extrabold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 transition-all hover:scale-[1.02]"
+                        href={`/checkout?plano=${product.id.includes('combo') ? 'pro' : 'starter'}&produto=${product.id}`}
+                        className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 transition-all hover:scale-[1.02]"
                       >
-                        <ShoppingBag className="w-4 h-4" />
-                        <span>{product.ctaText || 'Comprar com Pix / Cartão'}</span>
+                        <ShoppingBag className="w-3.5 h-3.5" />
+                        <span>{product.ctaText || 'Comprar Pacote'}</span>
                       </Link>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      <div className="grid grid-cols-2 gap-1.5">
                         {product.demoUrl && (
                           <a
                             href={product.demoUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="py-2.5 px-3 rounded-xl bg-slate-800/80 hover:bg-slate-800 text-slate-300 hover:text-white font-medium text-xs flex items-center justify-center gap-1.5 border border-slate-700/60 transition-colors"
+                            className="py-2 px-2.5 rounded-lg bg-slate-800/80 hover:bg-slate-800 text-slate-300 hover:text-white font-medium text-[11px] flex items-center justify-center gap-1 border border-slate-700/60 transition-colors"
                           >
-                            <ExternalLink className="w-3.5 h-3.5" />
-                            <span>Ver Página no Ar</span>
+                            <ExternalLink className="w-3 h-3" />
+                            <span>Ver Página</span>
                           </a>
                         )}
 
-                        <Link
-                          href={`/demo-painel?modelo=${product.id === 'combo-5em1' ? '02-personal-trainer' : product.id === 'nicho-unico' ? '01-curso-infoproduto' : '02-personal-trainer'}`}
+                        <a
+                          href={product.adminUrl || `${product.demoUrl}/admin`}
                           target="_blank"
-                          className="py-2.5 px-3 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 font-bold text-xs flex items-center justify-center gap-1.5 border border-emerald-500/30 transition-colors"
+                          rel="noopener noreferrer"
+                          className="py-2 px-2.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 font-bold text-[11px] flex items-center justify-center gap-1 border border-emerald-500/30 transition-colors"
                         >
-                          <Sliders className="w-3.5 h-3.5" />
-                          <span>Testar Painel CMS</span>
-                        </Link>
+                          <Sliders className="w-3 h-3" />
+                          <span>Testar Admin</span>
+                        </a>
                       </div>
                     </div>
                   </div>
                 ))}
             </div>
 
-            {/* Modelos em Destaque com visualização direta */}
+            {/* Acesso rápido às demonstrações */}
             <div className="rounded-2xl p-6 bg-slate-900/40 border border-slate-800/80 flex flex-col lg:flex-row items-center justify-between gap-6">
               <div className="flex flex-col gap-1.5 text-center lg:text-left">
-                <span className="text-xs font-bold uppercase tracking-wider text-teal-400">Modelos Prontos &amp; Painel CMS</span>
-                <h4 className="text-lg font-bold text-white">Quer testar as páginas e o Painel do Cliente no seu navegador?</h4>
-                <p className="text-slate-400 text-xs sm:text-sm">Abra a demonstração da landing page ou teste o painel administrativo de cada nicho:</p>
+                <span className="text-xs font-bold uppercase tracking-wider text-teal-400">Ambiente de Demonstração Interativo</span>
+                <h4 className="text-lg font-bold text-white">Deseja navegar nas 3 estruturas e testar os painéis administrativos?</h4>
+                <p className="text-slate-400 text-xs sm:text-sm">Cada pacote tem seu próprio painel zerado (senha inicial 123456) onde você pode testar alterar literalmente tudo:</p>
               </div>
               <div className="flex flex-wrap items-center justify-center gap-2">
-                <a href="/modelos/01-curso-infoproduto" target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 border border-slate-700 flex items-center gap-1.5 transition-colors">
-                  <span>🎓 Infoproduto</span>
+                <a href="/pacotes/pacote-01-vendas-diretas" target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 border border-slate-700 flex items-center gap-1.5 transition-colors">
+                  <span>⚡ Pacote 01: Vendas Diretas</span>
                 </a>
-                <a href="/modelos/02-personal-trainer" target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 border border-slate-700 flex items-center gap-1.5 transition-colors">
-                  <span>🏋️ Personal Trainer</span>
+                <a href="/pacotes/pacote-02-leads-whatsapp" target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 border border-slate-700 flex items-center gap-1.5 transition-colors">
+                  <span>💬 Pacote 02: Leads WhatsApp</span>
                 </a>
-                <a href="/modelos/03-coach-mentoria" target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 border border-slate-700 flex items-center gap-1.5 transition-colors">
-                  <span>🧠 Mentoria &amp; Coach</span>
+                <a href="/pacotes/pacote-03-institucional-negocios" target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 border border-slate-700 flex items-center gap-1.5 transition-colors">
+                  <span>🏢 Pacote 03: Institucional B2B</span>
                 </a>
-                <a href="/modelos/04-servicos-leadgen" target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 border border-slate-700 flex items-center gap-1.5 transition-colors">
-                  <span>💼 Serviços &amp; B2B</span>
+                <a href="/pacotes/pacote-01-vendas-diretas/admin" target="_blank" rel="noopener noreferrer" className="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 text-xs font-extrabold flex items-center gap-1.5 shadow-md shadow-emerald-500/20 hover:scale-105 transition-all">
+                  <span>⚙️ Testar Painel Admin Zerado</span>
                 </a>
-                <a href="/modelos/05-nutricao-saude" target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 border border-slate-700 flex items-center gap-1.5 transition-colors">
-                  <span>🥗 Nutrição &amp; Saúde</span>
-                </a>
-                <Link href="/demo-painel" target="_blank" className="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 text-xs font-extrabold flex items-center gap-1.5 shadow-md shadow-emerald-500/20 hover:scale-105 transition-all">
-                  <span>⚙️ Testar Painel do Cliente</span>
-                </Link>
               </div>
             </div>
           </section>

@@ -129,6 +129,8 @@ export interface ProductItem {
   features: string[];
   imageUrl?: string;
   demoUrl?: string;
+  adminUrl?: string;
+  downloadUrl?: string;
   ctaText?: string;
   active: boolean;
   order: number;

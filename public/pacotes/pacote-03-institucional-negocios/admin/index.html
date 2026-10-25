@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel de Gestão da Página • Pacote 03: Institucional & Apresentação Comercial</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../js/config.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap');
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #080c14; color: #f8fafc; }
+    .glass-box { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
+    .tab-btn.active { background: rgba(16, 185, 129, 0.15); color: #34d399; border-color: rgba(16, 185, 129, 0.4); font-weight: 800; }
+  </style>
+</head>
+<body class="min-h-screen pb-16">
+
+  <!-- MODAL DE PRIMEIRO ACESSO: TROCA DE SENHA OBRIGATÓRIA -->
+  <div id="modalFirstAccess" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div class="max-w-md w-full glass-box p-6 sm:p-8 rounded-3xl border-2 border-emerald-500/50 shadow-2xl text-center">
+      <div class="w-14 h-14 rounded-2xl bg-emerald-500/20 text-emerald-400 text-2xl flex items-center justify-center mx-auto mb-4">
+        🔐
+      </div>
+      <h2 class="text-xl font-black text-white mb-2">Primeiro Acesso ao Painel</h2>
+      <p class="text-xs text-slate-300 mb-6 leading-relaxed">
+        Por segurança, altere a senha inicial padrão (<strong class="text-emerald-400">123456</strong>) para uma senha pessoal antes de continuar.
+      </p>
+
+      <form id="formChangePass" class="space-y-4 text-left">
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">Senha Inicial Atual</label>
+          <input type="password" id="curPass" required placeholder="Digite 123456" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">Nova Senha Pessoal</label>
+          <input type="password" id="newPass" required placeholder="Crie sua nova senha" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">Confirmar Nova Senha</label>
+          <input type="password" id="confirmPass" required placeholder="Repita a nova senha" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+        </div>
+        <button type="submit" class="w-full py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-sm uppercase tracking-wider transition-all mt-4">
+          Salvar Nova Senha &amp; Entrar
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- TELA DE LOGIN DO ADMIN -->
+  <div id="loginScreen" class="min-h-screen flex items-center justify-center p-4">
+    <div class="max-w-md w-full glass-box p-8 rounded-3xl border border-slate-800 shadow-2xl text-center">
+      <div class="w-16 h-16 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-3xl mx-auto mb-4">
+        ⚙️
+      </div>
+      <h1 class="text-2xl font-black text-white mb-1">Painel Administrativo</h1>
+      <p class="text-xs text-slate-400 mb-6">Pacote 03: Institucional & Apresentação Comercial</p>
+
+      <form id="loginForm" class="space-y-4 text-left">
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">Senha de Acesso</label>
+          <input type="password" id="loginPassword" required placeholder="Digite sua senha (padrão: 123456)" class="w-full py-3.5 px-4 rounded-xl bg-slate-900 border border-slate-700 focus:border-emerald-500 text-sm text-white outline-none">
+          <p class="text-[11px] text-slate-500 mt-1">Senha inicial de fábrica: <strong class="text-slate-400">123456</strong></p>
+        </div>
+        <button type="submit" class="w-full py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-sm uppercase tracking-wider transition-all">
+          Acessar Painel de Controle
+        </button>
+      </form>
+      <div class="mt-6 pt-4 border-t border-slate-800">
+        <a href="../index.html" class="text-xs text-slate-400 hover:text-white transition-colors">← Ver Página Pública</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAINEL PRINCIPAL (APÓS LOGIN) -->
+  <div id="adminPanel" class="hidden">
+    <!-- BARRA SUPERIOR -->
+    <header class="bg-slate-900/90 border-b border-slate-800 sticky top-0 z-40 px-4 sm:px-8 py-3.5 backdrop-blur-md">
+      <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-emerald-500 text-slate-950 font-black flex items-center justify-center text-base">
+            ⚙️
+          </div>
+          <div>
+            <h1 class="text-sm sm:text-base font-bold text-white">Painel da Minha Página</h1>
+            <p class="text-[11px] text-emerald-400 font-semibold">Pacote 03: Institucional & Apresentação Comercial</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <a href="../index.html" target="_blank" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-700 flex items-center gap-1.5 transition-all">
+            <span>👁 Ver Página</span>
+          </a>
+          <button id="btnDownloadConfig" type="button" class="px-3.5 py-2 rounded-xl bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 text-xs font-bold border border-blue-500/30 flex items-center gap-1.5 transition-all">
+            <span>💾 Baixar config.js</span>
+          </button>
+          <button id="btnSaveConfig" type="button" class="px-5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-black uppercase tracking-wider transition-all shadow-lg shadow-emerald-500/20">
+            Salvar Alterações
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 pt-8">
+      <!-- TOAST DE SUCESSO -->
+      <div id="saveToast" class="fixed bottom-6 right-6 bg-emerald-500 text-slate-950 px-6 py-3.5 rounded-2xl font-black text-sm shadow-2xl flex items-center gap-2 z-50 transform translate-y-24 opacity-0 transition-all duration-300">
+        <span>✓ Alterações salvas com sucesso no seu navegador!</span>
+      </div>
+
+      <!-- NAVEGAÇÃO DE ABAS -->
+      <div class="flex flex-wrap gap-2 pb-6 border-b border-slate-800 mb-8">
+        <button class="tab-btn active px-4 py-2 rounded-xl text-xs font-bold border border-slate-800 bg-slate-900 text-slate-300 transition-all" data-tab="tab-identidade">
+          Identidade &amp; Imagens
+        </button>
+        <button class="tab-btn px-4 py-2 rounded-xl text-xs font-bold border border-slate-800 bg-slate-900 text-slate-300 transition-all" data-tab="tab-hero">
+          Hero &amp; Título
+        </button>
+        <button class="tab-btn px-4 py-2 rounded-xl text-xs font-bold border border-slate-800 bg-slate-900 text-slate-300 transition-all" data-tab="tab-oferta">
+          Oferta, Preços &amp; Venda
+        </button>
+        <button class="tab-btn px-4 py-2 rounded-xl text-xs font-bold border border-slate-800 bg-slate-900 text-slate-300 transition-all" data-tab="tab-contato">
+          WhatsApp &amp; Contato
+        </button>
+        <button class="tab-btn px-4 py-2 rounded-xl text-xs font-bold border border-slate-800 bg-slate-900 text-slate-300 transition-all" data-tab="tab-faq">
+          Dúvidas Frequentes (FAQ)
+        </button>
+        <button class="tab-btn px-4 py-2 rounded-xl text-xs font-bold border border-slate-800 bg-slate-900 text-slate-300 transition-all" data-tab="tab-pixels">
+          Pixels &amp; Anúncios
+        </button>
+      </div>
+
+      <!-- CONTEÚDO DAS ABAS -->
+      <div class="glass-box p-6 sm:p-10 rounded-3xl border border-slate-800 shadow-xl">
+        
+        <!-- ABA 1: IDENTIDADE & IMAGENS -->
+        <div id="tab-identidade" class="tab-content space-y-6">
+          <h2 class="text-lg font-bold text-white border-b border-slate-800 pb-3">Identidade Visual &amp; Banners</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1.5">Nome do Seu Negócio / Especialista</label>
+              <input type="text" id="cfg_businessName" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1.5">Slogan / Tagline do Negócio</label>
+              <input type="text" id="cfg_tagline" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1.5">Caminho / URL da Logo ("SUA LOGO AQUI")</label>
+              <input type="text" id="cfg_logoUrl" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+              <p class="text-[11px] text-slate-500 mt-1">Coloque o caminho da sua imagem ou link público (ex: assets/imagens/minhalogo.png)</p>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1.5">Caminho / URL do Banner Principal ("SEU BANNER AQUI")</label>
+              <input type="text" id="cfg_bannerUrl" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+              <p class="text-[11px] text-slate-500 mt-1">Recomendado 1200x630px para destaque de alta qualidade</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ABA 2: HERO & TÍTULOS -->
+        <div id="tab-hero" class="tab-content hidden space-y-6">
+          <h2 class="text-lg font-bold text-white border-b border-slate-800 pb-3">Seção Principal (Hero)</h2>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">Tag de Aviso Superior (Barra colorida)</label>
+            <input type="text" id="cfg_topBarText" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">Headline Principal (Título Forte)</label>
+            <textarea id="cfg_headline" rows="2" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white"></textarea>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">Subheadline (Texto Explicativo)</label>
+            <textarea id="cfg_subheadline" rows="3" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white"></textarea>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1.5">Texto do Botão Principal (CTA)</label>
+              <input type="text" id="cfg_ctaButtonText" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1.5">Texto de Apoio (Micro-trust)</label>
+              <input type="text" id="cfg_ctaSubtext" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+            </div>
+          </div>
+        </div>
+
+        <!-- ABA 3: OFERTA, PREÇOS & CHECKOUT -->
+        <div id="tab-oferta" class="tab-content hidden space-y-6">
+          <h2 class="text-lg font-bold text-white border-b border-slate-800 pb-3">Oferta, Preços &amp; Checkout</h2>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">Nome do Produto / Oferta Principal</label>
+            <input type="text" id="cfg_productName" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1.5">Preço De (Original R$)</label>
+              <input type="text" id="cfg_originalPrice" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1.5">Preço Por (À Vista R$)</label>
+              <input type="text" id="cfg_salePrice" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1.5">Texto de Parcelamento (ex: 12x de...)</label>
+              <input type="text" id="cfg_installments" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">Link de Checkout / Destino da Compra</label>
+            <input type="text" id="cfg_checkoutUrl" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+            <p class="text-[11px] text-slate-500 mt-1">Use <strong class="text-slate-400">checkout.html</strong> para o checkout incluso, ou coloque seu link da Kiwify, Hotmart, Eduzz ou Mercado Pago.</p>
+          </div>
+        </div>
+
+        <!-- ABA 4: WHATSAPP & CONTATO -->
+        <div id="tab-contato" class="tab-content hidden space-y-6">
+          <h2 class="text-lg font-bold text-white border-b border-slate-800 pb-3">WhatsApp &amp; Suporte</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1.5">Número de WhatsApp (com DDI e DDD)</label>
+              <input type="text" id="cfg_whatsapp" placeholder="Ex: 5511999999999" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1.5">E-mail de Suporte / Atendimento</label>
+              <input type="email" id="cfg_email" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">Mensagem Padrão que o Cliente Envia ao Clicar</label>
+            <input type="text" id="cfg_whatsappMessage" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+          </div>
+        </div>
+
+        <!-- ABA 5: FAQ -->
+        <div id="tab-faq" class="tab-content hidden space-y-6">
+          <h2 class="text-lg font-bold text-white border-b border-slate-800 pb-3">Perguntas Frequentes (FAQ)</h2>
+          <p class="text-xs text-slate-400">As dúvidas frequentes que aparecem no acordeão da sua página.</p>
+          <div id="faqList" class="space-y-4">
+            <!-- Gerado dinamicamente -->
+          </div>
+        </div>
+
+        <!-- ABA 6: PIXELS & ANÚNCIOS -->
+        <div id="tab-pixels" class="tab-content hidden space-y-6">
+          <h2 class="text-lg font-bold text-white border-b border-slate-800 pb-3">Rastreamento de Tráfego Pago &amp; Conversão</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1.5">Meta Pixel ID (Facebook / Instagram)</label>
+              <input type="text" id="cfg_metaPixelId" placeholder="Ex: 2161688604424737" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1.5">Google Ads ID / Tag de Conversão</label>
+              <input type="text" id="cfg_googleAdsId" placeholder="Ex: AW-18531803428" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- BOTÃO INFERIOR DE RESTAURAR PADRÕES -->
+      <div class="mt-8 flex justify-between items-center text-xs text-slate-500">
+        <span>© RMTI • Sistema de Gestão de Landing Pages</span>
+        <button id="btnResetDefault" type="button" class="text-red-400 hover:underline">
+          🔄 Restaurar Valores Originais de Fábrica
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>

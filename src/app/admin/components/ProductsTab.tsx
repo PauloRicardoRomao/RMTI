@@ -143,10 +143,10 @@ export default function ProductsTab({
         <div>
           <h2 className="text-2xl font-black text-white flex items-center gap-2">
             <ShoppingBag className="w-6 h-6 text-emerald-400" />
-            <span>Produtos Prontos &amp; Landing Pages</span>
+            <span>Pacotes de Landing Pages por Estrutura</span>
           </h2>
           <p className="text-slate-400 text-sm">
-            Gerencie os produtos exibidos na seção de Loja do site e disponíveis para compra via Pix/Mercado Pago.
+            Gerencie os pacotes e estruturas exibidos na loja do site com links de demonstração, painéis de gestão e download.
           </p>
         </div>
 

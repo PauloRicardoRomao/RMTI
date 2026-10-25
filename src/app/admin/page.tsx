@@ -609,7 +609,7 @@ export default function AdminPage() {
 
   const tabs = [
     { id: 'messages', label: 'Leads & Mensagens', icon: Inbox, badge: unreadCount > 0 ? unreadCount : undefined },
-    { id: 'products', label: 'Produtos & LPs', icon: ShoppingBag, badge: 'Loja' },
+    { id: 'products', label: 'Pacotes de LPs', icon: ShoppingBag, badge: 'Loja' },
     { id: 'orders', label: 'Vendas & Pedidos', icon: DollarSign },
     { id: 'gateway', label: 'Mercado Pago & Pix', icon: CreditCard },
     { id: 'theme', label: 'Tema & Cores', icon: Palette },

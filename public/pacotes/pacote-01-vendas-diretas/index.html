@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-bind="businessName">Seu Produto ou Infoproduto • Método Completo</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/config.js"></script>
+  <script src="js/app.js" defer></script>
+</head>
+<body class="bg-[#080c14] text-slate-100 min-h-screen selection:bg-emerald-500 selection:text-slate-950">
+
+  <!-- BARRA DE DEMONSTRAÇÃO FLUTUANTE (REMOVÍVEL APÓS A COMPRA) -->
+  <div class="bg-gradient-to-r from-slate-900 via-slate-950 to-slate-900 border-b border-emerald-500/30 py-2.5 px-4 sticky top-0 z-50 text-xs shadow-xl">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-bold uppercase tracking-wider">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          PACOTE 01 • DEMONSTRAÇÃO ATIVA
+        </span>
+        <span class="text-slate-400 hidden sm:inline">Estrutura de Vendas Diretas &amp; Checkout</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <a href="admin/index.html" class="px-3 py-1.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 font-bold transition-all border border-emerald-500/40 flex items-center gap-1">
+          <span>⚙️ Abrir Painel Admin</span>
+        </a>
+        <a href="checkout.html" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold transition-all border border-slate-700 flex items-center gap-1">
+          <span>💳 Ver Checkout</span>
+        </a>
+        <a href="/checkout?plano=pro&produto=combo-5em1" class="px-3.5 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black transition-all shadow-md">
+          <span>Comprar Este Pacote (R$ 97)</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- AVISO SUPERIOR DE URGÊNCIA -->
+  <div class="bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-600 py-2 text-center text-slate-950 text-xs sm:text-sm font-black tracking-wider uppercase">
+    <span data-bind="topBarText">⚡ OFERTA ESPECIAL COM DESCONTO EXCLUSIVO POR TEMPO LIMITADO</span>
+  </div>
+
+  <!-- CABEÇALHO / LOGO -->
+  <header class="py-6 px-4 sm:px-8 max-w-6xl mx-auto flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <img src="assets/imagens/logo-placeholder.png" alt="Sua Logo Aqui" class="h-10 sm:h-12 w-auto object-contain" data-bind="logoUrl">
+    </div>
+    <div class="flex items-center gap-3">
+      <a href="#comprar" class="hidden sm:inline-flex px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-slate-200 text-xs font-bold border border-white/10 transition-all">
+        Ver Oferta
+      </a>
+      <a href="checkout.html" class="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-extrabold uppercase tracking-wider transition-all shadow-lg shadow-emerald-500/20">
+        Inscrição Imediata
+      </a>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- SEÇÃO HERO: HEADLINE + VÍDEO / MOCKUP + CTA -->
+  <!-- ========================================================================= -->
+  <section class="py-12 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center flex flex-col items-center">
+    <!-- Tag -->
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-black uppercase tracking-wider mb-6">
+      <span>🔥 MÉTODO 100% PRÁTICO &amp; VALIDADO</span>
+    </div>
+
+    <!-- Headline Principal -->
+    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight mb-6 max-w-4xl" data-bind="headline">
+      Descubra Como [Alcançar Grande Desejo] Sem [Principal Objeção ou Dor]
+    </h1>
+
+    <!-- Subheadline -->
+    <p class="text-slate-300 text-base sm:text-xl font-normal leading-relaxed max-w-3xl mb-10" data-bind="subheadline">
+      O passo a passo validado para dominar [sua habilidade] em tempo recorde, mesmo começando do absoluto zero.
+    </p>
+
+    <!-- MOCKUP OU VÍDEO PLACEHOLDER -->
+    <div class="w-full max-w-3xl rounded-3xl overflow-hidden border-2 border-emerald-500/40 shadow-2xl shadow-emerald-500/10 mb-10 relative group bg-slate-900">
+      <div class="aspect-video relative flex items-center justify-center">
+        <img src="assets/imagens/banner-placeholder.jpg" alt="Seu Banner ou Vídeo Aqui" class="w-full h-full object-cover" data-bind="bannerUrl">
+        <!-- Botão Play Flutuante -->
+        <a href="#comprar" class="absolute w-20 h-20 rounded-full bg-emerald-500/90 text-slate-950 flex items-center justify-center text-3xl shadow-2xl group-hover:scale-110 transition-transform">
+          ▶
+        </a>
+      </div>
+    </div>
+
+    <!-- BOTÃO CTA PRINCIPAL -->
+    <div class="flex flex-col items-center gap-3 w-full max-w-md">
+      <a href="#comprar" class="pulse-btn w-full py-5 px-8 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-base sm:text-lg uppercase tracking-wider shadow-xl shadow-emerald-500/25 transition-all">
+        <span data-bind="ctaButtonText">QUERO GARANTIR MEU ACESSO AGORA</span>
+      </a>
+      <span class="text-xs text-slate-400 flex items-center gap-1.5" data-bind="ctaSubtext">
+        🔒 Pagamento 100% Seguro • Acesso Imediato
+      </span>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- BENEFÍCIOS & MÓDULOS (O QUE VOCÊ VAI RECEBER) -->
+  <!-- ========================================================================= -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto border-t border-slate-800">
+    <div class="text-center mb-12">
+      <span class="text-emerald-400 text-xs font-bold uppercase tracking-wider">CONTEÚDO PROGRAMÁTICO</span>
+      <h2 class="text-2xl sm:text-4xl font-black text-white mt-2">O Que Você Vai Aprender Passo a Passo</h2>
+      <p class="text-slate-400 text-sm sm:text-base mt-2">Aulas organizadas em uma trilha lógica para você sair com o método pronto.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="glass-card p-6 sm:p-8 rounded-2xl border border-slate-800 glass-card-hover">
+        <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl font-black mb-4">01</div>
+        <h3 class="text-lg sm:text-xl font-bold text-white mb-2">Módulo 01: Fundamentos &amp; Mentalidade</h3>
+        <p class="text-slate-300 text-sm leading-relaxed">A base sólida para começar da forma correta e sem perder tempo com erros comuns que atrasam o resultado.</p>
+      </div>
+
+      <div class="glass-card p-6 sm:p-8 rounded-2xl border border-slate-800 glass-card-hover">
+        <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl font-black mb-4">02</div>
+        <h3 class="text-lg sm:text-xl font-bold text-white mb-2">Módulo 02: O Método na Prática</h3>
+        <p class="text-slate-300 text-sm leading-relaxed">Passo a passo detalhado, tela por tela, para você aplicar e ver os primeiros resultados na primeira semana.</p>
+      </div>
+
+      <div class="glass-card p-6 sm:p-8 rounded-2xl border border-slate-800 glass-card-hover">
+        <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl font-black mb-4">03</div>
+        <h3 class="text-lg sm:text-xl font-bold text-white mb-2">Módulo 03: Estratégias de Escala</h3>
+        <p class="text-slate-300 text-sm leading-relaxed">Como multiplicar seus ganhos e criar uma rotina previsível, organizada e altamente lucrativa.</p>
+      </div>
+
+      <div class="glass-card p-6 sm:p-8 rounded-2xl border border-slate-800 glass-card-hover">
+        <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl font-black mb-4">04</div>
+        <h3 class="text-lg sm:text-xl font-bold text-white mb-2">Módulo 04: Ferramentas &amp; Modelos Prontos</h3>
+        <p class="text-slate-300 text-sm leading-relaxed">Templates, planilhas e roteiros prontos para você copiar, colar e executar hoje mesmo sem perder tempo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- SEÇÃO DE BÔNUS EXCLUSIVOS -->
+  <!-- ========================================================================= -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto border-t border-slate-800">
+    <div class="text-center mb-12">
+      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/10 text-amber-400 text-xs font-black uppercase tracking-wider">
+        🎁 PRESENTES EXCLUSIVOS PARA ESTA TURMA
+      </span>
+      <h2 class="text-2xl sm:text-4xl font-black text-white mt-3">Você Ainda Leva 3 Bônus Especiais</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="glass-card p-6 rounded-2xl border border-amber-400/20">
+        <span class="text-xs font-black text-amber-400 uppercase tracking-wider">BÔNUS #1</span>
+        <h3 class="text-lg font-bold text-white mt-1">Comunidade Exclusiva</h3>
+        <p class="text-slate-300 text-xs sm:text-sm mt-2 leading-relaxed">Networking de alto nível com outros membros e suporte diário para tirar dúvidas.</p>
+        <div class="mt-4 text-xs text-slate-400">Valor separado: <span class="line-through text-slate-500">R$ 197</span> → <span class="text-emerald-400 font-bold">GRÁTIS</span></div>
+      </div>
+
+      <div class="glass-card p-6 rounded-2xl border border-amber-400/20">
+        <span class="text-xs font-black text-amber-400 uppercase tracking-wider">BÔNUS #2</span>
+        <h3 class="text-lg font-bold text-white mt-1">Pack de Templates Prontos</h3>
+        <p class="text-slate-300 text-xs sm:text-sm mt-2 leading-relaxed">Arquivos 100% editáveis para acelerar sua implementação e poupar semanas de trabalho.</p>
+        <div class="mt-4 text-xs text-slate-400">Valor separado: <span class="line-through text-slate-500">R$ 147</span> → <span class="text-emerald-400 font-bold">GRÁTIS</span></div>
+      </div>
+
+      <div class="glass-card p-6 rounded-2xl border border-amber-400/20">
+        <span class="text-xs font-black text-amber-400 uppercase tracking-wider">BÔNUS #3</span>
+        <h3 class="text-lg font-bold text-white mt-1">Aula Secreta de Tráfego</h3>
+        <p class="text-slate-300 text-xs sm:text-sm mt-2 leading-relaxed">Como atrair visitantes qualificados gastando pouco em anúncios nas redes sociais.</p>
+        <div class="mt-4 text-xs text-slate-400">Valor separado: <span class="line-through text-slate-500">R$ 297</span> → <span class="text-emerald-400 font-bold">GRÁTIS</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- SEÇÃO DE OFERTA & PREÇO (DIRETO AO CHECKOUT) -->
+  <!-- ========================================================================= -->
+  <section id="comprar" class="py-20 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto text-center border-t border-slate-800 scroll-mt-20">
+    <div class="rounded-3xl p-8 sm:p-12 pt-10 sm:pt-14 bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 border-2 border-emerald-500/60 shadow-2xl shadow-emerald-500/10 relative">
+      <!-- Tag de Destaque -->
+      <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 text-xs font-black uppercase px-6 py-1.5 rounded-full tracking-wider shadow-xl whitespace-nowrap z-20">
+        🔥 OFERTA POR TEMPO LIMITADO
+      </div>
+
+      <h2 class="text-2xl sm:text-4xl font-black text-white mt-2" data-bind="productName">
+        Acesso Completo ao [Nome do Seu Produto]
+      </h2>
+      <p class="text-sm text-slate-400 mt-2 mb-6">Receba acesso imediato a todas as aulas + os 3 bônus exclusivos.</p>
+
+      <!-- Preço -->
+      <div class="py-6 border-y border-slate-800 my-6 space-y-2">
+        <div class="text-sm text-slate-400 line-through">De <span data-bind="originalPrice">R$ 297,00</span> por apenas:</div>
+        <div class="text-4xl sm:text-6xl font-black text-white tracking-tight" data-bind="installments">
+          12x de R$ 9,74
+        </div>
+        <div class="text-xs text-emerald-400 font-semibold">ou <span data-bind="salePrice">R$ 97,00</span> à vista com desconto</div>
+      </div>
+
+      <!-- Botão para o Checkout -->
+      <a href="checkout.html" class="pulse-btn w-full py-5 px-8 rounded-2xl text-base sm:text-lg font-black bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 flex items-center justify-center gap-2 shadow-2xl uppercase tracking-wider">
+        <span>SIM! QUERO ME INSCREVER AGORA</span>
+        <span>→</span>
+      </a>
+
+      <div class="mt-6 flex flex-wrap items-center justify-center gap-4 text-xs text-slate-400">
+        <span>💳 Cartão de Crédito em até 12x</span>
+        <span>💠 Pix Imediato</span>
+        <span>🛡️ 7 Dias de Garantia</span>
+      </div>
+    </div>
+
+    <!-- Garantia Blindada -->
+    <div class="mt-8 p-6 rounded-2xl glass-card border border-slate-800 flex flex-col sm:flex-row items-center gap-4 text-left">
+      <div class="w-16 h-16 rounded-2xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center shrink-0 text-3xl">
+        🛡️
+      </div>
+      <div>
+        <h4 class="text-base font-bold text-white" data-bind="guaranteeTitle">Garantia Incondicional de 7 Dias</h4>
+        <p class="text-xs sm:text-sm text-slate-400 mt-1 leading-relaxed" data-bind="guaranteeText">
+          Você tem 7 dias para testar tudo. Se por qualquer motivo achar que não valeu a pena, basta nos enviar um e-mail e devolvemos 100% do seu dinheiro, sem perguntas.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- FAQ / PERGUNTAS FREQUENTES -->
+  <!-- ========================================================================= -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto border-t border-slate-800">
+    <div class="text-center mb-10">
+      <h2 class="text-2xl sm:text-3xl font-black text-white">Dúvidas Frequentes</h2>
+      <p class="text-slate-400 text-sm mt-1">Clique para ver as respostas para as perguntas mais comuns.</p>
+    </div>
+
+    <div class="space-y-3">
+      <div class="faq-item glass-card rounded-2xl border border-slate-800 overflow-hidden">
+        <button class="faq-question w-full p-5 text-left font-bold text-white flex justify-between items-center gap-4 hover:text-emerald-400 transition-colors">
+          <span>Como recebo o meu acesso?</span>
+          <span class="faq-icon text-slate-400 transition-transform">▼</span>
+        </button>
+        <div class="faq-answer hidden px-5 pb-5 text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 pt-3">
+          O envio é imediato após a confirmação do pagamento. Você receberá um e-mail com seus dados de login e link de acesso à plataforma.
+        </div>
+      </div>
+
+      <div class="faq-item glass-card rounded-2xl border border-slate-800 overflow-hidden">
+        <button class="faq-question w-full p-5 text-left font-bold text-white flex justify-between items-center gap-4 hover:text-emerald-400 transition-colors">
+          <span>Por quanto tempo terei acesso ao conteúdo?</span>
+          <span class="faq-icon text-slate-400 transition-transform">▼</span>
+        </button>
+        <div class="faq-answer hidden px-5 pb-5 text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 pt-3">
+          Você terá acesso completo por 1 ano inteiro, incluindo todas as atualizações e novos materiais adicionados à plataforma.
+        </div>
+      </div>
+
+      <div class="faq-item glass-card rounded-2xl border border-slate-800 overflow-hidden">
+        <button class="faq-question w-full p-5 text-left font-bold text-white flex justify-between items-center gap-4 hover:text-emerald-400 transition-colors">
+          <span>Funciona para quem está começando do absoluto zero?</span>
+          <span class="faq-icon text-slate-400 transition-transform">▼</span>
+        </button>
+        <div class="faq-answer hidden px-5 pb-5 text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 pt-3">
+          Sim! O método foi estruturado desde o nível mais básico até as técnicas mais avançadas, com explicações práticas e suporte a dúvidas.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RODAPÉ -->
+  <footer class="py-10 px-4 text-center border-t border-slate-800/80 text-xs text-slate-500">
+    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        © 2026 <span data-bind="businessName">Seu Negócio</span>. Todos os direitos reservados.
+      </div>
+      <div class="flex items-center gap-4 text-slate-400">
+        <a href="admin/index.html" class="hover:text-emerald-400 transition-colors">Acessar Painel Admin</a>
+        <a href="checkout.html" class="hover:text-emerald-400 transition-colors">Página de Checkout</a>
+        <a href="#" class="whatsapp-link hover:text-emerald-400 transition-colors">Suporte WhatsApp</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
