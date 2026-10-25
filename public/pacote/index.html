@@ -12,9 +12,9 @@
 <body class="bg-[#080c14] text-slate-100 min-h-screen selection:bg-emerald-500 selection:text-slate-950">
 
   <!-- ========================================================================= -->
-  <!-- BARRA DE DEMONSTRAÇÃO / CONTROLE DO PACOTE -->
+  <!-- BARRA DE DEMONSTRAÇÃO / CONTROLE DO PACOTE (EXIBIDA APENAS NA DEMO DA RMTI) -->
   <!-- ========================================================================= -->
-  <div class="bg-gradient-to-r from-slate-900 via-slate-950 to-slate-900 border-b border-emerald-500/30 py-2.5 px-4 sticky top-0 z-50 text-xs shadow-xl">
+  <div id="demoTopBar" class="demo-bar demo-only bg-gradient-to-r from-slate-900 via-slate-950 to-slate-900 border-b border-emerald-500/30 py-2.5 px-4 sticky top-0 z-50 text-xs shadow-xl">
     <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
       <div class="flex items-center gap-2">
         <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-bold uppercase tracking-wider">
@@ -40,7 +40,7 @@
       <img src="assets/imagens/logo-placeholder.png" alt="Sua Logo Aqui" class="h-10 sm:h-12 w-auto object-contain val-logoUrl">
     </div>
     <div class="flex items-center gap-3">
-      <a href="admin/index.html" class="hidden sm:inline-flex px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-slate-200 text-xs font-bold transition-all border border-white/10">
+      <a href="admin/index.html" id="btnEditAdmin" class="demo-only hidden sm:inline-flex px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-slate-200 text-xs font-bold transition-all border border-white/10">
         ⚙️ Editar no Admin
       </a>
       <a href="checkout.html" data-layout="vendas-diretas" class="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-extrabold uppercase tracking-wider transition-all shadow-lg shadow-emerald-500/20">
@@ -363,15 +363,23 @@
     </div>
   </section>
 
-  <!-- RODAPÉ UNIFICADO -->
-  <footer class="py-10 px-4 text-center border-t border-slate-800 text-xs text-slate-500">
-    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div>© 2026 <span class="val-businessName">Seu Negócio</span>. Todos os direitos reservados.</div>
-      <div class="flex items-center gap-4 text-slate-400">
-        <a href="admin/index.html" class="hover:text-emerald-400">Acessar Painel Admin</a>
-        <a href="checkout.html" class="hover:text-emerald-400">Página de Checkout</a>
-        <a href="#" class="whatsapp-btn hover:text-emerald-400">Suporte WhatsApp</a>
+  <!-- RODAPÉ UNIFICADO COM ASSINATURA RMTI -->
+  <footer class="py-12 px-4 border-t border-slate-800 text-xs text-slate-400 bg-[#060910]">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div class="flex flex-col sm:flex-row items-center gap-3 text-center sm:text-left">
+        <div>© 2026 <span class="val-businessName font-bold text-slate-200">Seu Negócio</span>. Todos os direitos reservados.</div>
+        <span class="hidden sm:inline text-slate-700">•</span>
+        <a href="#" class="whatsapp-btn hover:text-emerald-400 text-slate-400 transition-colors">Atendimento &amp; Suporte</a>
       </div>
+
+      <!-- SELO DESENVOLVIDO POR RMTI -->
+      <a href="https://rmti.com.br" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-2.5 px-4 py-2 rounded-full bg-slate-900 border border-slate-800 hover:border-emerald-500/50 transition-all hover:bg-slate-800/80 shadow-sm" title="Desenvolvido por RMTI • Soluções em Tecnologia">
+        <span class="text-[11px] text-slate-400 group-hover:text-slate-200 transition-colors">Desenvolvido por</span>
+        <div class="flex items-center gap-1.5">
+          <img src="assets/imagens/rmti-logo.png" alt="RMTI" class="h-4 sm:h-5 w-auto object-contain transition-transform group-hover:scale-105" onerror="this.onerror=null; this.src='assets/imagens/logo-placeholder.png';">
+          <span class="font-extrabold text-xs tracking-wider text-emerald-400 group-hover:text-emerald-300">RMTI</span>
+        </div>
+      </a>
     </div>
   </footer>
 

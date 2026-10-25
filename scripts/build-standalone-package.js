@@ -34,10 +34,23 @@ placeholders.forEach(file => {
   }
 });
 
+// Copiar logo e ícone oficiais da RMTI para assinatura no rodapé
+const rmtiLogo = path.join(RMTI_DIR, 'public/assets/imagens/logo.png');
+if (fs.existsSync(rmtiLogo)) {
+  fs.copyFileSync(rmtiLogo, path.join(TARGET_DIR, 'assets/imagens/rmti-logo.png'));
+}
+const rmtiIcon = path.join(RMTI_DIR, 'public/assets/imagens/IconeNovo-trimmed.png');
+if (fs.existsSync(rmtiIcon)) {
+  fs.copyFileSync(rmtiIcon, path.join(TARGET_DIR, 'assets/imagens/rmti-icone.png'));
+}
+
 // =============================================================================
 // 3. CONFIGURAÇÃO UNIFICADA (config.js)
 // =============================================================================
 const unifiedConfig = {
+  // Controle de Modo Demonstração (false no pacote final do cliente)
+  isDemo: false,
+
   // SELETOR DO MODELO / LAYOUT ATIVO:
   // 'vendas-diretas' | 'leads-whatsapp' | 'institucional'
   activeLayout: 'vendas-diretas',
@@ -149,6 +162,38 @@ const unifiedConfig = {
       { title: 'Segurança, Compliance & Governança', desc: 'Boas práticas rigorosas de proteção de dados (LGPD), criptografia de ponta e estabilidade 24 horas.' },
       { title: 'Suporte Contínuo & Sustentação', desc: 'Equipe dedicada para manter sua operação funcionando perfeitamente, com SLAs rigorosos e atendimento direto.' }
     ]
+  },
+
+  // ==========================================================
+  // CONFIGURAÇÃO DOS 3 MODELOS DE CHECKOUT
+  // ==========================================================
+  checkout: {
+    activeModel: 'conversao-rapida', // 'conversao-rapida' | 'duas-colunas' | 'clean-minimalista'
+    productName: 'Acesso Completo ao [Nome do Seu Produto]',
+    productDescription: 'Acesso imediato com todas as atualizações e suporte prioritário.',
+    productImage: 'assets/imagens/mockup-placeholder.jpg',
+    originalPrice: 'R$ 497,00',
+    salePrice: 'R$ 197,00',
+    installments: '12x de R$ 19,78',
+    pixKey: 'sua-chave-pix-aqui@empresa.com',
+    urgencyText: '⚡ Oferta Reservada: Finalize seu pedido antes que o cronômetro expire para garantir o desconto.',
+    urgencyMinutes: 15,
+    guaranteeDays: '7',
+    guaranteeText: 'Você tem 7 dias de garantia incondicional. Se não gostar, devolvemos 100% do seu dinheiro.',
+    orderBump: {
+      active: true,
+      title: 'Adicionar Acompanhamento VIP Individual',
+      description: 'Tenha 1 hora de consultoria individual para acelerar seus resultados.',
+      price: 'R$ 47,00'
+    },
+    testimonial: {
+      active: true,
+      name: 'Mariana Costa',
+      role: 'Aluna / Cliente Verificada',
+      text: 'O suporte e a estrutura são impecáveis! Consegui aplicar no meu negócio no mesmo dia da compra.',
+      stars: 5,
+      avatarUrl: 'assets/imagens/foto-placeholder.jpg'
+    }
   },
 
   // Dúvidas Frequentes Compartilhadas

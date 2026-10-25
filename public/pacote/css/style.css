@@ -45,3 +45,31 @@ body[data-active-layout="leads-whatsapp"] [data-layout]:not([data-layout="leads-
 body[data-active-layout="institucional"] [data-layout]:not([data-layout="institucional"]) {
   display: none !important;
 }
+
+/* Oculta modelos de checkout que não pertencem ao modelo ativo */
+body[data-active-checkout="conversao-rapida"] [data-checkout-layout]:not([data-checkout-layout="conversao-rapida"]),
+body[data-active-checkout="duas-colunas"] [data-checkout-layout]:not([data-checkout-layout="duas-colunas"]),
+body[data-active-checkout="clean-minimalista"] [data-checkout-layout]:not([data-checkout-layout="clean-minimalista"]) {
+  display: none !important;
+}
+
+/* Elementos de Demonstração RMTI (ocultos por padrão no pacote do cliente) */
+.demo-only,
+#demoTopBar,
+.demo-bar,
+#btnEditAdmin,
+.demo-checkout-bar {
+  display: none !important;
+}
+
+/* Visíveis APENAS quando a página estiver explicitamente em modo demonstração */
+body.demo-mode .demo-only,
+body.demo-mode #demoTopBar,
+body.demo-mode .demo-bar,
+body.demo-mode .demo-checkout-bar {
+  display: block !important;
+}
+
+body.demo-mode header #btnEditAdmin {
+  display: inline-flex !important;
+}

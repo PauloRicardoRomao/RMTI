@@ -12,6 +12,7 @@
     .glass-box { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
     .tab-btn.active { background: rgba(16, 185, 129, 0.15); color: #34d399; border-color: rgba(16, 185, 129, 0.4); font-weight: 800; }
     .layout-card.selected { border-color: #10b981; background: rgba(16, 185, 129, 0.12); box-shadow: 0 0 20px rgba(16, 185, 129, 0.2); }
+    .checkout-model-card.selected { border-color: #10b981; background: rgba(16, 185, 129, 0.12); box-shadow: 0 0 20px rgba(16, 185, 129, 0.2); }
   </style>
 </head>
 <body class="min-h-screen pb-20">
@@ -157,6 +158,10 @@
         <button class="tab-btn px-4 py-2 rounded-xl text-xs font-bold border border-slate-800 bg-slate-900 text-slate-300" data-tab="tab-pixels">
           Pixels &amp; Anúncios
         </button>
+        <button class="tab-btn px-4 py-2 rounded-xl text-xs font-bold border border-slate-800 bg-slate-900 text-slate-300 flex items-center gap-1.5" data-tab="tab-checkout">
+          <span>💳 Modelos &amp; Checkout</span>
+          <span class="px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-black">3 Modelos</span>
+        </button>
       </div>
 
       <!-- CONTEÚDO DAS ABAS -->
@@ -269,6 +274,154 @@
             <div>
               <label class="block text-xs font-bold text-slate-300 mb-1.5">Google Ads ID</label>
               <input type="text" id="cfg_googleAdsId" placeholder="Ex: AW-18531803428" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+            </div>
+          </div>
+        </div>
+
+        <!-- ABA 5: MODELOS & PERSONALIZAÇÃO DO CHECKOUT -->
+        <div id="tab-checkout" class="tab-content hidden space-y-8">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-slate-800 pb-4 gap-4">
+            <div>
+              <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">CHECKOUT INTELIGENTE</span>
+              <h3 class="text-lg font-black text-white">Escolha o Modelo de Checkout para Seus Clientes</h3>
+              <p class="text-xs text-slate-400">Selecione o modelo ativo e personalize os dados da oferta, Pix e prova social abaixo.</p>
+            </div>
+            <a href="../checkout.html" target="_blank" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-700 flex items-center gap-1.5 shrink-0 transition-colors">
+              <span>👁 Testar Checkout no Navegador</span>
+            </a>
+          </div>
+
+          <!-- CARDS DOS 3 MODELOS DE CHECKOUT -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- Modelo Checkout 1 -->
+            <div class="checkout-model-card p-5 rounded-2xl border-2 border-slate-800 bg-slate-900/60 cursor-pointer transition-all hover:border-slate-600" data-checkout-val="conversao-rapida">
+              <div class="flex items-center justify-between mb-2">
+                <span class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-black text-sm">01</span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 uppercase">Mobile-First</span>
+              </div>
+              <h4 class="text-base font-bold text-white mb-1">Conversão Rápida (1 Coluna)</h4>
+              <p class="text-xs text-slate-400 leading-relaxed">Máxima velocidade no celular. Foco em compra direta com menos campos, Pix de 1 clique e cronômetro de urgência.</p>
+            </div>
+
+            <!-- Modelo Checkout 2 -->
+            <div class="checkout-model-card p-5 rounded-2xl border-2 border-slate-800 bg-slate-900/60 cursor-pointer transition-all hover:border-slate-600" data-checkout-val="duas-colunas">
+              <div class="flex items-center justify-between mb-2">
+                <span class="w-8 h-8 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center font-black text-sm">02</span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-400 uppercase">Order Bump &amp; Prova Social</span>
+              </div>
+              <h4 class="text-base font-bold text-white mb-1">Alta Conversão (2 Colunas)</h4>
+              <p class="text-xs text-slate-400 leading-relaxed">Formulário à esquerda e resumo à direita com lista de bônus, caixinha de Order Bump (+R$ 47) e depoimento com estrelas.</p>
+            </div>
+
+            <!-- Modelo Checkout 3 -->
+            <div class="checkout-model-card p-5 rounded-2xl border-2 border-slate-800 bg-slate-900/60 cursor-pointer transition-all hover:border-slate-600" data-checkout-val="clean-minimalista">
+              <div class="flex items-center justify-between mb-2">
+                <span class="w-8 h-8 rounded-lg bg-blue-600/20 text-blue-400 flex items-center justify-center font-black text-sm">03</span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-600/20 text-blue-400 uppercase">Clean &amp; B2B</span>
+              </div>
+              <h4 class="text-base font-bold text-white mb-1">Minimalista Premium (Clean B2B)</h4>
+              <p class="text-xs text-slate-400 leading-relaxed">Estética elegante dark titanium, discriminação de valores, seletor de Pessoa Física (CPF) / Jurídica (CNPJ) e máxima sobriedade.</p>
+            </div>
+          </div>
+
+          <!-- CAMPOS DE PERSONALIZAÇÃO DO CHECKOUT -->
+          <div class="pt-4 border-t border-slate-800 space-y-6">
+            <h4 class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Dados da Oferta no Checkout</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1.5">Nome do Produto no Checkout</label>
+                <input type="text" id="cfg_checkout_productName" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1.5">Descrição Curta / Subtítulo</label>
+                <input type="text" id="cfg_checkout_productDescription" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1.5">Preço Riscado (De:)</label>
+                <input type="text" id="cfg_checkout_originalPrice" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1.5">Preço Final (Por:)</label>
+                <input type="text" id="cfg_checkout_salePrice" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1.5">Parcelamento</label>
+                <input type="text" id="cfg_checkout_installments" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1.5">Chave Pix de Recebimento</label>
+                <input type="text" id="cfg_checkout_pixKey" placeholder="suachavepix@email.com" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1.5">Garantia (Dias)</label>
+                <input type="text" id="cfg_checkout_guaranteeDays" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1.5">Texto da Garantia</label>
+                <input type="text" id="cfg_checkout_guaranteeText" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+              </div>
+            </div>
+
+            <!-- PERSONALIZAÇÃO DE ORDER BUMP (MODELO 2) -->
+            <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">OFERTA COMPLEMENTAR (ORDER BUMP)</span>
+                  <h5 class="text-sm font-bold text-white">Configurar Produto Extra no Checkout</h5>
+                </div>
+                <label class="inline-flex items-center gap-2 text-xs text-slate-300 cursor-pointer">
+                  <input type="checkbox" id="cfg_checkout_orderBumpActive" class="w-4 h-4 rounded text-emerald-500 focus:ring-emerald-400">
+                  <span>Ativar Order Bump</span>
+                </label>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-300 mb-1">Título do Bump</label>
+                  <input type="text" id="cfg_checkout_orderBumpTitle" class="w-full py-2.5 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white">
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-300 mb-1">Descrição</label>
+                  <input type="text" id="cfg_checkout_orderBumpDesc" class="w-full py-2.5 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white">
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-300 mb-1">Valor Extra (R$)</label>
+                  <input type="text" id="cfg_checkout_orderBumpPrice" class="w-full py-2.5 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white">
+                </div>
+              </div>
+            </div>
+
+            <!-- PERSONALIZAÇÃO DO DEPOIMENTO / PROVA SOCIAL -->
+            <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">PROVA SOCIAL NO CHECKOUT</span>
+                  <h5 class="text-sm font-bold text-white">Depoimento em Destaque</h5>
+                </div>
+                <label class="inline-flex items-center gap-2 text-xs text-slate-300 cursor-pointer">
+                  <input type="checkbox" id="cfg_checkout_testimonialActive" class="w-4 h-4 rounded text-emerald-500 focus:ring-emerald-400">
+                  <span>Exibir Depoimento</span>
+                </label>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-300 mb-1">Nome do Cliente</label>
+                  <input type="text" id="cfg_checkout_testimonialName" class="w-full py-2.5 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white">
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-300 mb-1">Cargo / Identificação</label>
+                  <input type="text" id="cfg_checkout_testimonialRole" class="w-full py-2.5 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white">
+                </div>
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-slate-300 mb-1">Texto do Depoimento</label>
+                <textarea id="cfg_checkout_testimonialText" rows="2" class="w-full py-2.5 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white"></textarea>
+              </div>
             </div>
           </div>
         </div>

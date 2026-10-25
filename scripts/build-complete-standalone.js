@@ -56,6 +56,34 @@ body[data-active-layout="leads-whatsapp"] [data-layout]:not([data-layout="leads-
 body[data-active-layout="institucional"] [data-layout]:not([data-layout="institucional"]) {
   display: none !important;
 }
+
+/* Oculta modelos de checkout que não pertencem ao modelo ativo */
+body[data-active-checkout="conversao-rapida"] [data-checkout-layout]:not([data-checkout-layout="conversao-rapida"]),
+body[data-active-checkout="duas-colunas"] [data-checkout-layout]:not([data-checkout-layout="duas-colunas"]),
+body[data-active-checkout="clean-minimalista"] [data-checkout-layout]:not([data-checkout-layout="clean-minimalista"]) {
+  display: none !important;
+}
+
+/* Elementos de Demonstração RMTI (ocultos por padrão no pacote do cliente) */
+.demo-only,
+#demoTopBar,
+.demo-bar,
+#btnEditAdmin,
+.demo-checkout-bar {
+  display: none !important;
+}
+
+/* Visíveis APENAS quando a página estiver explicitamente em modo demonstração */
+body.demo-mode .demo-only,
+body.demo-mode #demoTopBar,
+body.demo-mode .demo-bar,
+body.demo-mode .demo-checkout-bar {
+  display: block !important;
+}
+
+body.demo-mode header #btnEditAdmin {
+  display: inline-flex !important;
+}
 `;
 fs.writeFileSync(path.join(TARGET_DIR, 'css/style.css'), styleCss);
 
@@ -69,16 +97,29 @@ document.addEventListener('DOMContentLoaded', () => {
   const cfg = window.PAGE_CONFIG || {};
   const activeLayout = cfg.activeLayout || 'vendas-diretas';
 
+  // Modo de Demonstração: ativo apenas se configurado explicitamente, se estiver na rota /pacote da RMTI ou com ?demo=true
+  const isDemoMode = Boolean(
+    cfg.isDemo === true ||
+    window.location.pathname.includes('/pacote') ||
+    new URLSearchParams(window.location.search).get('demo') === 'true'
+  );
+
+  if (isDemoMode) {
+    document.body.classList.add('demo-mode');
+    const demoLayoutName = document.getElementById('demoLayoutName');
+    if (demoLayoutName) {
+      if (activeLayout === 'vendas-diretas') demoLayoutName.textContent = 'Modelo 01: Vendas Diretas & VSL';
+      else if (activeLayout === 'leads-whatsapp') demoLayoutName.textContent = 'Modelo 02: Captura & WhatsApp VIP';
+      else if (activeLayout === 'institucional') demoLayoutName.textContent = 'Modelo 03: Institucional & B2B';
+    }
+  } else {
+    document.body.classList.remove('demo-mode');
+    // Remove fisicamente os elementos de demonstração para não ocupar espaço no pacote do cliente
+    document.querySelectorAll('.demo-only, #demoTopBar, .demo-bar, #btnEditAdmin, .demo-checkout-bar').forEach(el => el.remove());
+  }
+
   // Aplicar layout ativo no body
   document.body.setAttribute('data-active-layout', activeLayout);
-
-  // Atualizar indicador visual no Topo de Demonstração
-  const demoLayoutName = document.getElementById('demoLayoutName');
-  if (demoLayoutName) {
-    if (activeLayout === 'vendas-diretas') demoLayoutName.textContent = 'Modelo 01: Vendas Diretas & VSL';
-    else if (activeLayout === 'leads-whatsapp') demoLayoutName.textContent = 'Modelo 02: Captura & WhatsApp VIP';
-    else if (activeLayout === 'institucional') demoLayoutName.textContent = 'Modelo 03: Institucional & B2B';
-  }
 
   // Preencher dados comuns
   if (cfg.businessName) {
@@ -182,9 +223,9 @@ const indexHtml = `<!DOCTYPE html>
 <body class="bg-[#080c14] text-slate-100 min-h-screen selection:bg-emerald-500 selection:text-slate-950">
 
   <!-- ========================================================================= -->
-  <!-- BARRA DE DEMONSTRAÇÃO / CONTROLE DO PACOTE -->
+  <!-- BARRA DE DEMONSTRAÇÃO / CONTROLE DO PACOTE (EXIBIDA APENAS NA DEMO DA RMTI) -->
   <!-- ========================================================================= -->
-  <div class="bg-gradient-to-r from-slate-900 via-slate-950 to-slate-900 border-b border-emerald-500/30 py-2.5 px-4 sticky top-0 z-50 text-xs shadow-xl">
+  <div id="demoTopBar" class="demo-bar demo-only bg-gradient-to-r from-slate-900 via-slate-950 to-slate-900 border-b border-emerald-500/30 py-2.5 px-4 sticky top-0 z-50 text-xs shadow-xl">
     <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
       <div class="flex items-center gap-2">
         <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-bold uppercase tracking-wider">
@@ -210,7 +251,7 @@ const indexHtml = `<!DOCTYPE html>
       <img src="assets/imagens/logo-placeholder.png" alt="Sua Logo Aqui" class="h-10 sm:h-12 w-auto object-contain val-logoUrl">
     </div>
     <div class="flex items-center gap-3">
-      <a href="admin/index.html" class="hidden sm:inline-flex px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-slate-200 text-xs font-bold transition-all border border-white/10">
+      <a href="admin/index.html" id="btnEditAdmin" class="demo-only hidden sm:inline-flex px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-slate-200 text-xs font-bold transition-all border border-white/10">
         ⚙️ Editar no Admin
       </a>
       <a href="checkout.html" data-layout="vendas-diretas" class="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-extrabold uppercase tracking-wider transition-all shadow-lg shadow-emerald-500/20">
@@ -533,15 +574,23 @@ const indexHtml = `<!DOCTYPE html>
     </div>
   </section>
 
-  <!-- RODAPÉ UNIFICADO -->
-  <footer class="py-10 px-4 text-center border-t border-slate-800 text-xs text-slate-500">
-    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div>© 2026 <span class="val-businessName">Seu Negócio</span>. Todos os direitos reservados.</div>
-      <div class="flex items-center gap-4 text-slate-400">
-        <a href="admin/index.html" class="hover:text-emerald-400">Acessar Painel Admin</a>
-        <a href="checkout.html" class="hover:text-emerald-400">Página de Checkout</a>
-        <a href="#" class="whatsapp-btn hover:text-emerald-400">Suporte WhatsApp</a>
+  <!-- RODAPÉ UNIFICADO COM ASSINATURA RMTI -->
+  <footer class="py-12 px-4 border-t border-slate-800 text-xs text-slate-400 bg-[#060910]">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div class="flex flex-col sm:flex-row items-center gap-3 text-center sm:text-left">
+        <div>© 2026 <span class="val-businessName font-bold text-slate-200">Seu Negócio</span>. Todos os direitos reservados.</div>
+        <span class="hidden sm:inline text-slate-700">•</span>
+        <a href="#" class="whatsapp-btn hover:text-emerald-400 text-slate-400 transition-colors">Atendimento &amp; Suporte</a>
       </div>
+
+      <!-- SELO DESENVOLVIDO POR RMTI -->
+      <a href="https://rmti.com.br" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-2.5 px-4 py-2 rounded-full bg-slate-900 border border-slate-800 hover:border-emerald-500/50 transition-all hover:bg-slate-800/80 shadow-sm" title="Desenvolvido por RMTI • Soluções em Tecnologia">
+        <span class="text-[11px] text-slate-400 group-hover:text-slate-200 transition-colors">Desenvolvido por</span>
+        <div class="flex items-center gap-1.5">
+          <img src="assets/imagens/rmti-logo.png" alt="RMTI" class="h-4 sm:h-5 w-auto object-contain transition-transform group-hover:scale-105" onerror="this.onerror=null; this.src='assets/imagens/logo-placeholder.png';">
+          <span class="font-extrabold text-xs tracking-wider text-emerald-400 group-hover:text-emerald-300">RMTI</span>
+        </div>
+      </a>
     </div>
   </footer>
 
@@ -562,85 +611,674 @@ const checkoutHtml = `<!DOCTYPE html>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="css/style.css">
   <script src="js/config.js"></script>
+  <style>
+    .order-bump-box {
+      border: 2px dashed #10b981;
+      background: rgba(16, 185, 129, 0.05);
+      transition: all 0.2s ease;
+    }
+    .order-bump-box:hover {
+      background: rgba(16, 185, 129, 0.1);
+      border-color: #34d399;
+    }
+  </style>
 </head>
-<body class="bg-[#080c14] text-slate-100 min-h-screen py-8 px-4 sm:px-6">
-  <div class="max-w-4xl mx-auto">
-    <header class="flex items-center justify-between mb-8 pb-4 border-b border-slate-800">
+<body class="bg-[#080c14] text-slate-100 min-h-screen py-4 px-3 sm:px-6" data-active-checkout="conversao-rapida">
+
+  <!-- BARRA SUPERIOR DE PRÉ-VISUALIZAÇÃO / SELETOR RÁPIDO DE MODELO (EXIBIDA APENAS NA DEMO DA RMTI) -->
+  <div id="checkoutDemoBar" class="demo-checkout-bar demo-only max-w-5xl mx-auto mb-6 p-2.5 rounded-2xl bg-slate-900/90 border border-slate-800 backdrop-blur-md flex flex-wrap items-center justify-between gap-2 text-xs shadow-lg">
+    <div class="flex items-center gap-2 px-2">
+      <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+      <span class="text-slate-400 font-bold hidden sm:inline">Modelo de Checkout:</span>
+      <span id="currentCheckoutLabel" class="text-emerald-400 font-extrabold">1. Conversão Rápida</span>
+    </div>
+    <div class="flex flex-wrap items-center gap-1.5">
+      <button type="button" onclick="switchCheckoutModel('conversao-rapida')" class="chk-switch-btn px-2.5 py-1.5 rounded-lg border border-slate-700 bg-slate-800 text-slate-200 hover:text-white font-semibold text-[11px] transition-all" data-m="conversao-rapida">
+        ⚡ 1. Conversão Rápida
+      </button>
+      <button type="button" onclick="switchCheckoutModel('duas-colunas')" class="chk-switch-btn px-2.5 py-1.5 rounded-lg border border-slate-700 bg-slate-800 text-slate-200 hover:text-white font-semibold text-[11px] transition-all" data-m="duas-colunas">
+        📊 2. Duas Colunas + Bump
+      </button>
+      <button type="button" onclick="switchCheckoutModel('clean-minimalista')" class="chk-switch-btn px-2.5 py-1.5 rounded-lg border border-slate-700 bg-slate-800 text-slate-200 hover:text-white font-semibold text-[11px] transition-all" data-m="clean-minimalista">
+        🏢 3. Minimalista Clean
+      </button>
+      <a href="admin/index.html" class="px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-[11px] flex items-center gap-1 transition-all">
+        <span>⚙️ Painel Admin</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- TOAST DE CHAVE PIX COPIADA -->
+  <div id="pixToast" class="fixed bottom-6 right-6 z-50 bg-emerald-500 text-slate-950 px-5 py-3 rounded-2xl font-black text-xs shadow-2xl flex items-center gap-2 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+    <span>✓ Chave Pix copiada com sucesso!</span>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODELO 1: CONVERSÃO RÁPIDA (1 COLUNA MOBILE-FIRST) -->
+  <!-- ========================================================================= -->
+  <div data-checkout-layout="conversao-rapida" class="max-w-xl mx-auto space-y-5">
+    <!-- Barra de Urgência -->
+    <div class="p-3 rounded-2xl bg-gradient-to-r from-emerald-500/10 via-teal-500/20 to-emerald-500/10 border border-emerald-500/30 text-center text-xs">
+      <span class="text-emerald-400 font-extrabold">⚡ OFERTA RESERVADA:</span>
+      <span class="text-slate-300"> Conclua seu pedido antes que o tempo expire em </span>
+      <span class="chk-timer font-mono font-black text-emerald-400 bg-emerald-500/20 px-2 py-0.5 rounded-md">14:59</span>
+    </div>
+
+    <!-- Header com Logo e Voltar -->
+    <div class="flex items-center justify-between">
       <a href="index.html" class="text-xs text-slate-400 hover:text-white">← Voltar para a página</a>
-      <div class="text-xs text-emerald-400 font-bold bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
-        🔒 Ambiente Criptografado SSL 256-bit
+      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-emerald-400 text-[11px] font-bold">
+        🔒 SSL 256-bit Seguro
+      </span>
+    </div>
+
+    <!-- Card Resumo do Produto -->
+    <div class="glass-card p-5 rounded-3xl border border-slate-800 flex items-center gap-4">
+      <img src="assets/imagens/mockup-placeholder.jpg" alt="Produto" class="w-16 h-16 rounded-2xl object-cover border border-slate-700 chk-val-productImage shrink-0">
+      <div class="flex-1 min-w-0">
+        <h3 class="text-base font-bold text-white truncate chk-val-productName">Acesso Completo ao Produto</h3>
+        <p class="text-xs text-slate-400 truncate chk-val-productDescription">Acesso imediato com suporte prioritário</p>
+        <div class="flex items-baseline gap-2 mt-1">
+          <span class="text-xs text-slate-500 line-through chk-val-originalPrice">De R$ 497,00</span>
+          <span class="text-lg font-black text-emerald-400 chk-val-salePrice">R$ 197,00</span>
+          <span class="text-[11px] text-slate-400 chk-val-installments hidden sm:inline">(ou 12x de R$ 19,78)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Formulário do Modelo 1 -->
+    <div class="glass-card p-6 sm:p-8 rounded-3xl border border-slate-800 shadow-xl space-y-6">
+      <!-- Abas de Pagamento (Pix / Cartão) -->
+      <div>
+        <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Forma de Pagamento</label>
+        <div class="grid grid-cols-2 gap-3">
+          <button type="button" onclick="setPayMethod('m1', 'pix')" id="m1-btn-pix" class="py-3 px-4 rounded-xl border-2 border-emerald-500 bg-emerald-500/10 text-emerald-400 font-bold text-xs flex items-center justify-center gap-2">
+            <span>⚡ Pix (Imediato)</span>
+          </button>
+          <button type="button" onclick="setPayMethod('m1', 'card')" id="m1-btn-card" class="py-3 px-4 rounded-xl border border-slate-700 bg-slate-900 text-slate-400 font-bold text-xs flex items-center justify-center gap-2">
+            <span>💳 Cartão de Crédito</span>
+          </button>
+        </div>
+      </div>
+
+      <form class="space-y-4" onsubmit="event.preventDefault(); window.location.href='obrigado.html';">
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">Seu Nome Completo *</label>
+          <input type="text" required placeholder="Digite seu nome completo" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 focus:border-emerald-500 text-sm text-white outline-none">
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">E-mail para Acesso *</label>
+            <input type="email" required placeholder="seuemail@exemplo.com" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 focus:border-emerald-500 text-sm text-white outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">WhatsApp *</label>
+            <input type="tel" required placeholder="(11) 99999-9999" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 focus:border-emerald-500 text-sm text-white outline-none">
+          </div>
+        </div>
+
+        <!-- Seção Pix M1 -->
+        <div id="m1-sec-pix" class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3">
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-bold text-white flex items-center gap-1.5">
+              <span>⚡ Chave Pix para Transferência:</span>
+            </span>
+            <span class="text-emerald-400 font-extrabold chk-val-salePrice">R$ 197,00</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <input type="text" readonly id="m1-pix-input" class="flex-1 py-2.5 px-3 rounded-xl bg-slate-950 border border-slate-700 text-xs text-emerald-400 font-mono select-all">
+            <button type="button" onclick="copyPixKey('m1-pix-input')" class="py-2.5 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-black uppercase tracking-wider shrink-0 transition-colors">
+              Copiar
+            </button>
+          </div>
+          <p class="text-[11px] text-slate-400">Após o pagamento, o acesso é liberado automaticamente em seu e-mail.</p>
+        </div>
+
+        <!-- Seção Cartão M1 -->
+        <div id="m1-sec-card" class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3 hidden">
+          <div>
+            <label class="block text-[11px] font-bold text-slate-300 mb-1">Número do Cartão</label>
+            <input type="text" placeholder="0000 0000 0000 0000" class="w-full py-2.5 px-3 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white">
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-[11px] font-bold text-slate-300 mb-1">Validade</label>
+              <input type="text" placeholder="MM/AA" class="w-full py-2.5 px-3 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-slate-300 mb-1">CVV</label>
+              <input type="text" placeholder="123" class="w-full py-2.5 px-3 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white">
+            </div>
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-slate-300 mb-1">Parcelamento</label>
+            <select class="w-full py-2.5 px-3 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white">
+              <option>1x de R$ 197,00 (à vista)</option>
+              <option>2x de R$ 102,40</option>
+              <option>3x de R$ 69,10</option>
+              <option>6x de R$ 36,20</option>
+              <option>12x de R$ 19,78</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="pulse-btn w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-black text-sm uppercase tracking-wider shadow-xl shadow-emerald-500/20">
+          Confirmar e Liberar Acesso Imediato →
+        </button>
+      </form>
+
+      <!-- Garantia e Selos -->
+      <div class="pt-4 border-t border-slate-800 text-center space-y-2">
+        <p class="text-xs text-slate-300 font-bold flex items-center justify-center gap-1.5">
+          <span>🛡️</span>
+          <span>Garantia Incondicional de 7 Dias</span>
+        </p>
+        <p class="text-[11px] text-slate-500 chk-val-guaranteeText">
+          Se você não ficar 100% satisfeito com o material, devolvemos seu dinheiro integralmente.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODELO 2: DUAS COLUNAS COM ORDER BUMP & PROVA SOCIAL (ALTA CONVERSÃO) -->
+  <!-- ========================================================================= -->
+  <div data-checkout-layout="duas-colunas" class="max-w-5xl mx-auto space-y-6">
+    <header class="flex items-center justify-between pb-4 border-b border-slate-800">
+      <div class="flex items-center gap-3">
+        <img src="assets/imagens/logo-placeholder.png" alt="Logo" class="h-8 sm:h-10 w-auto object-contain val-logoUrl">
+        <span class="text-xs text-slate-400 hidden sm:inline">Checkout Oficial Seguro</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="text-xs text-slate-400 hover:text-white">← Voltar</a>
+        <span class="text-xs text-emerald-400 font-bold bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
+          🔒 Compra Segura
+        </span>
       </div>
     </header>
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <!-- Coluna da Esquerda (Formulário e Pagamento) -->
       <div class="lg:col-span-7 space-y-6">
-        <div class="glass-card p-6 sm:p-8 rounded-3xl border border-slate-800 shadow-xl">
-          <h2 class="text-xl font-bold text-white mb-1">Dados de Pagamento</h2>
-          <p class="text-xs text-slate-400 mb-6">Preencha seus dados para liberação imediata.</p>
+        <div class="glass-card p-6 sm:p-8 rounded-3xl border border-slate-800 shadow-xl space-y-6">
+          <div class="flex items-center gap-2 pb-3 border-b border-slate-800">
+            <span class="w-6 h-6 rounded-full bg-emerald-500 text-slate-950 font-black text-xs flex items-center justify-center">1</span>
+            <h3 class="text-base font-bold text-white">Dados Pessoais</h3>
+          </div>
+
           <form class="space-y-4" onsubmit="event.preventDefault(); window.location.href='obrigado.html';">
             <div>
               <label class="block text-xs font-bold text-slate-300 mb-1">Nome Completo *</label>
-              <input type="text" required placeholder="Ex: João Silva" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+              <input type="text" required placeholder="Ex: João da Silva" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
             </div>
             <div>
-              <label class="block text-xs font-bold text-slate-300 mb-1">E-mail *</label>
+              <label class="block text-xs font-bold text-slate-300 mb-1">E-mail para Recebimento *</label>
               <input type="email" required placeholder="seuemail@exemplo.com" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
             </div>
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label class="block text-xs font-bold text-slate-300 mb-1">WhatsApp *</label>
                 <input type="tel" required placeholder="(11) 99999-9999" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
               </div>
               <div>
-                <label class="block text-xs font-bold text-slate-300 mb-1">CPF *</label>
+                <label class="block text-xs font-bold text-slate-300 mb-1">CPF (emissão de recibo) *</label>
                 <input type="text" required placeholder="000.000.000-00" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
               </div>
             </div>
-            <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-black text-base uppercase tracking-wider mt-4">
-              Confirmar Pagamento Seguro
+
+            <!-- Etapa 2: Pagamento -->
+            <div class="pt-4 border-t border-slate-800 space-y-4">
+              <div class="flex items-center gap-2 pb-2">
+                <span class="w-6 h-6 rounded-full bg-emerald-500 text-slate-950 font-black text-xs flex items-center justify-center">2</span>
+                <h3 class="text-base font-bold text-white">Pagamento</h3>
+              </div>
+
+              <div class="grid grid-cols-2 gap-3">
+                <button type="button" onclick="setPayMethod('m2', 'pix')" id="m2-btn-pix" class="py-3 px-4 rounded-xl border-2 border-emerald-500 bg-emerald-500/10 text-emerald-400 font-bold text-xs flex items-center justify-center gap-2">
+                  <span>⚡ Pix Instantâneo</span>
+                </button>
+                <button type="button" onclick="setPayMethod('m2', 'card')" id="m2-btn-card" class="py-3 px-4 rounded-xl border border-slate-700 bg-slate-900 text-slate-400 font-bold text-xs flex items-center justify-center gap-2">
+                  <span>💳 Cartão de Crédito</span>
+                </button>
+              </div>
+
+              <!-- Pix M2 -->
+              <div id="m2-sec-pix" class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="font-bold text-white">Chave Pix Oficial:</span>
+                  <span class="text-emerald-400 font-extrabold m2-final-total">R$ 197,00</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <input type="text" readonly id="m2-pix-input" class="flex-1 py-2.5 px-3 rounded-xl bg-slate-950 border border-slate-700 text-xs text-emerald-400 font-mono select-all">
+                  <button type="button" onclick="copyPixKey('m2-pix-input')" class="py-2.5 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-black uppercase shrink-0">
+                    Copiar
+                  </button>
+                </div>
+              </div>
+
+              <!-- Cartão M2 -->
+              <div id="m2-sec-card" class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3 hidden">
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-300 mb-1">Número do Cartão</label>
+                  <input type="text" placeholder="0000 0000 0000 0000" class="w-full py-2.5 px-3 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <label class="block text-[11px] font-bold text-slate-300 mb-1">Validade</label>
+                    <input type="text" placeholder="MM/AA" class="w-full py-2.5 px-3 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white">
+                  </div>
+                  <div>
+                    <label class="block text-[11px] font-bold text-slate-300 mb-1">CVV</label>
+                    <input type="text" placeholder="123" class="w-full py-2.5 px-3 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ORDER BUMP INTERATIVO -->
+            <div id="m2-order-bump" class="order-bump-box p-4 rounded-2xl space-y-2 mt-4 cursor-pointer" onclick="toggleOrderBump(event)">
+              <div class="flex items-start gap-3">
+                <input type="checkbox" id="m2BumpCheckbox" class="w-5 h-5 rounded text-emerald-500 focus:ring-emerald-400 mt-1 cursor-pointer">
+                <div class="flex-1">
+                  <span class="inline-block px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 text-[10px] font-black uppercase tracking-wider mb-1">
+                    ★ OFERTA COMPLEMENTAR EXCLUSIVA
+                  </span>
+                  <h4 class="text-xs font-bold text-white chk-val-orderBumpTitle">Adicionar Acompanhamento VIP Individual</h4>
+                  <p class="text-[11px] text-slate-400 chk-val-orderBumpDesc leading-relaxed">
+                    Tenha 1 hora de consultoria individual para acelerar seus resultados.
+                  </p>
+                  <div class="mt-1 text-xs text-emerald-400 font-extrabold">
+                    Por apenas + <span class="chk-val-orderBumpPrice">R$ 47,00</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="pulse-btn w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-black text-sm uppercase tracking-wider shadow-xl shadow-emerald-500/20 mt-6">
+              Finalizar Pedido Seguro →
             </button>
           </form>
         </div>
       </div>
 
+      <!-- Coluna da Direita (Resumo, Depoimento e Garantia) -->
       <div class="lg:col-span-5 space-y-6">
-        <div class="glass-card p-6 rounded-3xl border border-slate-800 shadow-xl">
-          <h3 class="text-base font-bold text-white mb-4">Resumo do Pedido</h3>
-          <div class="flex items-center gap-4 pb-4 border-b border-slate-800">
-            <div class="w-14 h-14 rounded-xl bg-slate-800 flex items-center justify-center text-2xl">📦</div>
+        <div class="glass-card p-6 rounded-3xl border border-slate-800 shadow-xl space-y-5">
+          <h3 class="text-base font-bold text-white border-b border-slate-800 pb-3">Resumo da Compra</h3>
+          
+          <div class="flex items-center gap-4">
+            <img src="assets/imagens/mockup-placeholder.jpg" alt="Produto" class="w-16 h-16 rounded-2xl object-cover border border-slate-700 chk-val-productImage shrink-0">
             <div>
-              <h4 class="text-sm font-bold text-white" id="chkProductName">Produto / Serviço Selecionado</h4>
-              <p class="text-xs text-slate-400">Acesso e suporte prioritário</p>
+              <h4 class="text-sm font-bold text-white chk-val-productName">Acesso Completo ao Produto</h4>
+              <p class="text-xs text-slate-400 chk-val-productDescription">Acesso vitalício + suporte</p>
             </div>
           </div>
-          <div class="py-4 space-y-2 text-xs text-slate-300">
-            <div class="flex justify-between">
-              <span>Valor:</span>
-              <span class="text-emerald-400 text-base font-black" id="chkPrice">R$ 197,00</span>
+
+          <!-- Bônus inclusos -->
+          <div class="p-3.5 rounded-2xl bg-slate-900/60 border border-slate-800/80 space-y-2 text-xs text-slate-300">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-400">🎁 Bônus Inclusos Gratuitamente:</span>
+            <ul class="space-y-1 text-[11px]">
+              <li class="flex items-center gap-2">✓ Comunidade Exclusiva de Membros</li>
+              <li class="flex items-center gap-2">✓ Templates &amp; Roteiros Editáveis</li>
+              <li class="flex items-center gap-2">✓ Aulas Secretas de Tráfego e Escala</li>
+            </ul>
+          </div>
+
+          <!-- Totais -->
+          <div class="py-3 border-y border-slate-800 space-y-2 text-xs">
+            <div class="flex justify-between text-slate-400">
+              <span>Valor do Produto:</span>
+              <span class="text-white font-bold chk-val-salePrice">R$ 197,00</span>
+            </div>
+            <div id="m2BumpRow" class="flex justify-between text-amber-400 hidden">
+              <span>Oferta Complementar (Bump):</span>
+              <span class="font-bold chk-val-orderBumpPrice">+ R$ 47,00</span>
+            </div>
+            <div class="flex justify-between items-baseline pt-2 border-t border-slate-800">
+              <span class="text-sm font-bold text-white">Total a Pagar:</span>
+              <span class="text-2xl font-black text-emerald-400 m2-final-total">R$ 197,00</span>
             </div>
           </div>
-          <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 text-xs text-slate-400">
-            ✓ Garantia incondicional de 7 dias com reembolso imediato.
+
+          <!-- Prova Social / Depoimento -->
+          <div id="m2TestimonialBox" class="p-4 rounded-2xl bg-slate-900/50 border border-slate-800 space-y-2">
+            <div class="flex items-center gap-3">
+              <img src="assets/imagens/foto-placeholder.jpg" alt="Cliente" class="w-10 h-10 rounded-full object-cover border border-emerald-500/40">
+              <div>
+                <h5 class="text-xs font-bold text-white chk-val-testimonialName">Mariana Costa</h5>
+                <p class="text-[10px] text-slate-400 chk-val-testimonialRole">Aluna Verificada</p>
+              </div>
+              <div class="ml-auto text-amber-400 text-xs tracking-widest">★★★★★</div>
+            </div>
+            <p class="text-xs text-slate-300 italic chk-val-testimonialText">
+              "O material é super direto ao ponto. Consegui colocar tudo para rodar no mesmo dia!"
+            </p>
+          </div>
+
+          <!-- Box de Garantia -->
+          <div class="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-start gap-3">
+            <span class="text-xl">🛡️</span>
+            <div>
+              <h5 class="text-xs font-bold text-emerald-400">Garantia Incondicional de 7 Dias</h5>
+              <p class="text-[11px] text-slate-400 mt-0.5 chk-val-guaranteeText">
+                Satisfação garantida ou seu dinheiro 100% de volta, sem burocracia.
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODELO 3: MINIMALISTA PREMIUM (CLEAN B2B CORPORATIVO) -->
+  <!-- ========================================================================= -->
+  <div data-checkout-layout="clean-minimalista" class="max-w-2xl mx-auto space-y-6">
+    <header class="text-center space-y-2 pb-6 border-b border-slate-800">
+      <a href="index.html" class="text-xs text-slate-500 hover:text-slate-300">← Voltar à Apresentação Institucional</a>
+      <h2 class="text-2xl font-black text-white">Pedido &amp; Faturamento Comercial</h2>
+      <p class="text-xs text-slate-400">Emissão de nota fiscal, faturamento direto e liberação em alta prioridade.</p>
+    </header>
+
+    <div class="glass-card p-6 sm:p-10 rounded-3xl border border-slate-800 shadow-2xl space-y-8">
+      <!-- Seletor PF / PJ -->
+      <div>
+        <label class="block text-xs font-bold text-slate-300 mb-2 uppercase tracking-wider">Tipo de Contratante</label>
+        <div class="grid grid-cols-2 gap-3">
+          <button type="button" onclick="setCompanyType('pf')" id="m3-btn-pf" class="py-2.5 px-4 rounded-xl border-2 border-emerald-500 bg-emerald-500/10 text-emerald-400 font-bold text-xs">
+            Pessoa Física (CPF)
+          </button>
+          <button type="button" onclick="setCompanyType('pj')" id="m3-btn-pj" class="py-2.5 px-4 rounded-xl border border-slate-700 bg-slate-900 text-slate-400 font-bold text-xs">
+            Pessoa Jurídica (CNPJ / Empresa)
+          </button>
+        </div>
+      </div>
+
+      <form class="space-y-4" onsubmit="event.preventDefault(); window.location.href='obrigado.html';">
+        <div id="m3-pf-fields" class="space-y-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">Nome do Titular *</label>
+            <input type="text" placeholder="Nome completo" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1">CPF *</label>
+              <input type="text" placeholder="000.000.000-00" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1">Telefone / WhatsApp *</label>
+              <input type="tel" placeholder="(11) 99999-9999" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+            </div>
+          </div>
+        </div>
+
+        <div id="m3-pj-fields" class="space-y-4 hidden">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">Razão Social / Nome da Empresa *</label>
+            <input type="text" placeholder="Empresa S/A ou LTDA" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1">CNPJ *</label>
+              <input type="text" placeholder="00.000.000/0001-00" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1">Responsável Comercial *</label>
+              <input type="text" placeholder="Nome do responsável" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">E-mail Corporativo para Envio de NF e Acesso *</label>
+          <input type="email" placeholder="financeiro@empresa.com.br" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+        </div>
+
+        <!-- Discriminação de Valores -->
+        <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400">Discriminação da Fatura</h4>
+          <div class="space-y-2 text-xs">
+            <div class="flex justify-between text-slate-300">
+              <span class="chk-val-productName">Acesso Completo ao Pacote</span>
+              <span class="chk-val-originalPrice line-through text-slate-500">R$ 497,00</span>
+            </div>
+            <div class="flex justify-between text-emerald-400 font-semibold">
+              <span>Desconto de Lançamento Aplicado:</span>
+              <span>- R$ 300,00</span>
+            </div>
+            <div class="flex justify-between items-baseline pt-3 border-t border-slate-800">
+              <span class="text-sm font-bold text-white">Valor Líquido Faturado:</span>
+              <span class="text-2xl font-black text-emerald-400 chk-val-salePrice">R$ 197,00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pix Corporativo M3 -->
+        <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-white font-bold">Chave Pix Direta:</span>
+            <span class="text-emerald-400 font-mono chk-val-salePrice">R$ 197,00</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <input type="text" readonly id="m3-pix-input" class="flex-1 py-2.5 px-3 rounded-xl bg-slate-950 border border-slate-700 text-xs text-emerald-400 font-mono select-all">
+            <button type="button" onclick="copyPixKey('m3-pix-input')" class="py-2.5 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-black uppercase">
+              Copiar
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="w-full py-4 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-sm uppercase tracking-wider transition-all">
+          Confirmar Faturamento &amp; Liberar Acesso →
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- RODAPÉ DE CHECKOUT COM ASSINATURA RMTI -->
+  <footer class="mt-16 py-8 border-t border-slate-800 text-center text-xs text-slate-500">
+    <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 px-4">
+      <p>© 2026 <span class="val-businessName">Seu Negócio</span>. Pagamentos processados com segurança SSL de 256 bits.</p>
+      <a href="https://rmti.com.br" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900 border border-slate-800 hover:border-emerald-500/50 transition-all hover:bg-slate-800 text-slate-400 hover:text-slate-200" title="Desenvolvido por RMTI • Soluções em Tecnologia">
+        <span class="text-[11px]">Desenvolvido por</span>
+        <div class="flex items-center gap-1.5">
+          <img src="assets/imagens/rmti-logo.png" alt="RMTI" class="h-4 w-auto object-contain" onerror="this.onerror=null; this.src='assets/imagens/logo-placeholder.png';">
+          <span class="font-extrabold text-xs text-emerald-400">RMTI</span>
+        </div>
+      </a>
+    </div>
+  </footer>
+
+  <!-- SCRIPT DE SINCRONIZAÇÃO E CONTROLE DOS 3 CHECKOUTS -->
   <script>
+    let activeCheckoutModel = 'conversao-rapida';
+    let basePriceNum = 197;
+    let bumpPriceNum = 47;
+    let isBumpChecked = false;
+
     document.addEventListener('DOMContentLoaded', () => {
       const cfg = window.PAGE_CONFIG || {};
-      const activeLayout = cfg.activeLayout || 'vendas-diretas';
-      if (activeLayout === 'vendas-diretas' && cfg.vendas) {
-        document.getElementById('chkProductName').textContent = cfg.vendas.productName || 'Acesso ao Produto';
-        document.getElementById('chkPrice').textContent = cfg.vendas.salePrice || 'R$ 197,00';
-      } else if (activeLayout === 'leads-whatsapp') {
-        document.getElementById('chkProductName').textContent = 'Reserva de Consulta / Atendimento';
-        document.getElementById('chkPrice').textContent = 'R$ 197,00';
+      const chk = cfg.checkout || {};
+
+      // Controle de visibilidade de Demonstração
+      const isDemo = Boolean(
+        cfg.isDemo === true ||
+        window.location.pathname.includes('/pacote') ||
+        new URLSearchParams(window.location.search).get('demo') === 'true'
+      );
+      if (isDemo) {
+        document.body.classList.add('demo-mode');
       } else {
-        document.getElementById('chkProductName').textContent = 'Proposta Comercial / Solução B2B';
-        document.getElementById('chkPrice').textContent = 'R$ 197,00';
+        document.body.classList.remove('demo-mode');
+        document.querySelectorAll('.demo-only, #checkoutDemoBar, .demo-checkout-bar').forEach(el => el.remove());
       }
+
+      // 1. Determina o modelo ativo (parâmetro da URL tem prioridade para testes rápidos)
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlModel = urlParams.get('modelo');
+      activeCheckoutModel = urlModel || chk.activeModel || 'conversao-rapida';
+
+      applyCheckoutModel(activeCheckoutModel);
+
+      // 2. Popula campos dinâmicos
+      const prodName = chk.productName || (cfg.vendas && cfg.vendas.productName) || 'Acesso Completo ao Produto';
+      const prodDesc = chk.productDescription || 'Acesso imediato com atualizações e suporte';
+      const origPrice = chk.originalPrice || (cfg.vendas && cfg.vendas.originalPrice) || 'R$ 497,00';
+      const salePrice = chk.salePrice || (cfg.vendas && cfg.vendas.salePrice) || 'R$ 197,00';
+      const installments = chk.installments || (cfg.vendas && cfg.vendas.installments) || '12x de R$ 19,78';
+      const pixKey = chk.pixKey || 'sua-chave-pix-aqui@empresa.com';
+      const guarText = chk.guaranteeText || 'Você tem 7 dias de garantia incondicional com reembolso 100% imediato.';
+
+      // Extrai número do preço
+      const numMatch = salePrice.match(/[0-9]+/);
+      if (numMatch) basePriceNum = parseInt(numMatch[0], 10);
+
+      document.querySelectorAll('.chk-val-productName').forEach(el => el.textContent = prodName);
+      document.querySelectorAll('.chk-val-productDescription').forEach(el => el.textContent = prodDesc);
+      document.querySelectorAll('.chk-val-originalPrice').forEach(el => el.textContent = origPrice);
+      document.querySelectorAll('.chk-val-salePrice').forEach(el => el.textContent = salePrice);
+      document.querySelectorAll('.chk-val-installments').forEach(el => el.textContent = installments);
+      document.querySelectorAll('.chk-val-guaranteeText').forEach(el => el.textContent = guarText);
+
+      // Pix inputs
+      ['m1-pix-input', 'm2-pix-input', 'm3-pix-input'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = pixKey;
+      });
+
+      // Order Bump
+      const bump = chk.orderBump || {};
+      if (bump.title) document.querySelectorAll('.chk-val-orderBumpTitle').forEach(el => el.textContent = bump.title);
+      if (bump.description) document.querySelectorAll('.chk-val-orderBumpDesc').forEach(el => el.textContent = bump.description);
+      if (bump.price) {
+        document.querySelectorAll('.chk-val-orderBumpPrice').forEach(el => el.textContent = bump.price);
+        const bMatch = bump.price.match(/[0-9]+/);
+        if (bMatch) bumpPriceNum = parseInt(bMatch[0], 10);
+      }
+      if (bump.active === false) {
+        const bEl = document.getElementById('m2-order-bump');
+        if (bEl) bEl.style.display = 'none';
+      }
+
+      // Prova Social / Depoimento
+      const testm = chk.testimonial || {};
+      if (testm.name) document.querySelectorAll('.chk-val-testimonialName').forEach(el => el.textContent = testm.name);
+      if (testm.role) document.querySelectorAll('.chk-val-testimonialRole').forEach(el => el.textContent = testm.role);
+      if (testm.text) document.querySelectorAll('.chk-val-testimonialText').forEach(el => el.textContent = '"' + testm.text + '"');
+      if (testm.active === false) {
+        const tBox = document.getElementById('m2TestimonialBox');
+        if (tBox) tBox.style.display = 'none';
+      }
+
+      // Inicia cronômetro
+      startCountdown(15 * 60);
     });
+
+    function applyCheckoutModel(model) {
+      document.body.setAttribute('data-active-checkout', model);
+
+      const labels = {
+        'conversao-rapida': '1. Conversão Rápida (1 Coluna)',
+        'duas-colunas': '2. Duas Colunas + Order Bump',
+        'clean-minimalista': '3. Minimalista Clean B2B'
+      };
+      const lbl = document.getElementById('currentCheckoutLabel');
+      if (lbl) lbl.textContent = labels[model] || model;
+
+      document.querySelectorAll('.chk-switch-btn').forEach(btn => {
+        if (btn.getAttribute('data-m') === model) {
+          btn.classList.add('border-emerald-500', 'bg-emerald-500/20', 'text-emerald-400');
+          btn.classList.remove('border-slate-700', 'bg-slate-800', 'text-slate-200');
+        } else {
+          btn.classList.remove('border-emerald-500', 'bg-emerald-500/20', 'text-emerald-400');
+          btn.classList.add('border-slate-700', 'bg-slate-800', 'text-slate-200');
+        }
+      });
+    }
+
+    function switchCheckoutModel(model) {
+      applyCheckoutModel(model);
+      const url = new URL(window.location);
+      url.searchParams.set('modelo', model);
+      window.history.replaceState({}, '', url);
+    }
+
+    function setPayMethod(prefix, method) {
+      const btnPix = document.getElementById(prefix + '-btn-pix');
+      const btnCard = document.getElementById(prefix + '-btn-card');
+      const secPix = document.getElementById(prefix + '-sec-pix');
+      const secCard = document.getElementById(prefix + '-sec-card');
+
+      if (method === 'pix') {
+        btnPix.className = 'py-3 px-4 rounded-xl border-2 border-emerald-500 bg-emerald-500/10 text-emerald-400 font-bold text-xs flex items-center justify-center gap-2';
+        btnCard.className = 'py-3 px-4 rounded-xl border border-slate-700 bg-slate-900 text-slate-400 font-bold text-xs flex items-center justify-center gap-2';
+        secPix.classList.remove('hidden');
+        secCard.classList.add('hidden');
+      } else {
+        btnCard.className = 'py-3 px-4 rounded-xl border-2 border-emerald-500 bg-emerald-500/10 text-emerald-400 font-bold text-xs flex items-center justify-center gap-2';
+        btnPix.className = 'py-3 px-4 rounded-xl border border-slate-700 bg-slate-900 text-slate-400 font-bold text-xs flex items-center justify-center gap-2';
+        secCard.classList.remove('hidden');
+        secPix.classList.add('hidden');
+      }
+    }
+
+    function toggleOrderBump(e) {
+      const chkBox = document.getElementById('m2BumpCheckbox');
+      if (e.target !== chkBox) {
+        chkBox.checked = !chkBox.checked;
+      }
+      isBumpChecked = chkBox.checked;
+
+      const bumpRow = document.getElementById('m2BumpRow');
+      if (bumpRow) {
+        if (isBumpChecked) bumpRow.classList.remove('hidden');
+        else bumpRow.classList.add('hidden');
+      }
+
+      const finalNum = isBumpChecked ? (basePriceNum + bumpPriceNum) : basePriceNum;
+      const formatted = 'R$ ' + finalNum + ',00';
+      document.querySelectorAll('.m2-final-total').forEach(el => el.textContent = formatted);
+    }
+
+    function setCompanyType(type) {
+      const btnPf = document.getElementById('m3-btn-pf');
+      const btnPj = document.getElementById('m3-btn-pj');
+      const secPf = document.getElementById('m3-pf-fields');
+      const secPj = document.getElementById('m3-pj-fields');
+
+      if (type === 'pf') {
+        btnPf.className = 'py-2.5 px-4 rounded-xl border-2 border-emerald-500 bg-emerald-500/10 text-emerald-400 font-bold text-xs';
+        btnPj.className = 'py-2.5 px-4 rounded-xl border border-slate-700 bg-slate-900 text-slate-400 font-bold text-xs';
+        secPf.classList.remove('hidden');
+        secPj.classList.add('hidden');
+      } else {
+        btnPj.className = 'py-2.5 px-4 rounded-xl border-2 border-emerald-500 bg-emerald-500/10 text-emerald-400 font-bold text-xs';
+        btnPf.className = 'py-2.5 px-4 rounded-xl border border-slate-700 bg-slate-900 text-slate-400 font-bold text-xs';
+        secPj.classList.remove('hidden');
+        secPf.classList.add('hidden');
+      }
+    }
+
+    function copyPixKey(inputId) {
+      const input = document.getElementById(inputId);
+      if (input) {
+        navigator.clipboard.writeText(input.value).then(() => {
+          const toast = document.getElementById('pixToast');
+          toast.classList.remove('translate-y-24', 'opacity-0');
+          setTimeout(() => toast.classList.add('translate-y-24', 'opacity-0'), 2500);
+        });
+      }
+    }
+
+    function startCountdown(duration) {
+      let timer = duration;
+      setInterval(() => {
+        const minutes = Math.floor(timer / 60);
+        const seconds = timer % 60;
+        const formatted = (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+        document.querySelectorAll('.chk-timer').forEach(el => el.textContent = formatted);
+        if (--timer < 0) timer = duration;
+      }, 1000);
+    }
   </script>
 </body>
 </html>
@@ -661,7 +1299,15 @@ const obrigadoHtml = `<!DOCTYPE html>
     <div class="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 text-3xl flex items-center justify-center mx-auto mb-4">✓</div>
     <h1 class="text-2xl font-black text-white mb-2">Pedido Confirmado!</h1>
     <p class="text-sm text-slate-300 mb-6">Recebemos seus dados com sucesso. Verifique seu e-mail e seu WhatsApp para os próximos passos.</p>
-    <a href="index.html" class="py-3 px-6 rounded-xl bg-slate-800 text-slate-300 font-bold text-xs">Voltar à Página Inicial</a>
+    <a href="index.html" class="py-3 px-6 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs inline-block transition-colors">Voltar à Página Inicial</a>
+
+    <div class="mt-8 pt-6 border-t border-slate-800/80 flex items-center justify-center gap-2 text-xs text-slate-500">
+      <span>Desenvolvido por</span>
+      <a href="https://rmti.com.br" target="_blank" rel="noopener noreferrer" class="font-extrabold text-emerald-400 hover:text-emerald-300 inline-flex items-center gap-1.5 transition-colors">
+        <img src="assets/imagens/rmti-logo.png" alt="RMTI" class="h-4 w-auto object-contain" onerror="this.onerror=null; this.src='assets/imagens/logo-placeholder.png';">
+        <span>RMTI</span>
+      </a>
+    </div>
   </div>
 </body>
 </html>
@@ -685,6 +1331,7 @@ const adminHtml = `<!DOCTYPE html>
     .glass-box { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
     .tab-btn.active { background: rgba(16, 185, 129, 0.15); color: #34d399; border-color: rgba(16, 185, 129, 0.4); font-weight: 800; }
     .layout-card.selected { border-color: #10b981; background: rgba(16, 185, 129, 0.12); box-shadow: 0 0 20px rgba(16, 185, 129, 0.2); }
+    .checkout-model-card.selected { border-color: #10b981; background: rgba(16, 185, 129, 0.12); box-shadow: 0 0 20px rgba(16, 185, 129, 0.2); }
   </style>
 </head>
 <body class="min-h-screen pb-20">
@@ -830,6 +1477,10 @@ const adminHtml = `<!DOCTYPE html>
         <button class="tab-btn px-4 py-2 rounded-xl text-xs font-bold border border-slate-800 bg-slate-900 text-slate-300" data-tab="tab-pixels">
           Pixels &amp; Anúncios
         </button>
+        <button class="tab-btn px-4 py-2 rounded-xl text-xs font-bold border border-slate-800 bg-slate-900 text-slate-300 flex items-center gap-1.5" data-tab="tab-checkout">
+          <span>💳 Modelos &amp; Checkout</span>
+          <span class="px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-black">3 Modelos</span>
+        </button>
       </div>
 
       <!-- CONTEÚDO DAS ABAS -->
@@ -945,6 +1596,154 @@ const adminHtml = `<!DOCTYPE html>
             </div>
           </div>
         </div>
+
+        <!-- ABA 5: MODELOS & PERSONALIZAÇÃO DO CHECKOUT -->
+        <div id="tab-checkout" class="tab-content hidden space-y-8">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-slate-800 pb-4 gap-4">
+            <div>
+              <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">CHECKOUT INTELIGENTE</span>
+              <h3 class="text-lg font-black text-white">Escolha o Modelo de Checkout para Seus Clientes</h3>
+              <p class="text-xs text-slate-400">Selecione o modelo ativo e personalize os dados da oferta, Pix e prova social abaixo.</p>
+            </div>
+            <a href="../checkout.html" target="_blank" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-700 flex items-center gap-1.5 shrink-0 transition-colors">
+              <span>👁 Testar Checkout no Navegador</span>
+            </a>
+          </div>
+
+          <!-- CARDS DOS 3 MODELOS DE CHECKOUT -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- Modelo Checkout 1 -->
+            <div class="checkout-model-card p-5 rounded-2xl border-2 border-slate-800 bg-slate-900/60 cursor-pointer transition-all hover:border-slate-600" data-checkout-val="conversao-rapida">
+              <div class="flex items-center justify-between mb-2">
+                <span class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-black text-sm">01</span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 uppercase">Mobile-First</span>
+              </div>
+              <h4 class="text-base font-bold text-white mb-1">Conversão Rápida (1 Coluna)</h4>
+              <p class="text-xs text-slate-400 leading-relaxed">Máxima velocidade no celular. Foco em compra direta com menos campos, Pix de 1 clique e cronômetro de urgência.</p>
+            </div>
+
+            <!-- Modelo Checkout 2 -->
+            <div class="checkout-model-card p-5 rounded-2xl border-2 border-slate-800 bg-slate-900/60 cursor-pointer transition-all hover:border-slate-600" data-checkout-val="duas-colunas">
+              <div class="flex items-center justify-between mb-2">
+                <span class="w-8 h-8 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center font-black text-sm">02</span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-400 uppercase">Order Bump &amp; Prova Social</span>
+              </div>
+              <h4 class="text-base font-bold text-white mb-1">Alta Conversão (2 Colunas)</h4>
+              <p class="text-xs text-slate-400 leading-relaxed">Formulário à esquerda e resumo à direita com lista de bônus, caixinha de Order Bump (+R$ 47) e depoimento com estrelas.</p>
+            </div>
+
+            <!-- Modelo Checkout 3 -->
+            <div class="checkout-model-card p-5 rounded-2xl border-2 border-slate-800 bg-slate-900/60 cursor-pointer transition-all hover:border-slate-600" data-checkout-val="clean-minimalista">
+              <div class="flex items-center justify-between mb-2">
+                <span class="w-8 h-8 rounded-lg bg-blue-600/20 text-blue-400 flex items-center justify-center font-black text-sm">03</span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-600/20 text-blue-400 uppercase">Clean &amp; B2B</span>
+              </div>
+              <h4 class="text-base font-bold text-white mb-1">Minimalista Premium (Clean B2B)</h4>
+              <p class="text-xs text-slate-400 leading-relaxed">Estética elegante dark titanium, discriminação de valores, seletor de Pessoa Física (CPF) / Jurídica (CNPJ) e máxima sobriedade.</p>
+            </div>
+          </div>
+
+          <!-- CAMPOS DE PERSONALIZAÇÃO DO CHECKOUT -->
+          <div class="pt-4 border-t border-slate-800 space-y-6">
+            <h4 class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Dados da Oferta no Checkout</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1.5">Nome do Produto no Checkout</label>
+                <input type="text" id="cfg_checkout_productName" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1.5">Descrição Curta / Subtítulo</label>
+                <input type="text" id="cfg_checkout_productDescription" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1.5">Preço Riscado (De:)</label>
+                <input type="text" id="cfg_checkout_originalPrice" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1.5">Preço Final (Por:)</label>
+                <input type="text" id="cfg_checkout_salePrice" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1.5">Parcelamento</label>
+                <input type="text" id="cfg_checkout_installments" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1.5">Chave Pix de Recebimento</label>
+                <input type="text" id="cfg_checkout_pixKey" placeholder="suachavepix@email.com" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1.5">Garantia (Dias)</label>
+                <input type="text" id="cfg_checkout_guaranteeDays" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1.5">Texto da Garantia</label>
+                <input type="text" id="cfg_checkout_guaranteeText" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+              </div>
+            </div>
+
+            <!-- PERSONALIZAÇÃO DE ORDER BUMP (MODELO 2) -->
+            <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">OFERTA COMPLEMENTAR (ORDER BUMP)</span>
+                  <h5 class="text-sm font-bold text-white">Configurar Produto Extra no Checkout</h5>
+                </div>
+                <label class="inline-flex items-center gap-2 text-xs text-slate-300 cursor-pointer">
+                  <input type="checkbox" id="cfg_checkout_orderBumpActive" class="w-4 h-4 rounded text-emerald-500 focus:ring-emerald-400">
+                  <span>Ativar Order Bump</span>
+                </label>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-300 mb-1">Título do Bump</label>
+                  <input type="text" id="cfg_checkout_orderBumpTitle" class="w-full py-2.5 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white">
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-300 mb-1">Descrição</label>
+                  <input type="text" id="cfg_checkout_orderBumpDesc" class="w-full py-2.5 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white">
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-300 mb-1">Valor Extra (R$)</label>
+                  <input type="text" id="cfg_checkout_orderBumpPrice" class="w-full py-2.5 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white">
+                </div>
+              </div>
+            </div>
+
+            <!-- PERSONALIZAÇÃO DO DEPOIMENTO / PROVA SOCIAL -->
+            <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">PROVA SOCIAL NO CHECKOUT</span>
+                  <h5 class="text-sm font-bold text-white">Depoimento em Destaque</h5>
+                </div>
+                <label class="inline-flex items-center gap-2 text-xs text-slate-300 cursor-pointer">
+                  <input type="checkbox" id="cfg_checkout_testimonialActive" class="w-4 h-4 rounded text-emerald-500 focus:ring-emerald-400">
+                  <span>Exibir Depoimento</span>
+                </label>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-300 mb-1">Nome do Cliente</label>
+                  <input type="text" id="cfg_checkout_testimonialName" class="w-full py-2.5 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white">
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-300 mb-1">Cargo / Identificação</label>
+                  <input type="text" id="cfg_checkout_testimonialRole" class="w-full py-2.5 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white">
+                </div>
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-slate-300 mb-1">Texto do Depoimento</label>
+                <textarea id="cfg_checkout_testimonialText" rows="2" class="w-full py-2.5 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="mt-8 flex justify-between items-center text-xs text-slate-500">
@@ -1051,6 +1850,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // SELETOR DE MODELO DE CHECKOUT VISUAL
+  document.querySelectorAll('.checkout-model-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.checkout-model-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      const chosen = card.getAttribute('data-checkout-val');
+      if (!currentConfig.checkout) currentConfig.checkout = {};
+      currentConfig.checkout.activeModel = chosen;
+    });
+  });
+
   function loadFormData() {
     const cfg = currentConfig;
     const active = cfg.activeLayout || 'vendas-diretas';
@@ -1075,6 +1885,38 @@ document.addEventListener('DOMContentLoaded', () => {
     setVal('cfg_whatsappMessage', cfg.whatsappMessage);
     setVal('cfg_metaPixelId', cfg.metaPixelId);
     setVal('cfg_googleAdsId', cfg.googleAdsId);
+
+    // Configurações do Checkout
+    const chk = cfg.checkout || {};
+    const activeCheckout = chk.activeModel || 'conversao-rapida';
+    document.querySelectorAll('.checkout-model-card').forEach(c => {
+      if (c.getAttribute('data-checkout-val') === activeCheckout) {
+        c.classList.add('selected');
+      } else {
+        c.classList.remove('selected');
+      }
+    });
+
+    setVal('cfg_checkout_productName', chk.productName || 'Acesso Completo ao [Nome do Seu Produto]');
+    setVal('cfg_checkout_productDescription', chk.productDescription || 'Acesso imediato com todas as atualizações e suporte prioritário.');
+    setVal('cfg_checkout_originalPrice', chk.originalPrice || 'R$ 497,00');
+    setVal('cfg_checkout_salePrice', chk.salePrice || 'R$ 197,00');
+    setVal('cfg_checkout_installments', chk.installments || '12x de R$ 19,78');
+    setVal('cfg_checkout_pixKey', chk.pixKey || 'sua-chave-pix-aqui@empresa.com');
+    setVal('cfg_checkout_guaranteeDays', chk.guaranteeDays || '7');
+    setVal('cfg_checkout_guaranteeText', chk.guaranteeText || 'Você tem 7 dias de garantia incondicional. Se não gostar, devolvemos 100% do seu dinheiro.');
+
+    const bump = chk.orderBump || {};
+    setCheckbox('cfg_checkout_orderBumpActive', bump.active !== false);
+    setVal('cfg_checkout_orderBumpTitle', bump.title || 'Adicionar Acompanhamento VIP Individual');
+    setVal('cfg_checkout_orderBumpDesc', bump.description || 'Tenha 1 hora de consultoria individual para acelerar seus resultados.');
+    setVal('cfg_checkout_orderBumpPrice', bump.price || 'R$ 47,00');
+
+    const testm = chk.testimonial || {};
+    setCheckbox('cfg_checkout_testimonialActive', testm.active !== false);
+    setVal('cfg_checkout_testimonialName', testm.name || 'Mariana Costa');
+    setVal('cfg_checkout_testimonialRole', testm.role || 'Aluna / Cliente Verificada');
+    setVal('cfg_checkout_testimonialText', testm.text || 'O suporte e a estrutura são impecáveis! Consegui aplicar no meu negócio no mesmo dia da compra.');
 
     loadLayoutSpecificFields(active);
   }
@@ -1123,6 +1965,16 @@ document.addEventListener('DOMContentLoaded', () => {
     return el ? el.value.trim() : '';
   }
 
+  function setCheckbox(id, val) {
+    const el = document.getElementById(id);
+    if (el) el.checked = !!val;
+  }
+
+  function getCheckbox(id) {
+    const el = document.getElementById(id);
+    return el ? el.checked : false;
+  }
+
   // Salvar no localStorage
   document.getElementById('btnSaveConfig').addEventListener('click', () => {
     currentConfig.businessName = getVal('cfg_businessName');
@@ -1135,6 +1987,33 @@ document.addEventListener('DOMContentLoaded', () => {
     currentConfig.whatsappMessage = getVal('cfg_whatsappMessage');
     currentConfig.metaPixelId = getVal('cfg_metaPixelId');
     currentConfig.googleAdsId = getVal('cfg_googleAdsId');
+
+    // Salvar Checkout
+    if (!currentConfig.checkout) currentConfig.checkout = {};
+    currentConfig.checkout.productName = getVal('cfg_checkout_productName');
+    currentConfig.checkout.productDescription = getVal('cfg_checkout_productDescription');
+    currentConfig.checkout.originalPrice = getVal('cfg_checkout_originalPrice');
+    currentConfig.checkout.salePrice = getVal('cfg_checkout_salePrice');
+    currentConfig.checkout.installments = getVal('cfg_checkout_installments');
+    currentConfig.checkout.pixKey = getVal('cfg_checkout_pixKey');
+    currentConfig.checkout.guaranteeDays = getVal('cfg_checkout_guaranteeDays');
+    currentConfig.checkout.guaranteeText = getVal('cfg_checkout_guaranteeText');
+
+    currentConfig.checkout.orderBump = {
+      active: getCheckbox('cfg_checkout_orderBumpActive'),
+      title: getVal('cfg_checkout_orderBumpTitle'),
+      description: getVal('cfg_checkout_orderBumpDesc'),
+      price: getVal('cfg_checkout_orderBumpPrice')
+    };
+
+    currentConfig.checkout.testimonial = {
+      active: getCheckbox('cfg_checkout_testimonialActive'),
+      name: getVal('cfg_checkout_testimonialName'),
+      role: getVal('cfg_checkout_testimonialRole'),
+      text: getVal('cfg_checkout_testimonialText'),
+      stars: 5,
+      avatarUrl: 'assets/imagens/foto-placeholder.jpg'
+    };
 
     const active = currentConfig.activeLayout || 'vendas-diretas';
     if (active === 'vendas-diretas') {
@@ -1250,12 +2129,23 @@ const manualHtml = `<!DOCTYPE html>
   </div>
 
   <div class="box">
-    <h3 class="box-title"><span class="num">3</span> Tornando as Alterações Definitivas</h3>
+    <h3 class="box-title"><span class="num">3</span> Escolhendo e Personalizando o Modelo de Checkout</h3>
+    <p>O pacote inclui <strong>3 Modelos de Checkout</strong> de alta conversão selecionáveis na aba <em>"💳 Modelos & Checkout"</em> do Painel Admin:</p>
+    <ul>
+      <li><strong>1. Conversão Rápida (1 Coluna Mobile-First):</strong> Foco em rapidez no celular com cronômetro de urgência e Pix em 1 clique.</li>
+      <li><strong>2. Duas Colunas (Order Bump & Prova Social):</strong> Layout dividido com resumo lateral, depoimento com 5 estrelas e caixinha de Order Bump (+R$ 47).</li>
+      <li><strong>3. Minimalista Premium (Clean B2B Corporativo):</strong> Estética elegante com seletor de Pessoa Física (CPF) ou Jurídica (CNPJ) e discriminação de fatura.</li>
+    </ul>
+    <p style="margin-top:8px;">Você pode personalizar nome do produto, preços, chave Pix de recebimento, garantia e depoimentos diretamente pelo painel!</p>
+  </div>
+
+  <div class="box">
+    <h3 class="box-title"><span class="num">4</span> Tornando as Alterações Definitivas</h3>
     <p>Ao terminar de editar no Painel Admin, clique no botão azul <strong>"Baixar config.js"</strong>. Substitua o arquivo dentro da pasta <code>js/</code>. Desta forma, suas edições ficam salvas permanentemente em qualquer servidor ou hospedagem!</p>
   </div>
 
   <div class="box">
-    <h3 class="box-title"><span class="num">4</span> Como Publicar Gratuitamente na Vercel (Em 3 Minutos)</h3>
+    <h3 class="box-title"><span class="num">5</span> Como Publicar Gratuitamente na Vercel (Em 3 Minutos)</h3>
     <ol>
       <li>Crie uma conta gratuita em <strong>vercel.com</strong>.</li>
       <li>Arraste a pasta descompactada deste projeto para o painel da Vercel.</li>
@@ -1345,16 +2235,36 @@ body[data-active-layout="vendas-diretas"] [data-layout]:not([data-layout="vendas
 
 ---
 
-## ⚙️ 4. Fluxo de Dados e Painel Admin
+## 💳 4. Os 3 Modelos de Checkout Integrados
+
+O projeto acompanha 3 estruturas de checkout configuráveis no painel:
+
+1. **⚡ Modelo 1: Conversão Rápida (1 Coluna Mobile-First):** Focado em velocidade para tráfego mobile, com cronômetro de urgência, resumo condensado e botão Pix com cópia em 1 clique.
+2. **📊 Modelo 2: Alta Conversão (2 Colunas com Order Bump & Prova Social):** Estrutura clássica de grandes lançamentos. Inclui resumo lateral com foto do produto, depoimento com 5 estrelas e caixinha dinâmica de **Order Bump (+R$ 47)** que recalcula o valor total na hora.
+3. **🏢 Modelo 3: Minimalista Premium (Clean B2B Corporativo):** Interface dark titanium com seletor de Pessoa Física (CPF) vs. Jurídica (CNPJ) e discriminação detalhada da fatura comercial.
+
+A alternância é controlada por \`body[data-active-checkout="nome-do-modelo"]\` e configurável visualmente na aba **"Modelos & Checkout"** do Painel Admin.
+
+---
+
+## 🛡️ 5. Separação de Modo Demonstração vs. Produção
+
+- **No pacote do cliente:** A barra superior de demonstração ("PACOTE DE LANDING PAGE") e o botão "⚙️ Editar no Admin" da navbar ficam **ocultos e desativados**. O cliente e seus visitantes veem apenas o site limpo e profissional.
+- **Na demonstração pública da RMTI:** Caso acesse via rota \`/pacote\` ou com \`?demo=true\`, os controles de teste são ativados para os visitantes experimentarem os recursos.
+- **Assinatura no Rodapé:** O rodapé carrega o selo elegante com a logo oficial da **RMTI (Desenvolvido por RMTI • Soluções em Tecnologia)** com link para o site oficial.
+
+---
+
+## ⚙️ 6. Fluxo de Dados e Painel Admin
 
 1. **Leitura de Dados:** O arquivo \`js/config.js\` define o objeto \`DEFAULT_CONFIG\` e expõe \`window.PAGE_CONFIG\`. Se existir uma cópia salva em \`localStorage.getItem('LP_ALLINONE_CONFIG')\`, ela tem precedência.
-2. **Edição Visual:** Ao abrir \`admin/index.html\`, o cliente altera textos, preços, telefones e modelos.
+2. **Edição Visual:** Ao abrir \`admin/index.html\`, o cliente altera textos, preços, telefones, checkout e modelos.
 3. **Persistência Temporária:** Ao clicar em "Salvar Alterações", os dados são persistidos no \`localStorage\`.
 4. **Persistência Definitiva:** Ao clicar em "Baixar config.js", o script cria dinamicamente um arquivo \`config.js\` contendo os dados atuais. O desenvolvedor ou cliente só precisa substituir o arquivo dentro de \`js/config.js\`.
 
 ---
 
-## 🔐 5. Autenticação do Painel Admin
+## 🔐 7. Autenticação do Painel Admin
 
 - A autenticação é executada no cliente em \`admin/admin.js\`.
 - **Senha inicial:** \`123456\`.
@@ -1363,7 +2273,7 @@ body[data-active-layout="vendas-diretas"] [data-layout]:not([data-layout="vendas
 
 ---
 
-## 🚀 6. Instruções para Publicação
+## 🚀 8. Instruções para Publicação
 
 ### Deploy na Vercel:
 1. Conecte o repositório ou arraste a pasta diretamente para o dashboard da Vercel.
@@ -1379,6 +2289,22 @@ body[data-active-layout="vendas-diretas"] [data-layout]:not([data-layout="vendas
 © 2026 RMTI • Soluções Inteligentes em Tecnologia.
 `;
 fs.writeFileSync(path.join(TARGET_DIR, 'README.md'), readmeMd);
+
+// Copiar logotipo oficial e ícone da RMTI para os assets do pacote
+const rmtiLogoPng = path.join(RMTI_DIR, 'public/assets/imagens/logo.png');
+const rmtiLogoWebp = path.join(RMTI_DIR, 'public/assets/imagens/logo.webp');
+const rmtiIconPng = path.join(RMTI_DIR, 'public/assets/imagens/IconeNovo-trimmed.png');
+
+if (fs.existsSync(rmtiLogoPng)) {
+  fs.copyFileSync(rmtiLogoPng, path.join(TARGET_DIR, 'assets/imagens/rmti-logo.png'));
+  console.log('Logo RMTI copiado para assets/imagens/rmti-logo.png');
+}
+if (fs.existsSync(rmtiLogoWebp)) {
+  fs.copyFileSync(rmtiLogoWebp, path.join(TARGET_DIR, 'assets/imagens/rmti-logo.webp'));
+}
+if (fs.existsSync(rmtiIconPng)) {
+  fs.copyFileSync(rmtiIconPng, path.join(TARGET_DIR, 'assets/imagens/rmti-icone.png'));
+}
 
 // =============================================================================
 // 9. COMPACTAR O PROJETO EM .ZIP PARA ENTREGA

@@ -84,6 +84,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // SELETOR DE MODELO DE CHECKOUT VISUAL
+  document.querySelectorAll('.checkout-model-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.checkout-model-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      const chosen = card.getAttribute('data-checkout-val');
+      if (!currentConfig.checkout) currentConfig.checkout = {};
+      currentConfig.checkout.activeModel = chosen;
+    });
+  });
+
   function loadFormData() {
     const cfg = currentConfig;
     const active = cfg.activeLayout || 'vendas-diretas';
@@ -108,6 +119,38 @@ document.addEventListener('DOMContentLoaded', () => {
     setVal('cfg_whatsappMessage', cfg.whatsappMessage);
     setVal('cfg_metaPixelId', cfg.metaPixelId);
     setVal('cfg_googleAdsId', cfg.googleAdsId);
+
+    // Configurações do Checkout
+    const chk = cfg.checkout || {};
+    const activeCheckout = chk.activeModel || 'conversao-rapida';
+    document.querySelectorAll('.checkout-model-card').forEach(c => {
+      if (c.getAttribute('data-checkout-val') === activeCheckout) {
+        c.classList.add('selected');
+      } else {
+        c.classList.remove('selected');
+      }
+    });
+
+    setVal('cfg_checkout_productName', chk.productName || 'Acesso Completo ao [Nome do Seu Produto]');
+    setVal('cfg_checkout_productDescription', chk.productDescription || 'Acesso imediato com todas as atualizações e suporte prioritário.');
+    setVal('cfg_checkout_originalPrice', chk.originalPrice || 'R$ 497,00');
+    setVal('cfg_checkout_salePrice', chk.salePrice || 'R$ 197,00');
+    setVal('cfg_checkout_installments', chk.installments || '12x de R$ 19,78');
+    setVal('cfg_checkout_pixKey', chk.pixKey || 'sua-chave-pix-aqui@empresa.com');
+    setVal('cfg_checkout_guaranteeDays', chk.guaranteeDays || '7');
+    setVal('cfg_checkout_guaranteeText', chk.guaranteeText || 'Você tem 7 dias de garantia incondicional. Se não gostar, devolvemos 100% do seu dinheiro.');
+
+    const bump = chk.orderBump || {};
+    setCheckbox('cfg_checkout_orderBumpActive', bump.active !== false);
+    setVal('cfg_checkout_orderBumpTitle', bump.title || 'Adicionar Acompanhamento VIP Individual');
+    setVal('cfg_checkout_orderBumpDesc', bump.description || 'Tenha 1 hora de consultoria individual para acelerar seus resultados.');
+    setVal('cfg_checkout_orderBumpPrice', bump.price || 'R$ 47,00');
+
+    const testm = chk.testimonial || {};
+    setCheckbox('cfg_checkout_testimonialActive', testm.active !== false);
+    setVal('cfg_checkout_testimonialName', testm.name || 'Mariana Costa');
+    setVal('cfg_checkout_testimonialRole', testm.role || 'Aluna / Cliente Verificada');
+    setVal('cfg_checkout_testimonialText', testm.text || 'O suporte e a estrutura são impecáveis! Consegui aplicar no meu negócio no mesmo dia da compra.');
 
     loadLayoutSpecificFields(active);
   }
@@ -156,6 +199,16 @@ document.addEventListener('DOMContentLoaded', () => {
     return el ? el.value.trim() : '';
   }
 
+  function setCheckbox(id, val) {
+    const el = document.getElementById(id);
+    if (el) el.checked = !!val;
+  }
+
+  function getCheckbox(id) {
+    const el = document.getElementById(id);
+    return el ? el.checked : false;
+  }
+
   // Salvar no localStorage
   document.getElementById('btnSaveConfig').addEventListener('click', () => {
     currentConfig.businessName = getVal('cfg_businessName');
@@ -168,6 +221,33 @@ document.addEventListener('DOMContentLoaded', () => {
     currentConfig.whatsappMessage = getVal('cfg_whatsappMessage');
     currentConfig.metaPixelId = getVal('cfg_metaPixelId');
     currentConfig.googleAdsId = getVal('cfg_googleAdsId');
+
+    // Salvar Checkout
+    if (!currentConfig.checkout) currentConfig.checkout = {};
+    currentConfig.checkout.productName = getVal('cfg_checkout_productName');
+    currentConfig.checkout.productDescription = getVal('cfg_checkout_productDescription');
+    currentConfig.checkout.originalPrice = getVal('cfg_checkout_originalPrice');
+    currentConfig.checkout.salePrice = getVal('cfg_checkout_salePrice');
+    currentConfig.checkout.installments = getVal('cfg_checkout_installments');
+    currentConfig.checkout.pixKey = getVal('cfg_checkout_pixKey');
+    currentConfig.checkout.guaranteeDays = getVal('cfg_checkout_guaranteeDays');
+    currentConfig.checkout.guaranteeText = getVal('cfg_checkout_guaranteeText');
+
+    currentConfig.checkout.orderBump = {
+      active: getCheckbox('cfg_checkout_orderBumpActive'),
+      title: getVal('cfg_checkout_orderBumpTitle'),
+      description: getVal('cfg_checkout_orderBumpDesc'),
+      price: getVal('cfg_checkout_orderBumpPrice')
+    };
+
+    currentConfig.checkout.testimonial = {
+      active: getCheckbox('cfg_checkout_testimonialActive'),
+      name: getVal('cfg_checkout_testimonialName'),
+      role: getVal('cfg_checkout_testimonialRole'),
+      text: getVal('cfg_checkout_testimonialText'),
+      stars: 5,
+      avatarUrl: 'assets/imagens/foto-placeholder.jpg'
+    };
 
     const active = currentConfig.activeLayout || 'vendas-diretas';
     if (active === 'vendas-diretas') {

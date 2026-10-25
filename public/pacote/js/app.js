@@ -5,16 +5,29 @@ document.addEventListener('DOMContentLoaded', () => {
   const cfg = window.PAGE_CONFIG || {};
   const activeLayout = cfg.activeLayout || 'vendas-diretas';
 
+  // Modo de Demonstração: ativo apenas se configurado explicitamente, se estiver na rota /pacote da RMTI ou com ?demo=true
+  const isDemoMode = Boolean(
+    cfg.isDemo === true ||
+    window.location.pathname.includes('/pacote') ||
+    new URLSearchParams(window.location.search).get('demo') === 'true'
+  );
+
+  if (isDemoMode) {
+    document.body.classList.add('demo-mode');
+    const demoLayoutName = document.getElementById('demoLayoutName');
+    if (demoLayoutName) {
+      if (activeLayout === 'vendas-diretas') demoLayoutName.textContent = 'Modelo 01: Vendas Diretas & VSL';
+      else if (activeLayout === 'leads-whatsapp') demoLayoutName.textContent = 'Modelo 02: Captura & WhatsApp VIP';
+      else if (activeLayout === 'institucional') demoLayoutName.textContent = 'Modelo 03: Institucional & B2B';
+    }
+  } else {
+    document.body.classList.remove('demo-mode');
+    // Remove fisicamente os elementos de demonstração para não ocupar espaço no pacote do cliente
+    document.querySelectorAll('.demo-only, #demoTopBar, .demo-bar, #btnEditAdmin, .demo-checkout-bar').forEach(el => el.remove());
+  }
+
   // Aplicar layout ativo no body
   document.body.setAttribute('data-active-layout', activeLayout);
-
-  // Atualizar indicador visual no Topo de Demonstração
-  const demoLayoutName = document.getElementById('demoLayoutName');
-  if (demoLayoutName) {
-    if (activeLayout === 'vendas-diretas') demoLayoutName.textContent = 'Modelo 01: Vendas Diretas & VSL';
-    else if (activeLayout === 'leads-whatsapp') demoLayoutName.textContent = 'Modelo 02: Captura & WhatsApp VIP';
-    else if (activeLayout === 'institucional') demoLayoutName.textContent = 'Modelo 03: Institucional & B2B';
-  }
 
   // Preencher dados comuns
   if (cfg.businessName) {

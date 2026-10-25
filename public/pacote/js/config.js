@@ -3,6 +3,7 @@
  * Você pode alterar os valores aqui manualmente ou usar o Painel Admin (/admin).
  */
 const DEFAULT_CONFIG = {
+  "isDemo": false,
   "activeLayout": "vendas-diretas",
   "businessName": "Seu Negócio ou Especialista",
   "tagline": "Soluções de Alta Performance para Alavancar Seus Resultados",
@@ -160,6 +161,34 @@ const DEFAULT_CONFIG = {
         "desc": "Equipe dedicada para manter sua operação funcionando perfeitamente, com SLAs rigorosos e atendimento direto."
       }
     ]
+  },
+  "checkout": {
+    "activeModel": "conversao-rapida",
+    "productName": "Acesso Completo ao [Nome do Seu Produto]",
+    "productDescription": "Acesso imediato com todas as atualizações e suporte prioritário.",
+    "productImage": "assets/imagens/mockup-placeholder.jpg",
+    "originalPrice": "R$ 497,00",
+    "salePrice": "R$ 197,00",
+    "installments": "12x de R$ 19,78",
+    "pixKey": "sua-chave-pix-aqui@empresa.com",
+    "urgencyText": "⚡ Oferta Reservada: Finalize seu pedido antes que o cronômetro expire para garantir o desconto.",
+    "urgencyMinutes": 15,
+    "guaranteeDays": "7",
+    "guaranteeText": "Você tem 7 dias de garantia incondicional. Se não gostar, devolvemos 100% do seu dinheiro.",
+    "orderBump": {
+      "active": true,
+      "title": "Adicionar Acompanhamento VIP Individual",
+      "description": "Tenha 1 hora de consultoria individual para acelerar seus resultados.",
+      "price": "R$ 47,00"
+    },
+    "testimonial": {
+      "active": true,
+      "name": "Mariana Costa",
+      "role": "Aluna / Cliente Verificada",
+      "text": "O suporte e a estrutura são impecáveis! Consegui aplicar no meu negócio no mesmo dia da compra.",
+      "stars": 5,
+      "avatarUrl": "assets/imagens/foto-placeholder.jpg"
+    }
   },
   "faqs": [
     {
