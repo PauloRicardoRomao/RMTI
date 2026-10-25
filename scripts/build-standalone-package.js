@@ -180,6 +180,39 @@ const unifiedConfig = {
     urgencyMinutes: 15,
     guaranteeDays: '7',
     guaranteeText: 'Você tem 7 dias de garantia incondicional. Se não gostar, devolvemos 100% do seu dinheiro.',
+    
+    // FORMA DE RECEBIMENTO / GATEWAY SELECIONADO:
+    // 'mercadopago' | 'pix_direto' | 'link_externo' | 'whatsapp'
+    paymentMethod: 'mercadopago',
+
+    // Configurações do Mercado Pago
+    mercadoPago: {
+      paymentLink: '', // Ex: https://mpago.la/xxxx ou https://link.mercadopago.com.br/xxxx
+      accessToken: '', // Opcional para devs
+      publicKey: ''    // Opcional para devs
+    },
+
+    // Configurações do Pix Direto (Sua Própria Conta)
+    pix: {
+      keyType: 'aleatoria', // 'cpf' | 'cnpj' | 'email' | 'telefone' | 'aleatoria'
+      key: 'sua-chave-pix-aqui@empresa.com',
+      receiverName: 'Seu Nome ou Razão Social',
+      bankName: 'Banco Inter / Nubank / Itaú',
+      sendWhatsAppProof: true
+    },
+
+    // Configurações de Checkout Externo (Kiwify, Hotmart, Eduzz, Stripe, Asaas, etc.)
+    externalCheckout: {
+      platformName: 'Kiwify',
+      checkoutUrl: ''
+    },
+
+    // Configurações de Venda Direta no WhatsApp
+    whatsappSales: {
+      phone: '5511999999999',
+      message: 'Olá! Preenchi meus dados no site e gostaria de concluir meu pagamento.'
+    },
+
     orderBump: {
       active: true,
       title: 'Adicionar Acompanhamento VIP Individual',

@@ -701,7 +701,7 @@ const checkoutHtml = `<!DOCTYPE html>
         </div>
       </div>
 
-      <form class="space-y-4" onsubmit="event.preventDefault(); window.location.href='obrigado.html';">
+      <form class="space-y-4" onsubmit="event.preventDefault(); handleCheckoutSubmit('m1');">
         <div>
           <label class="block text-xs font-bold text-slate-300 mb-1">Seu Nome Completo *</label>
           <input type="text" required placeholder="Digite seu nome completo" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 focus:border-emerald-500 text-sm text-white outline-none">
@@ -731,38 +731,32 @@ const checkoutHtml = `<!DOCTYPE html>
               Copiar
             </button>
           </div>
-          <p class="text-[11px] text-slate-400">Após o pagamento, o acesso é liberado automaticamente em seu e-mail.</p>
+          <div class="text-[11px] text-slate-400 space-y-0.5">
+            <p>Beneficiário: <strong class="text-white chk-val-pixReceiver">Seu Negócio</strong></p>
+            <p>Instituição: <span class="text-slate-300 chk-val-pixBank">Banco Inter / Nubank</span></p>
+          </div>
+          <button type="button" onclick="handleWhatsAppProof('m1')" class="w-full py-2.5 px-3 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-400 border border-emerald-500/30 font-bold text-xs flex items-center justify-center gap-2 transition-all">
+            <span>💬 Já fiz o Pix! Enviar Comprovante no WhatsApp →</span>
+          </button>
         </div>
 
         <!-- Seção Cartão M1 -->
         <div id="m1-sec-card" class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3 hidden">
-          <div>
-            <label class="block text-[11px] font-bold text-slate-300 mb-1">Número do Cartão</label>
-            <input type="text" placeholder="0000 0000 0000 0000" class="w-full py-2.5 px-3 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white">
-          </div>
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <label class="block text-[11px] font-bold text-slate-300 mb-1">Validade</label>
-              <input type="text" placeholder="MM/AA" class="w-full py-2.5 px-3 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white">
+          <div class="p-3 rounded-xl bg-sky-950/30 border border-sky-500/20 text-xs text-slate-300 space-y-2">
+            <div class="flex items-center justify-between font-bold text-sky-400">
+              <span class="flex items-center gap-1.5">
+                <span>🔒 Pagamento Seguro</span>
+              </span>
+              <span class="chk-val-salePrice text-white">R$ 197,00</span>
             </div>
-            <div>
-              <label class="block text-[11px] font-bold text-slate-300 mb-1">CVV</label>
-              <input type="text" placeholder="123" class="w-full py-2.5 px-3 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white">
-            </div>
-          </div>
-          <div>
-            <label class="block text-[11px] font-bold text-slate-300 mb-1">Parcelamento</label>
-            <select class="w-full py-2.5 px-3 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white">
-              <option>1x de R$ 197,00 (à vista)</option>
-              <option>2x de R$ 102,40</option>
-              <option>3x de R$ 69,10</option>
-              <option>6x de R$ 36,20</option>
-              <option>12x de R$ 19,78</option>
-            </select>
+            <p class="text-[11px] text-slate-400">Pague no cartão de crédito em até 12x com proteção bancária.</p>
+            <button type="button" onclick="handleCheckoutSubmit('m1')" class="w-full py-3 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-md">
+              <span class="chk-card-btn-text">Pagar com Mercado Pago (em até 12x) →</span>
+            </button>
           </div>
         </div>
 
-        <button type="submit" class="pulse-btn w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-black text-sm uppercase tracking-wider shadow-xl shadow-emerald-500/20">
+        <button type="submit" class="chk-main-btn pulse-btn w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-black text-sm uppercase tracking-wider shadow-xl shadow-emerald-500/20">
           Confirmar e Liberar Acesso Imediato →
         </button>
       </form>
@@ -806,7 +800,7 @@ const checkoutHtml = `<!DOCTYPE html>
             <h3 class="text-base font-bold text-white">Dados Pessoais</h3>
           </div>
 
-          <form class="space-y-4" onsubmit="event.preventDefault(); window.location.href='obrigado.html';">
+          <form class="space-y-4" onsubmit="event.preventDefault(); handleCheckoutSubmit('m2');">
             <div>
               <label class="block text-xs font-bold text-slate-300 mb-1">Nome Completo *</label>
               <input type="text" required placeholder="Ex: João da Silva" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
@@ -854,23 +848,26 @@ const checkoutHtml = `<!DOCTYPE html>
                     Copiar
                   </button>
                 </div>
+                <div class="text-[11px] text-slate-400 space-y-0.5">
+                  <p>Beneficiário: <strong class="text-white chk-val-pixReceiver">Seu Negócio</strong></p>
+                  <p>Instituição: <span class="text-slate-300 chk-val-pixBank">Banco Inter / Nubank</span></p>
+                </div>
+                <button type="button" onclick="handleWhatsAppProof('m2')" class="w-full py-2.5 px-3 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-400 border border-emerald-500/30 font-bold text-xs flex items-center justify-center gap-2 transition-all">
+                  <span>💬 Já fiz o Pix! Enviar Comprovante no WhatsApp →</span>
+                </button>
               </div>
 
               <!-- Cartão M2 -->
               <div id="m2-sec-card" class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3 hidden">
-                <div>
-                  <label class="block text-[11px] font-bold text-slate-300 mb-1">Número do Cartão</label>
-                  <input type="text" placeholder="0000 0000 0000 0000" class="w-full py-2.5 px-3 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white">
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                  <div>
-                    <label class="block text-[11px] font-bold text-slate-300 mb-1">Validade</label>
-                    <input type="text" placeholder="MM/AA" class="w-full py-2.5 px-3 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white">
+                <div class="p-3 rounded-xl bg-sky-950/30 border border-sky-500/20 text-xs text-slate-300 space-y-2">
+                  <div class="flex items-center justify-between font-bold text-sky-400">
+                    <span>🔒 Pagamento no Cartão</span>
+                    <span class="m2-final-total text-white">R$ 197,00</span>
                   </div>
-                  <div>
-                    <label class="block text-[11px] font-bold text-slate-300 mb-1">CVV</label>
-                    <input type="text" placeholder="123" class="w-full py-2.5 px-3 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white">
-                  </div>
+                  <p class="text-[11px] text-slate-400">Em até 12x no cartão com aprovação imediata.</p>
+                  <button type="button" onclick="handleCheckoutSubmit('m2')" class="w-full py-3 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-md">
+                    <span class="chk-card-btn-text">Pagar com Mercado Pago (em até 12x) →</span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -894,7 +891,7 @@ const checkoutHtml = `<!DOCTYPE html>
               </div>
             </div>
 
-            <button type="submit" class="pulse-btn w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-black text-sm uppercase tracking-wider shadow-xl shadow-emerald-500/20 mt-6">
+            <button type="submit" class="chk-main-btn pulse-btn w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-black text-sm uppercase tracking-wider shadow-xl shadow-emerald-500/20 mt-6">
               Finalizar Pedido Seguro →
             </button>
           </form>
@@ -994,7 +991,7 @@ const checkoutHtml = `<!DOCTYPE html>
         </div>
       </div>
 
-      <form class="space-y-4" onsubmit="event.preventDefault(); window.location.href='obrigado.html';">
+      <form class="space-y-4" onsubmit="event.preventDefault(); handleCheckoutSubmit('m3');">
         <div id="m3-pf-fields" class="space-y-4">
           <div>
             <label class="block text-xs font-bold text-slate-300 mb-1">Nome do Titular *</label>
@@ -1065,9 +1062,16 @@ const checkoutHtml = `<!DOCTYPE html>
               Copiar
             </button>
           </div>
+          <div class="text-[11px] text-slate-400 space-y-0.5">
+            <p>Beneficiário: <strong class="text-white chk-val-pixReceiver">Seu Negócio</strong></p>
+            <p>Instituição: <span class="text-slate-300 chk-val-pixBank">Banco Inter / Nubank</span></p>
+          </div>
+          <button type="button" onclick="handleWhatsAppProof('m3')" class="w-full py-2.5 px-3 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-400 border border-emerald-500/30 font-bold text-xs flex items-center justify-center gap-2 transition-all">
+            <span>💬 Confirmar Pagamento no WhatsApp →</span>
+          </button>
         </div>
 
-        <button type="submit" class="w-full py-4 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-sm uppercase tracking-wider transition-all">
+        <button type="submit" class="chk-main-btn w-full py-4 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-sm uppercase tracking-wider transition-all">
           Confirmar Faturamento &amp; Liberar Acesso →
         </button>
       </form>
@@ -1140,10 +1144,35 @@ const checkoutHtml = `<!DOCTYPE html>
       document.querySelectorAll('.chk-val-guaranteeText').forEach(el => el.textContent = guarText);
 
       // Pix inputs
+      const pPix = chk.pix || {};
+      const activePixKey = pPix.key || pixKey;
       ['m1-pix-input', 'm2-pix-input', 'm3-pix-input'].forEach(id => {
         const el = document.getElementById(id);
-        if (el) el.value = pixKey;
+        if (el) el.value = activePixKey;
       });
+
+      const pixReceiver = pPix.receiverName || cfg.businessName || 'Seu Negócio';
+      const pixBank = pPix.bankName || 'Banco Inter / Nubank';
+      document.querySelectorAll('.chk-val-pixReceiver').forEach(el => el.textContent = pixReceiver);
+      document.querySelectorAll('.chk-val-pixBank').forEach(el => el.textContent = pixBank);
+
+      // Ajuste dinâmico de botões conforme Gateway
+      const payMethod = chk.paymentMethod || 'mercadopago';
+      const extObj = chk.externalCheckout || {};
+      const extPlatform = extObj.platformName || 'Plataforma';
+      document.querySelectorAll('.chk-val-extPlatform').forEach(el => el.textContent = extPlatform);
+
+      if (payMethod === 'mercadopago') {
+        const mpLink = (chk.mercadoPago && chk.mercadoPago.paymentLink) || '';
+        if (mpLink) {
+          document.querySelectorAll('.chk-card-btn-text').forEach(el => el.textContent = 'Pagar com Mercado Pago (em até 12x) →');
+          document.querySelectorAll('.chk-main-btn').forEach(el => el.textContent = 'Pagar no Mercado Pago (em até 12x) →');
+        }
+      } else if (payMethod === 'link_externo') {
+        document.querySelectorAll('.chk-main-btn').forEach(el => el.textContent = 'Ir para Pagamento Seguro (' + extPlatform + ') →');
+      } else if (payMethod === 'whatsapp') {
+        document.querySelectorAll('.chk-main-btn').forEach(el => el.textContent = 'Finalizar Pedido pelo WhatsApp →');
+      }
 
       // Order Bump
       const bump = chk.orderBump || {};
@@ -1279,6 +1308,92 @@ const checkoutHtml = `<!DOCTYPE html>
         if (--timer < 0) timer = duration;
       }, 1000);
     }
+    function handleCheckoutSubmit(modelPrefix) {
+      const cfg = window.PAGE_CONFIG || {};
+      const chk = cfg.checkout || {};
+      const payMethod = chk.paymentMethod || 'mercadopago';
+
+      const layoutScope = document.querySelector('[data-checkout-layout="' + activeCheckoutModel + '"]');
+      const nameInput = layoutScope ? layoutScope.querySelector('input[type="text"][required], input[placeholder*="nome" i], input[placeholder*="Nome" i]') : null;
+      const emailInput = layoutScope ? layoutScope.querySelector('input[type="email"]') : null;
+      const phoneInput = layoutScope ? layoutScope.querySelector('input[type="tel"]') : null;
+
+      const buyerName = nameInput ? nameInput.value.trim() : '';
+      const buyerEmail = emailInput ? emailInput.value.trim() : '';
+      const buyerPhone = phoneInput ? phoneInput.value.trim() : '';
+
+      if (!buyerName || !buyerPhone) {
+        alert('Por favor, preencha os dados de contato (Nome e WhatsApp) para prosseguir.');
+        return;
+      }
+
+      const prodName = chk.productName || 'Acesso ao Produto';
+      const finalPrice = isBumpChecked ? ('R$ ' + (basePriceNum + bumpPriceNum) + ',00') : (chk.salePrice || 'R$ ' + basePriceNum + ',00');
+
+      // 1. MERCADO PAGO
+      if (payMethod === 'mercadopago') {
+        const mpLink = (chk.mercadoPago && chk.mercadoPago.paymentLink) ? chk.mercadoPago.paymentLink.trim() : '';
+        if (mpLink) {
+          window.location.href = mpLink;
+          return;
+        }
+        const pixKey = (chk.pix && chk.pix.key) || chk.pixKey;
+        if (pixKey) {
+          copyPixKey(modelPrefix + '-pix-input');
+        }
+        window.location.href = 'obrigado.html';
+        return;
+      }
+
+      // 2. PIX DIRETO (COM ENVIO DE COMPROVANTE VIA WHATSAPP)
+      if (payMethod === 'pix_direto') {
+        copyPixKey(modelPrefix + '-pix-input');
+        const waNumber = (chk.whatsappSales && chk.whatsappSales.phone) || cfg.whatsapp || '5511999999999';
+        const cleanPhone = waNumber.replace(/\\D/g, '');
+        const receiver = (chk.pix && chk.pix.receiverName) || cfg.businessName || 'Equipe';
+        const msg = encodeURIComponent('Olá ' + receiver + '! Realizei o pagamento via Pix de ' + finalPrice + ' referente ao pedido de "' + prodName + '".\\n\\n• Meu Nome: ' + buyerName + '\\n• E-mail: ' + buyerEmail + '\\n• Telefone: ' + buyerPhone + '\\n\\nSegue o comprovante em anexo!');
+        setTimeout(() => {
+          window.open('https://wa.me/' + cleanPhone + '?text=' + msg, '_blank');
+          window.location.href = 'obrigado.html';
+        }, 1200);
+        return;
+      }
+
+      // 3. LINK DE OUTRO GATEWAY (KIWIFY, HOTMART, EDUZZ, ETC)
+      if (payMethod === 'link_externo') {
+        const extUrl = (chk.externalCheckout && chk.externalCheckout.checkoutUrl) ? chk.externalCheckout.checkoutUrl.trim() : '';
+        if (extUrl) {
+          window.location.href = extUrl;
+          return;
+        }
+        window.location.href = 'obrigado.html';
+        return;
+      }
+
+      // 4. VENDA NO WHATSAPP
+      if (payMethod === 'whatsapp') {
+        const waNumber = (chk.whatsappSales && chk.whatsappSales.phone) || cfg.whatsapp || '5511999999999';
+        const cleanPhone = waNumber.replace(/\\D/g, '');
+        const msg = encodeURIComponent('Olá! Gostaria de concluir o pedido de "' + prodName + '" no valor de ' + finalPrice + '.\\n\\n• Nome: ' + buyerName + '\\n• E-mail: ' + buyerEmail + '\\n• Telefone: ' + buyerPhone);
+        window.open('https://wa.me/' + cleanPhone + '?text=' + msg, '_blank');
+        window.location.href = 'obrigado.html';
+        return;
+      }
+
+      window.location.href = 'obrigado.html';
+    }
+
+    function handleWhatsAppProof(modelPrefix) {
+      const cfg = window.PAGE_CONFIG || {};
+      const chk = cfg.checkout || {};
+      copyPixKey(modelPrefix + '-pix-input');
+      const waNumber = (chk.whatsappSales && chk.whatsappSales.phone) || cfg.whatsapp || '5511999999999';
+      const cleanPhone = waNumber.replace(/\\D/g, '');
+      const prodName = chk.productName || 'Acesso ao Produto';
+      const finalPrice = isBumpChecked ? ('R$ ' + (basePriceNum + bumpPriceNum) + ',00') : (chk.salePrice || 'R$ ' + basePriceNum + ',00');
+      const msg = encodeURIComponent('Olá! Realizei o Pix de ' + finalPrice + ' referente ao pedido de "' + prodName + '". Segue o comprovante.');
+      window.open('https://wa.me/' + cleanPhone + '?text=' + msg, '_blank');
+    }
   </script>
 </body>
 </html>
@@ -1332,6 +1447,9 @@ const adminHtml = `<!DOCTYPE html>
     .tab-btn.active { background: rgba(16, 185, 129, 0.15); color: #34d399; border-color: rgba(16, 185, 129, 0.4); font-weight: 800; }
     .layout-card.selected { border-color: #10b981; background: rgba(16, 185, 129, 0.12); box-shadow: 0 0 20px rgba(16, 185, 129, 0.2); }
     .checkout-model-card.selected { border-color: #10b981; background: rgba(16, 185, 129, 0.12); box-shadow: 0 0 20px rgba(16, 185, 129, 0.2); }
+    .payment-method-card.selected { border-color: #10b981; background: rgba(16, 185, 129, 0.12); box-shadow: 0 0 20px rgba(16, 185, 129, 0.2); }
+    .payment-method-card[data-payment-val="mercadopago"].selected { border-color: #0ea5e9; background: rgba(14, 165, 233, 0.12); box-shadow: 0 0 20px rgba(14, 165, 233, 0.2); }
+    .payment-method-card[data-payment-val="link_externo"].selected { border-color: #a855f7; background: rgba(168, 85, 247, 0.12); box-shadow: 0 0 20px rgba(168, 85, 247, 0.2); }
   </style>
 </head>
 <body class="min-h-screen pb-20">
@@ -1643,6 +1761,157 @@ const adminHtml = `<!DOCTYPE html>
             </div>
           </div>
 
+          <!-- SELETOR DE FORMA DE RECEBIMENTO & GATEWAY -->
+          <div class="pt-6 border-t border-slate-800 space-y-4">
+            <div>
+              <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">GATEWAY &amp; FORMA DE RECEBIMENTO</span>
+              <h4 class="text-base font-black text-white">Como Você Quer Receber Seus Pagamentos?</h4>
+              <p class="text-xs text-slate-400">Escolha como seus clientes pagarão no checkout. Você só precisa preencher o estritamente necessário para seu método.</p>
+            </div>
+
+            <!-- 4 Cards de Seleção de Forma de Recebimento -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              <!-- Card Mercado Pago -->
+              <div class="payment-method-card p-4 rounded-2xl border-2 border-slate-800 bg-slate-900/60 cursor-pointer transition-all hover:border-sky-500" data-payment-val="mercadopago">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xl">🔵</span>
+                  <span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-sky-500/20 text-sky-400 uppercase">Pix + Cartão 12x</span>
+                </div>
+                <h5 class="text-sm font-bold text-white">Mercado Pago</h5>
+                <p class="text-[11px] text-slate-400 mt-1">Cole o link gerado no app do Mercado Pago.</p>
+              </div>
+
+              <!-- Card Pix Direto -->
+              <div class="payment-method-card p-4 rounded-2xl border-2 border-slate-800 bg-slate-900/60 cursor-pointer transition-all hover:border-emerald-500" data-payment-val="pix_direto">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xl">⚡</span>
+                  <span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 uppercase">Sem Taxas</span>
+                </div>
+                <h5 class="text-sm font-bold text-white">Pix Direto (Sua Chave)</h5>
+                <p class="text-[11px] text-slate-400 mt-1">Receba na sua conta com confirmação no WhatsApp.</p>
+              </div>
+
+              <!-- Card Outro Gateway -->
+              <div class="payment-method-card p-4 rounded-2xl border-2 border-slate-800 bg-slate-900/60 cursor-pointer transition-all hover:border-purple-500" data-payment-val="link_externo">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xl">🚀</span>
+                  <span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-purple-500/20 text-purple-400 uppercase">Kiwify / Hotmart</span>
+                </div>
+                <h5 class="text-sm font-bold text-white">Outro Gateway</h5>
+                <p class="text-[11px] text-slate-400 mt-1">Link de checkout de qualquer plataforma externa.</p>
+              </div>
+
+              <!-- Card WhatsApp -->
+              <div class="payment-method-card p-4 rounded-2xl border-2 border-slate-800 bg-slate-900/60 cursor-pointer transition-all hover:border-emerald-500" data-payment-val="whatsapp">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xl">💬</span>
+                  <span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 uppercase">1 a 1</span>
+                </div>
+                <h5 class="text-sm font-bold text-white">Vendas no WhatsApp</h5>
+                <p class="text-[11px] text-slate-400 mt-1">O pedido chega pronto no seu WhatsApp.</p>
+              </div>
+            </div>
+
+            <!-- Painéis Específicos (Mostram apenas o necessário) -->
+            <!-- 1. Painel Mercado Pago -->
+            <div id="panel_pay_mercadopago" class="pay-method-panel p-5 rounded-2xl bg-sky-950/20 border border-sky-500/30 space-y-4">
+              <div class="flex items-center justify-between">
+                <h5 class="text-xs font-bold text-sky-400 uppercase tracking-wider flex items-center gap-1.5">
+                  <span>🔵 Integração Mercado Pago</span>
+                </h5>
+                <span class="text-[11px] text-slate-400">Zero Código • Pronto em 1 minuto</span>
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-200 mb-1">Link de Pagamento do Mercado Pago (Recomendado)</label>
+                <input type="url" id="cfg_payment_mp_link" placeholder="Ex: https://mpago.la/xxxx ou https://link.mercadopago.com.br/xxxx" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+                <p class="text-[11px] text-slate-400 mt-1.5">
+                  💡 <strong>Como pegar seu link em 30 segundos:</strong> Abra o aplicativo do Mercado Pago &gt; Toque em <em>"Cobrar com Link"</em> &gt; Defina o valor ou nome do produto &gt; Copie o link e cole aqui.
+                </p>
+              </div>
+
+              <details class="text-xs text-slate-400 border border-slate-800 rounded-xl p-3 bg-slate-900/50">
+                <summary class="cursor-pointer font-bold text-slate-300 hover:text-white">Opções Avançadas para Desenvolvedores (Access Token / Public Key)</summary>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-3 pt-3 border-t border-slate-800">
+                  <div>
+                    <label class="block text-[11px] font-bold text-slate-300 mb-1">Access Token Mercado Pago</label>
+                    <input type="password" id="cfg_payment_mp_token" placeholder="APP_USR-..." class="w-full py-2.5 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white">
+                  </div>
+                  <div>
+                    <label class="block text-[11px] font-bold text-slate-300 mb-1">Public Key Mercado Pago</label>
+                    <input type="text" id="cfg_payment_mp_key" placeholder="APP_USR-..." class="w-full py-2.5 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white">
+                  </div>
+                </div>
+              </details>
+            </div>
+
+            <!-- 2. Painel Pix Direto -->
+            <div id="panel_pay_pix_direto" class="pay-method-panel p-5 rounded-2xl bg-emerald-950/20 border border-emerald-500/30 space-y-4">
+              <h5 class="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
+                <span>⚡ Configuração do Pix Direto (Receba 100% sem Intermediários)</span>
+              </h5>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div>
+                  <label class="block text-xs font-bold text-slate-300 mb-1">Tipo de Chave Pix</label>
+                  <select id="cfg_payment_pix_type" class="w-full py-2.5 px-3 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white">
+                    <option value="aleatoria">Chave Aleatória (EVP)</option>
+                    <option value="cpf">CPF</option>
+                    <option value="cnpj">CNPJ</option>
+                    <option value="email">E-mail</option>
+                    <option value="telefone">Telefone Celular</option>
+                  </select>
+                </div>
+                <div class="sm:col-span-2">
+                  <label class="block text-xs font-bold text-slate-300 mb-1">Sua Chave Pix</label>
+                  <input type="text" id="cfg_payment_pix_key" placeholder="Digite sua chave Pix" class="w-full py-2.5 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white font-mono">
+                </div>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-bold text-slate-300 mb-1">Nome do Titular / Favorecido</label>
+                  <input type="text" id="cfg_payment_pix_name" placeholder="Ex: Paulo Romão / Seu Negócio" class="w-full py-2.5 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-300 mb-1">Banco / Instituição</label>
+                  <input type="text" id="cfg_payment_pix_bank" placeholder="Ex: Nubank, Inter, Itaú, Bradesco" class="w-full py-2.5 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white">
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. Painel Outro Gateway -->
+            <div id="panel_pay_link_externo" class="pay-method-panel p-5 rounded-2xl bg-purple-950/20 border border-purple-500/30 space-y-4">
+              <h5 class="text-xs font-bold text-purple-400 uppercase tracking-wider flex items-center gap-1.5">
+                <span>🚀 Plataforma Externa (Kiwify, Hotmart, Eduzz, Stripe, etc.)</span>
+              </h5>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div>
+                  <label class="block text-xs font-bold text-slate-300 mb-1">Nome da Plataforma</label>
+                  <input type="text" id="cfg_payment_ext_platform" placeholder="Ex: Kiwify, Hotmart, Eduzz, Stripe" class="w-full py-2.5 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white">
+                </div>
+                <div class="sm:col-span-2">
+                  <label class="block text-xs font-bold text-slate-300 mb-1">Link Direto do Checkout</label>
+                  <input type="url" id="cfg_payment_ext_url" placeholder="https://pay.kiwify.com.br/seu-produto" class="w-full py-2.5 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white">
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. Painel WhatsApp -->
+            <div id="panel_pay_whatsapp" class="pay-method-panel p-5 rounded-2xl bg-emerald-950/20 border border-emerald-500/30 space-y-4">
+              <h5 class="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
+                <span>💬 Fechamento de Vendas pelo WhatsApp</span>
+              </h5>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-bold text-slate-300 mb-1">Número do WhatsApp (com DDD)</label>
+                  <input type="text" id="cfg_payment_wa_phone" placeholder="5511999999999" class="w-full py-2.5 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-300 mb-1">Mensagem Inicial do Pedido</label>
+                  <input type="text" id="cfg_payment_wa_msg" placeholder="Olá! Quero concluir o pagamento do meu pedido." class="w-full py-2.5 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white">
+                </div>
+              </div>
+            </div>
+          </div>
+
           <!-- CAMPOS DE PERSONALIZAÇÃO DO CHECKOUT -->
           <div class="pt-4 border-t border-slate-800 space-y-6">
             <h4 class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Dados da Oferta no Checkout</h4>
@@ -1861,6 +2130,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // SELETOR DE FORMA DE RECEBIMENTO & GATEWAY
+  document.querySelectorAll('.payment-method-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.payment-method-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      const chosenPay = card.getAttribute('data-payment-val');
+      if (!currentConfig.checkout) currentConfig.checkout = {};
+      currentConfig.checkout.paymentMethod = chosenPay;
+      showPaymentPanel(chosenPay);
+    });
+  });
+
+  function showPaymentPanel(method) {
+    document.querySelectorAll('.pay-method-panel').forEach(p => p.classList.add('hidden'));
+    const p = document.getElementById('panel_pay_' + method);
+    if (p) p.classList.remove('hidden');
+  }
+
   function loadFormData() {
     const cfg = currentConfig;
     const active = cfg.activeLayout || 'vendas-diretas';
@@ -1896,6 +2183,36 @@ document.addEventListener('DOMContentLoaded', () => {
         c.classList.remove('selected');
       }
     });
+
+    // Forma de Recebimento / Gateway
+    const payMethod = chk.paymentMethod || 'mercadopago';
+    document.querySelectorAll('.payment-method-card').forEach(c => {
+      if (c.getAttribute('data-payment-val') === payMethod) {
+        c.classList.add('selected');
+      } else {
+        c.classList.remove('selected');
+      }
+    });
+    showPaymentPanel(payMethod);
+
+    const mp = chk.mercadoPago || {};
+    setVal('cfg_payment_mp_link', mp.paymentLink || '');
+    setVal('cfg_payment_mp_token', mp.accessToken || '');
+    setVal('cfg_payment_mp_key', mp.publicKey || '');
+
+    const pPix = chk.pix || {};
+    setVal('cfg_payment_pix_type', pPix.keyType || 'aleatoria');
+    setVal('cfg_payment_pix_key', pPix.key || chk.pixKey || 'sua-chave-pix-aqui@empresa.com');
+    setVal('cfg_payment_pix_name', pPix.receiverName || cfg.businessName || 'Seu Negócio');
+    setVal('cfg_payment_pix_bank', pPix.bankName || 'Banco Inter / Nubank');
+
+    const ext = chk.externalCheckout || {};
+    setVal('cfg_payment_ext_platform', ext.platformName || 'Kiwify');
+    setVal('cfg_payment_ext_url', ext.checkoutUrl || '');
+
+    const waSales = chk.whatsappSales || {};
+    setVal('cfg_payment_wa_phone', waSales.phone || cfg.whatsapp || '5511999999999');
+    setVal('cfg_payment_wa_msg', waSales.message || 'Olá! Preenchi meus dados no checkout e gostaria de concluir meu pagamento.');
 
     setVal('cfg_checkout_productName', chk.productName || 'Acesso Completo ao [Nome do Seu Produto]');
     setVal('cfg_checkout_productDescription', chk.productDescription || 'Acesso imediato com todas as atualizações e suporte prioritário.');
@@ -1995,9 +2312,36 @@ document.addEventListener('DOMContentLoaded', () => {
     currentConfig.checkout.originalPrice = getVal('cfg_checkout_originalPrice');
     currentConfig.checkout.salePrice = getVal('cfg_checkout_salePrice');
     currentConfig.checkout.installments = getVal('cfg_checkout_installments');
-    currentConfig.checkout.pixKey = getVal('cfg_checkout_pixKey');
+    currentConfig.checkout.pixKey = getVal('cfg_payment_pix_key') || getVal('cfg_checkout_pixKey');
     currentConfig.checkout.guaranteeDays = getVal('cfg_checkout_guaranteeDays');
     currentConfig.checkout.guaranteeText = getVal('cfg_checkout_guaranteeText');
+
+    const activePayCard = document.querySelector('.payment-method-card.selected');
+    currentConfig.checkout.paymentMethod = activePayCard ? activePayCard.getAttribute('data-payment-val') : 'mercadopago';
+
+    currentConfig.checkout.mercadoPago = {
+      paymentLink: getVal('cfg_payment_mp_link'),
+      accessToken: getVal('cfg_payment_mp_token'),
+      publicKey: getVal('cfg_payment_mp_key')
+    };
+
+    currentConfig.checkout.pix = {
+      keyType: getVal('cfg_payment_pix_type'),
+      key: getVal('cfg_payment_pix_key') || getVal('cfg_checkout_pixKey'),
+      receiverName: getVal('cfg_payment_pix_name'),
+      bankName: getVal('cfg_payment_pix_bank'),
+      sendWhatsAppProof: true
+    };
+
+    currentConfig.checkout.externalCheckout = {
+      platformName: getVal('cfg_payment_ext_platform'),
+      checkoutUrl: getVal('cfg_payment_ext_url')
+    };
+
+    currentConfig.checkout.whatsappSales = {
+      phone: getVal('cfg_payment_wa_phone'),
+      message: getVal('cfg_payment_wa_msg')
+    };
 
     currentConfig.checkout.orderBump = {
       active: getCheckbox('cfg_checkout_orderBumpActive'),
@@ -2136,16 +2480,27 @@ const manualHtml = `<!DOCTYPE html>
       <li><strong>2. Duas Colunas (Order Bump & Prova Social):</strong> Layout dividido com resumo lateral, depoimento com 5 estrelas e caixinha de Order Bump (+R$ 47).</li>
       <li><strong>3. Minimalista Premium (Clean B2B Corporativo):</strong> Estética elegante com seletor de Pessoa Física (CPF) ou Jurídica (CNPJ) e discriminação de fatura.</li>
     </ul>
-    <p style="margin-top:8px;">Você pode personalizar nome do produto, preços, chave Pix de recebimento, garantia e depoimentos diretamente pelo painel!</p>
+    <p style="margin-top:8px;">Você pode personalizar nome do produto, preços, garantia e depoimentos diretamente pelo painel!</p>
   </div>
 
   <div class="box">
-    <h3 class="box-title"><span class="num">4</span> Tornando as Alterações Definitivas</h3>
+    <h3 class="box-title"><span class="num">4</span> Como Escolher e Configurar Sua Forma de Recebimento</h3>
+    <p>Na mesma aba <em>"💳 Modelos & Checkout"</em>, você escolhe como receberá o dinheiro das suas vendas:</p>
+    <ul>
+      <li><strong>🔵 Mercado Pago (Recomendado):</strong> Basta criar um link de cobrança no app do Mercado Pago e colar no campo. Seu cliente poderá pagar via Pix automático e Cartão em até 12x.</li>
+      <li><strong>⚡ Pix Direto (Sua Chave):</strong> Receba direto na sua conta bancária sem intermediários e sem taxas, com botão automático para o cliente enviar o comprovante no seu WhatsApp.</li>
+      <li><strong>🚀 Outro Gateway:</strong> Redirecione o cliente diretamente para seu link de checkout do Kiwify, Hotmart, Eduzz, Stripe ou qualquer plataforma.</li>
+      <li><strong>💬 Vendas no WhatsApp:</strong> O cliente preenche o formulário e o pedido chega pronto para você fechar no WhatsApp.</li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <h3 class="box-title"><span class="num">5</span> Tornando as Alterações Definitivas</h3>
     <p>Ao terminar de editar no Painel Admin, clique no botão azul <strong>"Baixar config.js"</strong>. Substitua o arquivo dentro da pasta <code>js/</code>. Desta forma, suas edições ficam salvas permanentemente em qualquer servidor ou hospedagem!</p>
   </div>
 
   <div class="box">
-    <h3 class="box-title"><span class="num">5</span> Como Publicar Gratuitamente na Vercel (Em 3 Minutos)</h3>
+    <h3 class="box-title"><span class="num">6</span> Como Publicar Gratuitamente na Vercel (Em 3 Minutos)</h3>
     <ol>
       <li>Crie uma conta gratuita em <strong>vercel.com</strong>.</li>
       <li>Arraste a pasta descompactada deste projeto para o painel da Vercel.</li>
@@ -2247,7 +2602,18 @@ A alternância é controlada por \`body[data-active-checkout="nome-do-modelo"]\`
 
 ---
 
-## 🛡️ 5. Separação de Modo Demonstração vs. Produção
+## 🏦 5. Formas de Recebimento & Gateways Suportados
+
+O cliente pode definir como deseja receber seus pagamentos sem complicação:
+
+1. **🔵 Mercado Pago (Recomendado):** Basta colar o link de pagamento gerado no app do Mercado Pago. Aceita Pix e Cartão de Crédito em até 12x. Também oferece campos opcionais de Access Token e Public Key para integrações diretas.
+2. **⚡ Pix Direto (Sua Chave):** O cliente cadastra sua chave Pix, nome do favorecido e banco. No checkout, o comprador tem cópia em 1 clique e botão para enviar o comprovante diretamente no WhatsApp do vendedor.
+3. **🚀 Outro Gateway:** Suporte para Kiwify, Hotmart, Eduzz, Stripe, Asaas ou qualquer checkout externo via link direto.
+4. **💬 Vendas no WhatsApp:** O cliente preenche seus dados e é redirecionado para o WhatsApp com a mensagem do pedido formatada.
+
+---
+
+## 🛡️ 6. Separação de Modo Demonstração vs. Produção
 
 - **No pacote do cliente:** A barra superior de demonstração ("PACOTE DE LANDING PAGE") e o botão "⚙️ Editar no Admin" da navbar ficam **ocultos e desativados**. O cliente e seus visitantes veem apenas o site limpo e profissional.
 - **Na demonstração pública da RMTI:** Caso acesse via rota \`/pacote\` ou com \`?demo=true\`, os controles de teste são ativados para os visitantes experimentarem os recursos.
@@ -2255,7 +2621,7 @@ A alternância é controlada por \`body[data-active-checkout="nome-do-modelo"]\`
 
 ---
 
-## ⚙️ 6. Fluxo de Dados e Painel Admin
+## ⚙️ 7. Fluxo de Dados e Painel Admin
 
 1. **Leitura de Dados:** O arquivo \`js/config.js\` define o objeto \`DEFAULT_CONFIG\` e expõe \`window.PAGE_CONFIG\`. Se existir uma cópia salva em \`localStorage.getItem('LP_ALLINONE_CONFIG')\`, ela tem precedência.
 2. **Edição Visual:** Ao abrir \`admin/index.html\`, o cliente altera textos, preços, telefones, checkout e modelos.
@@ -2264,7 +2630,7 @@ A alternância é controlada por \`body[data-active-checkout="nome-do-modelo"]\`
 
 ---
 
-## 🔐 7. Autenticação do Painel Admin
+## 🔐 8. Autenticação do Painel Admin
 
 - A autenticação é executada no cliente em \`admin/admin.js\`.
 - **Senha inicial:** \`123456\`.
@@ -2273,7 +2639,7 @@ A alternância é controlada por \`body[data-active-checkout="nome-do-modelo"]\`
 
 ---
 
-## 🚀 8. Instruções para Publicação
+## 🚀 9. Instruções para Publicação
 
 ### Deploy na Vercel:
 1. Conecte o repositório ou arraste a pasta diretamente para o dashboard da Vercel.

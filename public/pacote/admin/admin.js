@@ -95,6 +95,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // SELETOR DE FORMA DE RECEBIMENTO & GATEWAY
+  document.querySelectorAll('.payment-method-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.payment-method-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      const chosenPay = card.getAttribute('data-payment-val');
+      if (!currentConfig.checkout) currentConfig.checkout = {};
+      currentConfig.checkout.paymentMethod = chosenPay;
+      showPaymentPanel(chosenPay);
+    });
+  });
+
+  function showPaymentPanel(method) {
+    document.querySelectorAll('.pay-method-panel').forEach(p => p.classList.add('hidden'));
+    const p = document.getElementById('panel_pay_' + method);
+    if (p) p.classList.remove('hidden');
+  }
+
   function loadFormData() {
     const cfg = currentConfig;
     const active = cfg.activeLayout || 'vendas-diretas';
@@ -130,6 +148,36 @@ document.addEventListener('DOMContentLoaded', () => {
         c.classList.remove('selected');
       }
     });
+
+    // Forma de Recebimento / Gateway
+    const payMethod = chk.paymentMethod || 'mercadopago';
+    document.querySelectorAll('.payment-method-card').forEach(c => {
+      if (c.getAttribute('data-payment-val') === payMethod) {
+        c.classList.add('selected');
+      } else {
+        c.classList.remove('selected');
+      }
+    });
+    showPaymentPanel(payMethod);
+
+    const mp = chk.mercadoPago || {};
+    setVal('cfg_payment_mp_link', mp.paymentLink || '');
+    setVal('cfg_payment_mp_token', mp.accessToken || '');
+    setVal('cfg_payment_mp_key', mp.publicKey || '');
+
+    const pPix = chk.pix || {};
+    setVal('cfg_payment_pix_type', pPix.keyType || 'aleatoria');
+    setVal('cfg_payment_pix_key', pPix.key || chk.pixKey || 'sua-chave-pix-aqui@empresa.com');
+    setVal('cfg_payment_pix_name', pPix.receiverName || cfg.businessName || 'Seu Negócio');
+    setVal('cfg_payment_pix_bank', pPix.bankName || 'Banco Inter / Nubank');
+
+    const ext = chk.externalCheckout || {};
+    setVal('cfg_payment_ext_platform', ext.platformName || 'Kiwify');
+    setVal('cfg_payment_ext_url', ext.checkoutUrl || '');
+
+    const waSales = chk.whatsappSales || {};
+    setVal('cfg_payment_wa_phone', waSales.phone || cfg.whatsapp || '5511999999999');
+    setVal('cfg_payment_wa_msg', waSales.message || 'Olá! Preenchi meus dados no checkout e gostaria de concluir meu pagamento.');
 
     setVal('cfg_checkout_productName', chk.productName || 'Acesso Completo ao [Nome do Seu Produto]');
     setVal('cfg_checkout_productDescription', chk.productDescription || 'Acesso imediato com todas as atualizações e suporte prioritário.');
@@ -229,9 +277,36 @@ document.addEventListener('DOMContentLoaded', () => {
     currentConfig.checkout.originalPrice = getVal('cfg_checkout_originalPrice');
     currentConfig.checkout.salePrice = getVal('cfg_checkout_salePrice');
     currentConfig.checkout.installments = getVal('cfg_checkout_installments');
-    currentConfig.checkout.pixKey = getVal('cfg_checkout_pixKey');
+    currentConfig.checkout.pixKey = getVal('cfg_payment_pix_key') || getVal('cfg_checkout_pixKey');
     currentConfig.checkout.guaranteeDays = getVal('cfg_checkout_guaranteeDays');
     currentConfig.checkout.guaranteeText = getVal('cfg_checkout_guaranteeText');
+
+    const activePayCard = document.querySelector('.payment-method-card.selected');
+    currentConfig.checkout.paymentMethod = activePayCard ? activePayCard.getAttribute('data-payment-val') : 'mercadopago';
+
+    currentConfig.checkout.mercadoPago = {
+      paymentLink: getVal('cfg_payment_mp_link'),
+      accessToken: getVal('cfg_payment_mp_token'),
+      publicKey: getVal('cfg_payment_mp_key')
+    };
+
+    currentConfig.checkout.pix = {
+      keyType: getVal('cfg_payment_pix_type'),
+      key: getVal('cfg_payment_pix_key') || getVal('cfg_checkout_pixKey'),
+      receiverName: getVal('cfg_payment_pix_name'),
+      bankName: getVal('cfg_payment_pix_bank'),
+      sendWhatsAppProof: true
+    };
+
+    currentConfig.checkout.externalCheckout = {
+      platformName: getVal('cfg_payment_ext_platform'),
+      checkoutUrl: getVal('cfg_payment_ext_url')
+    };
+
+    currentConfig.checkout.whatsappSales = {
+      phone: getVal('cfg_payment_wa_phone'),
+      message: getVal('cfg_payment_wa_msg')
+    };
 
     currentConfig.checkout.orderBump = {
       active: getCheckbox('cfg_checkout_orderBumpActive'),

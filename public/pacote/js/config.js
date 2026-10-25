@@ -175,6 +175,27 @@ const DEFAULT_CONFIG = {
     "urgencyMinutes": 15,
     "guaranteeDays": "7",
     "guaranteeText": "Você tem 7 dias de garantia incondicional. Se não gostar, devolvemos 100% do seu dinheiro.",
+    "paymentMethod": "mercadopago",
+    "mercadoPago": {
+      "paymentLink": "",
+      "accessToken": "",
+      "publicKey": ""
+    },
+    "pix": {
+      "keyType": "aleatoria",
+      "key": "sua-chave-pix-aqui@empresa.com",
+      "receiverName": "Seu Nome ou Razão Social",
+      "bankName": "Banco Inter / Nubank / Itaú",
+      "sendWhatsAppProof": true
+    },
+    "externalCheckout": {
+      "platformName": "Kiwify",
+      "checkoutUrl": ""
+    },
+    "whatsappSales": {
+      "phone": "5511999999999",
+      "message": "Olá! Preenchi meus dados no site e gostaria de concluir meu pagamento."
+    },
     "orderBump": {
       "active": true,
       "title": "Adicionar Acompanhamento VIP Individual",

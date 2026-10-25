@@ -68,7 +68,18 @@ A alternância é controlada por `body[data-active-checkout="nome-do-modelo"]` e
 
 ---
 
-## 🛡️ 5. Separação de Modo Demonstração vs. Produção
+## 🏦 5. Formas de Recebimento & Gateways Suportados
+
+O cliente pode definir como deseja receber seus pagamentos sem complicação:
+
+1. **🔵 Mercado Pago (Recomendado):** Basta colar o link de pagamento gerado no app do Mercado Pago. Aceita Pix e Cartão de Crédito em até 12x. Também oferece campos opcionais de Access Token e Public Key para integrações diretas.
+2. **⚡ Pix Direto (Sua Chave):** O cliente cadastra sua chave Pix, nome do favorecido e banco. No checkout, o comprador tem cópia em 1 clique e botão para enviar o comprovante diretamente no WhatsApp do vendedor.
+3. **🚀 Outro Gateway:** Suporte para Kiwify, Hotmart, Eduzz, Stripe, Asaas ou qualquer checkout externo via link direto.
+4. **💬 Vendas no WhatsApp:** O cliente preenche seus dados e é redirecionado para o WhatsApp com a mensagem do pedido formatada.
+
+---
+
+## 🛡️ 6. Separação de Modo Demonstração vs. Produção
 
 - **No pacote do cliente:** A barra superior de demonstração ("PACOTE DE LANDING PAGE") e o botão "⚙️ Editar no Admin" da navbar ficam **ocultos e desativados**. O cliente e seus visitantes veem apenas o site limpo e profissional.
 - **Na demonstração pública da RMTI:** Caso acesse via rota `/pacote` ou com `?demo=true`, os controles de teste são ativados para os visitantes experimentarem os recursos.
@@ -76,7 +87,7 @@ A alternância é controlada por `body[data-active-checkout="nome-do-modelo"]` e
 
 ---
 
-## ⚙️ 6. Fluxo de Dados e Painel Admin
+## ⚙️ 7. Fluxo de Dados e Painel Admin
 
 1. **Leitura de Dados:** O arquivo `js/config.js` define o objeto `DEFAULT_CONFIG` e expõe `window.PAGE_CONFIG`. Se existir uma cópia salva em `localStorage.getItem('LP_ALLINONE_CONFIG')`, ela tem precedência.
 2. **Edição Visual:** Ao abrir `admin/index.html`, o cliente altera textos, preços, telefones, checkout e modelos.
@@ -85,7 +96,7 @@ A alternância é controlada por `body[data-active-checkout="nome-do-modelo"]` e
 
 ---
 
-## 🔐 7. Autenticação do Painel Admin
+## 🔐 8. Autenticação do Painel Admin
 
 - A autenticação é executada no cliente em `admin/admin.js`.
 - **Senha inicial:** `123456`.
@@ -94,7 +105,7 @@ A alternância é controlada por `body[data-active-checkout="nome-do-modelo"]` e
 
 ---
 
-## 🚀 8. Instruções para Publicação
+## 🚀 9. Instruções para Publicação
 
 ### Deploy na Vercel:
 1. Conecte o repositório ou arraste a pasta diretamente para o dashboard da Vercel.

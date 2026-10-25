@@ -97,7 +97,7 @@
         </div>
       </div>
 
-      <form class="space-y-4" onsubmit="event.preventDefault(); window.location.href='obrigado.html';">
+      <form class="space-y-4" onsubmit="event.preventDefault(); handleCheckoutSubmit('m1');">
         <div>
           <label class="block text-xs font-bold text-slate-300 mb-1">Seu Nome Completo *</label>
           <input type="text" required placeholder="Digite seu nome completo" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 focus:border-emerald-500 text-sm text-white outline-none">
@@ -127,38 +127,32 @@
               Copiar
             </button>
           </div>
-          <p class="text-[11px] text-slate-400">Após o pagamento, o acesso é liberado automaticamente em seu e-mail.</p>
+          <div class="text-[11px] text-slate-400 space-y-0.5">
+            <p>Beneficiário: <strong class="text-white chk-val-pixReceiver">Seu Negócio</strong></p>
+            <p>Instituição: <span class="text-slate-300 chk-val-pixBank">Banco Inter / Nubank</span></p>
+          </div>
+          <button type="button" onclick="handleWhatsAppProof('m1')" class="w-full py-2.5 px-3 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-400 border border-emerald-500/30 font-bold text-xs flex items-center justify-center gap-2 transition-all">
+            <span>💬 Já fiz o Pix! Enviar Comprovante no WhatsApp →</span>
+          </button>
         </div>
 
         <!-- Seção Cartão M1 -->
         <div id="m1-sec-card" class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3 hidden">
-          <div>
-            <label class="block text-[11px] font-bold text-slate-300 mb-1">Número do Cartão</label>
-            <input type="text" placeholder="0000 0000 0000 0000" class="w-full py-2.5 px-3 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white">
-          </div>
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <label class="block text-[11px] font-bold text-slate-300 mb-1">Validade</label>
-              <input type="text" placeholder="MM/AA" class="w-full py-2.5 px-3 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white">
+          <div class="p-3 rounded-xl bg-sky-950/30 border border-sky-500/20 text-xs text-slate-300 space-y-2">
+            <div class="flex items-center justify-between font-bold text-sky-400">
+              <span class="flex items-center gap-1.5">
+                <span>🔒 Pagamento Seguro</span>
+              </span>
+              <span class="chk-val-salePrice text-white">R$ 197,00</span>
             </div>
-            <div>
-              <label class="block text-[11px] font-bold text-slate-300 mb-1">CVV</label>
-              <input type="text" placeholder="123" class="w-full py-2.5 px-3 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white">
-            </div>
-          </div>
-          <div>
-            <label class="block text-[11px] font-bold text-slate-300 mb-1">Parcelamento</label>
-            <select class="w-full py-2.5 px-3 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white">
-              <option>1x de R$ 197,00 (à vista)</option>
-              <option>2x de R$ 102,40</option>
-              <option>3x de R$ 69,10</option>
-              <option>6x de R$ 36,20</option>
-              <option>12x de R$ 19,78</option>
-            </select>
+            <p class="text-[11px] text-slate-400">Pague no cartão de crédito em até 12x com proteção bancária.</p>
+            <button type="button" onclick="handleCheckoutSubmit('m1')" class="w-full py-3 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-md">
+              <span class="chk-card-btn-text">Pagar com Mercado Pago (em até 12x) →</span>
+            </button>
           </div>
         </div>
 
-        <button type="submit" class="pulse-btn w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-black text-sm uppercase tracking-wider shadow-xl shadow-emerald-500/20">
+        <button type="submit" class="chk-main-btn pulse-btn w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-black text-sm uppercase tracking-wider shadow-xl shadow-emerald-500/20">
           Confirmar e Liberar Acesso Imediato →
         </button>
       </form>
@@ -202,7 +196,7 @@
             <h3 class="text-base font-bold text-white">Dados Pessoais</h3>
           </div>
 
-          <form class="space-y-4" onsubmit="event.preventDefault(); window.location.href='obrigado.html';">
+          <form class="space-y-4" onsubmit="event.preventDefault(); handleCheckoutSubmit('m2');">
             <div>
               <label class="block text-xs font-bold text-slate-300 mb-1">Nome Completo *</label>
               <input type="text" required placeholder="Ex: João da Silva" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
@@ -250,23 +244,26 @@
                     Copiar
                   </button>
                 </div>
+                <div class="text-[11px] text-slate-400 space-y-0.5">
+                  <p>Beneficiário: <strong class="text-white chk-val-pixReceiver">Seu Negócio</strong></p>
+                  <p>Instituição: <span class="text-slate-300 chk-val-pixBank">Banco Inter / Nubank</span></p>
+                </div>
+                <button type="button" onclick="handleWhatsAppProof('m2')" class="w-full py-2.5 px-3 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-400 border border-emerald-500/30 font-bold text-xs flex items-center justify-center gap-2 transition-all">
+                  <span>💬 Já fiz o Pix! Enviar Comprovante no WhatsApp →</span>
+                </button>
               </div>
 
               <!-- Cartão M2 -->
               <div id="m2-sec-card" class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3 hidden">
-                <div>
-                  <label class="block text-[11px] font-bold text-slate-300 mb-1">Número do Cartão</label>
-                  <input type="text" placeholder="0000 0000 0000 0000" class="w-full py-2.5 px-3 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white">
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                  <div>
-                    <label class="block text-[11px] font-bold text-slate-300 mb-1">Validade</label>
-                    <input type="text" placeholder="MM/AA" class="w-full py-2.5 px-3 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white">
+                <div class="p-3 rounded-xl bg-sky-950/30 border border-sky-500/20 text-xs text-slate-300 space-y-2">
+                  <div class="flex items-center justify-between font-bold text-sky-400">
+                    <span>🔒 Pagamento no Cartão</span>
+                    <span class="m2-final-total text-white">R$ 197,00</span>
                   </div>
-                  <div>
-                    <label class="block text-[11px] font-bold text-slate-300 mb-1">CVV</label>
-                    <input type="text" placeholder="123" class="w-full py-2.5 px-3 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white">
-                  </div>
+                  <p class="text-[11px] text-slate-400">Em até 12x no cartão com aprovação imediata.</p>
+                  <button type="button" onclick="handleCheckoutSubmit('m2')" class="w-full py-3 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-md">
+                    <span class="chk-card-btn-text">Pagar com Mercado Pago (em até 12x) →</span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -290,7 +287,7 @@
               </div>
             </div>
 
-            <button type="submit" class="pulse-btn w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-black text-sm uppercase tracking-wider shadow-xl shadow-emerald-500/20 mt-6">
+            <button type="submit" class="chk-main-btn pulse-btn w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-black text-sm uppercase tracking-wider shadow-xl shadow-emerald-500/20 mt-6">
               Finalizar Pedido Seguro →
             </button>
           </form>
@@ -390,7 +387,7 @@
         </div>
       </div>
 
-      <form class="space-y-4" onsubmit="event.preventDefault(); window.location.href='obrigado.html';">
+      <form class="space-y-4" onsubmit="event.preventDefault(); handleCheckoutSubmit('m3');">
         <div id="m3-pf-fields" class="space-y-4">
           <div>
             <label class="block text-xs font-bold text-slate-300 mb-1">Nome do Titular *</label>
@@ -461,9 +458,16 @@
               Copiar
             </button>
           </div>
+          <div class="text-[11px] text-slate-400 space-y-0.5">
+            <p>Beneficiário: <strong class="text-white chk-val-pixReceiver">Seu Negócio</strong></p>
+            <p>Instituição: <span class="text-slate-300 chk-val-pixBank">Banco Inter / Nubank</span></p>
+          </div>
+          <button type="button" onclick="handleWhatsAppProof('m3')" class="w-full py-2.5 px-3 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-400 border border-emerald-500/30 font-bold text-xs flex items-center justify-center gap-2 transition-all">
+            <span>💬 Confirmar Pagamento no WhatsApp →</span>
+          </button>
         </div>
 
-        <button type="submit" class="w-full py-4 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-sm uppercase tracking-wider transition-all">
+        <button type="submit" class="chk-main-btn w-full py-4 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-sm uppercase tracking-wider transition-all">
           Confirmar Faturamento &amp; Liberar Acesso →
         </button>
       </form>
@@ -536,10 +540,35 @@
       document.querySelectorAll('.chk-val-guaranteeText').forEach(el => el.textContent = guarText);
 
       // Pix inputs
+      const pPix = chk.pix || {};
+      const activePixKey = pPix.key || pixKey;
       ['m1-pix-input', 'm2-pix-input', 'm3-pix-input'].forEach(id => {
         const el = document.getElementById(id);
-        if (el) el.value = pixKey;
+        if (el) el.value = activePixKey;
       });
+
+      const pixReceiver = pPix.receiverName || cfg.businessName || 'Seu Negócio';
+      const pixBank = pPix.bankName || 'Banco Inter / Nubank';
+      document.querySelectorAll('.chk-val-pixReceiver').forEach(el => el.textContent = pixReceiver);
+      document.querySelectorAll('.chk-val-pixBank').forEach(el => el.textContent = pixBank);
+
+      // Ajuste dinâmico de botões conforme Gateway
+      const payMethod = chk.paymentMethod || 'mercadopago';
+      const extObj = chk.externalCheckout || {};
+      const extPlatform = extObj.platformName || 'Plataforma';
+      document.querySelectorAll('.chk-val-extPlatform').forEach(el => el.textContent = extPlatform);
+
+      if (payMethod === 'mercadopago') {
+        const mpLink = (chk.mercadoPago && chk.mercadoPago.paymentLink) || '';
+        if (mpLink) {
+          document.querySelectorAll('.chk-card-btn-text').forEach(el => el.textContent = 'Pagar com Mercado Pago (em até 12x) →');
+          document.querySelectorAll('.chk-main-btn').forEach(el => el.textContent = 'Pagar no Mercado Pago (em até 12x) →');
+        }
+      } else if (payMethod === 'link_externo') {
+        document.querySelectorAll('.chk-main-btn').forEach(el => el.textContent = 'Ir para Pagamento Seguro (' + extPlatform + ') →');
+      } else if (payMethod === 'whatsapp') {
+        document.querySelectorAll('.chk-main-btn').forEach(el => el.textContent = 'Finalizar Pedido pelo WhatsApp →');
+      }
 
       // Order Bump
       const bump = chk.orderBump || {};
@@ -674,6 +703,92 @@
         document.querySelectorAll('.chk-timer').forEach(el => el.textContent = formatted);
         if (--timer < 0) timer = duration;
       }, 1000);
+    }
+    function handleCheckoutSubmit(modelPrefix) {
+      const cfg = window.PAGE_CONFIG || {};
+      const chk = cfg.checkout || {};
+      const payMethod = chk.paymentMethod || 'mercadopago';
+
+      const layoutScope = document.querySelector('[data-checkout-layout="' + activeCheckoutModel + '"]');
+      const nameInput = layoutScope ? layoutScope.querySelector('input[type="text"][required], input[placeholder*="nome" i], input[placeholder*="Nome" i]') : null;
+      const emailInput = layoutScope ? layoutScope.querySelector('input[type="email"]') : null;
+      const phoneInput = layoutScope ? layoutScope.querySelector('input[type="tel"]') : null;
+
+      const buyerName = nameInput ? nameInput.value.trim() : '';
+      const buyerEmail = emailInput ? emailInput.value.trim() : '';
+      const buyerPhone = phoneInput ? phoneInput.value.trim() : '';
+
+      if (!buyerName || !buyerPhone) {
+        alert('Por favor, preencha os dados de contato (Nome e WhatsApp) para prosseguir.');
+        return;
+      }
+
+      const prodName = chk.productName || 'Acesso ao Produto';
+      const finalPrice = isBumpChecked ? ('R$ ' + (basePriceNum + bumpPriceNum) + ',00') : (chk.salePrice || 'R$ ' + basePriceNum + ',00');
+
+      // 1. MERCADO PAGO
+      if (payMethod === 'mercadopago') {
+        const mpLink = (chk.mercadoPago && chk.mercadoPago.paymentLink) ? chk.mercadoPago.paymentLink.trim() : '';
+        if (mpLink) {
+          window.location.href = mpLink;
+          return;
+        }
+        const pixKey = (chk.pix && chk.pix.key) || chk.pixKey;
+        if (pixKey) {
+          copyPixKey(modelPrefix + '-pix-input');
+        }
+        window.location.href = 'obrigado.html';
+        return;
+      }
+
+      // 2. PIX DIRETO (COM ENVIO DE COMPROVANTE VIA WHATSAPP)
+      if (payMethod === 'pix_direto') {
+        copyPixKey(modelPrefix + '-pix-input');
+        const waNumber = (chk.whatsappSales && chk.whatsappSales.phone) || cfg.whatsapp || '5511999999999';
+        const cleanPhone = waNumber.replace(/\D/g, '');
+        const receiver = (chk.pix && chk.pix.receiverName) || cfg.businessName || 'Equipe';
+        const msg = encodeURIComponent('Olá ' + receiver + '! Realizei o pagamento via Pix de ' + finalPrice + ' referente ao pedido de "' + prodName + '".\n\n• Meu Nome: ' + buyerName + '\n• E-mail: ' + buyerEmail + '\n• Telefone: ' + buyerPhone + '\n\nSegue o comprovante em anexo!');
+        setTimeout(() => {
+          window.open('https://wa.me/' + cleanPhone + '?text=' + msg, '_blank');
+          window.location.href = 'obrigado.html';
+        }, 1200);
+        return;
+      }
+
+      // 3. LINK DE OUTRO GATEWAY (KIWIFY, HOTMART, EDUZZ, ETC)
+      if (payMethod === 'link_externo') {
+        const extUrl = (chk.externalCheckout && chk.externalCheckout.checkoutUrl) ? chk.externalCheckout.checkoutUrl.trim() : '';
+        if (extUrl) {
+          window.location.href = extUrl;
+          return;
+        }
+        window.location.href = 'obrigado.html';
+        return;
+      }
+
+      // 4. VENDA NO WHATSAPP
+      if (payMethod === 'whatsapp') {
+        const waNumber = (chk.whatsappSales && chk.whatsappSales.phone) || cfg.whatsapp || '5511999999999';
+        const cleanPhone = waNumber.replace(/\D/g, '');
+        const msg = encodeURIComponent('Olá! Gostaria de concluir o pedido de "' + prodName + '" no valor de ' + finalPrice + '.\n\n• Nome: ' + buyerName + '\n• E-mail: ' + buyerEmail + '\n• Telefone: ' + buyerPhone);
+        window.open('https://wa.me/' + cleanPhone + '?text=' + msg, '_blank');
+        window.location.href = 'obrigado.html';
+        return;
+      }
+
+      window.location.href = 'obrigado.html';
+    }
+
+    function handleWhatsAppProof(modelPrefix) {
+      const cfg = window.PAGE_CONFIG || {};
+      const chk = cfg.checkout || {};
+      copyPixKey(modelPrefix + '-pix-input');
+      const waNumber = (chk.whatsappSales && chk.whatsappSales.phone) || cfg.whatsapp || '5511999999999';
+      const cleanPhone = waNumber.replace(/\D/g, '');
+      const prodName = chk.productName || 'Acesso ao Produto';
+      const finalPrice = isBumpChecked ? ('R$ ' + (basePriceNum + bumpPriceNum) + ',00') : (chk.salePrice || 'R$ ' + basePriceNum + ',00');
+      const msg = encodeURIComponent('Olá! Realizei o Pix de ' + finalPrice + ' referente ao pedido de "' + prodName + '". Segue o comprovante.');
+      window.open('https://wa.me/' + cleanPhone + '?text=' + msg, '_blank');
     }
   </script>
 </body>
