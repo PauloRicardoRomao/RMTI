@@ -68,9 +68,9 @@ const unifiedConfig = {
     ctaSubtext: '🔒 Pagamento 100% Seguro • Acesso Imediato',
     videoUrl: '', // URL do YouTube/Vimeo ou usa o mockup
     productName: 'Acesso Completo ao [Nome do Seu Produto]',
-    originalPrice: 'R$ 297,00',
-    salePrice: 'R$ 97,00',
-    installments: '12x de R$ 9,74',
+    originalPrice: 'R$ 497,00',
+    salePrice: 'R$ 197,00',
+    installments: '12x de R$ 19,78',
     checkoutUrl: 'checkout.html',
     guaranteeDays: '7',
     guaranteeText: 'Você tem 7 dias para testar tudo. Se por qualquer motivo achar que não valeu a pena, basta nos enviar um e-mail e devolvemos 100% do seu dinheiro, sem perguntas.',
@@ -183,3 +183,4 @@ fs.writeFileSync(path.join(TARGET_DIR, 'js/config.js'), configJsContent);
 console.log('js/config.js gerado com sucesso.');
 
 module.exports = { TARGET_DIR, unifiedConfig };
+

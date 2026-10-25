@@ -306,9 +306,9 @@ const indexHtml = `<!DOCTYPE html>
         <h2 class="text-2xl sm:text-4xl font-black text-white mt-2 vendas-productName">Acesso Completo ao [Nome do Seu Produto]</h2>
         <p class="text-sm text-slate-400 mt-2 mb-6">Receba acesso imediato com todas as aulas e bônus inclusos.</p>
         <div class="py-6 border-y border-slate-800 my-6 space-y-2">
-          <div class="text-sm text-slate-400 line-through">De <span class="vendas-originalPrice">R$ 297,00</span> por apenas:</div>
-          <div class="text-4xl sm:text-6xl font-black text-white tracking-tight vendas-installments">12x de R$ 9,74</div>
-          <div class="text-xs text-emerald-400 font-semibold">ou <span class="vendas-salePrice">R$ 97,00</span> à vista com desconto</div>
+          <div class="text-sm text-slate-400 line-through">De <span class="vendas-originalPrice">R$ 497,00</span> por apenas:</div>
+          <div class="text-4xl sm:text-6xl font-black text-white tracking-tight vendas-installments">12x de R$ 19,78</div>
+          <div class="text-xs text-emerald-400 font-semibold">ou <span class="vendas-salePrice">R$ 197,00</span> à vista com desconto</div>
         </div>
         <a href="checkout.html" class="pulse-btn w-full py-5 px-8 rounded-2xl text-base sm:text-lg font-black bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 flex items-center justify-center gap-2 shadow-2xl uppercase tracking-wider">
           <span>SIM! QUERO ME INSCREVER AGORA</span>
@@ -616,7 +616,7 @@ const checkoutHtml = `<!DOCTYPE html>
           <div class="py-4 space-y-2 text-xs text-slate-300">
             <div class="flex justify-between">
               <span>Valor:</span>
-              <span class="text-emerald-400 text-base font-black" id="chkPrice">R$ 97,00</span>
+              <span class="text-emerald-400 text-base font-black" id="chkPrice">R$ 197,00</span>
             </div>
           </div>
           <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 text-xs text-slate-400">
@@ -632,13 +632,13 @@ const checkoutHtml = `<!DOCTYPE html>
       const activeLayout = cfg.activeLayout || 'vendas-diretas';
       if (activeLayout === 'vendas-diretas' && cfg.vendas) {
         document.getElementById('chkProductName').textContent = cfg.vendas.productName || 'Acesso ao Produto';
-        document.getElementById('chkPrice').textContent = cfg.vendas.salePrice || 'R$ 97,00';
+        document.getElementById('chkPrice').textContent = cfg.vendas.salePrice || 'R$ 197,00';
       } else if (activeLayout === 'leads-whatsapp') {
         document.getElementById('chkProductName').textContent = 'Reserva de Consulta / Atendimento';
-        document.getElementById('chkPrice').textContent = 'R$ 97,00';
+        document.getElementById('chkPrice').textContent = 'R$ 197,00';
       } else {
         document.getElementById('chkProductName').textContent = 'Proposta Comercial / Solução B2B';
-        document.getElementById('chkPrice').textContent = 'R$ 97,00';
+        document.getElementById('chkPrice').textContent = 'R$ 197,00';
       }
     });
   </script>

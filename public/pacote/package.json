@@ -1,0 +1,18 @@
+{
+  "name": "pacote-landing-page",
+  "version": "1.0.0",
+  "description": "Pacote All-in-One de Landing Page com Painel Admin Integrado",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "landing-page",
+    "admin-cms",
+    "all-in-one"
+  ],
+  "author": "RMTI",
+  "license": "ISC"
+}
+

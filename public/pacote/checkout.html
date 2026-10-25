@@ -61,7 +61,7 @@
           <div class="py-4 space-y-2 text-xs text-slate-300">
             <div class="flex justify-between">
               <span>Valor:</span>
-              <span class="text-emerald-400 text-base font-black" id="chkPrice">R$ 97,00</span>
+              <span class="text-emerald-400 text-base font-black" id="chkPrice">R$ 197,00</span>
             </div>
           </div>
           <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 text-xs text-slate-400">
@@ -77,13 +77,13 @@
       const activeLayout = cfg.activeLayout || 'vendas-diretas';
       if (activeLayout === 'vendas-diretas' && cfg.vendas) {
         document.getElementById('chkProductName').textContent = cfg.vendas.productName || 'Acesso ao Produto';
-        document.getElementById('chkPrice').textContent = cfg.vendas.salePrice || 'R$ 97,00';
+        document.getElementById('chkPrice').textContent = cfg.vendas.salePrice || 'R$ 197,00';
       } else if (activeLayout === 'leads-whatsapp') {
         document.getElementById('chkProductName').textContent = 'Reserva de Consulta / Atendimento';
-        document.getElementById('chkPrice').textContent = 'R$ 97,00';
+        document.getElementById('chkPrice').textContent = 'R$ 197,00';
       } else {
         document.getElementById('chkProductName').textContent = 'Proposta Comercial / Solução B2B';
-        document.getElementById('chkPrice').textContent = 'R$ 97,00';
+        document.getElementById('chkPrice').textContent = 'R$ 197,00';
       }
     });
   </script>
