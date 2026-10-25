@@ -192,7 +192,7 @@ export const defaultAppConfig: AppConfig = {
         '/assets/cases/slide-03-solucao.jpg',
         '/assets/cases/story-treinador-renan-rmti-case.jpg',
       ],
-      liveUrl: 'https://lp-treinador-renan.vercel.app',
+      liveUrl: 'https://lp-treinador-renan-six.vercel.app/',
       githubUrl: 'https://github.com/PauloRicardoRomao/LP-Treinador-Renan',
       tags: ['Next.js 16', 'Painel CMS', 'Meta Pixel', 'Vídeos HD', 'Alta Conversão'],
       active: true,
