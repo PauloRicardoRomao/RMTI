@@ -499,10 +499,12 @@
       const cfg = window.PAGE_CONFIG || {};
       const chk = cfg.checkout || {};
 
-      // Controle de visibilidade de Demonstração
+      // Controle de visibilidade de Demonstração (Apenas na rota /pacote da RMTI via HTTP/HTTPS ou com ?demo=true)
+      const isHttpDemoRoute = window.location.protocol.startsWith('http') &&
+        (window.location.pathname === '/pacote' || window.location.pathname.startsWith('/pacote/'));
       const isDemo = Boolean(
         cfg.isDemo === true ||
-        window.location.pathname.includes('/pacote') ||
+        isHttpDemoRoute ||
         new URLSearchParams(window.location.search).get('demo') === 'true'
       );
       if (isDemo) {

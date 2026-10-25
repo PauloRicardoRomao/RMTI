@@ -64,9 +64,10 @@ const AVAILABLE_PLANS: Record<string, PlanInfo> = {
     badge: 'PACOTE COMPLETO • 3 EM 1',
     deliverables: [
       '1 Estrutura Universal de Landing Page com 3 Layouts dinâmicos',
-      '🔥 Painel Admin Próprio Zerado (Troca de modelo com 1 clique)',
+      '🔥 Painel Admin Próprio Zerado (Edite literalmente tudo da página)',
+      '💳 3 Modelos de Checkout Integrados (1 Coluna, 2 Colunas c/ Bump e B2B)',
+      '🏦 4 Formas de Recebimento: Mercado Pago, Pix Direto, Kiwify/Hotmart e WhatsApp',
       '🔒 Primeiro Acesso com Troca Obrigatória de Senha (123456)',
-      'Página de Checkout Própria Zerada com Pix e Cartão',
       'Manual de Instruções Ilustrado em PDF incluso',
       'README Técnico Completo para Desenvolvedor',
       'Placeholders profissionais: SUA LOGO, SEU BANNER, SUA FOTO',

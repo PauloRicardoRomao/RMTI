@@ -824,7 +824,7 @@ export default function HomePage() {
 
                       <div className="flex flex-col gap-2 mt-6">
                         <Link
-                          href={`/checkout?plano=${product.id.includes("combo") ? "pro" : "starter"}&produto=${product.id}`}
+                          href={`/checkout?plano=${product.id.includes("vip") ? "vip" : "starter"}&produto=${product.id}`}
                           className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 transition-all hover:scale-[1.02]"
                         >
                           <ShoppingBag className="w-3.5 h-3.5" />
@@ -868,10 +868,10 @@ export default function HomePage() {
                     Ambiente de Demonstração Interativo
                   </span>
                   <h4 className="text-lg font-bold text-white">
-                    Quer testar a Landing Page e o Painel Admin agora mesmo?
+                    Quer testar a Landing Page, os 3 Checkouts e o Painel Admin agora mesmo?
                   </h4>
                   <p className="text-slate-400 text-xs sm:text-sm">
-                    Acesse a demonstração real com os 3 layouts alternáveis e o painel CMS zerado (senha inicial: 123456):
+                    Acesse a demonstração real com os 3 layouts alternáveis, 3 checkouts e o painel CMS zerado (senha inicial: 123456):
                   </p>
                 </div>
                 <div className="flex flex-wrap items-center justify-center gap-2.5">
@@ -883,6 +883,14 @@ export default function HomePage() {
                   >
                     <ExternalLink className="w-3.5 h-3.5" />
                     <span>Ver Landing Page (3 Layouts)</span>
+                  </a>
+                  <a
+                    href="/pacote/checkout"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-200 border border-slate-700 flex items-center gap-1.5 transition-colors"
+                  >
+                    <span>💳 Ver 3 Checkouts</span>
                   </a>
                   <a
                     href="/pacote/admin"

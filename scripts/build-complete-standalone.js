@@ -97,10 +97,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const cfg = window.PAGE_CONFIG || {};
   const activeLayout = cfg.activeLayout || 'vendas-diretas';
 
-  // Modo de Demonstração: ativo apenas se configurado explicitamente, se estiver na rota /pacote da RMTI ou com ?demo=true
+  // Modo de Demonstração: ativo apenas se configurado explicitamente, se estiver servido em /pacote na RMTI ou com ?demo=true
   const isDemoMode = Boolean(
     cfg.isDemo === true ||
-    window.location.pathname.includes('/pacote') ||
+    (window.location.protocol.startsWith('http') && (window.location.pathname === '/pacote' || window.location.pathname.startsWith('/pacote/'))) ||
     new URLSearchParams(window.location.search).get('demo') === 'true'
   );
 
@@ -138,32 +138,178 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.val-mockupUrl').forEach(el => el.src = cfg.mockupUrl);
   }
 
+  // Função auxiliar para converter link do YouTube/Vimeo em embed
+  function getEmbedUrl(url) {
+    if (!url || typeof url !== 'string') return '';
+    const trimmed = url.trim();
+    if (!trimmed) return '';
+    if (trimmed.includes('youtube.com/embed/') || trimmed.includes('player.vimeo.com/video/')) return trimmed;
+    const ytMatch = trimmed.match(/(?:youtube\\.com\\/watch\\?v=|youtu\\.be\\/|youtube\\.com\\/shorts\\/)([a-zA-Z0-9_-]{11})/);
+    if (ytMatch && ytMatch[1]) return 'https://www.youtube.com/embed/' + ytMatch[1];
+    const vimeoMatch = trimmed.match(/vimeo\\.com\\/([0-9]+)/);
+    if (vimeoMatch && vimeoMatch[1]) return 'https://player.vimeo.com/video/' + vimeoMatch[1];
+    return '';
+  }
+
   // Preencher campos de acordo com o layout ativo
   if (activeLayout === 'vendas-diretas' && cfg.vendas) {
     const v = cfg.vendas;
-    if (v.topBar) document.querySelector('.vendas-topBar').textContent = v.topBar;
-    if (v.headline) document.querySelector('.vendas-headline').textContent = v.headline;
-    if (v.subheadline) document.querySelector('.vendas-subheadline').textContent = v.subheadline;
-    if (v.ctaButton) document.querySelector('.vendas-ctaButton').textContent = v.ctaButton;
-    if (v.ctaSubtext) document.querySelector('.vendas-ctaSubtext').textContent = v.ctaSubtext;
-    if (v.productName) document.querySelector('.vendas-productName').textContent = v.productName;
-    if (v.originalPrice) document.querySelector('.vendas-originalPrice').textContent = v.originalPrice;
-    if (v.salePrice) document.querySelector('.vendas-salePrice').textContent = v.salePrice;
-    if (v.installments) document.querySelector('.vendas-installments').textContent = v.installments;
+    const setText = (sel, txt) => {
+      if (txt === undefined) return;
+      document.querySelectorAll(sel).forEach(el => el.textContent = txt);
+    };
+    setText('.vendas-topBar', v.topBar);
+    setText('.vendas-badge', v.badge);
+    setText('.vendas-headline', v.headline);
+    setText('.vendas-subheadline', v.subheadline);
+    setText('.vendas-ctaButton', v.ctaButton);
+    setText('.vendas-ctaSubtext', v.ctaSubtext);
+    setText('.vendas-productName', v.productName);
+    setText('.vendas-originalPrice', v.originalPrice);
+    setText('.vendas-salePrice', v.salePrice);
+    setText('.vendas-installments', v.installments);
+    setText('.vendas-guaranteeDays', v.guaranteeDays);
+    setText('.vendas-guaranteeText', v.guaranteeText);
+
+    // Vídeo VSL se configurado
+    const embedUrl = getEmbedUrl(v.videoUrl);
+    const vslContainer = document.getElementById('vendasVslContainer');
+    if (embedUrl && vslContainer) {
+      vslContainer.innerHTML = '<iframe src="' + embedUrl + '" class="w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="Vídeo de Apresentação"></iframe>';
+    }
+
+    // Módulos dinâmicos
+    if (Array.isArray(v.modules) && v.modules.length > 0) {
+      const modGrid = document.getElementById('vendasModulesGrid');
+      if (modGrid) {
+        modGrid.innerHTML = v.modules.map((m, idx) => {
+          const num = (idx + 1) < 10 ? '0' + (idx + 1) : (idx + 1);
+          return '<div class="glass-card p-6 sm:p-8 rounded-2xl border border-slate-800">' +
+            '<div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg font-black mb-3">' + num + '</div>' +
+            '<h3 class="text-lg font-bold text-white mb-1">' + (m.title || '') + '</h3>' +
+            '<p class="text-slate-300 text-sm">' + (m.desc || '') + '</p>' +
+          '</div>';
+        }).join('');
+      }
+    }
+
+    // Bônus dinâmicos
+    if (Array.isArray(v.bonuses) && v.bonuses.length > 0) {
+      const bonusGrid = document.getElementById('vendasBonusesGrid');
+      if (bonusGrid) {
+        bonusGrid.innerHTML = v.bonuses.map((b, idx) => {
+          return '<div class="glass-card p-6 rounded-2xl border border-emerald-500/30 bg-emerald-950/10 flex flex-col justify-between">' +
+            '<div>' +
+              '<span class="inline-block px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-black uppercase tracking-wider mb-3">🎁 Bônus 0' + (idx + 1) + '</span>' +
+              '<h3 class="text-base font-bold text-white mb-1.5">' + (b.title || '') + '</h3>' +
+              '<p class="text-slate-300 text-xs leading-relaxed">' + (b.desc || '') + '</p>' +
+            '</div>' +
+            '<div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">' +
+              '<span class="text-slate-400 line-through">Vendido por ' + (b.value || 'R$ 197') + '</span>' +
+              '<span class="text-emerald-400 font-black uppercase">GRÁTIS HOJE</span>' +
+            '</div>' +
+          '</div>';
+        }).join('');
+      }
+    }
   } else if (activeLayout === 'leads-whatsapp' && cfg.leads) {
     const l = cfg.leads;
-    if (l.topBar) document.querySelector('.leads-topBar').textContent = l.topBar;
-    if (l.headline) document.querySelector('.leads-headline').textContent = l.headline;
-    if (l.subheadline) document.querySelector('.leads-subheadline').textContent = l.subheadline;
-    if (l.professionalTitle) document.querySelector('.leads-professionalTitle').textContent = l.professionalTitle;
+    const setText = (sel, txt) => {
+      if (txt === undefined) return;
+      document.querySelectorAll(sel).forEach(el => el.textContent = txt);
+    };
+    setText('.leads-topBar', l.topBar);
+    setText('.leads-badge', l.badge);
+    setText('.leads-headline', l.headline);
+    setText('.leads-subheadline', l.subheadline);
+    setText('.leads-ctaButton', l.ctaButton);
+    setText('.leads-ctaSubtext', l.ctaSubtext);
+    setText('.leads-professionalTitle', l.professionalTitle);
+
+    // Planos dinâmicos
+    if (Array.isArray(l.plans) && l.plans.length > 0) {
+      const plansGrid = document.getElementById('leadsPlansGrid');
+      if (plansGrid) {
+        plansGrid.innerHTML = l.plans.map((p) => {
+          const isHigh = Boolean(p.highlight);
+          const feats = Array.isArray(p.features) ? p.features : [];
+          return '<div class="glass-card p-6 sm:p-8 rounded-3xl ' + (isHigh ? 'border-2 border-sky-500 bg-sky-950/20 relative shadow-2xl scale-105' : 'border border-slate-800') + ' flex flex-col justify-between">' +
+            (isHigh ? '<div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-sky-500 text-slate-950 text-[10px] font-black uppercase px-4 py-1 rounded-full whitespace-nowrap">' + (p.badge || 'MAIS ESCOLHIDO') + '</div>' : '') +
+            '<div>' +
+              '<h3 class="text-xl font-bold text-white">' + (p.name || '') + '</h3>' +
+              '<div class="text-3xl font-black text-white mt-4">' + (p.price || '') + '<span class="text-xs text-slate-400"> ' + (p.period || '') + '</span></div>' +
+              '<ul class="space-y-2.5 text-xs ' + (isHigh ? 'text-slate-200' : 'text-slate-300') + ' mt-6">' +
+                feats.map(f => '<li>✓ ' + f + '</li>').join('') +
+              '</ul>' +
+            '</div>' +
+            '<a href="#" class="whatsapp-btn mt-8 ' + (isHigh ? 'py-4 px-4 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-black text-xs uppercase tracking-wider text-center block shadow-lg shadow-sky-500/25' : 'py-3.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs text-center block border border-slate-700') + '" data-msg="' + (p.msg || ('Olá! Quero saber mais sobre o ' + p.name)) + '">' +
+              (isHigh ? 'Quero o ' + (p.name || 'Plano VIP') : 'Escolher ' + (p.name || 'Plano')) +
+            '</a>' +
+          '</div>';
+        }).join('');
+      }
+    }
   } else if (activeLayout === 'institucional' && cfg.institucional) {
     const i = cfg.institucional;
-    if (i.topBar) document.querySelector('.inst-topBar').textContent = i.topBar;
-    if (i.headline) document.querySelector('.inst-headline').textContent = i.headline;
-    if (i.subheadline) document.querySelector('.inst-subheadline').textContent = i.subheadline;
+    const setText = (sel, txt) => {
+      if (txt === undefined) return;
+      document.querySelectorAll(sel).forEach(el => el.textContent = txt);
+    };
+    setText('.inst-topBar', i.topBar);
+    setText('.inst-badge', i.badge);
+    setText('.inst-headline', i.headline);
+    setText('.inst-subheadline', i.subheadline);
+    setText('.inst-ctaButton', i.ctaButton);
+    setText('.inst-ctaSubtext', i.ctaSubtext);
+
+    // Estatísticas dinâmicas
+    if (Array.isArray(i.stats) && i.stats.length > 0) {
+      const statsGrid = document.getElementById('instStatsGrid');
+      if (statsGrid) {
+        statsGrid.innerHTML = i.stats.map(s => (
+          '<div>' +
+            '<div class="text-3xl sm:text-5xl font-black text-blue-400">' + (s.num || '') + '</div>' +
+            '<div class="text-xs sm:text-sm text-slate-400 mt-1">' + (s.label || '') + '</div>' +
+          '</div>'
+        )).join('');
+      }
+    }
+
+    // Serviços Corporativos dinâmicos
+    if (Array.isArray(i.services) && i.services.length > 0) {
+      const srvGrid = document.getElementById('instServicesGrid');
+      if (srvGrid) {
+        srvGrid.innerHTML = i.services.map((s, idx) => {
+          const num = '0' + (idx + 1);
+          return '<div class="glass-card p-6 sm:p-8 rounded-2xl border border-slate-800 hover:border-blue-500/40 transition-colors">' +
+            '<div class="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-sm font-black mb-4">' + num + '</div>' +
+            '<h3 class="text-lg font-bold text-white mb-2">' + (s.title || '') + '</h3>' +
+            '<p class="text-slate-300 text-sm leading-relaxed">' + (s.desc || '') + '</p>' +
+          '</div>';
+        }).join('');
+      }
+    }
   }
 
-  // Configurar links de WhatsApp
+  // FAQs dinâmicos (Compartilhado em todos os layouts)
+  if (Array.isArray(cfg.faqs) && cfg.faqs.length > 0) {
+    const faqContainer = document.getElementById('faqListContainer');
+    if (faqContainer) {
+      faqContainer.innerHTML = cfg.faqs.map(f => (
+        '<div class="faq-item glass-card rounded-2xl border border-slate-800 overflow-hidden">' +
+          '<button type="button" class="faq-question w-full p-5 text-left font-bold text-white flex justify-between items-center gap-4 hover:text-emerald-400 transition-colors">' +
+            '<span>' + (f.q || '') + '</span>' +
+            '<span class="faq-icon text-slate-400 transition-transform">▼</span>' +
+          '</button>' +
+          '<div class="faq-answer hidden px-5 pb-5 text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 pt-3">' +
+            (f.a || '') +
+          '</div>' +
+        '</div>'
+      )).join('');
+    }
+  }
+
+  // Configurar links de WhatsApp (após renderizar planos dinâmicos)
   if (cfg.whatsapp) {
     const cleanNum = cfg.whatsapp.replace(/\\D/g, '');
     const defaultMsg = encodeURIComponent(cfg.whatsappMessage || 'Olá! Vim pelo site.');
@@ -171,6 +317,24 @@ document.addEventListener('DOMContentLoaded', () => {
       const specificMsg = btn.getAttribute('data-msg');
       const msg = specificMsg ? encodeURIComponent(specificMsg) : defaultMsg;
       btn.href = \`https://wa.me/\${cleanNum}?text=\${msg}\`;
+    });
+  }
+
+  // Formulário B2B Institucional
+  const b2bForm = document.getElementById('b2bProposalForm');
+  if (b2bForm) {
+    b2bForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = (document.getElementById('b2bName') || {}).value || '';
+      const company = (document.getElementById('b2bCompany') || {}).value || '';
+      const phone = (document.getElementById('b2bPhone') || {}).value || '';
+      const need = (document.getElementById('b2bNeed') || {}).value || '';
+      if (cfg.whatsapp) {
+        const cleanNum = cfg.whatsapp.replace(/\\D/g, '');
+        const msg = encodeURIComponent('Olá! Solicito uma Proposta Comercial B2B.\\n\\n• Nome: ' + name + '\\n• Empresa: ' + company + '\\n• Contato: ' + phone + '\\n• Demanda: ' + need);
+        window.open('https://wa.me/' + cleanNum + '?text=' + msg, '_blank');
+      }
+      window.location.href = 'obrigado.html';
     });
   }
 
@@ -278,7 +442,7 @@ const indexHtml = `<!DOCTYPE html>
     <!-- Hero Vendas Diretas -->
     <section class="py-12 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center flex flex-col items-center">
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-black uppercase tracking-wider mb-6">
-        <span>🔥 MÉTODO 100% PRÁTICO &amp; VALIDADO</span>
+        <span class="vendas-badge">🔥 MÉTODO 100% PRÁTICO &amp; VALIDADO</span>
       </div>
 
       <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight mb-6 max-w-4xl vendas-headline">
@@ -291,7 +455,7 @@ const indexHtml = `<!DOCTYPE html>
 
       <!-- Banner / VSL Mockup -->
       <div class="w-full max-w-3xl rounded-3xl overflow-hidden border-2 border-emerald-500/40 shadow-2xl mb-10 relative group bg-slate-900">
-        <div class="aspect-video relative flex items-center justify-center">
+        <div id="vendasVslContainer" class="aspect-video relative flex items-center justify-center">
           <img src="assets/imagens/banner-placeholder.jpg" alt="Seu Banner ou Vídeo" class="w-full h-full object-cover val-bannerUrl">
           <a href="#comprar" class="absolute w-20 h-20 rounded-full bg-emerald-500/90 text-slate-950 flex items-center justify-center text-3xl shadow-2xl group-hover:scale-110 transition-transform">
             ▶
@@ -314,7 +478,7 @@ const indexHtml = `<!DOCTYPE html>
         <span class="text-emerald-400 text-xs font-bold uppercase tracking-wider">CONTEÚDO COMPLETO</span>
         <h2 class="text-2xl sm:text-4xl font-black text-white mt-2">O Que Você Vai Aprender Passo a Passo</h2>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div id="vendasModulesGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="glass-card p-6 sm:p-8 rounded-2xl border border-slate-800">
           <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg font-black mb-3">01</div>
           <h3 class="text-lg font-bold text-white mb-1">Módulo 01: Fundamentos &amp; Mentalidade</h3>
@@ -338,6 +502,15 @@ const indexHtml = `<!DOCTYPE html>
       </div>
     </section>
 
+    <!-- Bônus Exclusivos -->
+    <section class="py-16 px-4 max-w-5xl mx-auto border-t border-slate-800">
+      <div class="text-center mb-12">
+        <span class="text-emerald-400 text-xs font-bold uppercase tracking-wider">PRESENTES EXCLUSIVOS</span>
+        <h2 class="text-2xl sm:text-4xl font-black text-white mt-2">Bônus Gratuitos Para Quem Entrar Hoje</h2>
+      </div>
+      <div id="vendasBonusesGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+    </section>
+
     <!-- Oferta & Preço -->
     <section id="comprar" class="py-20 px-4 max-w-3xl mx-auto text-center border-t border-slate-800 scroll-mt-20">
       <div class="rounded-3xl p-8 sm:p-12 pt-10 sm:pt-14 bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 border-2 border-emerald-500/60 shadow-2xl relative">
@@ -352,9 +525,13 @@ const indexHtml = `<!DOCTYPE html>
           <div class="text-xs text-emerald-400 font-semibold">ou <span class="vendas-salePrice">R$ 197,00</span> à vista com desconto</div>
         </div>
         <a href="checkout.html" class="pulse-btn w-full py-5 px-8 rounded-2xl text-base sm:text-lg font-black bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 flex items-center justify-center gap-2 shadow-2xl uppercase tracking-wider">
-          <span>SIM! QUERO ME INSCREVER AGORA</span>
+          <span class="vendas-ctaButton">SIM! QUERO ME INSCREVER AGORA</span>
           <span>→</span>
         </a>
+        <div class="mt-6 pt-5 border-t border-slate-800/80 text-xs text-slate-400 flex flex-col items-center gap-1">
+          <span class="font-bold text-emerald-400">🛡️ Garantia Incondicional de <span class="vendas-guaranteeDays">7</span> Dias</span>
+          <p class="max-w-lg vendas-guaranteeText">Você tem 7 dias para testar tudo. Se por qualquer motivo achar que não valeu a pena, devolvemos 100% do seu dinheiro.</p>
+        </div>
       </div>
     </section>
   </div>
@@ -372,7 +549,7 @@ const indexHtml = `<!DOCTYPE html>
     <section class="py-12 sm:py-20 px-4 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
       <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
         <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sky-500/10 border border-sky-500/30 text-sky-400 text-xs font-bold uppercase tracking-wider">
-          <span>★ ATENDIMENTO PERSONALIZADO</span>
+          <span class="leads-badge">★ ATENDIMENTO PERSONALIZADO</span>
         </div>
         <h1 class="text-3xl sm:text-5xl font-black text-white leading-tight leads-headline">
           Transforme Sua [Área de Atuação] com um Acompanhamento 100% Individualizado
@@ -382,12 +559,13 @@ const indexHtml = `<!DOCTYPE html>
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
           <a href="#" class="whatsapp-btn py-4 px-8 rounded-2xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 text-white font-black text-sm uppercase tracking-wider shadow-xl shadow-sky-500/20 text-center flex items-center justify-center gap-2">
-            <span>💬 FALAR COMIGO NO WHATSAPP</span>
+            <span class="leads-ctaButton">💬 FALAR COMIGO NO WHATSAPP</span>
           </a>
           <a href="#planos-servico" class="py-4 px-8 rounded-2xl bg-slate-900 hover:bg-slate-800 text-slate-200 font-bold text-sm border border-slate-700 text-center">
             Ver Modalidades
           </a>
         </div>
+        <p class="text-xs text-slate-400 leads-ctaSubtext">⚡ Resposta Rápida • Vagas Limitadas</p>
       </div>
 
       <!-- Foto Especialista -->
@@ -409,56 +587,7 @@ const indexHtml = `<!DOCTYPE html>
         <h2 class="text-2xl sm:text-4xl font-black text-white mt-2">Escolha Seu Formato de Acompanhamento</h2>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
-        <div class="glass-card p-6 sm:p-8 rounded-3xl border border-slate-800 flex flex-col justify-between">
-          <div>
-            <h3 class="text-xl font-bold text-white">Plano Mensal</h3>
-            <div class="text-3xl font-black text-white mt-4">R$ 197<span class="text-xs text-slate-400">/mês</span></div>
-            <ul class="space-y-2.5 text-xs text-slate-300 mt-6">
-              <li>✓ Avaliação inicial completa</li>
-              <li>✓ Plano personalizado de 30 dias</li>
-              <li>✓ Suporte semanal via WhatsApp</li>
-            </ul>
-          </div>
-          <a href="#" class="whatsapp-btn mt-8 py-3.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs text-center block border border-slate-700" data-msg="Olá! Gostaria de iniciar no Plano Mensal.">
-            Escolher Plano Mensal
-          </a>
-        </div>
-
-        <div class="glass-card p-6 sm:p-8 rounded-3xl border-2 border-sky-500 bg-sky-950/20 flex flex-col justify-between relative shadow-2xl scale-105">
-          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-sky-500 text-slate-950 text-[10px] font-black uppercase px-4 py-1 rounded-full whitespace-nowrap">
-            MAIS ESCOLHIDO • 40% OFF
-          </div>
-          <div>
-            <h3 class="text-xl font-bold text-white">Plano Trimestral VIP</h3>
-            <div class="text-3xl font-black text-white mt-4">3x R$ 149<span class="text-xs text-slate-400"> ou R$ 397</span></div>
-            <ul class="space-y-2.5 text-xs text-slate-200 mt-6">
-              <li>✓ Tudo do Plano Mensal</li>
-              <li>✓ Ajustes quinzenais de protocolo</li>
-              <li>✓ Acompanhamento prioritário no WhatsApp</li>
-              <li>✓ Guia complementar de hábitos saudáveis</li>
-            </ul>
-          </div>
-          <a href="#" class="whatsapp-btn mt-8 py-4 px-4 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-black text-xs uppercase tracking-wider text-center block shadow-lg shadow-sky-500/25" data-msg="Olá! Gostaria de garantir minha vaga no Plano Trimestral VIP.">
-            Quero o Trimestral VIP
-          </a>
-        </div>
-
-        <div class="glass-card p-6 sm:p-8 rounded-3xl border border-slate-800 flex flex-col justify-between">
-          <div>
-            <h3 class="text-xl font-bold text-white">Plano Semestral</h3>
-            <div class="text-3xl font-black text-white mt-4">6x R$ 119<span class="text-xs text-slate-400"> ou R$ 647</span></div>
-            <ul class="space-y-2.5 text-xs text-slate-300 mt-6">
-              <li>✓ Acompanhamento de 6 meses</li>
-              <li>✓ Check-ins mensais em vídeo</li>
-              <li>✓ Canal direto 24/7 no WhatsApp</li>
-            </ul>
-          </div>
-          <a href="#" class="whatsapp-btn mt-8 py-3.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs text-center block border border-slate-700" data-msg="Olá! Gostaria de me inscrever no Plano Semestral.">
-            Escolher Plano Semestral
-          </a>
-        </div>
-      </div>
+      <div id="leadsPlansGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch"></div>
     </section>
   </div>
 
@@ -474,7 +603,7 @@ const indexHtml = `<!DOCTYPE html>
     <!-- Hero Corporativo -->
     <section class="py-16 sm:py-24 px-4 max-w-6xl mx-auto text-center flex flex-col items-center">
       <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-black uppercase tracking-wider mb-6">
-        <span>★ SOLUÇÕES CORPORATIVAS DE ALTA PERFORMANCE</span>
+        <span class="inst-badge">★ SOLUÇÕES CORPORATIVAS DE ALTA PERFORMANCE</span>
       </span>
       <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-tight max-w-4xl mb-6 inst-headline">
         Aceleramos o Crescimento do Seu Negócio com Soluções de Alta Performance
@@ -482,10 +611,11 @@ const indexHtml = `<!DOCTYPE html>
       <p class="text-slate-300 text-base sm:text-xl max-w-3xl mb-10 leading-relaxed inst-subheadline">
         Desenvolvemos tecnologia sob medida, processos eficientes e estratégias focadas em maximizar a rentabilidade e a escala da sua operação.
       </p>
-      <div class="flex flex-col sm:flex-row gap-4 mb-12">
+      <div class="flex flex-col items-center gap-2 mb-12">
         <a href="#proposta" class="py-4 px-8 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-black text-sm uppercase tracking-wider shadow-xl shadow-blue-600/20">
-          SOLICITAR PROPOSTA PERSONALIZADA
+          <span class="inst-ctaButton">SOLICITAR PROPOSTA PERSONALIZADA</span>
         </a>
+        <span class="text-xs text-slate-400 inst-ctaSubtext">Atendimento Executivo • Proposta em até 24 Horas</span>
       </div>
 
       <!-- Banner Corporativo -->
@@ -496,43 +626,43 @@ const indexHtml = `<!DOCTYPE html>
 
     <!-- Métricas de Impacto -->
     <section class="py-12 bg-slate-950/60 border-y border-slate-800">
-      <div class="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-        <div>
-          <div class="text-3xl sm:text-5xl font-black text-blue-400">+500</div>
-          <div class="text-xs sm:text-sm text-slate-400 mt-1">Projetos Entregues</div>
-        </div>
-        <div>
-          <div class="text-3xl sm:text-5xl font-black text-blue-400">99.4%</div>
-          <div class="text-xs sm:text-sm text-slate-400 mt-1">Satisfação dos Clientes</div>
-        </div>
-        <div>
-          <div class="text-3xl sm:text-5xl font-black text-blue-400">10+</div>
-          <div class="text-xs sm:text-sm text-slate-400 mt-1">Anos de Mercado</div>
-        </div>
-        <div>
-          <div class="text-3xl sm:text-5xl font-black text-blue-400">R$ 15M+</div>
-          <div class="text-xs sm:text-sm text-slate-400 mt-1">Em Receita Gerada</div>
-        </div>
+      <div id="instStatsGrid" class="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center"></div>
+    </section>
+
+    <!-- Soluções & Serviços Corporativos -->
+    <section class="py-16 px-4 max-w-6xl mx-auto border-b border-slate-800">
+      <div class="text-center mb-12">
+        <span class="text-blue-400 text-xs font-bold uppercase tracking-wider">NOSSAS ESPECIALIDADES</span>
+        <h2 class="text-2xl sm:text-4xl font-black text-white mt-2">Soluções Corporativas Sob Medida</h2>
       </div>
+      <div id="instServicesGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
     </section>
 
     <!-- Formulário de Proposta B2B -->
-    <section id="proposta" class="py-20 px-4 max-w-4xl mx-auto border-t border-slate-800">
+    <section id="proposta" class="py-20 px-4 max-w-4xl mx-auto">
       <div class="glass-card p-8 sm:p-12 rounded-3xl border border-blue-500/40 shadow-2xl">
         <div class="text-center mb-8">
           <h2 class="text-2xl sm:text-3xl font-black text-white">Solicite uma Proposta Comercial</h2>
           <p class="text-xs sm:text-sm text-slate-400 mt-2">Nossa equipe executiva entrará em contato em até 24 horas úteis.</p>
         </div>
-        <form class="space-y-4" onsubmit="event.preventDefault(); window.location.href='obrigado.html';">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <form id="b2bProposalForm" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
               <label class="block text-xs font-bold text-slate-300 mb-1">Seu Nome *</label>
-              <input type="text" required placeholder="Ex: Roberto Silva" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+              <input type="text" id="b2bName" required placeholder="Ex: Roberto Silva" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
             </div>
             <div>
               <label class="block text-xs font-bold text-slate-300 mb-1">Empresa *</label>
-              <input type="text" required placeholder="Ex: Horizon Tech" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+              <input type="text" id="b2bCompany" required placeholder="Ex: Horizon Tech" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
             </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1">WhatsApp / Telefone *</label>
+              <input type="tel" id="b2bPhone" required placeholder="(11) 99999-9999" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1">Resumo da Necessidade / Escopo</label>
+            <textarea id="b2bNeed" rows="2" placeholder="Conte brevemente sobre o que sua empresa precisa..." class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white"></textarea>
           </div>
           <button type="submit" class="w-full py-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-black text-sm uppercase tracking-wider shadow-lg shadow-blue-600/30">
             Enviar Solicitação de Proposta
@@ -551,27 +681,7 @@ const indexHtml = `<!DOCTYPE html>
       <p class="text-slate-400 text-sm mt-1">Respostas para as perguntas mais comuns.</p>
     </div>
 
-    <div class="space-y-3">
-      <div class="faq-item glass-card rounded-2xl border border-slate-800 overflow-hidden">
-        <button class="faq-question w-full p-5 text-left font-bold text-white flex justify-between items-center gap-4 hover:text-emerald-400 transition-colors">
-          <span>Como recebo o acesso ou atendimento?</span>
-          <span class="faq-icon text-slate-400 transition-transform">▼</span>
-        </button>
-        <div class="faq-answer hidden px-5 pb-5 text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 pt-3">
-          O contato e envio são imediatos após a confirmação. Nossa equipe entrará em contato ou você receberá os dados no seu e-mail cadastrado.
-        </div>
-      </div>
-
-      <div class="faq-item glass-card rounded-2xl border border-slate-800 overflow-hidden">
-        <button class="faq-question w-full p-5 text-left font-bold text-white flex justify-between items-center gap-4 hover:text-emerald-400 transition-colors">
-          <span>Como realizo a alteração de textos e imagens?</span>
-          <span class="faq-icon text-slate-400 transition-transform">▼</span>
-        </button>
-        <div class="faq-answer hidden px-5 pb-5 text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 pt-3">
-          Basta acessar a pasta /admin pelo navegador e alterar qualquer item com 1 clique, sem precisar mexer em códigos.
-        </div>
-      </div>
-    </div>
+    <div id="faqListContainer" class="space-y-3"></div>
   </section>
 
   <!-- RODAPÉ UNIFICADO COM ASSINATURA RMTI -->
@@ -1103,10 +1213,12 @@ const checkoutHtml = `<!DOCTYPE html>
       const cfg = window.PAGE_CONFIG || {};
       const chk = cfg.checkout || {};
 
-      // Controle de visibilidade de Demonstração
+      // Controle de visibilidade de Demonstração (Apenas na rota /pacote da RMTI via HTTP/HTTPS ou com ?demo=true)
+      const isHttpDemoRoute = window.location.protocol.startsWith('http') &&
+        (window.location.pathname === '/pacote' || window.location.pathname.startsWith('/pacote/'));
       const isDemo = Boolean(
         cfg.isDemo === true ||
-        window.location.pathname.includes('/pacote') ||
+        isHttpDemoRoute ||
         new URLSearchParams(window.location.search).get('demo') === 'true'
       );
       if (isDemo) {
@@ -1517,6 +1629,9 @@ const adminHtml = `<!DOCTYPE html>
         </div>
 
         <div class="flex items-center gap-2">
+          <button id="btnOpenChangePass" type="button" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold border border-slate-700 flex items-center gap-1" title="Alterar Senha do Painel">
+            <span>🔐 Alterar Senha</span>
+          </button>
           <a href="../index.html" target="_blank" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-700 flex items-center gap-1.5">
             <span>👁 Ver Página</span>
           </a>
@@ -1635,12 +1750,18 @@ const adminHtml = `<!DOCTYPE html>
           </div>
         </div>
 
-        <!-- ABA 2: TEXTOS ESPECÍFICOS -->
+        <!-- ABA 2: TEXTOS ESPECÍFICOS (100% DA PÁGINA EDITÁVEL) -->
         <div id="tab-textos" class="tab-content hidden space-y-6">
-          <h3 class="text-base font-bold text-white border-b border-slate-800 pb-3">Textos e Oferta da Página</h3>
-          <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1.5">Barra Superior de Aviso / Urgência</label>
-            <input type="text" id="cfg_topBar" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+          <h3 class="text-base font-bold text-white border-b border-slate-800 pb-3">Textos, Seções e Oferta do Modelo Ativo</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1.5">Barra Superior de Aviso / Urgência</label>
+              <input type="text" id="cfg_topBar" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1.5">Selo / Badge Acima da Headline</label>
+              <input type="text" id="cfg_badge" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+            </div>
           </div>
           <div>
             <label class="block text-xs font-bold text-slate-300 mb-1.5">Headline Principal (Título Forte)</label>
@@ -1661,9 +1782,21 @@ const adminHtml = `<!DOCTYPE html>
             </div>
           </div>
 
-          <!-- Campos de Preço para Modelo 1 -->
-          <div id="vendasPriceFields" class="pt-4 border-t border-slate-800 space-y-4">
-            <h4 class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Configurações de Preço (Modelo 1)</h4>
+          <!-- =============================================================== -->
+          <!-- CAMPOS EXCLUSIVOS DO MODELO 01: VENDAS DIRETAS & VSL -->
+          <!-- =============================================================== -->
+          <div id="vendasPriceFields" class="pt-6 border-t border-slate-800 space-y-6">
+            <h4 class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Vídeo VSL, Oferta &amp; Garantia (Modelo 01)</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1.5">URL do Vídeo de Vendas (YouTube ou Vimeo - Opcional)</label>
+                <input type="text" id="cfg_vendas_videoUrl" placeholder="Ex: https://www.youtube.com/watch?v=... (vazio usa o Banner)" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1.5">Nome da Oferta / Produto</label>
+                <input type="text" id="cfg_vendas_productName" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+              </div>
+            </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
                 <label class="block text-xs font-bold text-slate-300 mb-1.5">Preço Original (De:)</label>
@@ -1676,6 +1809,160 @@ const adminHtml = `<!DOCTYPE html>
               <div>
                 <label class="block text-xs font-bold text-slate-300 mb-1.5">Texto de Parcelamento</label>
                 <input type="text" id="cfg_vendas_installments" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+              </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1.5">Dias de Garantia</label>
+                <input type="text" id="cfg_vendas_guaranteeDays" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+              </div>
+              <div class="md:col-span-2">
+                <label class="block text-xs font-bold text-slate-300 mb-1.5">Texto da Garantia</label>
+                <input type="text" id="cfg_vendas_guaranteeText" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+              </div>
+            </div>
+
+            <!-- 4 Módulos do Modelo 01 -->
+            <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
+              <h5 class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Módulos / Pilares do Produto (4 Blocos)</h5>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800 space-y-2">
+                  <input type="text" id="cfg_mod_0_title" placeholder="Título do Módulo 01" class="w-full py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs font-bold text-white">
+                  <textarea id="cfg_mod_0_desc" rows="2" placeholder="Descrição do Módulo 01" class="w-full py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-300"></textarea>
+                </div>
+                <div class="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800 space-y-2">
+                  <input type="text" id="cfg_mod_1_title" placeholder="Título do Módulo 02" class="w-full py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs font-bold text-white">
+                  <textarea id="cfg_mod_1_desc" rows="2" placeholder="Descrição do Módulo 02" class="w-full py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-300"></textarea>
+                </div>
+                <div class="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800 space-y-2">
+                  <input type="text" id="cfg_mod_2_title" placeholder="Título do Módulo 03" class="w-full py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs font-bold text-white">
+                  <textarea id="cfg_mod_2_desc" rows="2" placeholder="Descrição do Módulo 03" class="w-full py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-300"></textarea>
+                </div>
+                <div class="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800 space-y-2">
+                  <input type="text" id="cfg_mod_3_title" placeholder="Título do Módulo 04" class="w-full py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs font-bold text-white">
+                  <textarea id="cfg_mod_3_desc" rows="2" placeholder="Descrição do Módulo 04" class="w-full py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-300"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3 Bônus do Modelo 01 -->
+            <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
+              <h5 class="text-xs font-bold text-amber-400 uppercase tracking-wider">Bônus Exclusivos (3 Cards)</h5>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800 space-y-2">
+                  <input type="text" id="cfg_bon_0_title" placeholder="Título do Bônus 1" class="w-full py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs font-bold text-white">
+                  <input type="text" id="cfg_bon_0_val" placeholder="Valor (Ex: R$ 197)" class="w-full py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-amber-400">
+                  <textarea id="cfg_bon_0_desc" rows="2" placeholder="Descrição do Bônus 1" class="w-full py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-300"></textarea>
+                </div>
+                <div class="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800 space-y-2">
+                  <input type="text" id="cfg_bon_1_title" placeholder="Título do Bônus 2" class="w-full py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs font-bold text-white">
+                  <input type="text" id="cfg_bon_1_val" placeholder="Valor (Ex: R$ 147)" class="w-full py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-amber-400">
+                  <textarea id="cfg_bon_1_desc" rows="2" placeholder="Descrição do Bônus 2" class="w-full py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-300"></textarea>
+                </div>
+                <div class="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800 space-y-2">
+                  <input type="text" id="cfg_bon_2_title" placeholder="Título do Bônus 3" class="w-full py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs font-bold text-white">
+                  <input type="text" id="cfg_bon_2_val" placeholder="Valor (Ex: R$ 297)" class="w-full py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-amber-400">
+                  <textarea id="cfg_bon_2_desc" rows="2" placeholder="Descrição do Bônus 3" class="w-full py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-300"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- =============================================================== -->
+          <!-- CAMPOS EXCLUSIVOS DO MODELO 02: ESPECIALISTA & WHATSAPP VIP -->
+          <!-- =============================================================== -->
+          <div id="leadsExtraFields" class="hidden pt-6 border-t border-slate-800 space-y-6">
+            <h4 class="text-xs font-bold text-sky-400 uppercase tracking-wider">Credenciais &amp; Planos de Atendimento (Modelo 02)</h4>
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1.5">Registro Profissional / Especialidade (Ex: CRM, OAB, CREFITO, Consultor)</label>
+              <input type="text" id="cfg_leads_professionalTitle" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-2.5">
+                <span class="text-[10px] font-bold text-sky-400 uppercase">Plano / Modalidade 01</span>
+                <input type="text" id="cfg_plan_0_name" placeholder="Nome do Plano 1" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs font-bold text-white">
+                <input type="text" id="cfg_plan_0_price" placeholder="Valor ou Sob Consulta" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-emerald-400">
+                <input type="text" id="cfg_plan_0_period" placeholder="Subtítulo (Ex: Sessão Única)" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-slate-300">
+                <textarea id="cfg_plan_0_features" rows="3" placeholder="Benefícios separados por vírgula" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-slate-300"></textarea>
+              </div>
+              <div class="p-4 rounded-2xl bg-slate-900/60 border border-emerald-500/40 space-y-2.5">
+                <span class="text-[10px] font-bold text-emerald-400 uppercase">Plano 02 (Destaque Principal)</span>
+                <input type="text" id="cfg_plan_1_name" placeholder="Nome do Plano 2" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs font-bold text-white">
+                <input type="text" id="cfg_plan_1_price" placeholder="Valor ou Mais Procurado" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-emerald-400">
+                <input type="text" id="cfg_plan_1_period" placeholder="Subtítulo (Ex: Acompanhamento)" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-slate-300">
+                <textarea id="cfg_plan_1_features" rows="3" placeholder="Benefícios separados por vírgula" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-slate-300"></textarea>
+              </div>
+              <div class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-2.5">
+                <span class="text-[10px] font-bold text-sky-400 uppercase">Plano / Modalidade 03</span>
+                <input type="text" id="cfg_plan_2_name" placeholder="Nome do Plano 3" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs font-bold text-white">
+                <input type="text" id="cfg_plan_2_price" placeholder="Valor ou Sob Medida" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-emerald-400">
+                <input type="text" id="cfg_plan_2_period" placeholder="Subtítulo (Ex: Corporativo)" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-slate-300">
+                <textarea id="cfg_plan_2_features" rows="3" placeholder="Benefícios separados por vírgula" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-slate-300"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- =============================================================== -->
+          <!-- CAMPOS EXCLUSIVOS DO MODELO 03: INSTITUCIONAL & B2B -->
+          <!-- =============================================================== -->
+          <div id="instExtraFields" class="hidden pt-6 border-t border-slate-800 space-y-6">
+            <h4 class="text-xs font-bold text-blue-400 uppercase tracking-wider">Métricas de Autoridade &amp; Soluções Corporativas (Modelo 03)</h4>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+                <input type="text" id="cfg_stat_0_num" placeholder="Ex: +500" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs font-bold text-emerald-400">
+                <input type="text" id="cfg_stat_0_lbl" placeholder="Projetos Entregues" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white">
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+                <input type="text" id="cfg_stat_1_num" placeholder="Ex: 98%" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs font-bold text-emerald-400">
+                <input type="text" id="cfg_stat_1_lbl" placeholder="Índice de Satisfação" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white">
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+                <input type="text" id="cfg_stat_2_num" placeholder="Ex: 10+ Anos" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs font-bold text-emerald-400">
+                <input type="text" id="cfg_stat_2_lbl" placeholder="Experiência de Mercado" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white">
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+                <input type="text" id="cfg_stat_3_num" placeholder="Ex: 24/7" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs font-bold text-emerald-400">
+                <input type="text" id="cfg_stat_3_lbl" placeholder="Suporte Dedicado" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+                <input type="text" id="cfg_srv_0_title" placeholder="Título do Serviço 01" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs font-bold text-white">
+                <textarea id="cfg_srv_0_desc" rows="2" placeholder="Descrição do Serviço 01" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-slate-300"></textarea>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+                <input type="text" id="cfg_srv_1_title" placeholder="Título do Serviço 02" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs font-bold text-white">
+                <textarea id="cfg_srv_1_desc" rows="2" placeholder="Descrição do Serviço 02" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-slate-300"></textarea>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+                <input type="text" id="cfg_srv_2_title" placeholder="Título do Serviço 03" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs font-bold text-white">
+                <textarea id="cfg_srv_2_desc" rows="2" placeholder="Descrição do Serviço 03" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-slate-300"></textarea>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+                <input type="text" id="cfg_srv_3_title" placeholder="Título do Serviço 04" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs font-bold text-white">
+                <textarea id="cfg_srv_3_desc" rows="2" placeholder="Descrição do Serviço 04" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-slate-300"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- =============================================================== -->
+          <!-- PERGUNTAS FREQUENTES (FAQ COMPARTILHADO NOS 3 MODELOS) -->
+          <!-- =============================================================== -->
+          <div class="pt-6 border-t border-slate-800 space-y-4">
+            <h4 class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Perguntas Frequentes (FAQ da Página)</h4>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+                <input type="text" id="cfg_faq_0_q" placeholder="Pergunta 1" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs font-bold text-white">
+                <textarea id="cfg_faq_0_a" rows="3" placeholder="Resposta 1" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-slate-300"></textarea>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+                <input type="text" id="cfg_faq_1_q" placeholder="Pergunta 2" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs font-bold text-white">
+                <textarea id="cfg_faq_1_a" rows="3" placeholder="Resposta 2" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-slate-300"></textarea>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+                <input type="text" id="cfg_faq_2_q" placeholder="Pergunta 3" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs font-bold text-white">
+                <textarea id="cfg_faq_2_a" rows="3" placeholder="Resposta 3" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-slate-300"></textarea>
               </div>
             </div>
           </div>
@@ -2235,40 +2522,100 @@ document.addEventListener('DOMContentLoaded', () => {
     setVal('cfg_checkout_testimonialRole', testm.role || 'Aluna / Cliente Verificada');
     setVal('cfg_checkout_testimonialText', testm.text || 'O suporte e a estrutura são impecáveis! Consegui aplicar no meu negócio no mesmo dia da compra.');
 
+    // FAQs compartilhadas
+    const faqs = Array.isArray(cfg.faqs) ? cfg.faqs : [];
+    for (let idx = 0; idx < 3; idx++) {
+      setVal('cfg_faq_' + idx + '_q', faqs[idx] ? faqs[idx].q : '');
+      setVal('cfg_faq_' + idx + '_a', faqs[idx] ? faqs[idx].a : '');
+    }
+
     loadLayoutSpecificFields(active);
+  }
+
+  // Botão para abrir modal de troca de senha a qualquer momento
+  const btnOpenChangePass = document.getElementById('btnOpenChangePass');
+  if (btnOpenChangePass) {
+    btnOpenChangePass.addEventListener('click', () => {
+      modalFirstAccess.classList.remove('hidden');
+    });
   }
 
   function loadLayoutSpecificFields(layout) {
     const cfg = currentConfig;
     const priceFields = document.getElementById('vendasPriceFields');
+    const leadsFields = document.getElementById('leadsExtraFields');
+    const instFields = document.getElementById('instExtraFields');
+
+    if (priceFields) priceFields.classList.add('hidden');
+    if (leadsFields) leadsFields.classList.add('hidden');
+    if (instFields) instFields.classList.add('hidden');
 
     if (layout === 'vendas-diretas') {
       const v = cfg.vendas || {};
       setVal('cfg_topBar', v.topBar);
+      setVal('cfg_badge', v.badge);
       setVal('cfg_headline', v.headline);
       setVal('cfg_subheadline', v.subheadline);
       setVal('cfg_ctaButton', v.ctaButton);
       setVal('cfg_ctaSubtext', v.ctaSubtext);
+      setVal('cfg_vendas_videoUrl', v.videoUrl || '');
+      setVal('cfg_vendas_productName', v.productName || '');
       setVal('cfg_vendas_originalPrice', v.originalPrice);
       setVal('cfg_vendas_salePrice', v.salePrice);
       setVal('cfg_vendas_installments', v.installments);
+      setVal('cfg_vendas_guaranteeDays', v.guaranteeDays || '7');
+      setVal('cfg_vendas_guaranteeText', v.guaranteeText || '');
+
+      const mods = Array.isArray(v.modules) ? v.modules : [];
+      for (let m = 0; m < 4; m++) {
+        setVal('cfg_mod_' + m + '_title', mods[m] ? mods[m].title : '');
+        setVal('cfg_mod_' + m + '_desc', mods[m] ? mods[m].desc : '');
+      }
+      const bons = Array.isArray(v.bonuses) ? v.bonuses : [];
+      for (let b = 0; b < 3; b++) {
+        setVal('cfg_bon_' + b + '_title', bons[b] ? bons[b].title : '');
+        setVal('cfg_bon_' + b + '_val', bons[b] ? bons[b].value : '');
+        setVal('cfg_bon_' + b + '_desc', bons[b] ? bons[b].desc : '');
+      }
       if (priceFields) priceFields.classList.remove('hidden');
     } else if (layout === 'leads-whatsapp') {
       const l = cfg.leads || {};
       setVal('cfg_topBar', l.topBar);
+      setVal('cfg_badge', l.badge);
       setVal('cfg_headline', l.headline);
       setVal('cfg_subheadline', l.subheadline);
       setVal('cfg_ctaButton', l.ctaButton);
       setVal('cfg_ctaSubtext', l.ctaSubtext);
-      if (priceFields) priceFields.classList.add('hidden');
+      setVal('cfg_leads_professionalTitle', l.professionalTitle || '');
+
+      const plans = Array.isArray(l.plans) ? l.plans : [];
+      for (let p = 0; p < 3; p++) {
+        setVal('cfg_plan_' + p + '_name', plans[p] ? plans[p].name : '');
+        setVal('cfg_plan_' + p + '_price', plans[p] ? plans[p].price : '');
+        setVal('cfg_plan_' + p + '_period', plans[p] ? plans[p].period : '');
+        setVal('cfg_plan_' + p + '_features', plans[p] && Array.isArray(plans[p].features) ? plans[p].features.join(', ') : '');
+      }
+      if (leadsFields) leadsFields.classList.remove('hidden');
     } else {
       const i = cfg.institucional || {};
       setVal('cfg_topBar', i.topBar);
+      setVal('cfg_badge', i.badge);
       setVal('cfg_headline', i.headline);
       setVal('cfg_subheadline', i.subheadline);
       setVal('cfg_ctaButton', i.ctaButton);
       setVal('cfg_ctaSubtext', i.ctaSubtext);
-      if (priceFields) priceFields.classList.add('hidden');
+
+      const stats = Array.isArray(i.stats) ? i.stats : [];
+      for (let s = 0; s < 4; s++) {
+        setVal('cfg_stat_' + s + '_num', stats[s] ? stats[s].num : '');
+        setVal('cfg_stat_' + s + '_lbl', stats[s] ? stats[s].label : '');
+      }
+      const srvs = Array.isArray(i.services) ? i.services : [];
+      for (let sv = 0; sv < 4; sv++) {
+        setVal('cfg_srv_' + sv + '_title', srvs[sv] ? srvs[sv].title : '');
+        setVal('cfg_srv_' + sv + '_desc', srvs[sv] ? srvs[sv].desc : '');
+      }
+      if (instFields) instFields.classList.remove('hidden');
     }
   }
 
@@ -2292,8 +2639,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return el ? el.checked : false;
   }
 
-  // Salvar no localStorage
-  document.getElementById('btnSaveConfig').addEventListener('click', () => {
+  function collectFormIntoConfig() {
     currentConfig.businessName = getVal('cfg_businessName');
     currentConfig.tagline = getVal('cfg_tagline');
     currentConfig.logoUrl = getVal('cfg_logoUrl');
@@ -2304,6 +2650,12 @@ document.addEventListener('DOMContentLoaded', () => {
     currentConfig.whatsappMessage = getVal('cfg_whatsappMessage');
     currentConfig.metaPixelId = getVal('cfg_metaPixelId');
     currentConfig.googleAdsId = getVal('cfg_googleAdsId');
+
+    // Salvar FAQs
+    currentConfig.faqs = [0, 1, 2].map(idx => ({
+      q: getVal('cfg_faq_' + idx + '_q'),
+      a: getVal('cfg_faq_' + idx + '_a')
+    })).filter(f => f.q || f.a);
 
     // Salvar Checkout
     if (!currentConfig.checkout) currentConfig.checkout = {};
@@ -2363,29 +2715,65 @@ document.addEventListener('DOMContentLoaded', () => {
     if (active === 'vendas-diretas') {
       if (!currentConfig.vendas) currentConfig.vendas = {};
       currentConfig.vendas.topBar = getVal('cfg_topBar');
+      currentConfig.vendas.badge = getVal('cfg_badge');
       currentConfig.vendas.headline = getVal('cfg_headline');
       currentConfig.vendas.subheadline = getVal('cfg_subheadline');
       currentConfig.vendas.ctaButton = getVal('cfg_ctaButton');
       currentConfig.vendas.ctaSubtext = getVal('cfg_ctaSubtext');
+      currentConfig.vendas.videoUrl = getVal('cfg_vendas_videoUrl');
+      currentConfig.vendas.productName = getVal('cfg_vendas_productName');
       currentConfig.vendas.originalPrice = getVal('cfg_vendas_originalPrice');
       currentConfig.vendas.salePrice = getVal('cfg_vendas_salePrice');
       currentConfig.vendas.installments = getVal('cfg_vendas_installments');
+      currentConfig.vendas.guaranteeDays = getVal('cfg_vendas_guaranteeDays');
+      currentConfig.vendas.guaranteeText = getVal('cfg_vendas_guaranteeText');
+      currentConfig.vendas.modules = [0, 1, 2, 3].map(m => ({
+        title: getVal('cfg_mod_' + m + '_title'),
+        desc: getVal('cfg_mod_' + m + '_desc')
+      })).filter(m => m.title || m.desc);
+      currentConfig.vendas.bonuses = [0, 1, 2].map(b => ({
+        title: getVal('cfg_bon_' + b + '_title'),
+        value: getVal('cfg_bon_' + b + '_val'),
+        desc: getVal('cfg_bon_' + b + '_desc')
+      })).filter(b => b.title || b.desc);
     } else if (active === 'leads-whatsapp') {
       if (!currentConfig.leads) currentConfig.leads = {};
       currentConfig.leads.topBar = getVal('cfg_topBar');
+      currentConfig.leads.badge = getVal('cfg_badge');
       currentConfig.leads.headline = getVal('cfg_headline');
       currentConfig.leads.subheadline = getVal('cfg_subheadline');
       currentConfig.leads.ctaButton = getVal('cfg_ctaButton');
       currentConfig.leads.ctaSubtext = getVal('cfg_ctaSubtext');
+      currentConfig.leads.professionalTitle = getVal('cfg_leads_professionalTitle');
+      currentConfig.leads.plans = [0, 1, 2].map(p => ({
+        name: getVal('cfg_plan_' + p + '_name'),
+        price: getVal('cfg_plan_' + p + '_price'),
+        period: getVal('cfg_plan_' + p + '_period'),
+        featured: p === 1,
+        features: getVal('cfg_plan_' + p + '_features').split(',').map(s => s.trim()).filter(Boolean)
+      })).filter(p => p.name);
     } else {
       if (!currentConfig.institucional) currentConfig.institucional = {};
       currentConfig.institucional.topBar = getVal('cfg_topBar');
+      currentConfig.institucional.badge = getVal('cfg_badge');
       currentConfig.institucional.headline = getVal('cfg_headline');
       currentConfig.institucional.subheadline = getVal('cfg_subheadline');
       currentConfig.institucional.ctaButton = getVal('cfg_ctaButton');
       currentConfig.institucional.ctaSubtext = getVal('cfg_ctaSubtext');
+      currentConfig.institucional.stats = [0, 1, 2, 3].map(s => ({
+        num: getVal('cfg_stat_' + s + '_num'),
+        label: getVal('cfg_stat_' + s + '_lbl')
+      })).filter(s => s.num || s.label);
+      currentConfig.institucional.services = [0, 1, 2, 3].map(sv => ({
+        title: getVal('cfg_srv_' + sv + '_title'),
+        desc: getVal('cfg_srv_' + sv + '_desc')
+      })).filter(sv => sv.title || sv.desc);
     }
+  }
 
+  // Salvar no localStorage
+  document.getElementById('btnSaveConfig').addEventListener('click', () => {
+    collectFormIntoConfig();
     localStorage.setItem(STORAGE_KEY, JSON.stringify(currentConfig));
     window.PAGE_CONFIG = currentConfig;
 
@@ -2394,9 +2782,14 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => toast.classList.add('translate-y-24', 'opacity-0'), 3000);
   });
 
-  // Baixar config.js permanente
+  // Baixar config.js permanente (já salva antes e garante isDemo = false + suporte localStorage)
   document.getElementById('btnDownloadConfig').addEventListener('click', () => {
-    const content = '/**\\n * Arquivo gerado pelo Painel Admin • Pacote All-in-One\\n */\\nconst DEFAULT_CONFIG = ' + JSON.stringify(currentConfig, null, 2) + ';\\nwindow.PAGE_CONFIG = DEFAULT_CONFIG;\\n';
+    collectFormIntoConfig();
+    const exportCfg = JSON.parse(JSON.stringify(currentConfig));
+    exportCfg.isDemo = false;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(exportCfg));
+
+    const content = '/**\\n * Arquivo gerado pelo Painel Admin • Pacote All-in-One RMTI\\n * Substitua este arquivo na pasta /js/config.js antes de publicar na hospedagem.\\n */\\nconst DEFAULT_CONFIG = ' + JSON.stringify(exportCfg, null, 2) + ';\\n\\n(function() {\\n  const saved = localStorage.getItem(\\'' + STORAGE_KEY + '\\');\\n  if (saved) {\\n    try {\\n      window.PAGE_CONFIG = Object.assign({}, DEFAULT_CONFIG, JSON.parse(saved));\\n    } catch (e) {\\n      window.PAGE_CONFIG = DEFAULT_CONFIG;\\n    }\\n  } else {\\n    window.PAGE_CONFIG = DEFAULT_CONFIG;\\n  }\\n})();\\n';
     const blob = new Blob([content], { type: 'application/javascript;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');

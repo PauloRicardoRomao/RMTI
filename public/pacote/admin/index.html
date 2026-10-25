@@ -83,6 +83,9 @@
         </div>
 
         <div class="flex items-center gap-2">
+          <button id="btnOpenChangePass" type="button" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold border border-slate-700 flex items-center gap-1" title="Alterar Senha do Painel">
+            <span>🔐 Alterar Senha</span>
+          </button>
           <a href="../index.html" target="_blank" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-700 flex items-center gap-1.5">
             <span>👁 Ver Página</span>
           </a>
@@ -201,12 +204,18 @@
           </div>
         </div>
 
-        <!-- ABA 2: TEXTOS ESPECÍFICOS -->
+        <!-- ABA 2: TEXTOS ESPECÍFICOS (100% DA PÁGINA EDITÁVEL) -->
         <div id="tab-textos" class="tab-content hidden space-y-6">
-          <h3 class="text-base font-bold text-white border-b border-slate-800 pb-3">Textos e Oferta da Página</h3>
-          <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1.5">Barra Superior de Aviso / Urgência</label>
-            <input type="text" id="cfg_topBar" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+          <h3 class="text-base font-bold text-white border-b border-slate-800 pb-3">Textos, Seções e Oferta do Modelo Ativo</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1.5">Barra Superior de Aviso / Urgência</label>
+              <input type="text" id="cfg_topBar" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1.5">Selo / Badge Acima da Headline</label>
+              <input type="text" id="cfg_badge" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+            </div>
           </div>
           <div>
             <label class="block text-xs font-bold text-slate-300 mb-1.5">Headline Principal (Título Forte)</label>
@@ -227,9 +236,21 @@
             </div>
           </div>
 
-          <!-- Campos de Preço para Modelo 1 -->
-          <div id="vendasPriceFields" class="pt-4 border-t border-slate-800 space-y-4">
-            <h4 class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Configurações de Preço (Modelo 1)</h4>
+          <!-- =============================================================== -->
+          <!-- CAMPOS EXCLUSIVOS DO MODELO 01: VENDAS DIRETAS & VSL -->
+          <!-- =============================================================== -->
+          <div id="vendasPriceFields" class="pt-6 border-t border-slate-800 space-y-6">
+            <h4 class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Vídeo VSL, Oferta &amp; Garantia (Modelo 01)</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1.5">URL do Vídeo de Vendas (YouTube ou Vimeo - Opcional)</label>
+                <input type="text" id="cfg_vendas_videoUrl" placeholder="Ex: https://www.youtube.com/watch?v=... (vazio usa o Banner)" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1.5">Nome da Oferta / Produto</label>
+                <input type="text" id="cfg_vendas_productName" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+              </div>
+            </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
                 <label class="block text-xs font-bold text-slate-300 mb-1.5">Preço Original (De:)</label>
@@ -242,6 +263,160 @@
               <div>
                 <label class="block text-xs font-bold text-slate-300 mb-1.5">Texto de Parcelamento</label>
                 <input type="text" id="cfg_vendas_installments" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+              </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1.5">Dias de Garantia</label>
+                <input type="text" id="cfg_vendas_guaranteeDays" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+              </div>
+              <div class="md:col-span-2">
+                <label class="block text-xs font-bold text-slate-300 mb-1.5">Texto da Garantia</label>
+                <input type="text" id="cfg_vendas_guaranteeText" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+              </div>
+            </div>
+
+            <!-- 4 Módulos do Modelo 01 -->
+            <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
+              <h5 class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Módulos / Pilares do Produto (4 Blocos)</h5>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800 space-y-2">
+                  <input type="text" id="cfg_mod_0_title" placeholder="Título do Módulo 01" class="w-full py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs font-bold text-white">
+                  <textarea id="cfg_mod_0_desc" rows="2" placeholder="Descrição do Módulo 01" class="w-full py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-300"></textarea>
+                </div>
+                <div class="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800 space-y-2">
+                  <input type="text" id="cfg_mod_1_title" placeholder="Título do Módulo 02" class="w-full py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs font-bold text-white">
+                  <textarea id="cfg_mod_1_desc" rows="2" placeholder="Descrição do Módulo 02" class="w-full py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-300"></textarea>
+                </div>
+                <div class="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800 space-y-2">
+                  <input type="text" id="cfg_mod_2_title" placeholder="Título do Módulo 03" class="w-full py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs font-bold text-white">
+                  <textarea id="cfg_mod_2_desc" rows="2" placeholder="Descrição do Módulo 03" class="w-full py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-300"></textarea>
+                </div>
+                <div class="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800 space-y-2">
+                  <input type="text" id="cfg_mod_3_title" placeholder="Título do Módulo 04" class="w-full py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs font-bold text-white">
+                  <textarea id="cfg_mod_3_desc" rows="2" placeholder="Descrição do Módulo 04" class="w-full py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-300"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3 Bônus do Modelo 01 -->
+            <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
+              <h5 class="text-xs font-bold text-amber-400 uppercase tracking-wider">Bônus Exclusivos (3 Cards)</h5>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800 space-y-2">
+                  <input type="text" id="cfg_bon_0_title" placeholder="Título do Bônus 1" class="w-full py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs font-bold text-white">
+                  <input type="text" id="cfg_bon_0_val" placeholder="Valor (Ex: R$ 197)" class="w-full py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-amber-400">
+                  <textarea id="cfg_bon_0_desc" rows="2" placeholder="Descrição do Bônus 1" class="w-full py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-300"></textarea>
+                </div>
+                <div class="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800 space-y-2">
+                  <input type="text" id="cfg_bon_1_title" placeholder="Título do Bônus 2" class="w-full py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs font-bold text-white">
+                  <input type="text" id="cfg_bon_1_val" placeholder="Valor (Ex: R$ 147)" class="w-full py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-amber-400">
+                  <textarea id="cfg_bon_1_desc" rows="2" placeholder="Descrição do Bônus 2" class="w-full py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-300"></textarea>
+                </div>
+                <div class="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800 space-y-2">
+                  <input type="text" id="cfg_bon_2_title" placeholder="Título do Bônus 3" class="w-full py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs font-bold text-white">
+                  <input type="text" id="cfg_bon_2_val" placeholder="Valor (Ex: R$ 297)" class="w-full py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-amber-400">
+                  <textarea id="cfg_bon_2_desc" rows="2" placeholder="Descrição do Bônus 3" class="w-full py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-300"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- =============================================================== -->
+          <!-- CAMPOS EXCLUSIVOS DO MODELO 02: ESPECIALISTA & WHATSAPP VIP -->
+          <!-- =============================================================== -->
+          <div id="leadsExtraFields" class="hidden pt-6 border-t border-slate-800 space-y-6">
+            <h4 class="text-xs font-bold text-sky-400 uppercase tracking-wider">Credenciais &amp; Planos de Atendimento (Modelo 02)</h4>
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1.5">Registro Profissional / Especialidade (Ex: CRM, OAB, CREFITO, Consultor)</label>
+              <input type="text" id="cfg_leads_professionalTitle" class="w-full py-3 px-4 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white">
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-2.5">
+                <span class="text-[10px] font-bold text-sky-400 uppercase">Plano / Modalidade 01</span>
+                <input type="text" id="cfg_plan_0_name" placeholder="Nome do Plano 1" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs font-bold text-white">
+                <input type="text" id="cfg_plan_0_price" placeholder="Valor ou Sob Consulta" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-emerald-400">
+                <input type="text" id="cfg_plan_0_period" placeholder="Subtítulo (Ex: Sessão Única)" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-slate-300">
+                <textarea id="cfg_plan_0_features" rows="3" placeholder="Benefícios separados por vírgula" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-slate-300"></textarea>
+              </div>
+              <div class="p-4 rounded-2xl bg-slate-900/60 border border-emerald-500/40 space-y-2.5">
+                <span class="text-[10px] font-bold text-emerald-400 uppercase">Plano 02 (Destaque Principal)</span>
+                <input type="text" id="cfg_plan_1_name" placeholder="Nome do Plano 2" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs font-bold text-white">
+                <input type="text" id="cfg_plan_1_price" placeholder="Valor ou Mais Procurado" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-emerald-400">
+                <input type="text" id="cfg_plan_1_period" placeholder="Subtítulo (Ex: Acompanhamento)" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-slate-300">
+                <textarea id="cfg_plan_1_features" rows="3" placeholder="Benefícios separados por vírgula" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-slate-300"></textarea>
+              </div>
+              <div class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-2.5">
+                <span class="text-[10px] font-bold text-sky-400 uppercase">Plano / Modalidade 03</span>
+                <input type="text" id="cfg_plan_2_name" placeholder="Nome do Plano 3" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs font-bold text-white">
+                <input type="text" id="cfg_plan_2_price" placeholder="Valor ou Sob Medida" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-emerald-400">
+                <input type="text" id="cfg_plan_2_period" placeholder="Subtítulo (Ex: Corporativo)" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-slate-300">
+                <textarea id="cfg_plan_2_features" rows="3" placeholder="Benefícios separados por vírgula" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-slate-300"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- =============================================================== -->
+          <!-- CAMPOS EXCLUSIVOS DO MODELO 03: INSTITUCIONAL & B2B -->
+          <!-- =============================================================== -->
+          <div id="instExtraFields" class="hidden pt-6 border-t border-slate-800 space-y-6">
+            <h4 class="text-xs font-bold text-blue-400 uppercase tracking-wider">Métricas de Autoridade &amp; Soluções Corporativas (Modelo 03)</h4>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+                <input type="text" id="cfg_stat_0_num" placeholder="Ex: +500" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs font-bold text-emerald-400">
+                <input type="text" id="cfg_stat_0_lbl" placeholder="Projetos Entregues" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white">
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+                <input type="text" id="cfg_stat_1_num" placeholder="Ex: 98%" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs font-bold text-emerald-400">
+                <input type="text" id="cfg_stat_1_lbl" placeholder="Índice de Satisfação" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white">
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+                <input type="text" id="cfg_stat_2_num" placeholder="Ex: 10+ Anos" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs font-bold text-emerald-400">
+                <input type="text" id="cfg_stat_2_lbl" placeholder="Experiência de Mercado" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white">
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+                <input type="text" id="cfg_stat_3_num" placeholder="Ex: 24/7" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs font-bold text-emerald-400">
+                <input type="text" id="cfg_stat_3_lbl" placeholder="Suporte Dedicado" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+                <input type="text" id="cfg_srv_0_title" placeholder="Título do Serviço 01" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs font-bold text-white">
+                <textarea id="cfg_srv_0_desc" rows="2" placeholder="Descrição do Serviço 01" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-slate-300"></textarea>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+                <input type="text" id="cfg_srv_1_title" placeholder="Título do Serviço 02" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs font-bold text-white">
+                <textarea id="cfg_srv_1_desc" rows="2" placeholder="Descrição do Serviço 02" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-slate-300"></textarea>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+                <input type="text" id="cfg_srv_2_title" placeholder="Título do Serviço 03" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs font-bold text-white">
+                <textarea id="cfg_srv_2_desc" rows="2" placeholder="Descrição do Serviço 03" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-slate-300"></textarea>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+                <input type="text" id="cfg_srv_3_title" placeholder="Título do Serviço 04" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs font-bold text-white">
+                <textarea id="cfg_srv_3_desc" rows="2" placeholder="Descrição do Serviço 04" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-slate-300"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- =============================================================== -->
+          <!-- PERGUNTAS FREQUENTES (FAQ COMPARTILHADO NOS 3 MODELOS) -->
+          <!-- =============================================================== -->
+          <div class="pt-6 border-t border-slate-800 space-y-4">
+            <h4 class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Perguntas Frequentes (FAQ da Página)</h4>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+                <input type="text" id="cfg_faq_0_q" placeholder="Pergunta 1" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs font-bold text-white">
+                <textarea id="cfg_faq_0_a" rows="3" placeholder="Resposta 1" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-slate-300"></textarea>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+                <input type="text" id="cfg_faq_1_q" placeholder="Pergunta 2" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs font-bold text-white">
+                <textarea id="cfg_faq_1_a" rows="3" placeholder="Resposta 2" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-slate-300"></textarea>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+                <input type="text" id="cfg_faq_2_q" placeholder="Pergunta 3" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs font-bold text-white">
+                <textarea id="cfg_faq_2_a" rows="3" placeholder="Resposta 3" class="w-full py-2 px-3 rounded-lg bg-slate-950 border border-slate-700 text-xs text-slate-300"></textarea>
               </div>
             </div>
           </div>

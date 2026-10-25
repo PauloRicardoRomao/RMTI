@@ -88,13 +88,13 @@ A página `checkout.html` conta com 3 estruturas visuais especializadas:
 
 | Modelo | Identificador | Foco & Recursos Especiais |
 | :--- | :--- | :--- |
-| **01** | `rapido` | **Conversão Rápida (1 Coluna Mobile-First):** Cronômetro de urgência de 15 min, resumo direto, botão Pix com cópia em 1 clique. Ideal para tráfego pago via Instagram/TikTok. |
+| **01** | `conversao-rapida` | **Conversão Rápida (1 Coluna Mobile-First):** Cronômetro de urgência de 15 min, resumo direto, botão Pix com cópia em 1 clique. Ideal para tráfego pago via Instagram/TikTok. |
 | **02** | `duas-colunas` | **Alta Conversão (2 Colunas):** Layout dividido com foto do produto, depoimento 5 estrelas e caixinha de **Order Bump (+R$ 47)** que soma o valor ao vivo com animação. |
-| **03** | `minimalista` | **Clean B2B Corporativo:** Estética Dark Titanium com seletor de Pessoa Física (CPF) vs. Jurídica (CNPJ) e discriminação detalhada de fatura comercial. |
+| **03** | `clean-minimalista` | **Clean B2B Corporativo:** Estética Dark Titanium com seletor de Pessoa Física (CPF) vs. Jurídica (CNPJ) e discriminação detalhada de fatura comercial. |
 
 A alternância segue o mesmo padrão elegante do layout:
 ```javascript
-document.body.setAttribute('data-active-checkout', config.activeCheckoutModel || 'rapido');
+document.body.setAttribute('data-active-checkout', chk.activeModel || 'conversao-rapida');
 ```
 
 ---
@@ -125,17 +125,18 @@ Na aba *"💳 Modelos & Checkout"* do Painel Admin, o usuário configura o méto
 Para que o pacote funcione tanto como demonstrador no site oficial da RMTI quanto como produto independente vendido ao cliente final, implementamos a detecção de ambiente:
 
 ```javascript
-const isDemoMode = window.location.pathname.startsWith('/pacote') || 
-                   new URLSearchParams(window.location.search).get('demo') === 'true';
+const isHttpDemoRoute = window.location.protocol.startsWith('http') &&
+  (window.location.pathname === '/pacote' || window.location.pathname.startsWith('/pacote/'));
+
+const isDemoMode = Boolean(
+  cfg.isDemo === true ||
+  isHttpDemoRoute ||
+  new URLSearchParams(window.location.search).get('demo') === 'true'
+);
 
 if (!isDemoMode) {
-  // Oculta a barra de demonstração superior do pacote
-  const topDemoBar = document.getElementById('top-demo-bar');
-  if (topDemoBar) topDemoBar.style.display = 'none';
-
-  // Oculta o botão "Editar no Admin" do cabeçalho
-  const navAdminBtn = document.getElementById('nav-admin-btn');
-  if (navAdminBtn) navAdminBtn.style.display = 'none';
+  document.body.classList.remove('demo-mode');
+  document.querySelectorAll('.demo-only, #demoTopBar, #btnEditAdmin').forEach(el => el.remove());
 }
 ```
 
@@ -229,3 +230,4 @@ Este pacote é um produto com direitos de uso e desenvolvimento protegidos pela 
 - **Desenvolvido por:** Equipe de Engenharia de Software da RMTI
 
 © 2026 RMTI • Todos os direitos reservados.
+

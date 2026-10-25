@@ -200,40 +200,100 @@ document.addEventListener('DOMContentLoaded', () => {
     setVal('cfg_checkout_testimonialRole', testm.role || 'Aluna / Cliente Verificada');
     setVal('cfg_checkout_testimonialText', testm.text || 'O suporte e a estrutura são impecáveis! Consegui aplicar no meu negócio no mesmo dia da compra.');
 
+    // FAQs compartilhadas
+    const faqs = Array.isArray(cfg.faqs) ? cfg.faqs : [];
+    for (let idx = 0; idx < 3; idx++) {
+      setVal('cfg_faq_' + idx + '_q', faqs[idx] ? faqs[idx].q : '');
+      setVal('cfg_faq_' + idx + '_a', faqs[idx] ? faqs[idx].a : '');
+    }
+
     loadLayoutSpecificFields(active);
+  }
+
+  // Botão para abrir modal de troca de senha a qualquer momento
+  const btnOpenChangePass = document.getElementById('btnOpenChangePass');
+  if (btnOpenChangePass) {
+    btnOpenChangePass.addEventListener('click', () => {
+      modalFirstAccess.classList.remove('hidden');
+    });
   }
 
   function loadLayoutSpecificFields(layout) {
     const cfg = currentConfig;
     const priceFields = document.getElementById('vendasPriceFields');
+    const leadsFields = document.getElementById('leadsExtraFields');
+    const instFields = document.getElementById('instExtraFields');
+
+    if (priceFields) priceFields.classList.add('hidden');
+    if (leadsFields) leadsFields.classList.add('hidden');
+    if (instFields) instFields.classList.add('hidden');
 
     if (layout === 'vendas-diretas') {
       const v = cfg.vendas || {};
       setVal('cfg_topBar', v.topBar);
+      setVal('cfg_badge', v.badge);
       setVal('cfg_headline', v.headline);
       setVal('cfg_subheadline', v.subheadline);
       setVal('cfg_ctaButton', v.ctaButton);
       setVal('cfg_ctaSubtext', v.ctaSubtext);
+      setVal('cfg_vendas_videoUrl', v.videoUrl || '');
+      setVal('cfg_vendas_productName', v.productName || '');
       setVal('cfg_vendas_originalPrice', v.originalPrice);
       setVal('cfg_vendas_salePrice', v.salePrice);
       setVal('cfg_vendas_installments', v.installments);
+      setVal('cfg_vendas_guaranteeDays', v.guaranteeDays || '7');
+      setVal('cfg_vendas_guaranteeText', v.guaranteeText || '');
+
+      const mods = Array.isArray(v.modules) ? v.modules : [];
+      for (let m = 0; m < 4; m++) {
+        setVal('cfg_mod_' + m + '_title', mods[m] ? mods[m].title : '');
+        setVal('cfg_mod_' + m + '_desc', mods[m] ? mods[m].desc : '');
+      }
+      const bons = Array.isArray(v.bonuses) ? v.bonuses : [];
+      for (let b = 0; b < 3; b++) {
+        setVal('cfg_bon_' + b + '_title', bons[b] ? bons[b].title : '');
+        setVal('cfg_bon_' + b + '_val', bons[b] ? bons[b].value : '');
+        setVal('cfg_bon_' + b + '_desc', bons[b] ? bons[b].desc : '');
+      }
       if (priceFields) priceFields.classList.remove('hidden');
     } else if (layout === 'leads-whatsapp') {
       const l = cfg.leads || {};
       setVal('cfg_topBar', l.topBar);
+      setVal('cfg_badge', l.badge);
       setVal('cfg_headline', l.headline);
       setVal('cfg_subheadline', l.subheadline);
       setVal('cfg_ctaButton', l.ctaButton);
       setVal('cfg_ctaSubtext', l.ctaSubtext);
-      if (priceFields) priceFields.classList.add('hidden');
+      setVal('cfg_leads_professionalTitle', l.professionalTitle || '');
+
+      const plans = Array.isArray(l.plans) ? l.plans : [];
+      for (let p = 0; p < 3; p++) {
+        setVal('cfg_plan_' + p + '_name', plans[p] ? plans[p].name : '');
+        setVal('cfg_plan_' + p + '_price', plans[p] ? plans[p].price : '');
+        setVal('cfg_plan_' + p + '_period', plans[p] ? plans[p].period : '');
+        setVal('cfg_plan_' + p + '_features', plans[p] && Array.isArray(plans[p].features) ? plans[p].features.join(', ') : '');
+      }
+      if (leadsFields) leadsFields.classList.remove('hidden');
     } else {
       const i = cfg.institucional || {};
       setVal('cfg_topBar', i.topBar);
+      setVal('cfg_badge', i.badge);
       setVal('cfg_headline', i.headline);
       setVal('cfg_subheadline', i.subheadline);
       setVal('cfg_ctaButton', i.ctaButton);
       setVal('cfg_ctaSubtext', i.ctaSubtext);
-      if (priceFields) priceFields.classList.add('hidden');
+
+      const stats = Array.isArray(i.stats) ? i.stats : [];
+      for (let s = 0; s < 4; s++) {
+        setVal('cfg_stat_' + s + '_num', stats[s] ? stats[s].num : '');
+        setVal('cfg_stat_' + s + '_lbl', stats[s] ? stats[s].label : '');
+      }
+      const srvs = Array.isArray(i.services) ? i.services : [];
+      for (let sv = 0; sv < 4; sv++) {
+        setVal('cfg_srv_' + sv + '_title', srvs[sv] ? srvs[sv].title : '');
+        setVal('cfg_srv_' + sv + '_desc', srvs[sv] ? srvs[sv].desc : '');
+      }
+      if (instFields) instFields.classList.remove('hidden');
     }
   }
 
@@ -257,8 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return el ? el.checked : false;
   }
 
-  // Salvar no localStorage
-  document.getElementById('btnSaveConfig').addEventListener('click', () => {
+  function collectFormIntoConfig() {
     currentConfig.businessName = getVal('cfg_businessName');
     currentConfig.tagline = getVal('cfg_tagline');
     currentConfig.logoUrl = getVal('cfg_logoUrl');
@@ -269,6 +328,12 @@ document.addEventListener('DOMContentLoaded', () => {
     currentConfig.whatsappMessage = getVal('cfg_whatsappMessage');
     currentConfig.metaPixelId = getVal('cfg_metaPixelId');
     currentConfig.googleAdsId = getVal('cfg_googleAdsId');
+
+    // Salvar FAQs
+    currentConfig.faqs = [0, 1, 2].map(idx => ({
+      q: getVal('cfg_faq_' + idx + '_q'),
+      a: getVal('cfg_faq_' + idx + '_a')
+    })).filter(f => f.q || f.a);
 
     // Salvar Checkout
     if (!currentConfig.checkout) currentConfig.checkout = {};
@@ -328,29 +393,65 @@ document.addEventListener('DOMContentLoaded', () => {
     if (active === 'vendas-diretas') {
       if (!currentConfig.vendas) currentConfig.vendas = {};
       currentConfig.vendas.topBar = getVal('cfg_topBar');
+      currentConfig.vendas.badge = getVal('cfg_badge');
       currentConfig.vendas.headline = getVal('cfg_headline');
       currentConfig.vendas.subheadline = getVal('cfg_subheadline');
       currentConfig.vendas.ctaButton = getVal('cfg_ctaButton');
       currentConfig.vendas.ctaSubtext = getVal('cfg_ctaSubtext');
+      currentConfig.vendas.videoUrl = getVal('cfg_vendas_videoUrl');
+      currentConfig.vendas.productName = getVal('cfg_vendas_productName');
       currentConfig.vendas.originalPrice = getVal('cfg_vendas_originalPrice');
       currentConfig.vendas.salePrice = getVal('cfg_vendas_salePrice');
       currentConfig.vendas.installments = getVal('cfg_vendas_installments');
+      currentConfig.vendas.guaranteeDays = getVal('cfg_vendas_guaranteeDays');
+      currentConfig.vendas.guaranteeText = getVal('cfg_vendas_guaranteeText');
+      currentConfig.vendas.modules = [0, 1, 2, 3].map(m => ({
+        title: getVal('cfg_mod_' + m + '_title'),
+        desc: getVal('cfg_mod_' + m + '_desc')
+      })).filter(m => m.title || m.desc);
+      currentConfig.vendas.bonuses = [0, 1, 2].map(b => ({
+        title: getVal('cfg_bon_' + b + '_title'),
+        value: getVal('cfg_bon_' + b + '_val'),
+        desc: getVal('cfg_bon_' + b + '_desc')
+      })).filter(b => b.title || b.desc);
     } else if (active === 'leads-whatsapp') {
       if (!currentConfig.leads) currentConfig.leads = {};
       currentConfig.leads.topBar = getVal('cfg_topBar');
+      currentConfig.leads.badge = getVal('cfg_badge');
       currentConfig.leads.headline = getVal('cfg_headline');
       currentConfig.leads.subheadline = getVal('cfg_subheadline');
       currentConfig.leads.ctaButton = getVal('cfg_ctaButton');
       currentConfig.leads.ctaSubtext = getVal('cfg_ctaSubtext');
+      currentConfig.leads.professionalTitle = getVal('cfg_leads_professionalTitle');
+      currentConfig.leads.plans = [0, 1, 2].map(p => ({
+        name: getVal('cfg_plan_' + p + '_name'),
+        price: getVal('cfg_plan_' + p + '_price'),
+        period: getVal('cfg_plan_' + p + '_period'),
+        featured: p === 1,
+        features: getVal('cfg_plan_' + p + '_features').split(',').map(s => s.trim()).filter(Boolean)
+      })).filter(p => p.name);
     } else {
       if (!currentConfig.institucional) currentConfig.institucional = {};
       currentConfig.institucional.topBar = getVal('cfg_topBar');
+      currentConfig.institucional.badge = getVal('cfg_badge');
       currentConfig.institucional.headline = getVal('cfg_headline');
       currentConfig.institucional.subheadline = getVal('cfg_subheadline');
       currentConfig.institucional.ctaButton = getVal('cfg_ctaButton');
       currentConfig.institucional.ctaSubtext = getVal('cfg_ctaSubtext');
+      currentConfig.institucional.stats = [0, 1, 2, 3].map(s => ({
+        num: getVal('cfg_stat_' + s + '_num'),
+        label: getVal('cfg_stat_' + s + '_lbl')
+      })).filter(s => s.num || s.label);
+      currentConfig.institucional.services = [0, 1, 2, 3].map(sv => ({
+        title: getVal('cfg_srv_' + sv + '_title'),
+        desc: getVal('cfg_srv_' + sv + '_desc')
+      })).filter(sv => sv.title || sv.desc);
     }
+  }
 
+  // Salvar no localStorage
+  document.getElementById('btnSaveConfig').addEventListener('click', () => {
+    collectFormIntoConfig();
     localStorage.setItem(STORAGE_KEY, JSON.stringify(currentConfig));
     window.PAGE_CONFIG = currentConfig;
 
@@ -359,9 +460,14 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => toast.classList.add('translate-y-24', 'opacity-0'), 3000);
   });
 
-  // Baixar config.js permanente
+  // Baixar config.js permanente (já salva antes e garante isDemo = false + suporte localStorage)
   document.getElementById('btnDownloadConfig').addEventListener('click', () => {
-    const content = '/**\n * Arquivo gerado pelo Painel Admin • Pacote All-in-One\n */\nconst DEFAULT_CONFIG = ' + JSON.stringify(currentConfig, null, 2) + ';\nwindow.PAGE_CONFIG = DEFAULT_CONFIG;\n';
+    collectFormIntoConfig();
+    const exportCfg = JSON.parse(JSON.stringify(currentConfig));
+    exportCfg.isDemo = false;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(exportCfg));
+
+    const content = '/**\n * Arquivo gerado pelo Painel Admin • Pacote All-in-One RMTI\n * Substitua este arquivo na pasta /js/config.js antes de publicar na hospedagem.\n */\nconst DEFAULT_CONFIG = ' + JSON.stringify(exportCfg, null, 2) + ';\n\n(function() {\n  const saved = localStorage.getItem(\'' + STORAGE_KEY + '\');\n  if (saved) {\n    try {\n      window.PAGE_CONFIG = Object.assign({}, DEFAULT_CONFIG, JSON.parse(saved));\n    } catch (e) {\n      window.PAGE_CONFIG = DEFAULT_CONFIG;\n    }\n  } else {\n    window.PAGE_CONFIG = DEFAULT_CONFIG;\n  }\n})();\n';
     const blob = new Blob([content], { type: 'application/javascript;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');

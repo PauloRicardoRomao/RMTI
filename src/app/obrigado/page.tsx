@@ -44,124 +44,59 @@ function ThankYouContent() {
   const isEn = lang === 'en';
 
   const templateNamesPt: Record<string, string> = {
-    "starter-1": "Infopro Master VSL Starter",
-    "starter-2": "Fitness Elite Pro Starter",
-    "starter-3": "Mentor Authority Starter",
-    "starter-4": "Service Sprint LeadGen Starter",
-    "starter-5": "Nutri Health & Emagrecimento",
-    "pro-1": "Multi-Nicho Master CMS Pro",
-    "pro-2": "E-book & Funil Digital Express",
-    "pro-3": "Fitness Pro + Calculadora Interativa",
-    "pro-4": "High-Ticket Mentorship Portal Pro",
-    "pro-5": "B2B Agency & Growth LeadGen Pro",
-    "vip-1": "Treinador Renan (CREF 185468-G/SP) • Consultoria VIP",
-    "vip-2": "Funil Perpétuo 4K Scale VIP",
-    "vip-3": "Clínica Médica & Saúde Prime VIP",
-    "vip-4": "Imersão Presencial & Mastermind VIP",
-    "vip-5": "Membership Club & Assinatura VIP",
+    "starter-allinone": "Pacote All-in-One (3 Modelos em 1)",
+    "starter-1": "Layout 01: Vendas Diretas & VSL",
+    "starter-2": "Layout 02: Captura & WhatsApp VIP",
+    "starter-3": "Layout 03: Institucional & B2B",
+    "vip-1": "Implementação VIP Completa (3 Layouts)",
   };
 
   const templateNamesEn: Record<string, string> = {
-    "starter-1": "Infopro Master VSL Starter",
-    "starter-2": "Fitness Elite Pro Starter",
-    "starter-3": "Mentor Authority Starter",
-    "starter-4": "Service Sprint LeadGen Starter",
-    "starter-5": "Nutri Health & Weight Loss",
-    "pro-1": "Multi-Nicho Master CMS Pro",
-    "pro-2": "E-book & Digital Funnel Express",
-    "pro-3": "Fitness Pro + Interactive Calculator",
-    "pro-4": "High-Ticket Mentorship Portal Pro",
-    "pro-5": "B2B Agency & Growth LeadGen Pro",
-    "vip-1": "Coach Renan (CREF 185468-G/SP) • VIP Showcase",
-    "vip-2": "4K Perpetual Scale Funnel VIP",
-    "vip-3": "Medical Clinic & Health Prime VIP",
-    "vip-4": "Live Immersion & Mastermind VIP",
-    "vip-5": "Membership Club & SaaS Retention VIP",
+    "starter-allinone": "All-in-One Pack (3-in-1 Structure)",
+    "starter-1": "Layout 01: Direct Sales & VSL",
+    "starter-2": "Layout 02: Lead Capture & VIP WhatsApp",
+    "starter-3": "Layout 03: Corporate & B2B Showcase",
+    "vip-1": "VIP Turnkey Implementation (3 Layouts)",
   };
 
   const templateNames = isEn ? templateNamesEn : templateNamesPt;
 
   const selectedTemplateName =
     templateNames[templateParam] ||
-    (templateParam ? `Template: ${templateParam}` : "");
+    (templateParam ? `Modelo: ${templateParam}` : "Pacote Completo All-in-One (3 Layouts + 3 Checkouts)");
 
-  // Mapeamento automático do arquivo .ZIP correspondente para download imediato
-  const downloadLinks: Record<string, { file: string; label: string }> = {
-    "starter-1": {
-      file: "/downloads/Pack-01-Curso-Infoproduto.zip",
-      label: isEn
-        ? "Download Pack 01 - Course & Info Product (.ZIP)"
-        : "Baixar Pack 01 - Curso & Infoproduto (.ZIP)",
-    },
-    "starter-2": {
-      file: "/downloads/Pack-02-Personal-Trainer.zip",
-      label: isEn
-        ? "Download Pack 02 - Fitness & Personal Trainer (.ZIP)"
-        : "Baixar Pack 02 - Personal Trainer (.ZIP)",
-    },
-    "starter-3": {
-      file: "/downloads/Pack-03-Coach-Mentoria.zip",
-      label: isEn
-        ? "Download Pack 03 - Coach & Mentorship (.ZIP)"
-        : "Baixar Pack 03 - Coach & Mentoria (.ZIP)",
-    },
-    "starter-4": {
-      file: "/downloads/Pack-04-Servicos-LeadGen.zip",
-      label: isEn
-        ? "Download Pack 04 - B2B & Lead Generation (.ZIP)"
-        : "Baixar Pack 04 - Serviços & LeadGen (.ZIP)",
-    },
-    "starter-5": {
-      file: "/downloads/Pack-05-Nutricao-Saude.zip",
-      label: isEn
-        ? "Download Pack 05 - Nutrition & Health (.ZIP)"
-        : "Baixar Pack 05 - Nutrição & Saúde (.ZIP)",
-    },
-    pro: {
-      file: "/downloads/Combo-Completo-Multi-Nichos.zip",
-      label: isEn
-        ? "Download All-Access Pro Combo (All 5 Templates + Bonuses) (.ZIP)"
-        : "Baixar Combo Completo (Todos os 5 Modelos + Bônus) (.ZIP)",
-    },
-    vip: {
-      file: "/downloads/VIP-Implementacao-Completa.zip",
-      label: isEn
-        ? "Download Complete VIP Package (.ZIP)"
-        : "Baixar Pacote VIP Completo (.ZIP)",
-    },
+  // Arquivo .ZIP oficial do Pacote All-in-One para download imediato
+  const currentDownload = {
+    file: "/downloads/pacote-landing-page-rmti.zip",
+    label: isEn
+      ? "Download All-in-One Landing Page Pack (.ZIP)"
+      : "Baixar Pacote de Landing Page All-in-One Completo (.ZIP)",
   };
-
-  const currentDownload =
-    planoParam === "pro"
-      ? downloadLinks.pro
-      : planoParam === "vip"
-        ? downloadLinks.vip
-        : downloadLinks[templateParam] || downloadLinks["starter-1"];
 
   const planDetailsPt: Record<
     string,
     { name: string; price: string; hasAdmin: boolean; description: string }
   > = {
     starter: {
-      name: "Pack Nicho Único",
-      price: "R$ 97",
-      hasAdmin: true,
-      description:
-        "Sua estrutura de alta conversão está pronta para download e publicação imediata com painel de admin.",
-    },
-    pro: {
-      name: "Combo Completo Multi-Nichos",
+      name: "Pacote All-in-One de Landing Page",
       price: "R$ 197",
       hasAdmin: true,
       description:
-        "Acesso liberado às 5 super-estruturas validadas + Painel de Admin Dinâmico + Bônus.",
+        "Acesso liberado à estrutura universal com 3 Layouts selecionáveis + 3 Modelos de Checkout + Painel Admin Próprio + Manual Ilustrado em PDF.",
+    },
+    pro: {
+      name: "Pacote All-in-One de Landing Page",
+      price: "R$ 197",
+      hasAdmin: true,
+      description:
+        "Acesso liberado à estrutura universal com 3 Layouts selecionáveis + 3 Modelos de Checkout + Painel Admin Próprio + Manual Ilustrado em PDF.",
     },
     vip: {
       name: "Implementação VIP Done-For-You",
       price: "R$ 697",
       hasAdmin: true,
       description:
-        "Nossa equipe de engenharia iniciará a instalação completa da sua LP no seu domínio.",
+        "Nossa equipe de engenharia iniciará a instalação e personalização completa da sua Landing Page no seu domínio.",
     },
   };
 
@@ -170,18 +105,18 @@ function ThankYouContent() {
     { name: string; price: string; hasAdmin: boolean; description: string }
   > = {
     starter: {
-      name: "Single Niche Pack",
-      price: "$19 USD",
-      hasAdmin: true,
-      description:
-        "Your high-converting architecture is ready for instant download and deployment with CMS admin panel.",
-    },
-    pro: {
-      name: "All-Access Pro Combo",
+      name: "All-in-One Landing Page Pack",
       price: "$39 USD",
       hasAdmin: true,
       description:
-        "Full access granted to all 5 validated architectures + Dynamic CMS Admin Panel + Bonuses.",
+        "Full access to the universal structure with 3 Switchable Layouts + 3 Checkout Models + Custom CMS Admin Panel + Illustrated PDF Manual.",
+    },
+    pro: {
+      name: "All-in-One Landing Page Pack",
+      price: "$39 USD",
+      hasAdmin: true,
+      description:
+        "Full access to the universal structure with 3 Switchable Layouts + 3 Checkout Models + Custom CMS Admin Panel + Illustrated PDF Manual.",
     },
     vip: {
       name: "Done-For-You VIP Implementation",
@@ -193,7 +128,7 @@ function ThankYouContent() {
   };
 
   const planDetails = isEn ? planDetailsEn : planDetailsPt;
-  const currentPlan = planDetails[planoParam] || planDetails.pro;
+  const currentPlan = planDetails[planoParam] || planDetails.starter;
 
   const paymentIdParam = searchParams.get("payment_id");
   const [copiedKey, setCopiedKey] = React.useState(false);
@@ -212,8 +147,8 @@ function ThankYouContent() {
   useEffect(() => {
     const paymentId = searchParams.get("payment_id") || undefined;
     const numericPrice = isEn
-      ? (planoParam === "vip" ? 139.0 : planoParam === "starter" ? 19.0 : 39.0)
-      : (planoParam === "vip" ? 697.0 : planoParam === "starter" ? 97.0 : 197.0);
+      ? (planoParam === "vip" ? 139.0 : 39.0)
+      : (planoParam === "vip" ? 697.0 : 197.0);
     trackPurchase(currentPlan.name, numericPrice, paymentId);
 
     // Direct Google Ads conversion trigger for instant verification

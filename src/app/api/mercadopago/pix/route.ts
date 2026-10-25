@@ -29,11 +29,13 @@ export async function POST(request: NextRequest) {
 
     // Default fallback plans
     const defaultPlans: Record<string, { title: string; price: number }> = {
-      starter: { title: 'Pack Nicho Único - RMTI', price: 97.0 },
-      pro: { title: 'Combo Completo Multi-Nichos + Admin - RMTI', price: 197.0 },
+      starter: { title: 'Pacote All-in-One de Landing Page - RMTI', price: 197.0 },
+      pro: { title: 'Pacote All-in-One de Landing Page - RMTI', price: 197.0 },
+      'pacote-landing-page-all-in-one': { title: 'Pacote All-in-One de Landing Page - RMTI', price: 197.0 },
       vip: { title: 'Implementação VIP Done-For-You - RMTI', price: 697.0 },
-      'combo-5em1': { title: 'Combo Completo 5 em 1 + Painel Admin - RMTI', price: 197.0 },
-      'nicho-unico': { title: 'Pack Nicho Único à Escolha - RMTI', price: 97.0 },
+      'implementacao-vip-done-for-you': { title: 'Implementação VIP Done-For-You - RMTI', price: 697.0 },
+      'combo-5em1': { title: 'Pacote All-in-One de Landing Page - RMTI', price: 197.0 },
+      'nicho-unico': { title: 'Pacote All-in-One de Landing Page - RMTI', price: 197.0 },
       'implementacao-vip': { title: 'Implementação VIP Completa - RMTI', price: 697.0 },
     };
 
