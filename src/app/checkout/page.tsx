@@ -432,6 +432,14 @@ function CheckoutContent() {
     }
 
     setPixLoading(true);
+    try {
+      sessionStorage.setItem(
+        'rmti_buyer_info',
+        JSON.stringify({ name: name.trim(), email: email.trim(), phone: phone.trim() })
+      );
+    } catch {
+      // ignore storage errors
+    }
 
     try {
       const utms = getStoredUTMs();
@@ -501,6 +509,14 @@ function CheckoutContent() {
     }
 
     setCardLoading(true);
+    try {
+      sessionStorage.setItem(
+        'rmti_buyer_info',
+        JSON.stringify({ name: name.trim(), email: email.trim(), phone: phone.trim() })
+      );
+    } catch {
+      // ignore storage errors
+    }
 
     try {
       const utms = getStoredUTMs();
@@ -540,6 +556,14 @@ function CheckoutContent() {
   // Handle Mercado Pago Redirect (Checkout Pro)
   const handleMercadoPagoRedirect = async () => {
     setErrorMessage('');
+    try {
+      sessionStorage.setItem(
+        'rmti_buyer_info',
+        JSON.stringify({ name: name.trim(), email: email.trim(), phone: phone.trim() })
+      );
+    } catch {
+      // ignore
+    }
     try {
       const res = await fetch('/api/mercadopago/preference', {
         method: 'POST',

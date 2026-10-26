@@ -134,6 +134,38 @@ function ThankYouContent() {
   const [copiedKey, setCopiedKey] = React.useState(false);
   const licenseKey = paymentIdParam || `RMTI-${planoParam.toUpperCase()}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
 
+  // Estado do Formulário de Briefing de Instalação VIP (Done-For-You)
+  const isVipPlan = planoParam === "vip";
+  const [showBriefingForm, setShowBriefingForm] = React.useState<boolean>(isVipPlan);
+  const [briefingName, setBriefingName] = React.useState("");
+  const [briefingEmail, setBriefingEmail] = React.useState("");
+  const [briefingPhone, setBriefingPhone] = React.useState("");
+  const [briefingBusiness, setBriefingBusiness] = React.useState("");
+  const [briefingLayout, setBriefingLayout] = React.useState("Modelo 01: Vendas Diretas & VSL");
+  const [briefingCheckout, setBriefingCheckout] = React.useState("Checkout 02: Alta Conversão (2 Colunas + Order Bump)");
+  const [briefingGateway, setBriefingGateway] = React.useState("Mercado Pago (Link ou API)");
+  const [briefingDomain, setBriefingDomain] = React.useState("");
+  const [briefingPixels, setBriefingPixels] = React.useState("");
+  const [briefingNotes, setBriefingNotes] = React.useState("");
+  const [briefingSubmitting, setBriefingSubmitting] = React.useState(false);
+  const [briefingSubmitted, setBriefingSubmitted] = React.useState(false);
+
+  // Carrega dados preenchidos no checkout para facilitar o preenchimento do cliente VIP
+  useEffect(() => {
+    setShowBriefingForm(planoParam === "vip");
+    try {
+      const rawBuyer = sessionStorage.getItem("rmti_buyer_info");
+      if (rawBuyer) {
+        const parsed = JSON.parse(rawBuyer);
+        if (parsed.name) setBriefingName(parsed.name);
+        if (parsed.email) setBriefingEmail(parsed.email);
+        if (parsed.phone) setBriefingPhone(parsed.phone);
+      }
+    } catch {
+      // ignore
+    }
+  }, [planoParam]);
+
   // Automatically verify & approve order in database upon reaching thank you page
   useEffect(() => {
     if (paymentIdParam && !paymentIdParam.startsWith("demo-")) {
@@ -180,6 +212,51 @@ function ThankYouContent() {
             : ""
         } via Mercado Pago e gostaria de ativar meu acesso e começar!`
   );
+
+  const handleBriefingSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!briefingName.trim() || !briefingPhone.trim()) return;
+
+    setBriefingSubmitting(true);
+
+    const structuredMessage = [
+      `🚀 BRIEFING DE INSTALAÇÃO VIP (DONE-FOR-YOU)`,
+      `• Licença / Pedido: ${licenseKey}`,
+      `• Plano: ${currentPlan.name} (${currentPlan.price})`,
+      `• Cliente: ${briefingName.trim()}`,
+      `• WhatsApp: ${briefingPhone.trim()}`,
+      `• E-mail: ${briefingEmail.trim() || "Não informado"}`,
+      `• Nome do Negócio / Produto: ${briefingBusiness.trim() || "A definir"}`,
+      `• Layout Escolhido: ${briefingLayout}`,
+      `• Modelo de Checkout: ${briefingCheckout}`,
+      `• Forma de Recebimento: ${briefingGateway}`,
+      `• Domínio / Hospedagem: ${briefingDomain.trim() || "Preciso de auxílio da RMTI"}`,
+      `• Pixels (Meta / Google): ${briefingPixels.trim() || "Enviar depois"}`,
+      `• Observações & Cores: ${briefingNotes.trim() || "Nenhuma observação adicional"}`,
+    ].join("\n");
+
+    try {
+      await fetch("/api/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: briefingName.trim(),
+          email: briefingEmail.trim() || "vip@cliente-rmti.com.br",
+          phone: briefingPhone.trim(),
+          service: `Briefing Instalação VIP (${licenseKey})`,
+          message: structuredMessage,
+        }),
+      });
+    } catch (err) {
+      console.error("Erro ao salvar briefing VIP no painel:", err);
+    }
+
+    setBriefingSubmitting(false);
+    setBriefingSubmitted(true);
+
+    const waUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(structuredMessage)}`;
+    window.open(waUrl, "_blank", "noopener,noreferrer");
+  };
 
   return (
     <div className="min-h-screen bg-[#080a0f] text-gray-100 flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
@@ -308,6 +385,229 @@ function ThankYouContent() {
               {isEn ? 'Instant download — no extra registration required' : 'Download instantâneo sem necessidade de cadastro adicional'}
             </p>
           </div>
+        </div>
+
+        {/* ===================================================================== */}
+        {/* FORMULÁRIO DE BRIEFING DE INSTALAÇÃO VIP (DONE-FOR-YOU - R$ 697) */}
+        {/* ===================================================================== */}
+        <div className="mt-8 rounded-3xl border-2 border-amber-500/40 bg-gradient-to-b from-amber-950/25 via-[#0c101a] to-[#090c14] p-6 sm:p-8 shadow-2xl shadow-amber-950/20">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-5">
+            <div>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-300 text-[11px] font-extrabold uppercase tracking-wider mb-2">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>
+                  {isVipPlan
+                    ? isEn
+                      ? "VIP Onboarding • Priority Engineering Queue"
+                      : "Etapa Exclusiva VIP • Fila Prioritária de Engenharia (72h)"
+                    : isEn
+                    ? "Need Done-For-You Setup?"
+                    : "Precisa de Ajuda com a Instalação?"}
+                </span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-extrabold text-white">
+                {isEn
+                  ? "VIP Installation & Customization Briefing"
+                  : "Briefing de Instalação & Personalização VIP"}
+              </h2>
+              <p className="text-xs sm:text-sm text-gray-300 mt-1">
+                {isEn
+                  ? "Fill in your preferences below. Your data is saved directly in our system and sent to your dedicated engineer on WhatsApp."
+                  : "Preencha abaixo como deseja sua página. Os dados ficam salvos no sistema da RMTI e já abrem o atendimento técnico com nosso engenheiro no WhatsApp."}
+              </p>
+            </div>
+            {!isVipPlan && (
+              <button
+                type="button"
+                onClick={() => setShowBriefingForm(!showBriefingForm)}
+                className="shrink-0 px-4 py-2.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-300 font-bold text-xs transition-all cursor-pointer"
+              >
+                {showBriefingForm
+                  ? isEn
+                    ? "Hide Briefing Form"
+                    : "Ocultar Formulário"
+                  : isEn
+                  ? "Open VIP Briefing Form"
+                  : "Preencher Briefing de Suporte"}
+              </button>
+            )}
+          </div>
+
+          {showBriefingForm && (
+            <form onSubmit={handleBriefingSubmit} className="mt-6 space-y-5 text-left">
+              {briefingSubmitted && (
+                <div className="p-4 rounded-2xl bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 text-xs sm:text-sm font-semibold flex items-center gap-2.5">
+                  <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+                  <span>
+                    {isEn
+                      ? "Briefing registered in RMTI's system! We also opened WhatsApp with your summary."
+                      : "Briefing registrado com sucesso no painel da RMTI! Também abrimos seu WhatsApp com o resumo completo para nossa equipe."}
+                  </span>
+                </div>
+              )}
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-gray-300 mb-1.5">
+                    {isEn ? "Your Full Name *" : "Seu Nome Completo *"}
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={briefingName}
+                    onChange={(e) => setBriefingName(e.target.value)}
+                    placeholder={isEn ? "Ex: John Smith" : "Ex: Dr. Rafael Mendes"}
+                    className="w-full py-3 px-3.5 rounded-xl bg-black/50 border border-white/15 focus:border-amber-400 text-sm text-white outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-gray-300 mb-1.5">
+                    {isEn ? "WhatsApp (with area code) *" : "Seu WhatsApp (com DDD) *"}
+                  </label>
+                  <input
+                    type="tel"
+                    required
+                    value={briefingPhone}
+                    onChange={(e) => setBriefingPhone(e.target.value)}
+                    placeholder="(11) 99999-9999"
+                    className="w-full py-3 px-3.5 rounded-xl bg-black/50 border border-white/15 focus:border-amber-400 text-sm text-white outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-gray-300 mb-1.5">
+                    {isEn ? "Best Email *" : "Seu Melhor E-mail *"}
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    value={briefingEmail}
+                    onChange={(e) => setBriefingEmail(e.target.value)}
+                    placeholder="contato@suaempresa.com.br"
+                    className="w-full py-3 px-3.5 rounded-xl bg-black/50 border border-white/15 focus:border-amber-400 text-sm text-white outline-none"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-gray-300 mb-1.5">
+                    {isEn ? "Business / Product / Specialist Name" : "Nome do Seu Negócio / Produto / Especialista"}
+                  </label>
+                  <input
+                    type="text"
+                    value={briefingBusiness}
+                    onChange={(e) => setBriefingBusiness(e.target.value)}
+                    placeholder={isEn ? "Ex: Apex Digital / Mentorship X" : "Ex: Clínica Vida / Método Alta Performance"}
+                    className="w-full py-3 px-3.5 rounded-xl bg-black/50 border border-white/15 focus:border-amber-400 text-sm text-white outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-gray-300 mb-1.5">
+                    {isEn ? "Domain Name (if you already have one)" : "Domínio Desejado (Registro.br, GoDaddy, Hostinger, etc.)"}
+                  </label>
+                  <input
+                    type="text"
+                    value={briefingDomain}
+                    onChange={(e) => setBriefingDomain(e.target.value)}
+                    placeholder={isEn ? "Ex: www.mybrand.com (or 'Need help registering')" : "Ex: www.seusite.com.br (ou 'Ainda vou registrar')"}
+                    className="w-full py-3 px-3.5 rounded-xl bg-black/50 border border-white/15 focus:border-amber-400 text-sm text-white outline-none"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-amber-300 mb-1.5">
+                    {isEn ? "1. Primary Page Layout" : "1. Modelo Principal da Página"}
+                  </label>
+                  <select
+                    value={briefingLayout}
+                    onChange={(e) => setBriefingLayout(e.target.value)}
+                    className="w-full py-3 px-3.5 rounded-xl bg-[#0e1320] border border-white/15 focus:border-amber-400 text-xs sm:text-sm text-white outline-none"
+                  >
+                    <option value="Modelo 01: Vendas Diretas & VSL">01. Vendas Diretas &amp; VSL (Infoproduto/Oferta)</option>
+                    <option value="Modelo 02: Captura & WhatsApp VIP">02. Captura &amp; WhatsApp VIP (Especialista/Serviços)</option>
+                    <option value="Modelo 03: Institucional & B2B">03. Institucional &amp; Comercial (Empresas/B2B)</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-amber-300 mb-1.5">
+                    {isEn ? "2. Checkout Model" : "2. Modelo de Checkout"}
+                  </label>
+                  <select
+                    value={briefingCheckout}
+                    onChange={(e) => setBriefingCheckout(e.target.value)}
+                    className="w-full py-3 px-3.5 rounded-xl bg-[#0e1320] border border-white/15 focus:border-amber-400 text-xs sm:text-sm text-white outline-none"
+                  >
+                    <option value="Checkout 01: Conversão Rápida (1 Coluna)">01. Conversão Rápida (1 Coluna Mobile)</option>
+                    <option value="Checkout 02: Alta Conversão (2 Colunas + Order Bump)">02. Alta Conversão (2 Colunas + Order Bump)</option>
+                    <option value="Checkout 03: Minimalista Clean B2B (CPF/CNPJ)">03. Minimalista Clean B2B (CPF/CNPJ)</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-amber-300 mb-1.5">
+                    {isEn ? "3. Payment Receiving Method" : "3. Como Vai Receber Pagamentos"}
+                  </label>
+                  <select
+                    value={briefingGateway}
+                    onChange={(e) => setBriefingGateway(e.target.value)}
+                    className="w-full py-3 px-3.5 rounded-xl bg-[#0e1320] border border-white/15 focus:border-amber-400 text-xs sm:text-sm text-white outline-none"
+                  >
+                    <option value="Mercado Pago (Link ou API)">🔵 Mercado Pago (Link ou API)</option>
+                    <option value="Pix Direto na Conta + Comprovante WhatsApp">⚡ Pix Direto na Conta (Zero Taxas)</option>
+                    <option value="Gateway Externo (Kiwify, Hotmart, Eduzz, Stripe)">🚀 Outro Gateway (Kiwify, Hotmart, Eduzz, Asaas)</option>
+                    <option value="Fechamento Direto no WhatsApp">💬 Vendas Direto no WhatsApp</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-gray-300 mb-1.5">
+                    {isEn ? "Meta Pixel / Google Ads ID (Optional)" : "ID do Meta Pixel / Google Ads (Opcional)"}
+                  </label>
+                  <input
+                    type="text"
+                    value={briefingPixels}
+                    onChange={(e) => setBriefingPixels(e.target.value)}
+                    placeholder={isEn ? "Ex: Pixel 123456789 / AW-987654" : "Ex: Pixel 123456789 ou 'Vou criar ainda'"}
+                    className="w-full py-3 px-3.5 rounded-xl bg-black/50 border border-white/15 focus:border-amber-400 text-sm text-white outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-gray-300 mb-1.5">
+                    {isEn ? "Colors, Copy Details or Reference Links" : "Observações, Cores da Marca ou Links de Referência"}
+                  </label>
+                  <input
+                    type="text"
+                    value={briefingNotes}
+                    onChange={(e) => setBriefingNotes(e.target.value)}
+                    placeholder={isEn ? "Instagram @handle, brand colors, offer price..." : "Ex: Meu Instagram é @..., quero cor azul e dourado, preço R$ 297..."}
+                    className="w-full py-3 px-3.5 rounded-xl bg-black/50 border border-white/15 focus:border-amber-400 text-sm text-white outline-none"
+                  />
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={briefingSubmitting}
+                className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black text-sm sm:text-base uppercase tracking-wider flex items-center justify-center gap-2.5 shadow-xl shadow-amber-500/20 transition-all hover:scale-[1.01] cursor-pointer disabled:opacity-60"
+              >
+                <FileText className="w-5 h-5" />
+                <span>
+                  {briefingSubmitting
+                    ? isEn
+                      ? "Saving Briefing..."
+                      : "Salvando Briefing no Sistema..."
+                    : isEn
+                    ? "Submit VIP Briefing & Start Engineering Setup →"
+                    : "Enviar Briefing de Instalação VIP & Iniciar no WhatsApp →"}
+                </span>
+              </button>
+            </form>
+          )}
         </div>
 
         {/* Next Steps Guide */}
