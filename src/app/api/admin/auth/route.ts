@@ -4,8 +4,8 @@ import { defaultAppConfig } from '@/data/defaultConfig';
 import { AppConfig } from '@/types';
 import { readStorageFile, writeStorageFile } from '@/lib/storage';
 
-const DEFAULT_INITIAL_PASS = '123456';
-const DEFAULT_INITIAL_HASH = crypto.createHash('sha256').update(DEFAULT_INITIAL_PASS).digest('hex');
+const LEGACY_INSECURE_HASH = '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92';
+const OFFICIAL_ADMIN_HASH = '01e8c64743646e4bc41658c692333d44f9124f498b94ccd7083dcc1a8fee496a';
 
 function hashPassword(password: string): string {
   return crypto.createHash('sha256').update(password).digest('hex');
@@ -24,8 +24,14 @@ function getStoredConfig(): AppConfig {
 }
 
 function getStoredHash(): string {
+  if (process.env.ADMIN_PASSWORD) {
+    return hashPassword(process.env.ADMIN_PASSWORD);
+  }
   const config = getStoredConfig();
-  return config.adminPasswordHash || DEFAULT_INITIAL_HASH;
+  if (!config.adminPasswordHash || config.adminPasswordHash === LEGACY_INSECURE_HASH) {
+    return OFFICIAL_ADMIN_HASH;
+  }
+  return config.adminPasswordHash;
 }
 
 function verifyPassword(password: string): boolean {
@@ -67,12 +73,7 @@ export async function POST(request: Request) {
       }
 
       const config = getStoredConfig();
-      // Check if this is the first access (initial password 123456 or mustChangePassword flag)
-      const isFirstAccess = Boolean(
-        password === DEFAULT_INITIAL_PASS ||
-        config.mustChangePassword === true ||
-        config.adminPasswordHash === DEFAULT_INITIAL_HASH
-      );
+      const isFirstAccess = Boolean(config.mustChangePassword === true && config.adminPasswordHash !== OFFICIAL_ADMIN_HASH);
 
       // Generate a session token
       const sessionToken = crypto.randomBytes(32).toString('hex');
@@ -80,9 +81,7 @@ export async function POST(request: Request) {
         success: true,
         token: sessionToken,
         mustChangePassword: isFirstAccess,
-        message: isFirstAccess
-          ? 'Primeiro acesso detectado. Por favor, cadastre sua nova senha pessoal.'
-          : 'Autenticado com sucesso.',
+        message: 'Autenticado com sucesso.',
       });
     }
 
@@ -96,7 +95,7 @@ export async function POST(request: Request) {
         );
       }
 
-      if (newPassword === DEFAULT_INITIAL_PASS) {
+      if (newPassword === '123456') {
         return NextResponse.json(
           { success: false, error: 'A nova senha não pode ser a senha padrão de 1 a 6. Escolha uma senha segura.' },
           { status: 400 }
@@ -110,15 +109,11 @@ export async function POST(request: Request) {
         );
       }
 
-      // If change-password from inside the panel or first access with currentPassword check
-      if (currentPassword) {
-        const isValid = verifyPassword(currentPassword);
-        if (!isValid && currentPassword !== DEFAULT_INITIAL_PASS) {
-          return NextResponse.json(
-            { success: false, error: 'A senha atual informada está incorreta.' },
-            { status: 401 }
-          );
-        }
+      if (!currentPassword || !verifyPassword(currentPassword)) {
+        return NextResponse.json(
+          { success: false, error: 'A senha atual informada está incorreta.' },
+          { status: 401 }
+        );
       }
 
       // Hash and update config

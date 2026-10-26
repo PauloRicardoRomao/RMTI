@@ -677,10 +677,10 @@ export default function AdminPage() {
               </div>
             )}
 
-            {/* Dica de Primeiro Acesso */}
-            <div className="p-3 rounded-xl bg-slate-800/60 border border-slate-700/60 text-slate-300 text-xs text-left flex items-center gap-2.5">
-              <Shield className="w-4 h-4 text-amber-400 shrink-0" />
-              <span>Primeiro acesso? Senha inicial: <strong className="text-amber-400 font-mono">123456</strong> (você cadastrará sua nova senha pessoal a seguir).</span>
+            {/* Selo de Segurança */}
+            <div className="p-3 rounded-xl bg-slate-800/60 border border-slate-700/60 text-slate-400 text-xs text-left flex items-center gap-2.5">
+              <Shield className="w-4 h-4 text-emerald-400 shrink-0" />
+              <span>Ambiente protegido com criptografia SHA-256. Exclusivo para administradores RMTI.</span>
             </div>
 
             <button

@@ -94,8 +94,8 @@ export const THEME_PRESETS: ThemePreset[] = [
 ];
 
 export const defaultAppConfig: AppConfig = {
-  adminPasswordHash: '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92',
-  mustChangePassword: true,
+  adminPasswordHash: '01e8c64743646e4bc41658c692333d44f9124f498b94ccd7083dcc1a8fee496a',
+  mustChangePassword: false,
   theme: {
     primaryColor: '#f7825e',
     primaryHover: '#f0cc62',

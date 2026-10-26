@@ -12,6 +12,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let currentConfig = window.PAGE_CONFIG || {};
 
+  function simpleHash(str) {
+    let h = 2166136261 >>> 0;
+    for (let i = 0; i < str.length; i++) {
+      h ^= str.charCodeAt(i);
+      h = Math.imul(h, 16777619) >>> 0;
+    }
+    return 'h_' + h.toString(16);
+  }
+
+  function isPasswordConfigured() {
+    return Boolean(
+      localStorage.getItem(FIRST_LOGIN_KEY) === 'true' ||
+      localStorage.getItem(PASSWORD_KEY) ||
+      currentConfig.customAdminPassHash
+    );
+  }
+
+  function verifyAdminPassword(inputPass) {
+    const localPass = localStorage.getItem(PASSWORD_KEY);
+    if (localPass) return inputPass === localPass;
+    if (currentConfig.customAdminPassHash) {
+      return simpleHash(inputPass) === currentConfig.customAdminPassHash;
+    }
+    return inputPass === '123456';
+  }
+
+  // Oculta a dica "123456" da tela de login assim que o cliente tiver definido sua própria senha
+  const defaultPassHint = document.getElementById('defaultPassHint');
+  if (defaultPassHint && isPasswordConfigured()) {
+    defaultPassHint.classList.add('hidden');
+  }
+
   // Sessão
   if (sessionStorage.getItem('LP_ADMIN_LOGGED') === 'true') {
     showPanel();
@@ -21,17 +53,16 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('loginForm').addEventListener('submit', (e) => {
     e.preventDefault();
     const pass = document.getElementById('loginPassword').value.trim();
-    const storedPass = localStorage.getItem(PASSWORD_KEY) || '123456';
 
-    if (pass === storedPass) {
-      if (!localStorage.getItem(FIRST_LOGIN_KEY)) {
+    if (verifyAdminPassword(pass)) {
+      if (!isPasswordConfigured()) {
         modalFirstAccess.classList.remove('hidden');
       } else {
         sessionStorage.setItem('LP_ADMIN_LOGGED', 'true');
         showPanel();
       }
     } else {
-      alert('Senha incorreta! Digite a senha padrão (123456) ou sua senha cadastrada.');
+      alert('Senha incorreta! Verifique sua senha de acesso.');
     }
   });
 
@@ -41,17 +72,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const cur = document.getElementById('curPass').value.trim();
     const n1 = document.getElementById('newPass').value.trim();
     const n2 = document.getElementById('confirmPass').value.trim();
-    const stored = localStorage.getItem(PASSWORD_KEY) || '123456';
 
-    if (cur !== stored) return alert('A senha atual está incorreta.');
+    if (!verifyAdminPassword(cur)) return alert('A senha atual está incorreta.');
     if (n1.length < 4) return alert('A nova senha deve ter ao menos 4 caracteres.');
+    if (n1 === '123456') return alert('Por segurança, escolha uma senha diferente de 123456.');
     if (n1 !== n2) return alert('As senhas digitadas não coincidem.');
 
     localStorage.setItem(PASSWORD_KEY, n1);
     localStorage.setItem(FIRST_LOGIN_KEY, 'true');
+    currentConfig.customAdminPassHash = simpleHash(n1);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(currentConfig));
+    if (defaultPassHint) defaultPassHint.classList.add('hidden');
+
     modalFirstAccess.classList.add('hidden');
     sessionStorage.setItem('LP_ADMIN_LOGGED', 'true');
-    alert('Senha alterada com sucesso!');
+    alert('Senha pessoal cadastrada e protegida com sucesso!');
     showPanel();
   });
 
